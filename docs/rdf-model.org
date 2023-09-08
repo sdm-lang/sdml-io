@@ -244,7 +244,7 @@ properties from the Dublin Core [[https://www.dublincore.org/specifications/dubl
     skos:altLabel "SDML"@en ;
     dc:hasVersion "0.1.10" ;
     dc:creator "Simon Johnston <johntonskj@gmail.com>" ;
-    dc:license <https://github.com/johnstonskj/tree-sitter-sdml/blob/main/LICENSE> ;
+    dc:license <https://sdml.io/LICENSE> ;
     rdf:seeAlso <https://sdml.io/> .
 #+END_SRC
 

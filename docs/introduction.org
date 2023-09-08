@@ -475,7 +475,7 @@ written by Gunther Rademacher, and hosted at [[https://www.bottlecaps.de/rr/ui.]
 
 # ----- Footnotes
 
-[fn:sdml] Home at [[https://sdml.io/][sdmi.io]], source at [[https://github.com/johnstonskj/tree-sitter-sdml][github.com]]
+[fn:sdml] Home at [[https://sdml.io/][sdmi.io]], source at [[https://github.com/sdm-lang/tree-sitter-sdml][github.com]]
 
 [fn:owl] [[https://www.w3.org/OWL/][Web Ontology Language (OWL)]], W3C
 

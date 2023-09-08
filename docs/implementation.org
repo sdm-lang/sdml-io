@@ -86,12 +86,12 @@ digraph G {
 
 ** Parser (tree-sitter) Library
 
-- Source at [[https://github.com/johnstonskj/tree-sitter-sdml][Github]]
+- Source at [[https://github.com/sdm-lang/tree-sitter-sdml][Github]]
 
 Build.
 
 #+BEGIN_EXAMPLE
-git clone https://github.com/johnstonskj/tree-sitter-sdml
+git clone https://github.com/sdm-lang/tree-sitter-sdml
 #+END_EXAMPLE
 
 #+BEGIN_EXAMPLE
@@ -120,7 +120,7 @@ Crates:
 - [[https://crates.io/crates/sdml-cli][sdml-cli]] :: The command-line tool that parses existing models and executes
   generators.
 
-The source is in the Github repository [[https://github.com/johnstonskj/rust-sdml][rust-sdml]].
+The source is in the Github repository [[https://github.com/sdm-lang/rust-sdml][rust-sdml]].
 
 ** Transformations
 
@@ -316,7 +316,7 @@ end
 ** Emacs Support
 
 Emacs has been the primary /playground/ for SDML and as such has some tools already built for editing and documentation.
-The package [[https://github.com/johnstonskj/emacs-sdml-mode][sdml-mode]] (currently not in any package repository) is associated with any file ending in =.sdm= or =.sdml= with
+The package [[https://github.com/sdm-lang/emacs-sdml-mode][sdml-mode]] (currently not in any package repository) is associated with any file ending in =.sdm= or =.sdml= with
 highlighting and indentation support. Follow the installation instructions on the package site.
 
 Emacs standard customization allows for managing all package variables and can be accessed via:
@@ -396,7 +396,7 @@ This is marked as a warning by Flycheck and provided with the necessary message.
 
 *** Org-Babel
 
-Org-Babel support provides the ability to call the SDML [[https://github.com/johnstonskj/rust-sdml][command-line tool]] to produce diagrams and more. For example, the
+Org-Babel support provides the ability to call the SDML [[https://github.com/sdm-lang/rust-sdml][command-line tool]] to produce diagrams and more. For example, the
 following source block calls the CLI to draw a concept diagram for the enclosed module. It is worth noting that this
 documentation has been generated, including all source highlighting and diagrams, from an Org-mode document with Babel.
 
@@ -500,7 +500,7 @@ local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 
 parser_config.sdml = {
     install_info = {
-        url = "https://github.com/johnstonskj/tree-sitter-sdml",
+        url = "https://github.com/sdm-lang/tree-sitter-sdml",
         files = {"src/parser.c"},
         generate_requires_npm = true, 
         requires_generate_from_grammar = true,  

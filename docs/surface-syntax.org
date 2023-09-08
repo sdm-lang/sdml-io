@@ -1031,7 +1031,7 @@ module example is
   @skos:prefLabel = "Example Module"@en
   @dc:description = "This is an example module, with two annotations."@en
   @dc:created = @xsd:date("2023-08-17 Thu")
-  @dc:creator = <http://github.com/johnstonskj>
+  @dc:creator = <http://github.com/sdm-lang>
   @dc:license = <https://opensource.org/license/mit/>
 
 end
