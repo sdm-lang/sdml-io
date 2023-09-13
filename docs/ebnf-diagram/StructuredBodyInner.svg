@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="499" height="71">
+<svg xmlns="http://www.w3.org/2000/svg" width="247" height="97">
    <defs>
       <style type="text/css">
     @namespace "http://www.w3.org/2000/svg";
@@ -29,40 +29,24 @@
     polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
   </style>
    </defs>
-   <polygon points="9 51 1 47 1 55"/>
-   <polygon points="17 51 9 47 9 55"/>
-   <rect x="31" y="37" width="60" height="32" rx="10"/>
-   <rect x="29"
-          y="35"
-          width="60"
-          height="32"
-          class="terminal"
-          rx="10"/>
-   <text class="terminal" x="39" y="55">group</text>
+   <polygon points="9 33 1 29 1 37"/>
+   <polygon points="17 33 9 29 9 37"/>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
-       xlink:href="#Annotation"
-       xlink:title="Annotation">
-      <rect x="131" y="3" width="90" height="32"/>
-      <rect x="129" y="1" width="90" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="139" y="21">Annotation</text>
+       xlink:href="#MemberGroup"
+       xlink:title="MemberGroup">
+      <rect x="71" y="19" width="108" height="32"/>
+      <rect x="69" y="17" width="108" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="79" y="37">MemberGroup</text>
    </a>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
-       xlink:href="#EntityMember"
-       xlink:title="EntityMember">
-      <rect x="281" y="37" width="106" height="32"/>
-      <rect x="279" y="35" width="106" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="289" y="55">EntityMember</text>
+       xlink:href="#Member"
+       xlink:title="Member">
+      <rect x="71" y="63" width="70" height="32"/>
+      <rect x="69" y="61" width="70" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="79" y="81">Member</text>
    </a>
-   <rect x="427" y="37" width="44" height="32" rx="10"/>
-   <rect x="425"
-          y="35"
-          width="44"
-          height="32"
-          class="terminal"
-          rx="10"/>
-   <text class="terminal" x="435" y="55">end</text>
    <path class="line"
-          d="m17 51 h2 m0 0 h10 m60 0 h10 m20 0 h10 m0 0 h100 m-130 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -14 q0 -10 10 -10 m110 34 l20 0 m-20 0 q10 0 10 -10 l0 -14 q0 -10 -10 -10 m-110 0 h10 m90 0 h10 m40 34 h10 m106 0 h10 m-146 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -12 q0 -10 10 -10 m126 32 l20 0 m-20 0 q10 0 10 -10 l0 -12 q0 -10 -10 -10 m-126 0 h10 m0 0 h116 m20 32 h10 m44 0 h10 m3 0 h-3"/>
-   <polygon points="489 51 497 47 497 55"/>
-   <polygon points="489 51 481 47 481 55"/>
+          d="m17 33 h2 m40 0 h10 m108 0 h10 m-148 0 h20 m128 0 h20 m-168 0 q10 0 10 10 m148 0 q0 -10 10 -10 m-158 10 v24 m148 0 v-24 m-148 24 q0 10 10 10 m128 0 q10 0 10 -10 m-138 10 h10 m70 0 h10 m0 0 h38 m-168 -44 l20 0 m-1 0 q-9 0 -9 -10 l0 -12 q0 -10 10 -10 m168 32 l20 0 m-20 0 q10 0 10 -10 l0 -12 q0 -10 -10 -10 m-168 0 h10 m0 0 h158 m23 32 h-3"/>
+   <polygon points="237 33 245 29 245 37"/>
+   <polygon points="237 33 229 29 229 37"/>
 </svg>

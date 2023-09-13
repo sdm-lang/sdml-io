@@ -655,20 +655,26 @@ Iri
         ">"
 #+END_SRC
 
-[[./ebnf-diagram/IriReference.svg]]
+[[./ebnf-diagram/Iri.svg]]
 
 See section [[sec:mapping-values]] for a more detailed description of values, literals, and data types.
 
 *Binary Strings*
 
 A /binary/ value in SDML is a compact list of bytes that allows for the encoding of values that may not be possible with
-the other built-in types. 
+the other built-in types. The representation of a binary string is a sequence of bytes in hex pairs; the opening bracket
+of the sequence has a leading ~#~ character to differentiate from other sequence values. Note that whitespace is entirely
+optional, but recommended to layout the hex values.
 
 #+NAME: lst:grammar-binary
 #+BEGIN_SRC ebnf
 Binary
     ::= "#[" HexPair* "]"
 #+END_SRC
+
+[[./ebnf-diagram/Binary.svg]]
+
+Here is an example showing a common layout with 16 bytes per row in two blocks of 8.
 
 #+CAPTION: Binary Value Example
 #+BEGIN_SRC sdml :exports code :noeval
@@ -804,12 +810,16 @@ A datatype definition introduces a new simple data type by /restriction/ of some
 #+NAME: lst:grammar-data-type-def
 #+BEGIN_SRC ebnf
 DataTypeDef
-    ::= "datatype" Identifier "<-" DataTypeBase AnnotationOnlyBody?
+    ::= "datatype" Identifier
+        TypeRestriction "opaque"? DataTypeBase AnnotationOnlyBody?
 #+END_SRC
 
 [[./ebnf-diagram/DataTypeDef.svg]]
 
 #+BEGIN_SRC ebnf
+TypeRestriction
+    ::= "<-" | "←"
+
 DataTypeBase
     ::= IdentifierReference | BuiltinSimpleType
 #+END_SRC
@@ -844,6 +854,25 @@ module example is
   import ex
 
   datatype Name <- string is
+    @xsd:minLength = 5
+    @xsd:maxLength = 25
+  end
+
+end
+#+END_SRC
+
+As we defined the new datatype ~Name~ as a kind of string it has all the properties (length, substring, etc.) of a string.
+However, in some cases we may want the underlying type to be inaccessible to clients and so we mark the datatype as
+/opaque/. The only operations that can be performed on an opaque type are equality and strict inequality.
+
+#+NAME: lst:sdml-ex-opaque-datatype
+#+CAPTION: New Opaque Datatype
+#+BEGIN_SRC sdml :exports code :noeval
+module example is
+
+  import ex
+
+  datatype Name <- opaque string is
     @xsd:minLength = 5
     @xsd:maxLength = 25
   end
@@ -1148,41 +1177,17 @@ whereas sum type bodies are introduced by the keyword ~of~.
 
 *** <<sec:members>>Members
 
-Product type members fall into the following categories.
-
-- Identity :: A particular kind of member only available on entities, and required by them, to name the identifier for
-  that entity type.
-- By-Value :: A reference to a value type, i.e. Enumeration, Event, or Structure. Such a member may indicate the
-  cardinality of the target.
-- By-Reference :: A reference to an Entity type. Such a member may indicate the cardinality of the
-  target as well as the name of the inverse member on the target type.
-
-#+NAME: lst:grammar-identity-member
-#+BEGIN_SRC ebnf
-IdentityMember
-    ::= "identity" Identifier
-        ( PropertyMember | ( TypeExpression AnnotationOnlyBody? ) )
-#+END_SRC
-
-[[./ebnf-diagram/IdentityMember.svg]]
+Product type members are familiar to 
 
 #+NAME: lst:grammar-value-member
 #+BEGIN_SRC ebnf
-MemberByValue
+Member
     ::= Identifier
-        ( PropertyMember | ( TypeExpressionTo AnnotationOnlyBody? ) )
+        ( PropertyReference | ( InverseName? TypeExpressionTo AnnotationOnlyBody? ) )
 #+END_SRC
 
-[[./ebnf-diagram/MemberByValue.svg]]
+[[./ebnf-diagram/Member.svg]]
 
-#+NAME: lst:grammar-reference-member
-#+BEGIN_SRC ebnf
-MemberByReference
-    ::= "ref" Identifier
-        ( PropertyMember | ( InverseName? TypeExpressionTo AnnotationOnlyBody? ) )
-#+END_SRC
-
-[[./ebnf-diagram/MemberByReference.svg]]
 
 #+NAME: lst:grammar-reference-inverse
 #+BEGIN_SRC ebnf
@@ -1192,29 +1197,72 @@ InverseName
 
 [[./ebnf-diagram/InverseName.svg]]
 
+*Example: declaring inverse names*
+
+#+NAME: lst:sdml-ex-entity-identity
+#+CAPTION: Entity Identity
+#+BEGIN_SRC sdml :exports code :noeval
+module accounts is
+
+  import users
+
+  entity Account is
+    identity id -> AccountId
+    owner (owned_account) -> users:User
+  end
+
+end
+#+END_SRC
+
 #+NAME: lst:grammar-property-member
 #+BEGIN_SRC ebnf
-PropertyMember
+PropertyReference
     ::= "in" IdentifierReference
 #+END_SRC
 
-[[./ebnf-diagram/PropertyMember.svg]]
+[[./ebnf-diagram/PropertyReference.svg]]
 
 In the following example we see two members, ~default~ and ~name~. The former is actually a reference to a property role,
 specifically the role ~default~ within the property definition ~AccountId~ in module ~account~. The latter is a /defined/ member
 with the name ~name~ and the type ~string~ and default cardinality.
 
-*Example*:
+*Example: using a property reference*
 
 #+NAME: lst:sdml-ex-members
 #+CAPTION: Members in a Structure
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
-  import account
+  import accounts
 
-  structure Account is
-    default in account:AccountId
+  structure Record is
+    default in accounts:AccountId
+    name -> string
+  end
+
+end
+#+END_SRC
+
+#+NAME: lst:grammar-identity-member
+#+BEGIN_SRC ebnf
+EntityIdentity
+    ::= "identity" Identifier
+        ( PropertyMember | ( TypeExpression AnnotationOnlyBody? ) )
+#+END_SRC
+
+[[./ebnf-diagram/EntityIdentity.svg]]
+
+*Example: entity identity member*
+
+#+NAME: lst:sdml-ex-entity-identity
+#+CAPTION: Entity Identity
+#+BEGIN_SRC sdml :exports code :noeval
+module accounts is
+
+  datatype AccountId <- opaque string
+
+  entity Account is
+    identity id -> AccountId
     name -> string
   end
 
@@ -1243,7 +1291,7 @@ target type to be replaced with the keyword ~unknown~. This marks the member, an
 TypeExpression 
     ::= HasType TypeReference
 TypeExpressionTo
-    ::= HasType Cardinality? TypeReference
+    ::= HasType Cardinality? "features"? TypeReference
 HasType
     ::= "->" | "→" | "↦"
 TypeReference
@@ -1257,6 +1305,24 @@ UnknownType
 [[./ebnf-diagram/TypeExpressionTo.svg]]
 
 [[./ebnf-diagram/TypeReference.svg]]
+
+
+*Example: declaring features*
+
+#+NAME: lst:sdml-ex-entity-features
+#+CAPTION: Entity Identity
+#+BEGIN_SRC sdml :exports code :noeval
+module rentals is
+
+  import vehicles
+
+  entity Rental is
+    identity id -> unknown
+    options -> features vehicles:Options
+  end
+
+end
+#+END_SRC
 
 A mapping type denotes a /functional relationship/ between the /domain/ (left-hand type) and /range/ (right-hand type).
 
@@ -1324,7 +1390,7 @@ type, a table in data modeling, or a class in object modeling.
 #+NAME: lst:grammar-structure-def
 #+BEGIN_SRC ebnf
 StructureDef
-    ::= "structure" Identifier StructureBody?
+    ::= "structure" Identifier StructuredBody?
 #+END_SRC
 
 [[./ebnf-diagram/StructureDef.svg]]
@@ -1351,11 +1417,13 @@ structure, between ~is~ and ~end~, makes it complete even if it has no actual me
 
 #+NAME: lst:grammar-structure-body
 #+BEGIN_SRC ebnf
-StructureBody
-    ::= "is" Annotation* ( MemberByValue | StructureGroup )* "end"
+StructuredBody
+    ::= "is" Annotation* StructuredBodyInner "end"
+StructuredBodyInner
+    ::= ( MemberGroup | Member )+
 #+END_SRC
 
-[[./ebnf-diagram/StructureBody.svg]]
+[[./ebnf-diagram/StructuredBody.svg]]
 
 *Example*:
 
@@ -1390,19 +1458,19 @@ module example is
 end
 #+END_SRC
 
-In listing [[lst:sdml-ex-structure-groups]] we see a more complex structure with both members and groups.
+In listing [[lst:sdml-ex-member-group]] we see a more complex structure with both members and groups.
 
-#+NAME: lst:grammar-structure-group
+#+NAME: lst:grammar-member-group
 #+BEGIN_SRC ebnf
-StructureGroup
-    ::= "group" Annotation* MemberByValue+ "end"
+MemberGroup
+    ::= "group" Annotation* Member+ "end"
 #+END_SRC
 
-[[./ebnf-diagram/StructureGroup.svg]]
+[[./ebnf-diagram/MemberGroup.svg]]
 
 *Example*:
 
-#+NAME: lst:sdml-ex-structure-groups
+#+NAME: lst:sdml-ex-member-group
 #+CAPTION: Structure Members and Groups
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
@@ -1455,25 +1523,11 @@ The entity ~Person~ in listing [[lst:sdml-ex-empty-entity]] is /valid/ but /inco
 #+BEGIN_SRC ebnf
 EntityBody
     ::= "is"
-        Annotation* IdentityMember ( EntityMember | EntityGroup )*
+        Annotation* EntityIdentity StructuredBodyInner
         "end"
 #+END_SRC
 
 [[./ebnf-diagram/EntityBody.svg]]
-
-#+BEGIN_SRC ebnf
-EntityGroup
-    ::= "group" Annotation* EntityMember+ "end"
-#+END_SRC
-
-[[./ebnf-diagram/EntityGroup.svg]]
-
-#+BEGIN_SRC ebnf
-EntityMember
-    ::= MemberByValue | MemberByReference
-#+END_SRC
-
-[[./ebnf-diagram/EntityMember.svg]]
 
 *Example*:
 
@@ -1503,7 +1557,7 @@ module example is
   
     identity id -> PersonId
 
-    ref emergency_contact (emergency_contact_for) -> {0..2} Person is
+    emergency_contact (emergency_contact_for) -> {0..2} Person is
       @dc:description = "Emergency contact person"
     end
   
@@ -1522,7 +1576,7 @@ identifiers of the source entity.
 EventDef
     ::= "event" Identifier
         "source" IdentifierReference
-        StructureBody?
+        StructuredBody?
 #+END_SRC
 
 [[./ebnf-diagram/EventDef.svg]]
@@ -1611,7 +1665,9 @@ EnumBody
 #+NAME: lst:grammar-enum-variant
 #+BEGIN_SRC ebnf
 ValueVariant
-    ::= Identifier "=" Unsigned AnnotationOnlyBody?
+    ::= Identifier ByDefinition Unsigned AnnotationOnlyBody?
+ByDefinition
+    ::= ( ":=" | "≔" )
 #+END_SRC
 [[./ebnf-diagram/ValueVariant.svg]]
 
@@ -1625,8 +1681,8 @@ The following demonstrates a valid /and/ complete enumeration.
 module example is
 
   enum DistanceUnit of
-    Meter = 1
-    Foot = 2
+    Meter := 1
+    Foot := 2
   end
 
 end
@@ -1734,14 +1790,10 @@ addition of a body with roles defined.
 #+NAME: lst:grammar-property-body
 #+BEGIN_SRC ebnf
 PropertyBody
-    ::= "is" Annotation* PropertyRole+ "end"
-PropertyRole
-    ::= IdentityRole | RoleByValue | RoleByReference
+    ::= "is" Annotation* ( IdentityRole | MemberRole )+ "end"
 #+END_SRC
 
 [[./ebnf-diagram/PropertyBody.svg]]
-
-[[./ebnf-diagram/PropertyRole.svg]]
 
 Note that the syntax of role definitions is a subset of the syntax for members (see section [[sec:members]]). In each case
 the choice between a property reference and a member definition is removed and only the definition part remains.
@@ -1754,18 +1806,11 @@ IdentityRole
 [[./ebnf-diagram/IdentityRole.svg]]
 
 #+BEGIN_SRC ebnf
-RoleByValue
-    ::= Identifier TypeExpressionTo AnnotationOnlyBody?
+MemberRole
+    ::= Identifier InverseName? TypeExpressionTo AnnotationOnlyBody?
 #+END_SRC
 
-[[./ebnf-diagram/RoleByValue.svg]]
-
-#+BEGIN_SRC ebnf
-RoleByReference
-    ::= "ref" Identifier InverseName? TypeExpressionTo AnnotationOnlyBody?
-#+END_SRC
-
-[[./ebnf-diagram/RoleByReference.svg]]
+[[./ebnf-diagram/MemberRole.svg]]
 
 *Example*:
 
@@ -1774,21 +1819,30 @@ The following is a valid /and/ complete example.
 #+NAME: lst:sdml-ex-property-role
 #+CAPTION: Property Definition with Roles
 #+BEGIN_SRC sdml :exports code :noeval
-module example is
+module account is
+
+  datatype Accountid <- unsigned
 
   property accountId is
 
-    identity identifier -> {1} account:AccountId is
+    identity identifier -> {1} AccountId is
       @skos:definition =
         "The identifier that denotes that this entity has a one-to-one relationship with a customer account."@en
     end
 
-    ref reference -> {1} account:AccountId is
+    account -> {1} Account is
+      @skos:definition =
+        "Refers to a customer account entity."@en
+    end
+
+    account_identifier -> AccountId is
       @skos:definition =
         "Refers to an entity that has a one-to-one relationship with a customer account."@en
     end
 
   end
+
+  entity Account
 
 end
 #+END_SRC
@@ -1798,12 +1852,7 @@ end
 #+NAME: lst:grammar-property-def
 #+BEGIN_SRC ebnf
 FeatureSetDef
-    ::= "features" Identifier
-        (
-            FeatureSetConjunctiveBody
-          | FeatureSetDisjunctiveBody
-          | FeatureSetExclusiveDisjunctionBody
-        )?
+    ::= "features" Identifier Cardinality? UnionBody?
 #+END_SRC
 
 [[./ebnf-diagram/PropertyDef.svg]]
@@ -1823,25 +1872,14 @@ end
 The feature set ~AccountFeatures~ in [[lst:sdml-ex-empty-featureset]] is valid but incomplete. Completion of the feature set
 requires the addition of a body with members/variants defined.
 
-*** Exclusive Disjunction Features
-
-#+BEGIN_SRC ebnf
-FeatureSetExclusiveDisjunctionBody
-    ::= ( "{" "xor" "}" )?
-        "of"
-        Annotation* TypeVariant+
-#+END_SRC
-
-[[./ebnf-diagram/FeatureSetExclusiveDisjunctionBody.svg]]
-
-*Example*:
+*Example*: 
 
 #+NAME: lst:sdml-ex-xor-featureset
-#+CAPTION: Exclusive Disjunction Feature Set
+#+CAPTION: One-Of Feature Set
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
-  features AccountKind {xor} of
+  features AccountKind {1} of
     PersonalAccount as Personal
     CorporateAccount as Business
   end
@@ -1849,23 +1887,14 @@ module example is
 end
 #+END_SRC
 
-*** Disjunctive Features
-
-#+BEGIN_SRC ebnf
-FeatureSetDisjunctiveBody
-    ::= "{" "or" "}" "of"
-        Annotation* TypeVariant+
-#+END_SRC
-
-[[./ebnf-diagram/FeatureSetDisjunctiveBody.svg]]
-
 *Example*:
+
 #+NAME: lst:sdml-ex-or-featureset
-#+CAPTION: Disjunctive Feature Set
+#+CAPTION: Some-Of Feature Set
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
-  features AccountUpgrades {or} is
+  features AccountUpgrades {1..} is
     SkipCheckin
     AutoUpgrade
   end
@@ -1873,635 +1902,10 @@ module example is
 end
 #+END_SRC
 
-*** Conjunctive Features
-
-#+BEGIN_SRC ebnf
-FeatureSetConjunctiveBody
-    ::= "{" "and" "}" "is"
-        Annotation* RoleByValue+
-#+END_SRC
-
-[[./ebnf-diagram/FeatureSetConjunctiveBody.svg]]
-
-*Example*:
-
-#+NAME: lst:sdml-ex-and-featureset
-#+CAPTION: Conjunctive Feature Set
-#+BEGIN_SRC sdml :exports code :noeval
-module example is
-
-  features AccountFeatures {and} is
-    kind -> AccountKind
-    upgrades -> AccountUpgrades
-  end
-
-end
-#+END_SRC
-
-** Common Questions
-
-*** Why are Enumerations and Unions distinct
-
-TBD
-
-*** How to model Polymorphism
-
-The term /polymorphism/ is, in itself, polymorphic; the intent in software to create a structure that may be of more than
-one /type/ is useful enough that it has been invented a number of times.
-
-#+BEGIN_QUOTE
-/In programming language theory and type theory, polymorphism is the provision of a single interface to entities of
-different types or the use of a single symbol to represent multiple different types./
---- /Wikipedia/[fn::https://en.wikipedia.org/wiki/Polymorphism_(computer_science)]
-#+END_QUOTE
-
-1. Pointers, and especially the C ~void*~
-2. Operator overloading or dispatching, including methods and multi-methods
-3. Discriminated Unions, also known as disjoint unions, variant records (Pascal family), tagged types (Ada)
-4. Inheritance, of both interface and implementation
-5. Interface, or protocol, implementation
-
-As SDML does not support pointers, inheritance, or interface definitions, polymorphism is provided *only* via union types.
-
-*** When to use Property Definitions
-
-#+CAPTION: Union Type Definition
-#+BEGIN_SRC sdml :exports code :noeval
-module example is
-
-  import [ skos xsd ]
-
-  datatype AccountId <- xsd:long
-
-  datatype ExternalAccountId <- uri
-
-  structure ChildAccountId is
-    parent -> AccountId
-    child -> AccountId
-  end
-
-  union AllAccountIds of
-    AccountId,
-    ExternalAccountId,
-    ChildAccountId
-  end
-
-end
-#+END_SRC
-
-#+CAPTION: Union Type As Property
-#+BEGIN_SRC sdml :exports code :noeval
-module example is
-
-  import [ skos xsd ]
-
-  property account_id is
-  
-  internal -> {1} xsd:long is
-    @skos:definition = "This is our internal representation."@en
-  end
-  
-  external -> {1} url is
-    @skos:definition = "This is our external representation for customers."@en
-  end
-  
-  child -> {2} xsd:long
-  end
-
-  entity Account is
-
-    identity account_id as internal
-
-  end
-
-end
-#+END_SRC
-
-*** How to model Variability
-
-Discuss role of unions in modeling variability
-
-** <<sec:complete-grammar>>Complete Surface Syntax Grammar
-
-The grammar of the surface syntax is presented in Extended Backus–Naur form (EBNF)[fn:ebnf]. The addition of a character literal
-range operation =..= reduces the number of single character alternatives for clarity. There are also a set of pre-defined
-terminals such as =ASCII_DIGIT=, =ASCII_HEX_DIGIT=, =UC_LETTER_UPPER=, and =UC_LETTER_LOWER= used to simplify character ranges.
-While there are many variations[fn:ebnfs] of EBNF in existence, including multiple standardized forms, the specific form
-used here follows the notation described the W3C Extensible Markup Language (XML) 1.0 (Fifth Edition), section 6
-[[https://www.w3.org/TR/xml/#sec-notation][Notation]].
-
-#+BEGIN_SRC ebnf
-Module
-    ::= "module" Identifier ModuleBase? ModuleBody
-
-ModuleBase
-    ::= "base" IriReference
-
-ModuleBody
-    ::= "is"
-        ImportStatement* Annotation* Definition*
-        "end"
-
-MemberImport
-    ::= QualifiedIdentifier
-
-ModuleImport
-    ::= Identifer
-
-Import
-    ::= MemberImport | ModuleImport
-
-ImportStatement
-    ::= "import" ( Import | "[" Import+ "]" )
-
-Annotation
-    ::= AnnotationProperty | Constraint
-
-AnnotationProperty
-    ::= "@" IdentiferReference "=" Value
-
-Definition
-    ::= DataTypeDef
-        | EntityDef
-        | EnumDef
-        | EvqentDef
-        | StructureDef
-        | UnionDef
-        | PropertyDef
-        | FeatureSetDef
-
-DataTypeDef
-    ::= "datatype" Identifier TypeRestriction DataTypeBase AnnotationOnlyBody?
-
-TypeRestriction
-    ::= "<-" | "←"
-
-DataTypeBase
-    ::= IdentifierReference | BuiltinSimpleType
-
-AnnotationOnlyBody
-    ::= "is" Annotation+ "end"
-
-EntityDef
-    ::= "entity" Identifier EntityBody?
-
-EntityBody
-    ::= "is"
-        Annotation* IdentityMember ( EntityMember | EntityGroup )*
-        "end"
-
-EntityGroup
-    ::= "group" Annotation* EntityMember+ "end"
-
-EntityMember
-    ::= MemberByValue | MemberByReference
-
-EnumDef
-    ::= "enum" Identifier EnumBody?
-
-EnumBody
-    ::= "of" Annotation* ValueVariant+ "end"
-
-ValueVariant
-    ::= Identifier "=" Unsigned AnnotationOnlyBody?
-
-EventDef
-    ::= "event" Identifier
-        "source" IdentifierReference
-        StructureBody?
-
-StructureDef
-    ::= "structure" Identifier StructureBody?
-
-StructureBody
-    ::= "is" Annotation* ( MemberByValue | StructureGroup )* "end"
-
-StructureGroup
-    ::= "group" Annotation* MemberByValue+ "end"
-
-UnionDef
-    ::= "union" Identifier UnionBody?
-
-UnionBody
-    ::= "of"
-        Annotation* TypeVariant+
-        "end"
-
-TypeVariant
-    ::= IdentifierReference TypeVariantRename? AnnotationOnlyBody?
-
-TypeVariantRename
-    ::= "as" Identifier
-
-PropertyDef
-    ::= "property" Identifier PropertyBody?
-
-PropertyBody
-    ::= "is" Annotation* PropertyRole+ "end"
-
-PropertyRole
-    ::= IdentityRole | RoleByValue | RoleByReference
-
-IdentityRole
-    ::= "identity" Identifier TypeExpression AnnotationOnlyBody?
-
-RoleByValue
-    ::= Identifier TypeExpressionTo AnnotationOnlyBody?
-
-RoleByReference
-    ::= "ref" Identifier InverseName? TypeExpressionTo AnnotationOnlyBody?
-
-FeatureSetDef
-    ::= "features" Identifier
-        (
-            FeatureSetConjunctiveBody
-          | FeatureSetDisjunctiveBody
-          | FeatureSetExclusiveDisjunctionBody
-        )?
-
-FeatureSetConjunctiveBody
-    ::= "{" "and" "}" "is"
-        Annotation* RoleByValue+
-
-FeatureSetDisjunctiveBody
-    ::= "{" "or" "}" "is"
-        Annotation* TypeVariant+
-
-FeatureSetExclusiveDisjunctionBody
-    ::= ( "{" "xor" "}" )?
-        "is"
-        Annotation* TypeVariant+
-
-PropertyMember
-    ::= "in" IdentifierReference
-
-IdentityMember
-    ::= "identity" Identifier
-        ( PropertyMember | ( TypeExpression AnnotationOnlyBody? ) )
-
-MemberByValue
-    ::= Identifier
-        ( PropertyMember | ( TypeExpressionTo AnnotationOnlyBody? ) )
-
-MemberByReference
-    ::= "ref" Identifier
-        ( PropertyMember | ( InverseName? TypeExpressionTo AnnotationOnlyBody? ) )
-
-TypeExpression
-    ::= HasType TypeReference
-
-TypeExpressionTo
-    ::= HasType Cardinality? TypeReference
-
-HasType
-    ::= "->" | "→" | "↦"
-
-TypeReference
-    ::=  UnknownType | IdentifierReference | BuiltinSimpleType | MappingType
-
-UnknownType
-    ::= "unknown"
-
-MappingType
-    ::= "(" TypeReference HasType TypeReference ")"
-
-Cardinality
-    ::= "{" SequenceOrdering? SequenceUniqueness? CardinalityInner "}"
-
-CardinalityInner
-    ::= Unsigned CardinalityRange?
-
-CardinalityRange
-    ::= ".." Unsigned?
-
-SequenceOrdering
-    ::= ( "ordered" | "unordered" )
-
-SequenceUniqueness
-    ::= ( "unique" | "nonunique" )
-
-InverseName
-    ::= "(" Identifier ")"
-
-Value
-    ::=  SimpleValue
-        | ValueConstructor
-        | IdentifierReference
-        | MappingValue
-        | SequenceOfValues
-
-BuiltinSimpleType
-    ::= "string" | "double" | "decimal" | "integer" | "boolean" | "iri"
-
-SimpleValue
-    ::= String | Double | Decimal | Integer | Boolean | IriReference
-
-Boolean
-    ::= Tautology | Contradiction
-
-Tautology
-    ::= ( "true" | "⊤" )
-
-Contradiction
-    ::= ( "false" | "⊥" )
-
-NumericSign
-    ::= [+-]
-
-Zero
-    ::= [0]
-
-NonZero
-    ::= [1-9]
-
-Unsigned
-    ::= Zero | NonZero ASCII_DIGIT*
-
-Integer
-    ::= NumericSign? Unsigned
-
-Decimal
-    ::= Integer "." ASCII_DIGIT+
-
-ExponentChar
-    ::= [eE]
-
-Double
-    ::= Decimal ExponentChar NumericSign? Integer
-
-HexPair
-    ::= ASCII_HEX_DIGIT ASCII_HEX_DIGIT
-
-Escape
-    ::= "\\" ( CharacterEscape | UnicodeEscape )
-
-CharacterEscape
-    ::= [\"\\/abefnrtv]
-
-UnicodeEscape
-    ::= "u{" HexPair ( HexPair ( HexPair )? )? "}"
-
-NotAllowed
-    ::= [^\"\#x00-#x08#x0B-#x1F#x7F]
-
-QuotedString
-    ::= '"' ( Escape | NotAllowed )* '"'
-
-LanguageTag
-    ::= "@"
-        LanguageTagPrimary
-        LanguageTagExtended?
-        LanguageTagScript?
-        LanguageTagRegion?
-
-LanguageTagPrimary
-    ::= ASCII_LETTER_LOWER ASCII_LETTER_LOWER ASCII_LETTER_LOWER?
-
-LanguageTagExtended
-    ::= "-"
-        ASCII_LETTER_UPPER ASCII_LETTER_UPPER ASCII_LETTER_UPPER
-
-LanguageTagScript
-    ::= "-"
-        ASCII_LETTER_UPPER ASCII_LETTER_LOWER
-        ASCII_LETTER_LOWER ASCII_LETTER_LOWER
-
-LanguageTagRegion
-    ::= "-"
-        ( ( ASCII_LETTER_UPPER ASCII_LETTER_UPPER )
-          | ( ASCII_DIGIT ASCII_DIGIT ASCII_DIGIT ) )
-
-String
-    ::= QuotedString LanguageTag?
-
-IriReference
-    ::=
-    "<"
-    ( [^<>\"{}|^`\#x00-#x20] | UnicodeEscape )*
-    ">"
-
-ValueConstructor
-    ::= IdentifierReference "(" SimpleValue ")"
-
-MappingValue
-    ::= SimpleValue HasType Value
-
-SequenceOfValues
-    ::= SequenceValueConstraint? "["
-        ( SimpleValue | ValueConstructor | IdentifierReference )+
-        "]"
-
-SequenceValueConstraint
-    ::= "{"
-        ( SequenceOrdering? SequenceUniqueness? )
-        "}"
-
-IdentifierInitial
-    ::= UC_LETTER_UPPER | UC_LETTER_LOWER
-
-IdentifierChar
-    ::= IdentifierInitial | UC_NUMBER_DECIMAL
-
-Identifier
-    ::= IdentifierInitial IdentifierChar* ( "_" IdentifierChar+ )*
-
-QualifiedIdentifier
-    ::= Identifier ":" Identifier
-
-IdentifierReference
-    ::= QualifiedIdentifier | Identifier
-
-LineComment
-    ::= ";" [^\r\n]*
-
-Whitespace
-    ::= [^\f\n\r\t\v#x20#xa0#x1680#x2000#x200a#x2028#x2029#x202f#x205f#x3000#xfeff]
-#+END_SRC
-
-*** The Embedded Constraint Language
-
-Given that the /formal/ constraint language component of SDML is likely to be used less frequently *and* the grammar is
-fairly long we have made it a separate section.
-
-#+BEGIN_SRC ebnf
-Constraint
-    ::= "assert" Identifier ( InformalConstraint | FormalConstraint )
-
-InformalConstraint
-    ::= "=" QuotedString ControlledLanguageTag?
-
-ControlledLanguageTag
-    ::= "@" LanguageTagPrimary ControlledLanguageScheme?
-
-ControlledLanguageScheme
-    ::= "-"
-        ASCII_LETTER  ASCII_LETTER  ASCII_LETTER
-        ASCII_LETTER? ASCII_LETTER? ASCII_LETTER?
-        ASCII_LETTER? ASCII_LETTER? ASCII_LETTER?
-
-FormalConstraint
-    ::= "is"
-        ConstraintEnvironment? ConstraintSentence
-        "end"
-
-ConstraintSentence
-    ::= SimpleSentence
-        | BooleanSentence
-        | QuantifiedSentence
-        | "(" ConstraintSentence ")"
-
-SimpleSentence
-    ::= Atomic | Equation | Inequation
-
-Atomic
-    ::= Term "(" Term* ")"
-
-Equation
-    ::= Term "=" Term
-
-Inequation
-    ::= Term InequationRelation Term
-
-InequationRelation
-    ::= ( '/=' | '≠' | '<' | '>' | '<=' | '≤' | '>=' | '≥' )
-
-BooleanSentence
-    ::= Negation
-        | ConstraintSentence
-          (
-            Conjunction | Disjunction | ExclusiveDisjunction |
-            Implication | Biconditional
-          )
-
-Negation
-    ::= ( "not" | "¬" ) ConstraintSentence
-
-Conjunction
-    ::= ( "and" | "∧" ) ConstraintSentence
-
-Disjunction
-    ::= ( "or" | "∨" ) ConstraintSentence
-
-ExclusiveDisjunction
-    ::= ( "xor" | "⊻" ) ConstraintSentence
-
-Implication
-    ::= ( "implies" | "⇒" ) ConstraintSentence
-
-Biconditional
-    ::= ( "iff" | "⇔" ) ConstraintSentence
-
-QuantifiedSentence
-    ::= QuantifiedVariableBinding+ QuantifiedBody
-
-QuantifiedVariableBinding
-    ::= ( Universal | Existential ) QuantifierBoundNames
-
-Universal
-    ::= "forall" | "∀"
-
-Existential
-    ::= "exists" | "∃"
-
-QuantifierBoundNames
-    ::= "self" | Identifer ( "," Identifer )* IteratorSource
-
-IteratorSource
-    ::= TypeIterator | SequenceIterator
-
-TypeIterator
-    ::= HasType ( "Self" | IdentifierReference )
-
-SequenceIterator
-    ::= ( "in" | "∈" ) ( FunctionComposition | Identifier | SequenceBuilder )
-
-QuantifiedBody
-    ::= "(" ConstraintSentence ")"
-
-Term
-    ::= FunctionComposition
-        | Identifier
-        | QualifiedIdentifier
-        | PredicateValue
-        | FunctionalTerm
-        | SequenceBuilder
-
-FunctionComposition
-    ::= ( "self" | Identifier ) ( "." Identifier )+
-
-PredicateValue
-    ::= SimpleValue | SequenceOfPredicateValues
-
-SequenceOfPredicateValues
-    ::= "∅"
-        | SequenceValueConstraint?
-          "[" ( SimpleValue | IdentifierReference )* "]"
-
-FunctionalTerm
-    ::= Term "(" Term* ")"
-#+END_SRC
-
-*** Constraint Environment Definitions
-
-#+BEGIN_SRC ebnf
-ConstraintEnvironment
-    ::= EnvironmentDef+ "in"
-
-EnvironmentDef
-    ::= "def" Identifier ( FunctionDef | ConstantDef )
-
-FunctionDef
-    ::= FunctionSignature ( ":=" | "≔" ) ConstraintSentence
-
-FunctionSignature
-    ::= "(" FunctionParameter+ ")" HasType FunctionType
-
-FunctionParameter
-    ::= Identifier HasType FunctionType
-
-FunctionType
-    ::=  FunctionCardinality? FunctionTypeRef
-
-FunctionCardinality
-    ::= "{"
-        SequenceOrdering? SequenceUniqueness? ( Wildcard | CardinalityInner )
-        "}"
-
-FunctionTypeRef
-    ::= Wildcard | IdentiferReference | BuiltinSimpleType | MappingType
-
-Wildcard
-    ::= "_"
-
-ConstantDef
-    ::= ( ":=" | "≔" ) ( PredicateValue | ConstraintSentence )
-#+END_SRC
-
-*** Sequence Builders
-
-#+BEGIN_SRC ebnf
-SequenceBuilder
-    ::= "{"
-        ( VariableNameSet | MappingVariable )
-        "|"
-        VariableBinding+ ConstraintSentence
-        "}"
-
-VariableNameSet
-    ::= Identifier+
-
-MappingVariable
-    ::= "(" Identifier HasType Identifier ")"
-
-VariableBinding
-    ::= ( Universal | Existential ) QuantifierBinding ","
-#+END_SRC
 
 
 # ----- Footnotes
 
-[fn:ebnf] [[https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form][Extended Backus-Naur Form (EBNF)]], Wikipedia
-[fn:ebnfs] See [[http://www.cs.man.ac.uk/~pjj/bnf/ebnf.html][BNF/EBNF Variants]]
 [fn:dcmi] [[https://www.dublincore.org/specifications/dublin-core/dcmi-terms/][DublinCoreDCMI Metadata Terms]], DublinCore
 [fn:ucgc] [[https://unicode.org/reports/tr44/#GC_Values_Table][Unicode General Category]], Unicode.org
 [fn:iri] RDF 1.1 Turtle – Terse RDF Triple Language, §[[https://www.w3.org/TR/turtle/#sec-iri-references][6.3 IRI References]], W3C

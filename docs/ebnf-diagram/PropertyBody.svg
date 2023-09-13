@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="465" height="71">
+<svg xmlns="http://www.w3.org/2000/svg" width="501" height="115">
    <defs>
       <style type="text/css">
     @namespace "http://www.w3.org/2000/svg";
@@ -47,22 +47,29 @@
       <text class="nonterminal" x="109" y="21">Annotation</text>
    </a>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
-       xlink:href="#PropertyRole"
-       xlink:title="PropertyRole">
-      <rect x="251" y="37" width="102" height="32"/>
-      <rect x="249" y="35" width="102" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="259" y="55">PropertyRole</text>
+       xlink:href="#IdentityRole"
+       xlink:title="IdentityRole">
+      <rect x="271" y="37" width="96" height="32"/>
+      <rect x="269" y="35" width="96" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="279" y="55">IdentityRole</text>
    </a>
-   <rect x="393" y="37" width="44" height="32" rx="10"/>
-   <rect x="391"
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+       xlink:href="#MemberRole"
+       xlink:title="MemberRole">
+      <rect x="271" y="81" width="98" height="32"/>
+      <rect x="269" y="79" width="98" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="279" y="99">MemberRole</text>
+   </a>
+   <rect x="429" y="37" width="44" height="32" rx="10"/>
+   <rect x="427"
           y="35"
           width="44"
           height="32"
           class="terminal"
           rx="10"/>
-   <text class="terminal" x="401" y="55">end</text>
+   <text class="terminal" x="437" y="55">end</text>
    <path class="line"
-          d="m17 51 h2 m0 0 h10 m30 0 h10 m20 0 h10 m0 0 h100 m-130 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -14 q0 -10 10 -10 m110 34 l20 0 m-20 0 q10 0 10 -10 l0 -14 q0 -10 -10 -10 m-110 0 h10 m90 0 h10 m40 34 h10 m102 0 h10 m-142 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -12 q0 -10 10 -10 m122 32 l20 0 m-20 0 q10 0 10 -10 l0 -12 q0 -10 -10 -10 m-122 0 h10 m0 0 h112 m20 32 h10 m44 0 h10 m3 0 h-3"/>
-   <polygon points="455 51 463 47 463 55"/>
-   <polygon points="455 51 447 47 447 55"/>
+          d="m17 51 h2 m0 0 h10 m30 0 h10 m20 0 h10 m0 0 h100 m-130 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -14 q0 -10 10 -10 m110 34 l20 0 m-20 0 q10 0 10 -10 l0 -14 q0 -10 -10 -10 m-110 0 h10 m90 0 h10 m60 34 h10 m96 0 h10 m0 0 h2 m-138 0 h20 m118 0 h20 m-158 0 q10 0 10 10 m138 0 q0 -10 10 -10 m-148 10 v24 m138 0 v-24 m-138 24 q0 10 10 10 m118 0 q10 0 10 -10 m-128 10 h10 m98 0 h10 m-158 -44 l20 0 m-1 0 q-9 0 -9 -10 l0 -12 q0 -10 10 -10 m158 32 l20 0 m-20 0 q10 0 10 -10 l0 -12 q0 -10 -10 -10 m-158 0 h10 m0 0 h148 m20 32 h10 m44 0 h10 m3 0 h-3"/>
+   <polygon points="491 51 499 47 499 55"/>
+   <polygon points="491 51 483 47 483 55"/>
 </svg>

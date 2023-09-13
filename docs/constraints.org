@@ -531,7 +531,7 @@ A defined function has a signature that describes it's domain, or /parameters/, 
 #+NAME: lst:grammar-environment-function
 #+BEGIN_SRC ebnf
 FunctionDef
-    ::= FunctionSignature ( ":=" | "≔" ) ConstraintSentence
+    ::= FunctionSignature ByDefinition ConstraintSentence
 FunctionSignature
     ::= "(" FunctionParameter+ ")" HasType FunctionType
 FunctionParameter
@@ -567,7 +567,7 @@ Wildcard
 
 #+BEGIN_SRC ebnf
 ConstantDef
-    ::= ( ":=" | "≔" ) ( PredicateValue | ConstraintSentence )
+    ::= ByDefinition ( PredicateValue | ConstraintSentence )
 #+END_SRC
 
 [[./ebnf-diagram/ConstantDef.svg]]

@@ -102,17 +102,17 @@ module rentals is
   entity Booking is
     identity bookingCode -> unknown
 
-    ref bookingClass -> {1} Class
-    ref vehicle -> {0..1} Vehicle
-    ref from -> Location
-    ref customer -> {1} Customer
+    bookingClass -> {1} Class
+    vehicle -> {0..1} Vehicle
+    from -> Location
+    customer -> {1} Customer
   end
 
   entity Vehicle is
     identity vin -> cids:VehicleIdentificationNumber
 
-    ref rentalClass -> {1} Class
-    ref onProperty -> {0..1} Location
+    rentalClass -> {1} Class
+    onProperty -> {0..1} Location
   end
 
   entity Class
@@ -153,13 +153,13 @@ module rentals is
       
     identity bookingCode -> unknown
 
-    ref bookingClass -> {1} RentalClass
-    ref vehicle -> {0..1} Vehicle
-    ref pickup -> {1} Location
+    bookingClass -> {1} RentalClass
+    vehicle -> {0..1} Vehicle
+    pickup -> {1} Location
     pickupDate -> {1} xsd:date
-    ref dropoff -> {1} Location
+    dropoff -> {1} Location
     dropoffDate -> {1} xsd:date
-    ref customer -> {1} Customer
+    customer -> {1} Customer
   end
 
   entity Customer is
@@ -241,20 +241,20 @@ module rentals base <https://example.org/v/rentals> is
 
     identity bookingCode -> BookingCode
 
-    ref customer -> {1} Customer
+    customer -> {1} Customer
 
     group
       @skos:prefLabel = "Rental Period"@en
       pickup_date -> xsd:date
-      ref pickup_location -> Location
+      pickup_location -> Location
       dropoff_date -> xsd:date
-      ref dropoff_location -> Location
+      dropoff_location -> Location
     end
 
     group
       @skos:prefLabel = "Requested"@en
-      ref bookingClass -> {1} RentalClass
-      ref vehicle -> {0..1} Vehicle
+      bookingClass -> {1} RentalClass
+      vehicle -> {0..1} Vehicle
     end
   end
 
@@ -317,7 +317,7 @@ module rentals base <https://example.org/v/rentals> is
     identity vin -> VehicleIdentificationNumber
 
     information -> VehicleInformation
-    ref rentalClass -> {1} RentalClass
+    rentalClass -> {1} RentalClass
   end
 
   structure VehicleInformation is

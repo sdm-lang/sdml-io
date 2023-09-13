@@ -22,6 +22,8 @@
 
 #+INCLUDE: "./surface-syntax.org" :minlevel 1
 
+#+INCLUDE: "./modeling-topics.org" :minlevel 1
+
 #+INCLUDE: "./constraints.org" :minlevel 1
 
 #+INCLUDE: "./walk-through.org" :minlevel 1
@@ -36,6 +38,9 @@
 
 # A List of modules and top-level definitions only.
 #+INCLUDE: "./std-library.org" :minlevel 1
+
+# Normative specification
+#+INCLUDE: "./complete-grammar.org" :minlevel 1
 
 # Normative mapping
 #+INCLUDE: "./surface-to-rdf.org" :minlevel 1

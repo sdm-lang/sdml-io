@@ -1,0 +1,291 @@
+#+LANGUAGE: en
+#+STARTUP: overview hidestars inlineimages entitiespretty
+
+* Common Modeling Questions
+
+** Why are Enumerations and Unions distinct
+
+TBD
+
+** How to model Polymorphism
+
+The term /polymorphism/ is, in itself, polymorphic; the intent in software to create a structure that may be of more than
+one /type/ is useful enough that it has been invented a number of times.
+
+#+BEGIN_QUOTE
+/In programming language theory and type theory, polymorphism is the provision of a single interface to entities of
+different types or the use of a single symbol to represent multiple different types./
+--- /Wikipedia/[fn::https://en.wikipedia.org/wiki/Polymorphism_(computer_science)]
+#+END_QUOTE
+
+1. Pointers, and especially the C ~void*~
+2. Operator overloading or dispatching, including methods and multi-methods
+3. Discriminated Unions, also known as disjoint unions, variant records (Pascal family), tagged types (Ada)
+4. Inheritance, of both interface and implementation
+5. Interface, or protocol, implementation
+
+As SDML does not support pointers, inheritance, or interface definitions, polymorphism is provided *only* via union types.
+
+** Modeling Features, Sets and Extensions
+
+
+In software development, a feature model is a compact representation of all the products of a Software Product Line
+in terms of /features/. Feature models are visually represented by means of feature diagrams. Feature models were
+first introduced in the Feature-Oriented Domain Analysis (FODA) method 1990. Since then, feature modeling has been
+widely adopted by the software product line community and a number of extensions have been proposed.
+
+The following explanation of figure [[fig:feature-pattern-diagram]] demonstrates the major components of a feature diagram
+by modeling the enumeration ~AdType~ above as a feature extension point. Figure [[fig:feature-diagram-key]] contains specific
+details on feature diagrams and their elements.
+
+#+NAME: fig:feature-pattern-diagram
+#+BEGIN_SRC dot :file ./feature-pattern-diagram.svg :exports results
+digraph G {
+  bgcolor="transparent";
+  rankdir="TD";
+  fontname="Helvetica Neue,Helvetica,Arial,sans-serif";
+  node [shape="rect"; fontname="Helvetica,Arial,sans-serif"; fontsize=10; width=1.0; height=0.6];
+  edge [fontname="Helvetica,Arial,sans-serif"; fontsize=9; fontcolor="darkgrey"];
+  splines="ortho";
+
+  top [label="Vehicle"; style="filled"];
+  options [label=<<I>Options</I>>];
+  options_or [shape=triangle; label=""; fixedsize=true; height=0.3; width=0.2];
+
+  roadside [label="Roadside\nAssistance"];
+  add_driver [label="Additional\nDriver"];
+  satellite [label="Satellite\nRadio"];
+  child_seat [label="Child\nSeat(s)"];
+  navigate [label="Hands-Free\nNavigation"];
+  concierge [label="Travel\nConcierge"];
+  unlimited_tolls [label="Unlimited\nTolls"];
+  
+  top -> options [arrowhead=odot];
+  options -> options_or [arrowhead=none];
+
+  options_or -> roadside [arrowhead=none];
+  options_or -> add_driver [arrowhead=none];
+  options_or -> satellite [arrowhead=none];
+  options_or -> child_seat [arrowhead=none];
+  options_or -> navigate [arrowhead=none];
+  options_or -> concierge [arrowhead=none];
+  options_or -> unlimited_tolls [arrowhead=none];
+
+  coverage [label=<<I>Coverage</I>>];
+  // coverage_or [shape=triangle; label=""; fixedsize=true; height=0.3; width=0.2];
+  
+  top -> coverage [arrowhead=odot];
+  // coverage -> coverage_or [arrowhead=none];
+}
+#+END_SRC
+
+#+CAPTION: Feature Diagram
+#+RESULTS: fig:feature-pattern-diagram
+[[file:./feature-pattern-diagram.svg]]
+
+The following explanation of figure [[fig:feature-pattern-diagram]] demonstrates the major components of a feature diagram,
+more details are shown in figure [[fig:feature-diagram-key]].
+
+1. The filled top-level element is the feature /host/, the structure that contains the feature extension point.
+2. The element named Ad Type is the feature /extension point/; the line from host to extension point has a filled circle
+   which denotes a mandatory requirement, one of the possible features *must* be present.
+3. The extension point has an attached triangle which denotes how the features in the attached /feature set/ are present;
+   1. An open triangle represents the disjunction (or) operator and so any combination of features may be present,
+      but each may only be present once.
+   2. A filled triangle represents the conjunction (and) operator and so all features must be present.
+   3. An open triangle with the letter x inside represents the exclusive disjunction (xor) operator and so only one of
+      the features may be present.
+4. A dependency relationship, not shown in figure [[fig:feature-pattern-diagram]], allows for the expression of feature to
+   feature dependencies within and across feature sets. Specific forms of dependency are often expressed, such as:
+   1. Requires, the inclusion of the one feature requires that the other feature be present.
+   2. Excludes, the inclusion of the one feature requires that the other feature *not* be present.
+
+#+NAME: fig:feature-diagram-key
+#+BEGIN_SRC dot :file ./feature-diagram-key.svg :exports results
+digraph G {
+  bgcolor="transparent";
+  rankdir="TD";
+  fontname="Helvetica Neue,Helvetica,Arial,sans-serif";
+  node [shape="rect"; fontname="Helvetica,Arial,sans-serif"; fontsize=10; width=0.8; height=0.4];
+  edge [fontname="Helvetica,Arial,sans-serif"; fontsize=9; fontcolor="darkgrey"];
+   
+  host_1 [label="host"; style="filled"];
+  set_1 [label=<<I>required<BR/>extension point</I>>];
+  host_1 -> set_1 [arrowhead=dot];
+    
+  host_2 [label="host"; style="filled"];
+  set_2 [label=<<I>optional<BR/>extension point</I>>];
+  host_2 -> set_2 [arrowhead=odot];
+
+  set_3 [label=<<I>extension<BR/>point</I>>];
+  set_3_or [shape=triangle; label=""; height=0.3; width=0.2];
+  set_3 -> set_3_or [label="   or"; arrowhead=none];
+
+  set_4 [label=<<I>extension<BR/>point</I>>];
+  set_4_or [shape=triangle; style="filled"; label=""; height=0.3; width=0.2];
+  set_4 -> set_4_or [label="   and"; arrowhead=none];
+
+  set_5 [label=<<I>extension<BR/>point</I>>];
+  set_5_or [shape=triangle; label="x"; fixedsize=true; linewidth=2; height=0.3; width=0.2];
+  set_5 -> set_5_or [label="   xor"; arrowhead=none];
+
+  set_6 [label=<<I>extension<BR/>point</I>>];
+  set_7 [label=<<I>extension<BR/>point</I>>];
+  set_6 -> set_7 [label="  dependency"; style="dashed"; arrowhead=open];
+
+  set_8_or [shape=triangle; label=""; fixedsize=true; linewidth=2; height=0.3; width=0.2];
+  feat_1 [label="feature"];
+  feat_2 [label="feature"];
+  feat_3 [label="feature"];
+  set_8_or -> feat_1 [arrowhead=none];
+  set_8_or -> feat_2 [arrowhead=none];
+  set_8_or -> feat_3 [xlabel="feature set"; arrowhead=none];
+}
+#+END_SRC
+
+#+CAPTION: Feature Diagram Elements
+#+RESULTS: fig:feature-diagram-key
+[[file:./feature-diagram-key.svg]]
+
+While figure [[fig:feature-diagram-key]] shows the common elements of a feature diagram, these have been extended in
+different implementations. Figure [[fig:feature-diagram-extended]] shows some of common extensions.
+
+1. Some implementations extend the notion of mandatory and optional relationships between hosts and extension points by
+   replacing them with cardinality expressions.
+2. Less commonly the relationship from extension point to feature may be annotated with a cardinality expression.
+3. It is not clear in some implementations whether an extension point may have one or more than one feature sets.
+   Multiple feature sets of this form get confusing if the same feature is present in both sets.
+4. Alternatively the idea of feature sets directly owning other feature sets is present in some literature but again can
+   be hard to control complexity.
+
+#+NAME: fig:feature-diagram-extended
+#+BEGIN_SRC dot :file ./feature-diagram-extended.svg :exports results
+digraph G {
+  bgcolor="transparent";
+  rankdir="TD";
+  fontname="Helvetica Neue,Helvetica,Arial,sans-serif";
+  node [shape="rect"; fontname="Helvetica,Arial,sans-serif"; fontsize=10; width=0.8; height=0.4];
+  edge [fontname="Helvetica,Arial,sans-serif"; fontsize=9; fontcolor="darkgrey"];
+
+  host_1 [label="host"; style="filled"];
+  set_1 [label=<<I>extension<BR/>point</I>>];
+  host_1 -> set_1 [arrowhead=none; headlabel="0..*"];
+
+  set_2_or [shape=triangle; label=""; fixedsize=true; linewidth=2; height=0.3; width=0.2];
+  feat_1 [label="feature"];
+  set_2_or -> feat_1 [arrowhead=none; headlabel="1..*"];
+
+  set_3 [label=<<I>extension<BR/>point</I>>];
+  set_3_or [shape=triangle; label=""; height=0.3; width=0.2];
+  set_3_and [shape=triangle; style="filled"; label=""; height=0.3; width=0.2];
+  set_3 -> set_3_or [arrowhead=none];
+  set_3 -> set_3_and [arrowhead=none];
+
+  set_5 [label=<<I>extension<BR/>point</I>>];
+  set_5_and [shape=triangle; style="filled"; label=""; fixedsize=true; linewidth=2; height=0.3; width=0.2];
+  set_6_or [shape=triangle; label=""; fixedsize=true; linewidth=2; height=0.3; width=0.2];
+  set_7_or [shape=triangle; label=""; fixedsize=true; linewidth=2; height=0.3; width=0.2];
+  set_5 -> set_5_and [arrowhead=none];
+  set_5_and -> set_6_or [arrowhead=none];
+  set_5_and -> set_7_or [arrowhead=none];
+}
+#+END_SRC
+
+#+CAPTION: Feature Diagram Extended Elements
+#+RESULTS: fig:feature-diagram-extended
+[[file:./feature-diagram-extended.svg]]
+
+In the cases of multiple feature sets it is ...
+
+#+CAPTION: Feature Sets
+#+BEGIN_SRC sdml :exports code
+module ad is
+
+  structure Ad is
+    adType -> AdType
+  end
+
+  features AdType of
+    Product as ProductAd is
+      @dc:description = "implies SD or SP"
+    end
+    Product as Image is
+      @dc:description = "implies SD"
+    end
+    Product as Video is
+      @dc:description = "implies SD"
+    end
+    retail:Asin as ProductCollection is
+      @dc:description = "implies SB"
+    end
+    retail:Asin as SponsoredTv is
+      @dc:description = "implies SPOT"
+    end
+    retail:BrandId as BrandVideo is
+      @dc:description = "implies SB"
+    end
+    StoreSpotlight is
+      @dc:description = "implies SB"
+    end
+    Post as PromotedPost is
+      @dc:description = "implies SB"
+    end
+  end
+
+end
+#+END_SRC
+
+** When to use Property Definitions
+
+#+CAPTION: Union Type Definition
+#+BEGIN_SRC sdml :exports code :noeval
+module example is
+
+  import [ skos xsd ]
+
+  datatype AccountId <- xsd:long
+
+  datatype ExternalAccountId <- uri
+
+  structure ChildAccountId is
+    parent -> AccountId
+    child -> AccountId
+  end
+
+  union AllAccountIds of
+    AccountId,
+    ExternalAccountId,
+    ChildAccountId
+  end
+
+end
+#+END_SRC
+
+#+CAPTION: Union Type As Property
+#+BEGIN_SRC sdml :exports code :noeval
+module example is
+
+  import [ skos xsd ]
+
+  property account_id is
+  
+  internal -> {1} xsd:long is
+    @skos:definition = "This is our internal representation."@en
+  end
+  
+  external -> {1} url is
+    @skos:definition = "This is our external representation for customers."@en
+  end
+  
+  child -> {2} xsd:long
+  end
+
+  entity Account is
+
+    identity account_id as internal
+
+  end
+
+end
+#+END_SRC
+

@@ -47,11 +47,11 @@
       <text class="nonterminal" x="131" y="21">Identifier</text>
    </a>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
-       xlink:href="#PropertyMember"
-       xlink:title="PropertyMember">
-      <rect x="241" y="3" width="124" height="32"/>
-      <rect x="239" y="1" width="124" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="249" y="21">PropertyMember</text>
+       xlink:href="#PropertyReference"
+       xlink:title="PropertyReference">
+      <rect x="241" y="3" width="138" height="32"/>
+      <rect x="239" y="1" width="138" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="249" y="21">PropertyReference</text>
    </a>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
        xlink:href="#TypeExpression"
@@ -68,7 +68,7 @@
       <text class="nonterminal" x="409" y="97">AnnotationOnlyBody</text>
    </a>
    <path class="line"
-          d="m17 17 h2 m0 0 h10 m72 0 h10 m0 0 h10 m78 0 h10 m20 0 h10 m124 0 h10 m0 0 h204 m-368 0 h20 m348 0 h20 m-388 0 q10 0 10 10 m368 0 q0 -10 10 -10 m-378 10 v24 m368 0 v-24 m-368 24 q0 10 10 10 m348 0 q10 0 10 -10 m-358 10 h10 m120 0 h10 m20 0 h10 m0 0 h158 m-188 0 h20 m168 0 h20 m-208 0 q10 0 10 10 m188 0 q0 -10 10 -10 m-198 10 v12 m188 0 v-12 m-188 12 q0 10 10 10 m168 0 q10 0 10 -10 m-178 10 h10 m148 0 h10 m43 -76 h-3"/>
+          d="m17 17 h2 m0 0 h10 m72 0 h10 m0 0 h10 m78 0 h10 m20 0 h10 m138 0 h10 m0 0 h190 m-368 0 h20 m348 0 h20 m-388 0 q10 0 10 10 m368 0 q0 -10 10 -10 m-378 10 v24 m368 0 v-24 m-368 24 q0 10 10 10 m348 0 q10 0 10 -10 m-358 10 h10 m120 0 h10 m20 0 h10 m0 0 h158 m-188 0 h20 m168 0 h20 m-208 0 q10 0 10 10 m188 0 q0 -10 10 -10 m-198 10 v12 m188 0 v-12 m-188 12 q0 10 10 10 m168 0 q10 0 10 -10 m-178 10 h10 m148 0 h10 m43 -76 h-3"/>
    <polygon points="607 17 615 13 615 21"/>
    <polygon points="607 17 599 13 599 21"/>
 </svg>
