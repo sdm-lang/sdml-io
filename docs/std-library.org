@@ -6,6 +6,10 @@
 The standard library provided with SDML contains the language library itself, SDML modules representing commonly used
 external namespaces, and a set of predicates and functions that are available for writing constraints.
 
+** Type Classes
+
+TBD
+
 ** SDML Module
 
 The ~sdml~ module contains the set of types that represent the language itself, most of which are only used in the writing
@@ -357,116 +361,117 @@ module xsd base <http://www.w3.org/2001/XMLSchema#> is end
 Note that all of the predicates, relations, and functions in this section exist within the ~sdml~ module scope but
 qualification is optional unless the application is ambiguous in a particular context.
 
-*** The Type ~Type~
+*** ~Type~ and ~Typed~
 
 *Class: Type*
 
-#+BEGIN_EXAMPLE
-def Type(_) → boolean
-#+END_EXAMPLE
+#+NAME: lst:std-sdml-types-type
+#+BEGIN_SRC sdml :noeval
+module sdml_types is
 
-Returns ~true~ if the passed value is a ~Type~, else ~false~.
+  import skos
 
-#+BEGIN_EXAMPLE
-def is_unknown(self → _) → boolean
-    ≔ Type(self) ⇒ self = sdml:Unknown ∨ is_unknown(type_of(self))
-#+END_EXAMPLE
+  class Type is
+    def is_unknown(v → Type) → boolean ≔ v = Unknown
+  end
 
-#+BEGIN_EXAMPLE
-def name(Type) → QualifiedIdentifier
-#+END_EXAMPLE
+  class Typed(T -> _) is
+    def has_type(v -> T) → Type is
+      @skos:definition = "Returns the SDML type of the passed value."@en
+      @skos:example = "~type_of(rentals:Customer) = sdml:Entity~"
+    end
+  end
 
-The qualified identifier that names this type. In all cases the module portion of the name will be ~"sdml"~.
+  class Named is
+    def name -> Identifier := self.qualified_name.member
+    def qualified_name → QualifiedIdentifier is
+      @skos:description = "The qualified identifier that names this type. In all cases the module portion of the name will be ~sdml~."@en
+      @skos:example = "~type_of(rentals:Customer) = sdml:Entity~"
+    end
+  end
 
-example: ~type_of(rentals:Customer) = "sdml:Entity"~
-
-#+BEGIN_EXAMPLE
-def type_of(_) → Type
-#+END_EXAMPLE
-
-Returns the SDML type of the passed value.
-
-example: ~type_of(rentals:Customer) = sdml:Entity~
+end
+#+END_SRC
 
 *** Equality and Inequality
 
-#+BEGIN_EXAMPLE
-def eq(_ _) → boolean
-#+END_EXAMPLE
+#+NAME: lst:std-sdml-types-eq
+#+BEGIN_SRC sdml :noeval
+module sdml_types is
 
-Returns ~true~ if the two values are equal, else ~false~.
+  import skos
 
-#+BEGIN_EXAMPLE
-def gt(_ _) → boolean
-#+END_EXAMPLE
+  class Eq(T1 T2 -> T1) is
 
-Returns ~true~ if the first value is greater than the second, else ~false~.
+    def eq(lhs -> T1 rhs -> T2) → boolean is
+      @skos:definition = "Returns ~true~ if the two values are equal, else ~false~."@en
+    end
 
-#+BEGIN_EXAMPLE
-def gte(v1 → _ v2 → _) → boolean
-    ≔ gt(v1 v2) ∨ eq(v1 v2)
-#+END_EXAMPLE
+    def ne(lhs → T1 rhs → T2) → boolean ≔ ¬eq(lhs rhs) is
+      @skos:definition = "Returns ~true~ if the two values are not equal, else ~false~."@en
+    end
 
-Returns ~true~ if the first value is greater than or equal to the second, else ~false~.
+  end
 
-#+BEGIN_EXAMPLE
-def lt(v1 → _ v2 → _) → boolean
-    ≔ ¬gte(v1 v2)
-#+END_EXAMPLE
+  class Ord(T1 -> Eq(T1 T2) T2 -> T1) is
 
-Returns ~true~ if the first value is less than the second, else ~false~.
+    def gt(lhs -> T1 rhs -> T2) → boolean is
+      @skos:definition = "Returns ~true~ if the first value is greater than the second, else ~false~."@en
+    end
 
-#+BEGIN_EXAMPLE
-def lte(v1 → _ v2 → _) → boolean
-    ≔ ¬gt(v1 v2)
-#+END_EXAMPLE
+    def gte(lhs → T1 rhs → T2) → boolean ≔ gt(lhs rhs) ∨ eq(lhs rhs) is
+      @skos:definition = "Returns ~true~ if the first value is greater than or equal to the second, else ~false~."@en
+    end
 
-Returns ~true~ if the first value is less than or equal to the second, else ~false~.
+    def lt(lhs → T1 rhs → T2) → boolean ≔ ¬gte(lhs rhs) is
+      @skos:definition = "Returns ~true~ if the first value is less than the second, else ~false~."@en
+    end
 
-#+BEGIN_EXAMPLE
-def ne(v1 → _ v2 → _) → boolean
-    ≔ ¬eq(v1 v2)
-#+END_EXAMPLE
+    def lte(lhs → T1 rhs → T2) → boolean ≔ ¬gt(lhs rhs) is
+      @skos:definition = "Returns ~true~ if the first value is less than or equal to the second, else ~false~."@en
+    end
 
-Returns ~true~ if the two values are not equal, else ~false~.
+  end
+
+end
+#+END_SRC
 
 *** Identifiers
 
 *Class: Identifier*
 
-#+BEGIN_EXAMPLE
-def Identifier(self → _) → boolean
-    ≔ type_of(self) = sdml:Identifier
-#+END_EXAMPLE
+#+NAME: lst:std-sdml-identifiers
+#+BEGIN_SRC sdml :noeval
+module sdml_identifiers is
 
-Returns ~true~ if the passed value is of type ~Identifier~, else ~false~.
+  import skos
 
-#+BEGIN_EXAMPLE
-def join(Identifier Identifer) → QualifiedIdentifier
-#+END_EXAMPLE
+  class Identifier is
+    def join(lhs -> Identifier rhs -> Identifer) → QualifiedIdentifier is
+      @skos:definition = "Return a new qualified identifier with the first parameter as the module name and the second as the member name."@en
+    end
+  end
 
-Return a new qualified identifier with the first parameter as the module name and the second as the member name.
+  class QualifiedIdentifier(T -> _) is
+    def member(v -> QualifiedIdentifier) → Identifier is
+      @skos:definition = "Return the member name part of the identifier."@en
+    end
+    def module(v -> QualifiedIdentifier) → Identifier is
+      @skos:definition = "Return the module name part of the identifier."@en
+    end    
+  end
 
-*Class: QualifiedIdentifier*
+  class IdentifierReference is
+    def name -> Identifier := self.qualified_name.member
+    def qualified_name → QualifiedIdentifier is
+      @skos:description = "The qualified identifier that names this type. In all cases the module portion of the name will be ~sdml~."@en
+      @skos:example = "~type_of(rentals:Customer) = sdml:Entity~"
+    end
+  end
 
-#+BEGIN_EXAMPLE
-def QualifiedIdentifier(self → _) → boolean
-    ≔ type_of(self) = sdml:QualifiedIdentifier
-#+END_EXAMPLE
+end
+#+END_SRC
 
-Returns ~true~ if the passed value is of type ~QualifiedIdentifier~, else ~false~.
-
-#+BEGIN_EXAMPLE
-def member(QualifiedIdentifier) → Identifier
-#+END_EXAMPLE
-
-Return the member name part of the identifier.
-
-#+BEGIN_EXAMPLE
-def module(QualifiedIdentifier) → Identifier
-#+END_EXAMPLE
-
-Return the module name part of the identifier.
 
 *Union: IdentifierReference*
 
@@ -896,6 +901,21 @@ def into_integer(unsigned) → integer
 
 *Class: Sequence*
 
+#+NAME: lst:std-sdml-sequence-sequence
+#+BEGIN_SRC sdml :noeval
+module sdml_sequences is
+
+  import skos
+
+  class Sequence({} S) is
+
+    
+
+  end
+  
+end
+#+END_SRC
+
 #+BEGIN_EXAMPLE
 def Sequence(self → {_}) → boolean
     ≔ type_of(self) = sdml:Sequence
@@ -980,117 +1000,72 @@ placed between each.
 
 Example: ~join([1 2 3] ",") = "1,2,3"~
 
-*Class: List*
+*Class: Ordered*
 
-Returns ~true~ if the passed value is of type ~List~, else ~false~.
+#+NAME: lst:std-sdml-sequence-ordered
+#+BEGIN_SRC sdml :noeval
+module sdml_sequences is
 
-#+BEGIN_EXAMPLE
-def drop({ordered nonunique 0..} _ count → unsigned) → List of _
-#+END_EXAMPLE
+  import skos
 
-#+BEGIN_EXAMPLE
-def get({ordered nonunique 0..} _ index → unsigned) → _
-#+END_EXAMPLE
+  class Ordered({ordered nonunique 0..} S) is
 
-#+BEGIN_EXAMPLE
-def order({ordered nonunique 0..} _) → List of _
-#+END_EXAMPLE
+    def drop(vs -> S count → unsigned) → S is
+      @skos:definition = "Drop ~count~ items from the beginning of the sequence and return the rest."@en
+    end
 
-#+BEGIN_EXAMPLE
-def reverse({ordered nonunique 0..} _) → List of _
-#+END_EXAMPLE
+    def get(vs -> S index → unsigned) → {0..1} S is
+      @skos:definition = "Return the element in this sequence at the position ~index~."@en
+    end
 
-#+BEGIN_EXAMPLE
-def slice({ordered nonunique 0..} _ start → unsigned count → unsigned) → List of _
-#+END_EXAMPLE
+    def reverse(vs -> S) → S is
+      @skos:definition = "Return a new sequence with the order of elements reversed."@en
+    end
 
-#+BEGIN_EXAMPLE
-def take({ordered nonunique 0..} _ count → unsigned) → List of _
-#+END_EXAMPLE
+    def slice(vs -> S start → unsigned count → unsigned) → S
+      := take(drop(vs count) start) is
+      @skos:definition = "Return a sub-sequence of ~count~ elements starting at ~start~."@en
+    end
 
-*Class: OrderedSet*
+    def take(vs -> S count → unsigned) → S is
+      @skos:definition = "Return ~count~ items from the beginning of the sequence and discard the rest."@en
+    end
 
-#+BEGIN_EXAMPLE
-drop({ordered unique 0..}  _ count → unsigned) → {ordered unique 0..} _
-#+END_EXAMPLE
+  end
+  
+end
+#+END_SRC
 
-#+BEGIN_EXAMPLE
-get({ordered unique 0..} _ index → unsigned) → _
-#+END_EXAMPLE
+*Class: Unique*
 
-#+BEGIN_EXAMPLE
-intersection(lhs → {ordered unique 0..} _ rhs → {ordered unique 0..} _) → OrderedSet of _
-#+END_EXAMPLE
+#+NAME: lst:std-sdml-sequence-unique
+#+BEGIN_SRC sdml :noeval
+module sdml_sequences is
 
-#+BEGIN_EXAMPLE
-is_strict_subset(lhs → {ordered unique 0..} _ rhs → {ordered unique 0..} _) → boolean
-    ≔ is_subset(lhs rhs) ∧ ¬eq(lhs rhs)
-#+END_EXAMPLE
+  import skos
 
-#+BEGIN_EXAMPLE
-is_strict_superset(lhs → {ordered unique 0..} _ rhs → {ordered unique 0..} _) → boolean
-    ≔ is_superset(lhs rhs) ∧ ¬eq(lhs rhs)
-#+END_EXAMPLE
+  class Unique({unordered unique 0..} S) is
 
-#+BEGIN_EXAMPLE
-is_subset(lhs → {ordered unique 0..} _ rhs → {ordered unique 0..} _) → boolean
-#+END_EXAMPLE
+    def intersection(lhs →  S rhs → S) → S
 
-#+BEGIN_EXAMPLE
-is_superset(lhs → {ordered unique 0..} _ rhs → {ordered unique 0..} _) → boolean
-#+END_EXAMPLE
+    def is_strict_subset(lhs → S rhs → S) → boolean
+      ≔ is_subset(lhs rhs) ∧ ¬eq(lhs rhs)
 
-#+BEGIN_EXAMPLE
-minus(lhs → {ordered unique 0..} _ rhs → OrderedSet of _) → {ordered unique 0..} _
-#+END_EXAMPLE
+    def is_strict_superset(lhs → S rhs → S) → boolean
+      ≔ is_superset(lhs rhs) ∧ ¬eq(lhs rhs)
+      
+    def is_subset(lhs → S rhs → S) → boolean
 
-#+BEGIN_EXAMPLE
-reverse({ordered unique 0..} _) → {ordered unique 0..} _
-#+END_EXAMPLE
+    def is_superset(lhs → S rhs → S) → boolean
 
-#+BEGIN_EXAMPLE
-slice({ordered unique 0..} _ start → unsigned count → unsigned) → {ordered unique 0..} _
-#+END_EXAMPLE
+    def minus(lhs → S rhs → S) → S
 
-#+BEGIN_EXAMPLE
-take({ordered unique 0..} _ count → unsigned) → {ordered unique 0..} _
-#+END_EXAMPLE
+    def union(lhs → S rhs → S) → S
 
-#+BEGIN_EXAMPLE
-union({ordered unique 0..} _ rhs → {ordered unique 0..} _) → {ordered unique 0..} _
-#+END_EXAMPLE
-
-*Class: Set*
-
-#+BEGIN_EXAMPLE
-intersection(lhs → {unordered unique 0..} _ rhs → Set of _) → {unordered unique 0..} _
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-is_strict_subset(lhs → {unordered unique 0..} _ rhs → {unordered unique 0..} _) → boolean
-    ≔ is_subset(lhs rhs) ∧ ¬eq(lhs rhs)
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-is_strict_superset(lhs → {unordered unique 0..} _ rhs → {unordered unique 0..} _) → boolean
-    ≔ is_superset(lhs rhs) ∧ ¬eq(lhs rhs)
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-is_subset(lhs → {unordered unique 0..} _ rhs → {unordered unique 0..} _) → boolean
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-is_superset(lhs → {unordered unique 0..} _ rhs → {unordered unique 0..} _) → boolean
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-minus(lhs → {unordered unique 0..} _ rhs → {unordered unique 0..} _) → Set of _
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-union(lhs → {unordered unique 0..} _ rhs → {unordered unique 0..} _) → {unordered unique 0..} _
-#+END_EXAMPLE
+  end
+  
+end
+#+END_SRC
 
 *** Annotations
 

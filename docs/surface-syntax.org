@@ -309,10 +309,9 @@ Definition
         | EntityDef
         | EnumDef
         | EventDef
+        | PropertyDef
         | StructureDef
         | UnionDef
-        | PropertyDef
-        | FeatureSetDef
 #+END_SRC
 
 [[./ebnf-diagram/Definition.svg]]
@@ -1309,6 +1308,8 @@ UnknownType
 
 *Example: declaring features*
 
+...
+
 #+NAME: lst:sdml-ex-entity-features
 #+CAPTION: Entity Identity
 #+BEGIN_SRC sdml :exports code :noeval
@@ -1323,6 +1324,29 @@ module rentals is
 
 end
 #+END_SRC
+
+#+NAME: lst:sdml-ex-entity-features-expanded
+#+CAPTION: Entity Identity
+#+BEGIN_SRC sdml :exports code :noeval
+module rentals is
+
+  import vehicles
+
+  entity Rental is
+    identity id -> unknown
+    options -> vehicles:Options is
+      assert is_exclusive_feature is
+        forall self (
+          self.type_of_type = sdml:Union and
+          is_unique({ t | forall t in X, type_of(t) })
+        )
+      end
+    end
+  end
+
+end
+#+END_SRC
+
 
 A mapping type denotes a /functional relationship/ between the /domain/ (left-hand type) and /range/ (right-hand type).
 
@@ -1846,62 +1870,6 @@ module account is
 
 end
 #+END_SRC
-
-** <<sec:feature-grammar>>Feature Sets
-
-#+NAME: lst:grammar-property-def
-#+BEGIN_SRC ebnf
-FeatureSetDef
-    ::= "features" Identifier Cardinality? UnionBody?
-#+END_SRC
-
-[[./ebnf-diagram/PropertyDef.svg]]
-
-*Example*:
-
-#+NAME: lst:sdml-ex-empty-featureset
-#+CAPTION: Empty Feature Set Definition
-#+BEGIN_SRC sdml :exports code :noeval
-module example is
-
-  features AccountFeatures
-
-end
-#+END_SRC
-
-The feature set ~AccountFeatures~ in [[lst:sdml-ex-empty-featureset]] is valid but incomplete. Completion of the feature set
-requires the addition of a body with members/variants defined.
-
-*Example*: 
-
-#+NAME: lst:sdml-ex-xor-featureset
-#+CAPTION: One-Of Feature Set
-#+BEGIN_SRC sdml :exports code :noeval
-module example is
-
-  features AccountKind {1} of
-    PersonalAccount as Personal
-    CorporateAccount as Business
-  end
-
-end
-#+END_SRC
-
-*Example*:
-
-#+NAME: lst:sdml-ex-or-featureset
-#+CAPTION: Some-Of Feature Set
-#+BEGIN_SRC sdml :exports code :noeval
-module example is
-
-  features AccountUpgrades {1..} is
-    SkipCheckin
-    AutoUpgrade
-  end
-
-end
-#+END_SRC
-
 
 
 # ----- Footnotes

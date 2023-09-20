@@ -125,6 +125,27 @@ IdentityRole
 MemberRole
     ::= Identifier InverseName? TypeExpressionTo AnnotationOnlyBody?
 
+TypeClassDef
+    ::= "class" Identifier TypeClassParameters? TypeClassBody?
+
+TypeClassParameters
+    ::= "(" TypeVariable+ ")"
+
+TypeVariable
+    ::= FunctionCardinality? Identifier TypeVariableSubtype?
+
+TypeVariableSubtype
+    ::= HasType ( Wildcard | IdentiferReference TypeClassParameters? )
+
+Wildcard
+    ::= "_"
+
+TypeClassBody
+    ::= "is" Annotation* MethodDef+ "end"
+
+MethodDef
+    ::= "def" Identifier FunctionSignature FunctionBody? AnnotationOnlyBody?
+
 PropertyReference
     ::= "in" IdentifierReference
 
@@ -186,12 +207,12 @@ SimpleValue
     ::= String | Double | Decimal | Integer | Boolean | IriReference
 
 Boolean
-    ::= Tautology | Contradiction
+    ::= Truth | Falsity
 
-Tautology
+Truth
     ::= ( "true" | "⊤" )
 
-Contradiction
+Falsity
     ::= ( "false" | "⊥" )
 
 NumericSign
@@ -343,7 +364,10 @@ SimpleSentence
     ::= Atomic | Equation | Inequation
 
 Atomic
-    ::= Term "(" Term* ")"
+    ::= Term ActualArguments
+
+ActualArguments
+    ::= "(" Term* ")"
 
 Equation
     ::= Term "=" Term
@@ -355,65 +379,67 @@ InequationRelation
     ::= ( '/=' | '≠' | '<' | '>' | '<=' | '≤' | '>=' | '≥' )
 
 BooleanSentence
-    ::= Negation
-        | ConstraintSentence
-          (
-            Conjunction | Disjunction | ExclusiveDisjunction |
-            Implication | Biconditional
-          )
+    ::= UnaryBooleanSentence | BinaryBooleanSentence
 
-Negation
-    ::= ( "not" | "¬" ) ConstraintSentence
+UnaryBooleanSentence
+    ::= NegationOperator ConstraintSentence
 
-Conjunction
-    ::= ( "and" | "∧" ) ConstraintSentence
+BinaryBooleanSentence
+    ::= ConstraintSentence LogicalConnective ConstraintSentence
 
-Disjunction
-    ::= ( "or" | "∨" ) ConstraintSentence
+LogicalConnective
+    ::= ConjunctionOperator
+        | DisjunctionOperator
+        | ExclusiveDisjunctionOperator
+        | ImplicationOperator
+        | BiconditionalOperator
 
-ExclusiveDisjunction
-    ::= ( "xor" | "⊻" ) ConstraintSentence
+NegationOperator
+    ::= ( "not" | "¬" )
 
-Implication
-    ::= ( "implies" | "⇒" ) ConstraintSentence
+ConjunctionOperator
+    ::= ( "and" | "∧" )
 
-Biconditional
-    ::= ( "iff" | "⇔" ) ConstraintSentence
+DisjunctionOperator
+    ::= ( "or" | "∨" )
+
+ExclusiveDisjunctionOperator
+    ::= ( "xor" | "⊻" )
+
+ImplicationOperator
+    ::= ( "implies" | "⇒" )
+
+BiconditionalOperator
+    ::= ( "iff" | "⇔" )
 
 QuantifiedSentence
-    ::= QuantifiedVariableBinding+ QuantifiedBody
+    ::= QuantifiedVariableBinding+ ","? ConstraintSentence
 
 QuantifiedVariableBinding
-    ::= ( Universal | Existential ) QuantifierBoundNames
+    ::= ( UniversalQuantifier | ExistentialQuantifier ) QuantifiedVariable
 
-Universal
+UniversalQuantifier
     ::= "forall" | "∀"
 
-Existential
+ExistentialQuantifier
     ::= "exists" | "∃"
 
-QuantifierBoundNames
-    ::= "self" | Identifer ( "," Identifer )* IteratorSource
+QuantifiedVariable
+    ::= ReservedSelf | Identifer MembershipOperator Term
 
-IteratorSource
-    ::= TypeIterator | SequenceIterator
-
-TypeIterator
-    ::= HasType ( "Self" | IdentifierReference )
-
-SequenceIterator
-    ::= ( "in" | "∈" ) ( FunctionComposition | Identifier | SequenceBuilder )
-
-QuantifiedBody
-    ::= "(" ConstraintSentence ")"
+MembershipOperator
+    ::= ( "in" | "∈" )
 
 Term
-    ::= FunctionComposition
-        | Identifier
-        | QualifiedIdentifier
-        | PredicateValue
+    ::= SequenceBuilder
         | FunctionalTerm
-        | SequenceBuilder
+        | FunctionComposition
+        | IdentifierReference
+        | ReservedSelf
+        | PredicateValue
+
+FunctionalTerm
+    ::= Term ActualArguments
 
 FunctionComposition
     ::= ( "self" | Identifier ) ( "." Identifier )+
@@ -426,8 +452,8 @@ SequenceOfPredicateValues
         | SequenceValueConstraint?
           "[" ( SimpleValue | IdentifierReference )* "]"
 
-FunctionalTerm
-    ::= Term "(" Term* ")"
+ReservedSelf
+    ::= "self"
 #+END_SRC
 
 *** Constraint Environment Definitions
@@ -440,30 +466,33 @@ EnvironmentDef
     ::= "def" Identifier ( FunctionDef | ConstantDef )
 
 FunctionDef
-    ::= FunctionSignature ByDefinition ConstraintSentence
+    ::= FunctionSignature FunctionBody
 
 FunctionSignature
-    ::= "(" FunctionParameter+ ")" HasType FunctionType
+    ::= ( "(" FunctionParameter+ ")" )? FunctionType
 
 FunctionParameter
-    ::= Identifier HasType FunctionType
+    ::= Identifier FunctionType
 
 FunctionType
-    ::=  FunctionCardinality? FunctionTypeRef
+    ::= HasType FunctionCardinality? FunctionTypeRef
 
 FunctionCardinality
     ::= "{"
-        SequenceOrdering? SequenceUniqueness? ( Wildcard | CardinalityInner )
+        SequenceOrdering? SequenceUniqueness? CardinalityInner?
         "}"
 
 FunctionTypeRef
-    ::= Wildcard | IdentiferReference | BuiltinSimpleType | MappingType
+    ::= IdentiferReference | BuiltinSimpleType | MappingType
 
 Wildcard
     ::= "_"
 
+FunctionBody
+    ::= ByDefinition ConstraintSentence
+
 ConstantDef
-    ::= ( ":=" | "≔" ) ( PredicateValue | ConstraintSentence )
+    ::= ByDefinition ( PredicateValue | ConstraintSentence )
 #+END_SRC
 
 *** Sequence Builders
@@ -471,19 +500,19 @@ ConstantDef
 #+BEGIN_SRC ebnf
 SequenceBuilder
     ::= "{"
-        ( VariableNameSet | MappingVariable )
+        ( NamedVariableSet | MappingVariable )
         "|"
-        VariableBinding+ ConstraintSentence
+        SequenceBuilderBody
         "}"
 
-VariableNameSet
+NamedVariableSet
     ::= Identifier+
 
 MappingVariable
     ::= "(" Identifier HasType Identifier ")"
 
-VariableBinding
-    ::= ( Universal | Existential ) QuantifierBinding ","
+SequenceBuilderBody
+    ::= QuantifiedSentence | "(" QuantifiedSentence ")"
 #+END_SRC
 
 
