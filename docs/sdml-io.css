@@ -34,6 +34,10 @@
     }
 }
 
+body {
+    counter-reset: formula;
+}
+
 /* Navigation */
 
 div#table-of-contents li {
@@ -108,7 +112,13 @@ div.NOTE > p::before {
 /* MathJax */
 
 mjx-container[jax="CHTML"] {
-    font-size: 1.1em !important;
+    font-size: 1.0em !important;
+}
+
+mjx-container[jax="CHTML"]:has(mjx-assistive-mml[display="block"])::after {
+    counter-increment: formula;
+    content: "(" counter(formula) ")";
+    float: right;
 }
 
 /* TOC */

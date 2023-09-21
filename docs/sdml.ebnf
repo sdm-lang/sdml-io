@@ -120,10 +120,16 @@ TypeClassParameters
     ::= "(" TypeVariable+ ")"
 
 TypeVariable
-    ::= FunctionCardinality? Identifier TypeVariableSubtype?
+    ::= FunctionCardinality? Identifier TypeVariableRestriction?
 
-TypeVariableSubtype
-    ::= HasType ( Wildcard | IdentiferReference TypeClassParameters? )
+TypeVariableRestriction
+    ::= HasType TypeClassReference ( "+" TypeClassReference )*
+
+TypeClassReference
+    ::= IdentiferReference TypeClassArguments?
+
+TypeClassArguments
+    ::= "(" ( Wildcard | TypeClassReference+ ) ")"
 
 Wildcard
     ::= "_"
@@ -155,7 +161,7 @@ TypeExpressionTo
     ::= HasType Cardinality? "features"? TypeReference
 
 HasType
-    ::= "->" | "→" | "↦"
+    ::= "->" | "→"
 
 TypeReference
     ::=  UnknownType | IdentifierReference | BuiltinSimpleType | MappingType
@@ -471,7 +477,10 @@ FunctionCardinality
         "}"
 
 FunctionTypeRef
-    ::= IdentiferReference | BuiltinSimpleType | MappingType
+    ::= Optional? ( IdentiferReference | BuiltinSimpleType | MappingType )
+
+Optional
+    ::= "?"
 
 FunctionBody
     ::= ByDefinition ConstraintSentence

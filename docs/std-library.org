@@ -361,33 +361,110 @@ module xsd base <http://www.w3.org/2001/XMLSchema#> is end
 Note that all of the predicates, relations, and functions in this section exist within the ~sdml~ module scope but
 qualification is optional unless the application is ambiguous in a particular context.
 
-*** ~Type~ and ~Typed~
+The standard library provides methods to constraints in the form of type classes (see section [[sec:type-classes]])
+described in the following sections.
 
-*Class: Type*
+*** ~Named~ and ~Typed~
 
-#+NAME: lst:std-sdml-types-type
+#+NAME: lst:std-sdml-names
+#+BEGIN_SRC sdml :noeval
+module sdml_names is
+
+  import skos
+
+  class Named(T) is
+
+    @skos:definition
+      = "Implemented by model elements that have a distinct name within some namespace."@en
+
+    def name(v -> T) -> Identifier := member(qualified_name(t)) is
+      @skos:definition
+        = "Return the name of the defined model element."@en
+    end
+
+    def qualified_name(v -> T) → QualifiedIdentifier is
+      @skos:description
+        = "The qualified identifier that names this type. In all cases the module portion
+           of the name will be ~sdml~."@en
+      @skos:example
+        = "~type_of(rentals:Customer) = sdml:Entity~"
+    end
+
+    def iri(v -> T) -> iri is
+      @skos:definition = "Return the IRI of the defined model element."@en
+    end
+
+  end
+
+  class Namespace(T E -> Named) is
+
+    def members(v -> T) -> {unique 0..} E is
+      @skos:definition
+        = "Return a set containing the members of this namespace."@en
+    end
+
+    def get_member(v -> T name -> Identifier) -> ?E is
+      @skos:definition
+        = "Return the member of this namespace with the name ~name~."@en
+    end
+
+    def has_member(v -> T id -> Identifier) -> boolean := has(get_member(v id)) is
+      @skos:definition
+        = "Return ~true~ if this namespace contains a member with the name ~name~."@en
+    end
+
+  end
+
+  class Member(T -> Named N -> Namespace(_ T) M -> Module) is
+
+    def container(v -> T) -> N is
+      @skos:definition
+        = "Return the container to which this member belongs."@en
+    end
+
+    def module(v -> T) -> M is
+      @skos:definition
+        = "Return the module to which this member (transitively) belongs."@en
+    end
+
+  end
+
+end
+#+END_SRC
+
+#+NAME: lst:std-sdml-types
 #+BEGIN_SRC sdml :noeval
 module sdml_types is
 
   import skos
 
-  class Type is
-    def is_unknown(v → Type) → boolean ≔ v = Unknown
-  end
+  class Typed(T) is
 
-  class Typed(T -> _) is
-    def has_type(v -> T) → Type is
+    @skos:definition = "Implemented by model elements that have a type."@en
+
+    def target_cardinality(v -> T) -> ?Cardinality
+
+    def target_type(v -> T) → Type is
       @skos:definition = "Returns the SDML type of the passed value."@en
       @skos:example = "~type_of(rentals:Customer) = sdml:Entity~"
     end
+
   end
 
-  class Named is
-    def name -> Identifier := self.qualified_name.member
-    def qualified_name → QualifiedIdentifier is
-      @skos:description = "The qualified identifier that names this type. In all cases the module portion of the name will be ~sdml~."@en
-      @skos:example = "~type_of(rentals:Customer) = sdml:Entity~"
-    end
+  class Cardinality(T) is
+
+    def min_occurs(v -> T) -> unsigned
+
+    def max_occurs(v -> T) -> ?unsigned
+
+    def is_one(v -> T) -> boolean
+      := is(max_occurs(v) min_occurs(v))
+
+    def is_range(v -> T) -> boolean
+      := has_not(max_occurs(v)) or is_not(max_occurs(v) min_occurs(v))
+
+    def is_unbounded(v -> T) -> boolean
+      := has_not(max_occurs(v))
   end
 
 end
@@ -395,40 +472,57 @@ end
 
 *** Equality and Inequality
 
-#+NAME: lst:std-sdml-types-eq
+#+NAME: lst:std-sdml-tests
 #+BEGIN_SRC sdml :noeval
-module sdml_types is
+module sdml_tests is
 
   import skos
 
   class Eq(T1 T2 -> T1) is
 
+    @skos:definition
+      = "This class provides support for equality tests between values."@en
+    
     def eq(lhs -> T1 rhs -> T2) → boolean is
-      @skos:definition = "Returns ~true~ if the two values are equal, else ~false~."@en
+      @skos:definition
+        = "Returns ~true~ if the two values are equal, else ~false~."@en
     end
 
     def ne(lhs → T1 rhs → T2) → boolean ≔ ¬eq(lhs rhs) is
-      @skos:definition = "Returns ~true~ if the two values are not equal, else ~false~."@en
+      @skos:definition
+        = "Returns ~true~ if the two values are not equal, else ~false~."@en
     end
 
   end
 
   class Ord(T1 -> Eq(T1 T2) T2 -> T1) is
 
+    @skos:definition
+      = "This class provides support for inequality tests between values of types
+         that have a natural order."@en
+
     def gt(lhs -> T1 rhs -> T2) → boolean is
-      @skos:definition = "Returns ~true~ if the first value is greater than the second, else ~false~."@en
+      @skos:definition
+        = "Returns ~true~ if the first value is greater than the
+           second, else ~false~."@en
     end
 
     def gte(lhs → T1 rhs → T2) → boolean ≔ gt(lhs rhs) ∨ eq(lhs rhs) is
-      @skos:definition = "Returns ~true~ if the first value is greater than or equal to the second, else ~false~."@en
+      @skos:definition
+        = "Returns ~true~ if the first value is greater than or equal to the
+           second, else ~false~."@en
     end
 
     def lt(lhs → T1 rhs → T2) → boolean ≔ ¬gte(lhs rhs) is
-      @skos:definition = "Returns ~true~ if the first value is less than the second, else ~false~."@en
+      @skos:definition
+        = "Returns ~true~ if the first value is less than the second,
+           else ~false~."@en
     end
 
     def lte(lhs → T1 rhs → T2) → boolean ≔ ¬gt(lhs rhs) is
-      @skos:definition = "Returns ~true~ if the first value is less than or equal to the second, else ~false~."@en
+      @skos:definition
+        = "Returns ~true~ if the first value is less than or equal to the
+           second, else ~false~."@en
     end
 
   end
@@ -438,115 +532,105 @@ end
 
 *** Identifiers
 
-*Class: Identifier*
-
 #+NAME: lst:std-sdml-identifiers
 #+BEGIN_SRC sdml :noeval
 module sdml_identifiers is
 
   import skos
 
-  class Identifier is
-    def join(lhs -> Identifier rhs -> Identifer) → QualifiedIdentifier is
-      @skos:definition = "Return a new qualified identifier with the first parameter as the module name and the second as the member name."@en
+  class Identifier(T) is
+
+    def join(lhs -> T rhs -> T) → QualifiedIdentifier is
+      @skos:definition
+        = "Return a new qualified identifier with the first parameter as the
+           module name and the second as the member name."@en
     end
+
   end
 
-  class QualifiedIdentifier(T -> _) is
-    def member(v -> QualifiedIdentifier) → Identifier is
-      @skos:definition = "Return the member name part of the identifier."@en
+  class QualifiedIdentifier(T) is
+
+    def member(v -> T) → Identifier is
+      @skos:definition
+        = "Return the member name part of the identifier."@en
     end
-    def module(v -> QualifiedIdentifier) → Identifier is
-      @skos:definition = "Return the module name part of the identifier."@en
-    end    
+
+    def module(v -> T) → Identifier is
+      @skos:definition
+        = "Return the module name part of the identifier."@en
+    end
+
   end
 
-  class IdentifierReference is
-    def name -> Identifier := self.qualified_name.member
-    def qualified_name → QualifiedIdentifier is
-      @skos:description = "The qualified identifier that names this type. In all cases the module portion of the name will be ~sdml~."@en
-      @skos:example = "~type_of(rentals:Customer) = sdml:Entity~"
+  class IdentifierReference(T) is
+    def as_identifier(v -> T) → ?Identifier is
+      @skos:definition
+        = "Returns the current identifier reference as the identifier type variant."@en
     end
+
+    def as_qualified_identifier(v -> T) → ?QualifiedIdentifier is
+      @skos:definition
+        = "Returns the current identifier reference as the reference type variant."@en
+    end
+
+    def is_identifier(v -> T) → boolean
+      := ¬is_empty(as_identifer(v)) is
+      @skos:definition
+        = "Returns ~true~ if , else ~false~."@en
+    end
+
+    def is_qualified_identifier(v -> T) → boolean
+      := ¬is_empty(as_qualified_identifer(v)) is
+      @skos:definition
+        = "Returns ~true~ if , else ~false~."@en
+    end
+
   end
 
 end
 #+END_SRC
 
-
-*Union: IdentifierReference*
-
-#+BEGIN_EXAMPLE
-def IdentifierReference(self → _) → boolean
-    ≔ type_of(self) = sdml:IdentiferReference
-#+END_EXAMPLE
-
-Returns ~true~ if the passed value is of type ~IdentifierReference~, else ~false~.
-
-#+BEGIN_EXAMPLE
-def as_identifier(IdentifierReference) → {0..1} Identifier
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-def as_qualified_identifier(IdentifierReference) → {0..1} QualifiedIdentifier
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-def is_identifier(IdentifierReference) → boolean
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-def is_qualified_identifier(IdentifierReference) → boolean
-#+END_EXAMPLE
-
 *** Module Definition
 
-*Class: Module*
+#+NAME: lst:std-sdml-modules
+#+BEGIN_SRC sdml :noeval
+module sdml_modules is
 
-#+BEGIN_EXAMPLE
-def Module(self → _) → boolean
-    ≔ type_of(self) = sdml:Module
-#+END_EXAMPLE
+  import skos
 
-Returns ~true~ if the passed value is of type ~Module~, else ~false~.
+  class Module(T -> Named + Namespace(Definition) + Annotated) is
 
-#+BEGIN_EXAMPLE
-def annotations(Module) → {0..} Annotation
-#+END_EXAMPLE
+    @skos:definition = "The interface for a ~module~ definition."@en
 
-Returns an unordered sequence of annotations attached to this model element.
+    def base(v -> T) -> ?iri is
+      @skos:definition = "Returns the value of the module's ~base~ property, if present."@en
+    end
 
-#+BEGIN_EXAMPLE
-def base_uri(Module) → {0..1} iri
-#+END_EXAMPLE
+    def absolute_iri(v -> T) -> iri is
+      @skos:definition = "Returns the calculated, absolute, IRI for this module."@en
+    end
 
-#+BEGIN_EXAMPLE
-def definitions(Module) → {unique 0..} Definition
-#+END_EXAMPLE
+    def imports(v -> T) -> {0..} IdentifierReference is
+      @skos:definition = "Return a sequence of all imported modules and members."@en
+    end
 
-Returns an unordered, unique, sequence of variants contained within the union.
+    def member_imports(v -> T) -> {0..} QualifiedIdentifier
+      ≔ id({i | i ∈ imports(v) is_qualified_identifier(i)})
 
-#+BEGIN_EXAMPLE
-def imports(Module) → {unique 0..} ImportStatement
-#+END_EXAMPLE
+    def module_imports(v -> T) -> {0..} Identifier
+      ≔ id({i | i ∈ imports(i) is_identifier(i)})
 
-Returns an unordered, unique, sequence of import statements.
+    def is_complete(v -> T) → boolean
+      ≔ ∀ d ∈ members(v) is_complete(d) is
+      @skos:definition
+        = "Returns ~true~ if the module definition is /complete/, else ~false~."@en
+    end
 
-#+BEGIN_EXAMPLE
-def is_complete(self → Module) → boolean
-    ≔ ∀ d ∈ definitions(self) ( is_complete(d) )
-#+END_EXAMPLE
+  end
 
-Returns ~true~ if the module definition is /complete/, else ~false~.
+end
+#+END_SRC
 
-#+BEGIN_EXAMPLE
-def name(Module) → Identifier
-#+END_EXAMPLE
-
-Returns the identifier naming this model element.
-
-#+BEGIN_EXAMPLE
-def resolved_uri(Module) → iri
-#+END_EXAMPLE
 
 *Union: Definition*
 
@@ -603,86 +687,6 @@ def is_structure(Definition) → boolean
 
 #+BEGIN_EXAMPLE
 def is_property(Definition) → boolean
-#+END_EXAMPLE
-
-*** Imports
-
-*Class: ImportStatement*
-
-#+BEGIN_EXAMPLE
-def ImportStatement(self → _) → boolean
-    ≔ type_of(self) = sdml:ImportStatement
-#+END_EXAMPLE
-
-Returns ~true~ if the passed value is of type ~ImportStatement~, else ~false~.
-
-#+BEGIN_EXAMPLE
-def imports(ImportStatement) → {0..} Import
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-def member_imports(i → ImportStatement)
-    ≔ {i | i ∈ imports(i) ∧ MemberImport(i)}
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-def module_imports(i → ImportStatement)
-    ≔ {i | i ∈ imports(i) ∧ ModuleImport(i)}
-#+END_EXAMPLE
-
-*Class: Import*
-
-#+BEGIN_EXAMPLE
-def Import(self → _) → boolean
-    ≔ type_of(self) = sdml:Import
-#+END_EXAMPLE
-
-Returns ~true~ if the passed value is of type ~Import~, else ~false~.
-
-#+BEGIN_EXAMPLE
-def is_module_import(Import) → boolean
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-def is_member_import(Import) → boolean
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-def as_module_import(Import) → Maybe of ModuleImport
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-def as_member_import(Import) → Maybe of MemberImport
-#+END_EXAMPLE
-
-*Class: ModuleImport*
-
-#+BEGIN_EXAMPLE
-def ModuleImport(self → _) → boolean
-    ≔ type_of(self) = sdml:ModuleImport
-#+END_EXAMPLE
-
-Returns ~true~ if the passed value is of type ~ModuleImport~, else ~false~.
-
-#+BEGIN_EXAMPLE
-def module(ModuleImport) → Identifier
-#+END_EXAMPLE
-
-*Class: MemberImport*
-
-#+BEGIN_EXAMPLE
-def MemberImport(self → _) → boolean
-    ≔ type_of(self) = sdml:MemberImport
-#+END_EXAMPLE
-
-Returns ~true~ if the passed value is of type ~MemberImport~, else ~false~.
-
-#+BEGIN_EXAMPLE
-def module(MemberImport) → Identifier
-#+END_EXAMPLE
-
-#+BEGIN_EXAMPLE
-def member(MemberImport) → Identifier
 #+END_EXAMPLE
 
 *** Datatypes and Values
@@ -1068,6 +1072,19 @@ end
 #+END_SRC
 
 *** Annotations
+
+#+NAME: lst:std-sdml-annotations
+#+BEGIN_SRC sdml :noeval
+module sdml_annotations is
+
+  import skos
+
+  class Annotated(T) is
+
+  end
+
+end
+#+END_SRC
 
 *Class Annotation*
 

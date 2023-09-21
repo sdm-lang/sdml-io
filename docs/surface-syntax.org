@@ -164,9 +164,9 @@ ModuleBase
 
 [[./ebnf-diagram/ModuleBase.svg]]
 
-The keyword *~base~* provides the base IRI for the module and corresponding RDF schema or OWL ontology. This corresponds to
-the use of the ~xml:base~ attribute in RDF/XML and the ~@base~ directive in Turtle and SPARQL[fn:sparql]. This IRI is used
-as a prefix for defined type names so that each type has a unique IRI. The example in listing
+The keyword *~base~* provides the base IRI for the module and corresponding RDF schema or OWL ontology. This corresponds
+to the use of the ~xml:base~ attribute in RDF/XML and the ~@base~ directive in Turtle and SPARQL[fn:sparql]. This IRI is
+used as a prefix for defined type names so that each type has a unique IRI. The example in listing
 [[lst:sdml-ex-empty-module-base]] demonstrates the assigned IRI identifier for the structure type named ~Thing~.
 
 #+NAME: lst:sdml-ex-empty-module-base
@@ -187,7 +187,8 @@ model element within the resource. This URI identifier for each model element ne
 corresponding RDF resource(s). Our first problem is to determine the base URI for the module,as follows:
 
 1. If the module has a base specifier it MUST be used as the module URI.
-2. If the reader has access to an SDML catalog file (For details of the catalog file format see appendix [[sec:resolver-catalog]]), a matching catalog entry MUST be used as the module URI.
+2. If the reader has access to an SDML catalog file (For details of the catalog file format see appendix
+   [[sec:resolver-catalog]]), a matching catalog entry MUST be used as the module URI.
 3. A URI is calculated for the module using the =file:= scheme and the file path relative to a /project root/.
 
 Considering the following simple module in the file =vehicle.sdm=.
@@ -202,9 +203,9 @@ If the following file is in the same directory as the vehicle module it is possi
 {
   "base": "https://example.org/rentals/",
   "entries": {
-    "rentals": {
+    "vehicle": {
       "item": {
-        "relative_name": "vehicle#",
+        "relative_uri": "vehicle#",
         "relative_path": "vehicle-v1.sdm"
       }
     }
@@ -359,7 +360,7 @@ strict digraph {
    Entity -> Product;
    Event -> Product;
    Structure -> Product;
-   Unknown [label="Unknown\n(⊥)"];
+   Unknown [label="Unknown"];
    Unknown -> Type;
         
    None [color="grey"; fontcolor="grey"; label="None\n(⊥)"];
@@ -413,8 +414,6 @@ Value
 The inclusion of an identifier reference as a value allows for annotations whose value is another model element. It is
 invalid to use the identifier of an individual that is not itself a value.
 
-*** Simple Values
-
 The core data types supported by SDML are ~boolean~, ~integer~, ~decimal~, ~double~, ~string~, (Language-Tagged String), and ~iri~
 for IRI References. Values corresponding to these types are termed /simple values/.
 
@@ -428,33 +427,81 @@ SimpleValue
 
 [[./ebnf-diagram/SimpleValue.svg]]
 
-*Booleans*
+These data types have corresponding keywords in SDML, and may have specific rules applied when parsing. Each keyword is
+translated into a qualified identifier where the module name is the reserved name =sdml=. This set of standard library
+types have an underlying RDF/OWL equivalence relationship to a subset of the XML Schema datatypes, all shown in table
+[[tbl:builtin-simple-types]].
 
-A /boolean/ value in SDML is either the keyword ~true~ or ~false~.
+#+NAME: lst:builtin-simple-types
+#+BEGIN_SRC ebnf
+BuiltinSimpleType
+    ::= "boolean"
+        | "unsigned" | "integer" | "decimal" | "double"
+        | "string" | "iri" | "binary"
+#+END_SRC
+
+[[./ebnf-diagram/BuiltinSimpleType.svg]]
+
+#+NAME: tbl:builtin-simple-types
+#+CAPTION: Built-in Simple Type Mapping
+| Type Keyword | Qualified Identifier | Equivalent XML Schema Datatype |
+|--------------+----------------------+--------------------------------|
+| ~boolean~      | ~sdml:boolean~         | ~xsd:boolean~                    |
+| ~unsigned~     | ~sdml:unsigned~        | ~xsd:unsignedLong~               |
+| ~integer~      | ~sdml:integer~         | ~xsd:long~                       |
+| ~decimal~      | ~sdml:decimal~         | ~xsd:decimal~                    |
+| ~double~       | ~sdml:double~          | ~xsd:double~                     |
+| ~iri~          | ~sdml:iri~             | ~xsd:anyURI~                     |
+| ~string~       | ~sdml:string~          | ~xsd:string~ or ~rdf:langString~   |
+| ~binary~       | ~sdml:binary~          | ~xsd:hexBinary~                  |
+
+Some additional types are defined in the ~sdml~ module, although they are not considered built-in types as they must be
+referenced explicitly.
+
+#+NAME: tbl:additional-simple-types
+#+CAPTION: Additional Simple Types in SDML
+| Qualified Identifier | Equivalent XML Schema Datatype |
+|----------------------+--------------------------------|
+| ~sdml:u8~              | ~xsd:unsignedByte~               |
+| ~sdml:i8~              | ~xsd:byte~                       |
+| ~sdml:u16~             | ~xsd:unsignedShort~              |
+| ~sdml:i16~             | ~xsd:short~                      |
+| ~sdml:u32~             | ~xsd:unsignedInt~                |
+| ~sdml:i32~             | ~xsd:int~                        |
+| ~sdml:u64~             | ~xsd:unsignedLong~               |
+| ~sdml:i64~             | ~xsd:long~                       |
+
+*** Booleans
+
+A /boolean/ value in SDML is either a truth value, or a falsity value. Other types are not coerced into boolean values as
+they may be in other languages.
 
 #+NAME: lst:grammar-boolean
 #+BEGIN_SRC ebnf
 Boolean
-    ::= Tautology | Contradiction
+    ::= Truth | Falsity
 #+END_SRC
 
 [[./ebnf-diagram/Boolean.svg]]
 
-#+BEGIN_SRC ebnf
-Tautology
+We denote a truth value with either the keyword ~true~ or the Down Tack ("⊤", =U+22A4=) character.
+
+Truth
     ::= ( "true" | "⊤" )
 #+END_SRC
 
-[[./ebnf-diagram/Tautology.svg]]
+[[./ebnf-diagram/Truth.svg]]
+
+We denote a falsity value with either the keyword ~false~ or the Up Tack ("⊤", =U+22A5=) character.
 
 #+BEGIN_SRC ebnf
-Contradiction
+Falsity
     ::= ( "false" | "⊥" )
 #+END_SRC
 
-[[./ebnf-diagram/Contradiction.svg]]
+[[./ebnf-diagram/Falsity.svg]]
 
-*Unsigned Integers*
+*** Unsigned Integers
 
 An /unsigned/ value in SDML is a string of ASCII decimal digits, without leading zeros; zero, =0=, is a valid value however
 =00= and =01= are not. The unsigned type corresponds to a 64-bit unsigned integer number (values $[0, 2^{64}-1]$).
@@ -475,10 +522,11 @@ NonZero
 
 [[./ebnf-diagram/NonZero.svg]]
 
-*Signed Integers*
+*** Signed Integers
 
-A /signed integer/ value in SDML is a string of ASCII decimal digits, without leading zeros; zero, =0=, is a valid value however
-=00= and =01= are not. The integer type corresponds to a 64-bit signed integer number (values $[−2^{63}, 2^{63} − 1]$).
+A /signed integer/ value in SDML consists of an optional a sign character (Hyphen Minus, "-", =U+002D= or Plus Sign, "+",
+=U+002B=) followed by a string of ASCII decimal digits, without leading zeros; zero, =0=, is a valid value however =00= and =01=
+are not. The integer type corresponds to a 64-bit signed integer number (values $[−2^{63}, 2^{63} − 1]$).
 
 #+NAME: lst:grammar-integer
 #+BEGIN_SRC ebnf
@@ -492,10 +540,11 @@ NumericSign
 
 [[./ebnf-diagram/NumericSign.svg]]
 
-*Decimal Numbers*
+*** Decimal Numbers
 
-A /decimal/ (fixed point) value in SDML is an integer-like value, followed by the Full Stop (".", =U+002E=) character and another
-integer-like value. The decimal type corresponds to a 128-bit representation of a fixed-precision decimal number.
+A /decimal/ (fixed point) value in SDML is an integer value, followed by the Full Stop (".", =U+002E=) character and another
+integer-like value although this second value allows any number of leading zeros. The decimal type corresponds to a
+128-bit representation of a fixed-precision decimal number.
 
 #+NAME: lst:grammar-decimal
 #+BEGIN_SRC ebnf
@@ -503,7 +552,7 @@ Decimal
     ::= Integer "." ASCII_DIGIT+
 #+END_SRC
 
-*Floating-Point Numbers*
+*** Floating-Point Numbers
 
 A /double/ value in SDML is a decimal-like value followed by a lower or upper case letter E (Latin Small Letter E, "e",
 =U+0065= or Latin Capital Letter E, "E", =U+0045=), a sign character (Hyphen Minus, "-", =U+002D= or Plus Sign, "+", =U+002B=)
@@ -522,12 +571,10 @@ ExponentChar
 
 [[./ebnf-diagram/ExponentChar.svg]]
 
-*Character Strings*
+*** Character Strings
 
 A /string/ value in SDML is a sequence of Unicode characters starting and ending with a Quotation Mark ('"', =U+0022=)
-character. While standard escape sequences allow for embedding non-printing characters. The form =\u{XXXX}=, where =X= is a
-single hex digit, allows for the inclusion of any Unicode characters by their code point. Note that this form requires a
-minimum of 2 and a maximum of 6 such digits. In addition,the following single-character escape characters are supported.
+character. While standard escape sequences allow for embedding non-printing characters. 
 
 #+NAME: lst:grammar-string
 #+BEGIN_SRC ebnf
@@ -545,12 +592,16 @@ NotAllowed
 
 [[./ebnf-diagram/NotAllowed.svg]]
 
+Standard single-character escape forms are supported, described in table [[tbl:string-escape-characters]]. The form
+=\u{XXXX}=, where =X= is a single hex digit, allows for the inclusion of any Unicode characters by their code point. Note
+that this form requires a minimum of 2 and a maximum of 6 such digits.
+
 #+NAME: lst:grammar-string-escape
 #+BEGIN_SRC ebnf
 Escape              ::= "\\" ( CharacterEscape | UnicodeEscape )
 CharacterEscape     ::= [\"\\/abefnrtv]
 UnicodeEscape       ::= "u{" HexPair ( HexPair ( HexPair )? )? "}"
-HexPair             ::= HexDigit HexDigit
+HexPair             ::= ASCII_HEX_DIGIT ASCII_HEX_DIGIT
 #+END_SRC
 
 [[./ebnf-diagram/Escape.svg]]
@@ -598,8 +649,8 @@ LanguageTag
 
 The primary language is one of:
 
-- a two letter language code from ISO 639-1,
-- a three letter code from ISO 639-2.
+- a two letter language code from ISO 639-1[fn:iso-639-1],
+- a three letter code from ISO 639-2[fn:iso-639-2].
 
 #+BEGIN_SRC ebnf
 LanguageTagPrimary
@@ -618,7 +669,7 @@ LanguageTagExtended
 
 [[./ebnf-diagram/LanguageTagExtended.svg]]
 
-The language script is an ISO 15924 four letter code in title case.
+The language script is an ISO 15924[fn:iso-15924] four letter code in title case.
 
 #+BEGIN_SRC ebnf
 LanguageTagScript
@@ -629,7 +680,7 @@ LanguageTagScript
 
 [[./ebnf-diagram/LanguageTagScript.svg]]
 
-The language region is either a two letter ISO 3166-1 code or a three digit UN M.49 code.
+The language region is either a two letter ISO 3166-1[fn:iso-3166-1] code or a three digit UN M49[fn:un-m49] code.
 
 #+BEGIN_SRC ebnf
 LanguageTagRegion
@@ -640,7 +691,7 @@ LanguageTagRegion
 
 [[./ebnf-diagram/LanguageTagRegion.svg]]
 
-*IRI References*
+*** IRI References
 
 An /IRI reference/ value in SDML is a value IRI value, either absolute or relative, between a Less-Than Sign ("<", =U+003C=)
 character and a Greater-Than Sign (">", =U+003E=) character. IRI references are more permissive in the SDML grammar than
@@ -656,14 +707,12 @@ Iri
 
 [[./ebnf-diagram/Iri.svg]]
 
-See section [[sec:mapping-values]] for a more detailed description of values, literals, and data types.
-
-*Binary Strings*
+*** Binary Strings
 
 A /binary/ value in SDML is a compact list of bytes that allows for the encoding of values that may not be possible with
 the other built-in types. The representation of a binary string is a sequence of bytes in hex pairs; the opening bracket
-of the sequence has a leading ~#~ character to differentiate from other sequence values. Note that whitespace is entirely
-optional, but recommended to layout the hex values.
+of the sequence has a leading Number Sign ("#", =U+0023=) character to differentiate from other sequence values. Note that
+whitespace is entirely optional, but recommended to layout the hex values.
 
 #+NAME: lst:grammar-binary
 #+BEGIN_SRC ebnf
@@ -890,51 +939,6 @@ From OWL 2 Web Ontology Language Quick Reference Guide[fn:owlqr]:
 | =xsd:pattern=                                                            | =xsd:string= literal as a regular expression | Strings, IRIs              | Restricts the value space to literals that match the regular expression                    |
 | =rdf:langRange=                                                          | =xsd:string= literal as a regular expression | =rdf:PlainLiteral=           | Restricts the value space to literals with language tags that match the regular expression |
 
-*** The Built-in Simple Types
-
-In the preceding sections we introduced the set of built-in simple types: string, double, decimal, integer, boolean, and
-iri. These are keywords in SDML and have specific rules applied when parsing. Each keyword is translated into a
-qualified identifier where the module name is the reserved name =sdml=. This set of standard library types have an
-underlying RDF/OWL equivalence relationship to a subset of the XML Schema datatypes, all shown in table
-[[tbl:builtin-simple-types]].
-
-#+NAME: lst:builtin-simple-types
-#+BEGIN_SRC ebnf
-BuiltinSimpleType
-    ::= "string" | "double" | "decimal" | "integer" | "boolean" | "iri"
-#+END_SRC
-
-[[./ebnf-diagram/BuiltinSimpleType.svg]]
-
-#+NAME: tbl:builtin-simple-types
-#+CAPTION: Built-in Simple Type Mapping
-| Type Keyword | Qualified Identifier | Equivalent XML Schema Datatype |
-|--------------+----------------------+--------------------------------|
-| ~boolean~      | ~sdml:boolean~         | ~xsd:boolean~                    |
-| ~unsigned~     | ~sdml:unsigned~        | ~xsd:unsignedLong~               |
-| ~integer~      | ~sdml:integer~         | ~xsd:long~                       |
-| ~decimal~      | ~sdml:decimal~         | ~xsd:decimal~                    |
-| ~double~       | ~sdml:double~          | ~xsd:double~                     |
-| ~iri~          | ~sdml:iri~             | ~xsd:anyURI~                     |
-| ~string~       | ~sdml:string~          | ~xsd:string~ or ~rdf:langString~   |
-| ~binary~       | ~sdml:binary~          | ~xsd:hexBinary~                  |
-
-Additionally, some types are defined in the ~sdml~ module, although they are not considered built-in types as they must be
-referenced explicitly.
-
-#+NAME: tbl:additional-simple-types
-#+CAPTION: Additional Simple Types in SDML
-| Qualified Identifier | Equivalent XML Schema Datatype |
-|----------------------+--------------------------------|
-| ~sdml:u8~              | ~xsd:unsignedByte~               |
-| ~sdml:i8~              | ~xsd:byte~                       |
-| ~sdml:u16~             | ~xsd:unsignedShort~              |
-| ~sdml:i16~             | ~xsd:short~                      |
-| ~sdml:u32~             | ~xsd:unsignedInt~                |
-| ~sdml:i32~             | ~xsd:int~                        |
-| ~sdml:u64~             | ~xsd:unsignedLong~               |
-| ~sdml:i64~             | ~xsd:long~                       |
-
 ** <<sec:sequence-types>>Sequence Types
 
 When a structure member has a cardinality other than ~1..1~ it has to be represented by a /sequence type/. SDML bases it's
@@ -1104,7 +1108,11 @@ therein.
 module rental is
 
   assert name_form is
-    forall d in definitions(self) ( suffix(name(d) "Rental") )
+    forall d in definitions(self), d.name.has_prefix("Rental")
+  end
+
+  assert name_form_alternate is
+    ∀ d ∈ definitions(self) has_prefix(name(d) "Rental")
   end
 
 end
@@ -1880,3 +1888,8 @@ end
 [fn:sparql] [[https://www.w3.org/TR/sparql11-overview/][SPARQL 1.1 Overview]], W3C
 [fn:owlqr] [[https://www.w3.org/2007/OWL/wiki/Quick_Reference_Guide][OWL 2 Web Ontology Language Quick Reference Guide
 (Second Edition)]], W3C
+[fn:iso-639-1] [[https://www.iso.org/standard/22109.html][Codes for the representation of names of languages — Part 1: Alpha-2 code]] (ISO 639-1:2002), ISO
+[fn:iso-639-2] [[https://www.iso.org/standard/4767.html][Codes for the representation of names of languages — Part 2: Alpha-3 code]] (ISO 639-2:1998), ISO
+[fn:iso-15924] [[https://www.iso.org/standard/81905.html][Information and documentation — Codes for the representation of names of scripts]] (ISO 15924:2022), ISO
+[fn:iso-3166-1] [[https://www.iso.org/standard/72482.html][Codes for the representation of names of countries and their subdivisions — Part 1: Country code]] (ISO 3166-1:2020), ISO
+[fn:un-m49] [[https://unstats.un.org/unsd/methodology/m49/][Standard Country or Area Codes for Statistical Use]] (M49), UN

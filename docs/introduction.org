@@ -142,6 +142,9 @@ with specific extensions such as stereotypes for different key types.
 
 *** Modeling Themes
 
+The reasons for embarking on a domain modeling exercise vary from informational to transformational. However, there are
+a number of 
+
 (*TODO*: Complete this section)
 
 Commonality

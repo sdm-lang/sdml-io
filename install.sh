@@ -58,9 +58,7 @@ install_package brew plantuml PlantUML
 
 install_package brew dot graphviz GraphViz
 
-install_package brew git Git
-
-install_package_manager cargo "--proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs" Cargo -v
+install_package rustup rustup-init "Rust Toolchain"
 
 install_package cargo sdml sdml-cli SDML
 
@@ -77,6 +75,8 @@ if ! command -v emacs &>/dev/null; then
                 fi
             fi
             pushd ${HOME}/.emacs.d/ 2>&1 >>${LOG}
+
+            install_package brew git Git
 
             git clone https://github.com/sdm-lang/tree-sitter-sdml.git 2>&1 >>${LOG} || exit 3
             pushd tree-sitter-sdml 2>&1 >>${LOG}

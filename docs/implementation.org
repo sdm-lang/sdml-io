@@ -24,7 +24,7 @@ digraph G {
     node [fontname="Helvetica,Arial,sans-serif"; fontsize=10];
 
     subgraph cluster_0 {
-        label = "Core Library";
+        label = "Tree-Sitter Parser";
         grammar [label="Grammar\nDefinition"];
         parser [label="Parser\nDylib"];
         rust [label="Rust\nBindings"];
@@ -41,7 +41,7 @@ digraph G {
     treesit -> grammar;
 
     subgraph cluster_1 {
-        label = "Emacs Support";
+        label = "Emacs Mode";
         emode [label="Editing Mode"];
         spell [label="Spell Checker"];
         flycheck [label="Flycheck"];
@@ -66,7 +66,7 @@ digraph G {
     ets_fold -> emode;
 
     subgraph cluster_2 {
-        label = "Command-Line Tool";
+        label = "Rust Command-Line Tool";
         api [label="API"];
         fmt [label="Formatter"];
         linter [label="Linter"];
@@ -84,58 +84,46 @@ digraph G {
 #+RESULTS: fig:implementation-overview
 [[file:implementation-overview.svg]]
 
-** Parser (tree-sitter) Library
+** Installation
 
-- Source at [[https://github.com/sdm-lang/tree-sitter-sdml][Github]]
+While the following sections will provide more details on the components of figure [[fig:implementation-overview]] this
+section will cover the install script provided on this site. Because the script was developed on, and for, Mac systems,
+it may work on Linux, but at this time has no Windows counterpart.
 
-Build.
-
-#+BEGIN_EXAMPLE
-git clone https://github.com/sdm-lang/tree-sitter-sdml
-#+END_EXAMPLE
+The following is all that's necessary to fetch and execute the installer.
 
 #+BEGIN_EXAMPLE
-make setup
+$ curl https://sdml.io/install.sh | bash
 #+END_EXAMPLE
+
+Alternatively, you can download the script, saving it to a local file, which may be executed later.
 
 #+BEGIN_EXAMPLE
-make build
+$ curl https://sdml.io/install.sh > install-sdml.sh
 #+END_EXAMPLE
 
-*Bindings:*
+The script performs the following:
 
-- Node binding, published to [[https://www.npmjs.com/package/tree-sitter-sdml][npm.js]]
-- Rust binding, published to [[https://crates.io/crates/tree-sitter-sdml][crates.io]]
-
-** Rust Libraries
-
-
-Crates:
-  
-- [[https://crates.io/crates/sdml-core][sdml-core]] :: The in-memory model of the SDML language.
-- [[https://crates.io/crates/sdml-parse][sdml-parse]] :: The parser that relies on the tree-sitter parser above to
-  create the in-memory model defined in ~sdml-core~.
-- [[https://crates.io/crates/sdml-generate][sdml-generate]] :: The set of generators and transformers using the
-  ~sdml-core~ in-memory model as the source.
-- [[https://crates.io/crates/sdml-cli][sdml-cli]] :: The command-line tool that parses existing models and executes
-  generators.
-
-The source is in the Github repository [[https://github.com/sdm-lang/rust-sdml][rust-sdml]].
-
-** Transformations
-
-TBD
+1. Install the [[https://brew.sh/][Homebrew]] package manager, if not present.
+2. Using brew:
+   1. Install [[https://plantuml.com/][PlantUML]], for use in producing UML diagrams.
+   2. Install [[https://graphviz.org/][GraphViz]], for use in producing other diagrams.
+   3. Install [[https://rust-lang.github.io/rustup/][Rustup]], for the cargo command.
+3. Using cargo, install sdml-cli, for the sdml command.
+4. Prompt the user to install Emacs if not present, and if requested:
+   1. Install Emacs (emacs-plus@28) using brew.
+   2. Create the Emacs init directory.
+   3. Install Git using brew.
+   4. Clone the =tree-sitter-sdml= repository into the Emacs init directory.
+   5. Install GNU Make using brew.
+   6. Make the tree-sitter library and install for Emacs.
+   7. Clone the =emacs-sdml-mode= repository into the Emacs init directory.
 
 ** Command-Line Tool
 
-Install is simple using the =cargo= command. If you do not have cargo installed you can follow the standard /rustup/
-directions[fn:cargo] or use the Homebrew[fn:brew] or equivalent package manager.
-
-#+BEGIN_EXAMPLE
-cargo install sdml
-#+END_EXAMPLE
-
-Once installed the option =--help= or the command =help= will guide you through the commands available.
+The SDML command-line tool is used to validate module source files as well as generate different representations and
+diagrams from the source. Once installed the option =--help= or the command =help= will guide you through the commands
+available.
 
 #+BEGIN_EXAMPLE
 $ sdml --help
@@ -144,10 +132,10 @@ Rust CLI for Simple Domain Modeling Language (SDML)
 Usage: sdml [OPTIONS] <COMMAND>
 
 Commands:
-  highlight  Highlight file
-  tags       Extract tags from file
-  convert    Convert model files into other formats
-  draw       Draw diagrams from models
+  highlight  Highlight an SDML source file
+  tags       Extract tags from an SDML Module
+  convert    Convert SDML modules into other formats
+  draw       Draw diagrams from SDML modules
   help       Print this message or the help of the given subcommand(s)
 
 Options:
@@ -179,17 +167,25 @@ a component of the search path.
 rentals
 #+END_EXAMPLE
 
+If you wish to install the command-line tool on it's own, without using the install script above, it is simple using the
+=cargo= command. If you do not have cargo installed you can follow the standard /Rustup/ directions[fn:cargo] or use the
+Homebrew[fn:brew] or equivalent package manager.
+
+#+BEGIN_EXAMPLE
+$ cargo install sdml-cli
+#+END_EXAMPLE
+
 *** Highlighting
 
 #+BEGIN_EXAMPLE
 $ sdlml highlight --help
 Highlight an SDML source file
 
-Usage: sdml highlight [OPTIONS] <MODULE>
+Usage: sdml highlight [OPTIONS] [MODULE]
 
 Arguments:
-  <MODULE>
-          SDML module to convert
+  [MODULE]
+          SDML module, loaded using the standard resolver
 
 Options:
   -f, --output-format <OUTPUT_FORMAT>
@@ -212,7 +208,10 @@ Options:
           Less output per occurrence
 
   -b, --base-path <BASE_PATH>
-          The path to use as the IRI base for modules
+          A path to pre-pend to the resolver search path
+
+  -i, --input-file <INPUT_FILE>
+          SDML File name, load without resolver
 
   -h, --help
           Print help (see a summary with '-h')
@@ -224,7 +223,7 @@ Options:
 For the console this uses ANSI escape sequences to format the text. 
 
 #+BEGIN_EXAMPLE
-sdml highlight --output-format ansi rentals
+$ sdml highlight --output-format ansi rentals
 #+END_EXAMPLE
 
 To generate formatted and highlighted HTML the tool accepts two different format specifiers, =html= for simply a block
@@ -232,8 +231,8 @@ of HTML that can be inserted into another document, or =html-standalone= to gene
 highlighted code block.
 
 #+BEGIN_EXAMPLE
-sdml highlight --output-format html rentals
-sdml highlight --output-format html-standalone rentals
+$ sdml highlight --output-format html rentals
+$ sdml highlight --output-format html-standalone rentals
 #+END_EXAMPLE
 
 *** Draw Diagrams
@@ -242,18 +241,18 @@ To draw a high-level Concepts diagram, use the diagram specifier =concepts=. To 
 Graphviz[fn:gviz].
 
 #+BEGIN_EXAMPLE
-sdml draw --diagram concepts \
-          --output-format svg --output-file rentals.svg \
-          --base-path . rentals
+$ sdml draw --diagram concepts \
+            --output-format svg --output-file rentals.svg \
+            --base-path . rentals
 #+END_EXAMPLE
 
 For more detail an Entity-Relationship diagram can be generated with the diagram specifier =entity-relationship=. To
 generate an image file you need to install Graphviz[fn:gviz].
 
 #+BEGIN_EXAMPLE
-sdml draw --diagram entity-relationship \
-          --output-format svg --output-file rentals.svg \
-          --base-path . rentals
+$ sdml draw --diagram entity-relationship \
+            --output-format svg --output-file rentals.svg \
+            --base-path . rentals
 #+END_EXAMPLE
 
 For the mose detail a UML Class diagram can be generated with the diagram specifier =uml-class=. The generated diagram
@@ -261,9 +260,9 @@ applies the profile outlined in appendix [[app:uml-profile]]. To generate an ima
 PlantUML[fn:puml].
 
 #+BEGIN_EXAMPLE
-sdml draw --diagram uml-class \
-          --output-format svg --output-file rentals.svg \
-          --base-path . rentals
+$ sdml draw --diagram uml-class \
+            --output-format svg --output-file rentals.svg \
+            --base-path . rentals
 #+END_EXAMPLE
 
 *** Module Resolution
@@ -317,7 +316,7 @@ end
 
 Emacs has been the primary /playground/ for SDML and as such has some tools already built for editing and documentation.
 The package [[https://github.com/sdm-lang/emacs-sdml-mode][sdml-mode]] (currently not in any package repository) is associated with any file ending in =.sdm= or =.sdml= with
-highlighting and indentation support. Follow the installation instructions on the package site.
+highlighting and indentation support. Follow the installation instructions on the package's own site.
 
 Emacs standard customization allows for managing all package variables and can be accessed via:
 
@@ -436,7 +435,46 @@ as well.
 #+END_SRC
 #+END_EXAMPLE
 
-** Neovim
+** Rust Libraries and Command-Line
+
+
+Crates:
+  
+- [[https://crates.io/crates/sdml-core][sdml-core]] :: The in-memory model of the SDML language.
+- [[https://crates.io/crates/sdml-parse][sdml-parse]] :: The parser that relies on the tree-sitter parser above to
+  create the in-memory model defined in ~sdml-core~.
+- [[https://crates.io/crates/sdml-generate][sdml-generate]] :: The set of generators and transformers using the
+  ~sdml-core~ in-memory model as the source.
+- [[https://crates.io/crates/sdml-cli][sdml-cli]] :: The command-line tool that parses existing models and executes
+  generators.
+
+The source is in the Github repository [[https://github.com/sdm-lang/rust-sdml][rust-sdml]].
+
+** Tree-Sitter Parser Library
+
+- Source at [[https://github.com/sdm-lang/tree-sitter-sdml][Github]]
+
+Build.
+
+#+BEGIN_EXAMPLE
+git clone https://github.com/sdm-lang/tree-sitter-sdml
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+make setup
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+make build
+#+END_EXAMPLE
+
+*Bindings:*
+
+- Node binding, published to [[https://www.npmjs.com/package/tree-sitter-sdml][npm.js]]
+- Rust binding, published to [[https://crates.io/crates/tree-sitter-sdml][crates.io]]
+
+** Other Tools
+*** Neovim
 
 [[https://neovim.io/][Neovim]] has some great tree-sitter support with the [[https://github.com/nvim-treesitter/nvim-treesitter][nvim-tree-sitter]] and a nice in-editor [[https://github.com/nvim-treesitter/playground][playground]]. Firstly, add the
 tree-sitter plugin, but don't install yet, as shown on the nvim-treesitter page (using [[https://github.com/junegunn/vim-plug][vim-plug]]):
@@ -550,7 +588,7 @@ require'nvim-treesitter.configs'.setup {
 }
 #+END_SRC
 
-** VSCode
+*** VSCode
 
 Try here:
 
@@ -568,21 +606,21 @@ URL information to allow for constructing module URLs.
 #+NAME: lst:catalog-grammar
 #+CAPTION: SDML Catalog Grammar
 #+BEGIN_SRC ebnf
-Catalog      = BaseUrl, ( Name, CatalogEntry )*
+Catalog      ::= BaseUrl CatalogEntry*
 
-BaseUrl      = Url
+BaseUrl      ::= Url
 
-CatalogEntry = Group | Item
+CatalogEntry ::= Name ( Group | Item )
 
-Group        = BaseUrl?, RelativePath? ( Name, Item )*
- 
-Item         = RelativeUrl, RelativePath
+Group        ::= RelativeIri? RelativePath? GroupEntry*
 
-Name         = String
+GroupEntry   ::= Name Item
 
-RelativeUrl  = String
+Item         ::= RelativeIri RelativePath
 
-RelativePath = String
+RelativeIri  ::= String
+
+RelativePath ::= String
 #+END_SRC
 
 *** Locating the Catalog

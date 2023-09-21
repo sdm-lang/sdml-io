@@ -64,24 +64,44 @@ An /equation/ sentence asserts the equality of two terms.
 #+BEGIN_EXAMPLE
 rhs = rhs
 #+END_EXAMPLE
+
+An /inequation/ sentence asserts an inequality relation between two terms.
+
+#+BEGIN_EXAMPLE
+lhs /= rhs
+lhs ≠ rhs
+lhs < rhs
+lhs <= rhs
+lhs ≤ rhs
+lhs > rhs
+lhs >= rhs
+lhs ≥ rhs
+#+END_EXAMPLE
   
 ** Boolean Sentences
 
-The /conjunction/ of two sentences takes the form of the application of the logical /and/ operation.
+The /negation/ of a sentence takes the form of a preceding logical /not/ operator.
+
+#+BEGIN_EXAMPLE
+not rhs
+¬rhs
+#+END_EXAMPLE
+
+The /conjunction/ of two sentences takes the form of the application of the logical /and/ operator.
 
 #+BEGIN_EXAMPLE
 lhs and rhs
 lhs  ∧  rhs
 #+END_EXAMPLE
 
-The /disjunction/ of two sentences takes the form of the application of the logical /or/ operation.
+The /disjunction/ of two sentences takes the form of the application of the logical /or/ operator.
 
 #+BEGIN_EXAMPLE
 lhs or rhs
 lhs ∧  rhs
 #+END_EXAMPLE
 
-The /exclusive disjunction/ of two sentences takes the form of the application of the logical /xor/ operation.
+The /exclusive disjunction/ of two sentences takes the form of the application of the logical /xor/ operator.
 
 #+BEGIN_EXAMPLE
 lhs xor rhs
@@ -115,35 +135,20 @@ $$L \iff R \equiv (L \implies R) \land (R \implies L)$$
     
 ** Quantified Sentences
 
-The /universal quantification/ over a type says that "for all values $v$ of type $T$ the sentence $s$ must hold true".
-
-#+BEGIN_EXAMPLE
-forall v -> Type (s)
-     ∀ v -> Type (s)
-#+END_EXAMPLE
-
 The /universal quantification/ over a sequence says that "for all elements $e$ in the sequence $S$ the sentence $s$ must hold
 true".
 
 #+BEGIN_EXAMPLE
-forall e in Sequence (s)
-     ∀ e ∈  Sequence (s)
-#+END_EXAMPLE
-
-The /existential quantification/ over a type says that "there exists a value $v$ of type $T$ where the sentence $s$ holds
-true".
-
-#+BEGIN_EXAMPLE
-exists v -> Type (s)
-     ∃ v -> Type (s)
+forall e in Sequence s
+     ∀ e ∈  Sequence s
 #+END_EXAMPLE
 
 The /existential quantification/ over a sequence says that "there exists an element $e$ in the sequence $S$ where the sentence
 $s$ holds true".
 
 #+BEGIN_EXAMPLE
-exists e in Sequence (s)
-     ∃ e ∈  Sequence (s)
+exists e in Sequence s
+     ∃ e ∈  Sequence s
 #+END_EXAMPLE
     
 ** Sequence Builders
@@ -198,10 +203,10 @@ values to provide sequences which only contain one or other of the types in the 
 
 #+BEGIN_EXAMPLE
 def annotation_properties(anns -> {} Annotation) -> {} AnnotationProperty
-    ≔ {a | a ∈ anns ∧ AnnotationProperty(a)}
+    ≔ {a | a ∈ anns is_annotation_property(a)}
 
 def constraints(anns - > {}  Annotation) -> {} Constraint
-    ≔ {a | a ∈ anns ∧ Constraint(a)}
+    ≔ {a | a ∈ anns is_constraint(a)}
 #+END_EXAMPLE
 
 ** Quantified Sentences as Sequence Builders
@@ -212,14 +217,14 @@ sentence provided holds true. If you need to ensure a specific cardinality, for 
 type or sequence are selected, use a sequence comprehension.
 
 #+BEGIN_EXAMPLE
-count({ e | e in Sequence ∧ s}) = 3
+count({ e | e in Sequence s}) = 3
 #+END_EXAMPLE
 
 By this definition we can show that the following are equivalent.
 
 #+BEGIN_EXAMPLE
-exists e in Sequence (s)
-not is_empty({ e | e in Sequence ∧ s})
+exists e in Sequence s
+not is_empty({ e | e in Sequence s})
 #+END_EXAMPLE
 
 More formally, the following equivalence holds true.
@@ -229,8 +234,8 @@ $$∃ e \in \mathbb{S} \bigl(P\left(e\right)\bigr) ≡ ¬\bigl\{e \mid e \in \ma
 We can also show that the following are equivalent for universal quantification.
 
 #+BEGIN_EXAMPLE
-forall e in Sequence (s)
-is_empty({ e | e in Sequence ∧ not s}
+forall e in Sequence s
+is_empty({ e | e in Sequence not s}
 #+END_EXAMPLE
 
 $$∀ e \in \mathbb{S} \bigl(P\left(e\right)\bigr) ≡ \bigl\{e \mid e \in \mathbb{S} ∧ ¬P(e)\bigr\}=∅$$
