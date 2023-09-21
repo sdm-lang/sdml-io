@@ -32,6 +32,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Copy installer to Pages
+        uses: canastro/copy-file-action@master
+        with:
+          source: "./install.sh"
+          target: "./docs/install.sh"
+
       - name: Copy license to Pages
         uses: canastro/copy-file-action@master
         with:
