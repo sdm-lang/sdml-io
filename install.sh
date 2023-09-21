@@ -55,7 +55,12 @@ install_package brew plantuml PlantUML
 
 install_package brew dot graphviz GraphViz
 
-install_package brew rustup rustup-init "Rust Toolchain"
+if ! command -v cargo 2>&1 >/dev/null; then
+    if [[ ! -x ${HOME}/.cargo/bin/cargo ]]; then
+        install_package brew cargo rustup-init "Rust Toolchain"
+    fi
+    export PATH=$PATH:$HOME/.cargo/bin
+fi
 
 install_package cargo sdml sdml-cli SDML
 
