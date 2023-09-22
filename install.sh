@@ -36,8 +36,9 @@ if ! command -v brew 2>&1 >/dev/null; then
     exit 1
 fi
 
-install_package brew plantuml PlantUML
+echo "Checking for required packages..."
 
+install_package brew plantuml PlantUML
 install_package brew dot graphviz GraphViz
 
 if ! command -v cargo 2>&1 >/dev/null; then
@@ -72,28 +73,30 @@ EOF
     while true; do
         read -p "Do you wish to install Emacs (${yesword}/${noword})? " yn
         if [[ "$yn" =~ ${yesexpr} ]]; then
+            echo ""
+            
             brew tap d12frosted/emacs-plus
             install_package brew emacs "emacs-plus@28" Emacs
 
             EMACS_HOME=$(emacsclient --eval user-emacs-directory |cut -d '"' -f 2) || exit 3
             EMACS_HOME=${EMACS_HOME/#\~/${HOME}}
-            echo "${SUCCESS} Emacs user directory is ${EMACS_HOME}"
-
             if [[ ! -d ${EMACS_HOME} ]]; then
-                if ! mkdir ${EMACS_HOME}; then
+                if ! mkdir -p ${EMACS_HOME}; then
                     exit 3
                 fi
             fi
+            echo "${SUCCESS} Emacs user directory is ${EMACS_HOME}"
+
             pushd ${EMACS_HOME} 2>&1 >/dev/null
 
             install_package brew git Git
 
-            if [[ ! -d ./tree-sitter-sdml ]]; then
+            if [[ ! -d ${EMACS_HOME}/tree-sitter-sdml ]]; then
                 git clone https://github.com/sdm-lang/tree-sitter-sdml.git || exit 3
                 echo "${SUCCESS} Cloned tree-sitter library in ${EMACS_HOME}/tree-sitter-sdml"
             fi
 
-            if [[ ! -d ./sdml-mode ]]; then
+            if [[ ! -d ${EMACS_HOME}/sdml-mode ]]; then
                 git clone https://github.com/sdm-lang/emacs-sdml-mode.git sdml-mode || exit 3
                 echo "${SUCCESS} Cloned sdml-mode in ${EMACS_HOME}/sdml-mode"
             fi
@@ -101,6 +104,7 @@ EOF
             echo "${SUCCESS} Checkout the documentation for instructions on Emacs configuration."
 
             popd 2>&1 >/dev/null
+
             break
         elif [[ "$yn" =~ ${noexpr} ]]; then
             break
