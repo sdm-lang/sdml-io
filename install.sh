@@ -36,6 +36,26 @@ if ! command -v brew 2>&1 >/dev/null; then
     exit 1
 fi
 
+echo "\033[1m"
+cat <<EOF
+
+        ___          _____          ___ 
+       /  /\        /  /::\        /__/\ 
+      /  /:/_      /  /:/\:\      |  |::\ 
+     /  /:/ /\    /  /:/  \:\     |  |:|:\    ___     ___ 
+    /  /:/ /::\  /__/:/ \__\:|  __|__|:|\:\  /__/\   /  /\ 
+   /__/:/ /:/\:\ \  \:\ /  /:/ /__/::::| \:\ \  \:\ /  /:/ 
+   \  \:\/:/~/:/  \  \:\  /:/  \  \:\~~\__\/  \  \:\  /:/ 
+    \  \::/ /:/    \  \:\/:/    \  \:\         \  \:\/:/ 
+     \__\/ /:/      \  \::/      \  \:\         \  \::/ 
+       /__/:/        \__\/        \  \:\         \__\/ 
+       \__\/                       \__\/ 
+                      Domain                      Language
+        Simple                      Modeling
+
+EOF
+echo "\033[0m"
+
 echo "Checking for required packages..."
 
 install_package brew plantuml PlantUML
@@ -70,11 +90,12 @@ and org-mode support for writing documentation. The SDML language documentation
 itself was written entirely in org-mode.
 
 EOF
+
     while true; do
         read -p "Do you wish to install Emacs (${yesword}/${noword})? " yn
         if [[ "$yn" =~ ${yesexpr} ]]; then
             echo ""
-            
+
             brew tap d12frosted/emacs-plus
             install_package brew emacs "emacs-plus@28" Emacs
 
@@ -88,6 +109,7 @@ EOF
             echo "${SUCCESS} Emacs user directory is ${EMACS_HOME}"
 
             pushd ${EMACS_HOME} 2>&1 >/dev/null
+
 
             install_package brew git Git
 
