@@ -69,12 +69,15 @@ and org-mode support for writing documentation. The SDML language documentation
 itself was written entirely in org-mode.
 
 EOF
-    EMACS_HOME=${HOME}/.emacs.d
     while true; do
         read -p "Do you wish to install Emacs (${yesword}/${noword})? " yn
         if [[ "$yn" =~ ${yesexpr} ]]; then
             brew tap d12frosted/emacs-plus
             install_package brew emacs "emacs-plus@28" Emacs
+
+            EMACS_HOME=$(emacsclient --eval user-emacs-directory |cut -d '"' -f 2) || exit 3
+            EMACS_HOME=${EMACS_HOME/#\~/${HOME}}
+            echo "${SUCCESS} Emacs user directory is ${EMACS_HOME}"
 
             if [[ ! -d ${EMACS_HOME} ]]; then
                 if ! mkdir ${EMACS_HOME}; then
