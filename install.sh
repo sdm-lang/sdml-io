@@ -5,29 +5,6 @@ if [[ ! "$OSTYPE" == "darwin"* ]]; then
     exit 1
 fi
 
-set -- $(locale LC_MESSAGES)
-yesexpr="$1"; noexpr="$2"; yesword="$3"; noword="$4"
-
-function install_package_manager {
-    local command=$1
-    local curl_command=$2
-    local display_name=$3
-    local script_args=$4
-
-    if ! command -v ${command} 2>&1 >/dev/null; then
-        echo "Installing ${display_name}..."
-        script=$(mktemp)
-        if ! curl ${curl_command} > ${script}; then
-            exit 2
-        fi
-        if ! sh ${script} ${script_args}; then
-            exit 2
-        fi
-        rm ${script}
-    fi
-    echo "${display_name} package manager installed"
-}
-
 function install_package {
     local installer=$1
     local command=$2
@@ -49,7 +26,11 @@ function install_package {
     echo "${display_name} command-line installed"
 }
 
-install_package_manager brew "-fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh" Homebrew
+if ! command -v brew 2>&1 >/dev/null; then
+    echo "This installer requires the Homebrew package manager to be installed."
+    echo "Go to https://brew.sh/"
+    exit 1
+fi
 
 install_package brew plantuml PlantUML
 
@@ -65,6 +46,8 @@ fi
 install_package cargo sdml sdml-cli SDML
 
 if ! command -v emacs &>/dev/null; then
+    set -- $(locale LC_MESSAGES)
+    yesexpr="$1"; noexpr="$2"; yesword="$3"; noword="$4"
     while true; do
         read -p "Emacs is the primary SDML editor, do you wish to install (${yesword}/${noword})? " yn
         if [[ "$yn" =~ ${yesexpr} ]]; then
@@ -88,7 +71,7 @@ if ! command -v emacs &>/dev/null; then
                     exit 3
                 fi
             fi
-            gmake emacs  || exit 3
+            make emacs  || exit 3
             popd 2>&1 >/dev/null
 
             git clone https://github.com/sdm-lang/emacs-sdml-mode.git sdml-mode || exit 3
