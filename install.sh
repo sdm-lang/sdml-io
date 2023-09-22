@@ -1,7 +1,11 @@
 #!/usr/bin/env sh
 
+SUCCESS="\033[32;1m✓\033[0m"
+WARNING="\033[33;1m!\033[0m"
+ERROR="\033[31;1m✗\033[0m"
+
 if [[ ! "$OSTYPE" == "darwin"* ]]; then
-    echo "Unsupported operating system (today)"
+    echo "${ERROR} Unsupported operating system (today)"
     exit 1
 fi
 
@@ -19,15 +23,15 @@ function install_package {
     if ! command -v ${command} 2>&1 >/dev/null; then
         echo "Installing ${display_name}..."
         if ! ${installer} install ${package}; then
-            echo "${installer} failed to install package ${package} for ${display_name}"
+            echo "${ERROR} ${installer} failed to install package ${package} for ${display_name}"
             exit 3
         fi
     fi
-    echo "${display_name} command-line installed"
+    echo "${SUCCESS} ${display_name} command-line installed"
 }
 
 if ! command -v brew 2>&1 >/dev/null; then
-    echo "This installer requires the Homebrew package manager to be installed."
+    echo "${WARNING} This installer requires the Homebrew package manager to be installed."
     echo "Go to https://brew.sh/"
     exit 1
 fi
@@ -45,41 +49,60 @@ fi
 
 install_package cargo sdml sdml-cli SDML
 
-if ! command -v emacs &>/dev/null; then
+if ! command -v femacs &>/dev/null; then
     set -- $(locale LC_MESSAGES)
     yesexpr="$1"; noexpr="$2"; yesword="$3"; noword="$4"
+    cat <<EOF
+
+While any text editor may be used with SDML we recommend a programmer's editor
+such as TextMate, SublimeText, or vi (vim); or an IDE such as Visual Studio Code
+or IDEA/CLion/RustRover.
+
+- https://macromates.com/
+- https://www.sublimetext.com/
+- https://www.vim.org/
+- https://code.visualstudio.com/
+- https://www.jetbrains.com/
+
+Emacs has been the primary SDML editor and has support for syntax highlighting
+and org-mode support for writing documentation. The SDML language documentation
+itself was written entirely in org-mode.
+
+EOF
+    EMACS_HOME=${HOME}/.emacs.d
     while true; do
-        read -p "Emacs is the primary SDML editor, do you wish to install (${yesword}/${noword})? " yn
+        read -p "Do you wish to install Emacs (${yesword}/${noword})? " yn
         if [[ "$yn" =~ ${yesexpr} ]]; then
             brew tap d12frosted/emacs-plus
             install_package brew emacs "emacs-plus@28" Emacs
 
-            if [[ ! -d ${HOME}/.emacs.d/ ]]; then
-                if ! mkdir ${HOME}/.emacs.d; then
+            if [[ ! -d ${EMACS_HOME} ]]; then
+                if ! mkdir ${EMACS_HOME}; then
                     exit 3
                 fi
             fi
-            pushd ${HOME}/.emacs.d/ 2>&1 >/dev/null
+            pushd ${EMACS_HOME} 2>&1 >/dev/null
 
             install_package brew git Git
 
-            git clone https://github.com/sdm-lang/tree-sitter-sdml.git || exit 3
-            pushd tree-sitter-sdml 2>&1 >/dev/null
-            install_package brew gmake make "GNU Make"
-            if [[ ! -d ${HOME}/.tree-sitter/bin/ ]]; then
-                if ! mkdir ${HOME}/.tree-sitter/bin; then
-                    exit 3
-                fi
+            if [[ ! -d ./tree-sitter-sdml ]]; then
+                git clone https://github.com/sdm-lang/tree-sitter-sdml.git || exit 3
+                echo "${SUCCESS} Cloned tree-sitter library in ${EMACS_HOME}/tree-sitter-sdml"
             fi
-            make emacs  || exit 3
-            popd 2>&1 >/dev/null
 
-            git clone https://github.com/sdm-lang/emacs-sdml-mode.git sdml-mode || exit 3
+            if [[ ! -d ./sdml-mode ]]; then
+                git clone https://github.com/sdm-lang/emacs-sdml-mode.git sdml-mode || exit 3
+                echo "${SUCCESS} Cloned sdml-mode in ${EMACS_HOME}/sdml-mode"
+            fi
+
+            echo "${SUCCESS} Checkout the documentation for instructions on Emacs configuration."
+
             popd 2>&1 >/dev/null
+            break
         elif [[ "$yn" =~ ${noexpr} ]]; then
             break
         else
-            echo "Answer ${yesword} or ${noword}."
+            echo "${WARNING} Answer ${yesword} or ${noword}."
         fi
     done
 fi
