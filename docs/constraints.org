@@ -13,7 +13,6 @@ languages.
 SDML allows constraints to be added to any model element where annotations are also allowed. Constraints are named,
 and MAY be either /informally/, or /formally/ specified.
 
-#+NAME: lst:grammar-constraint
 #+BEGIN_SRC ebnf
 Constraint
     ::= "assert" Identifier ( InformalConstraint | FormalConstraint )
@@ -22,11 +21,11 @@ Constraint
 [[./ebnf-diagram/Constraint.svg]]
 
 Informal constraints may be simple free-form strings, these are a common place to start even if you intend to make a
-formal version later. An example informal constraint is shown in listing [[lst:ex-informal-constraint]]. However, they may
+formal version later. An example informal constraint is shown in listing [[lst:sdml-ex-informal-constraint]]. However, they may
 also be written using controlled natural languages for an additional level of specificity.
 
-#+NAME: lst:ex-informal-constraint
-#+CAPTION: Example Informal Constraint
+#+NAME: lst:sdml-ex-informal-constraint
+#+CAPTION: Example: Informal Constraint
 #+BEGIN_SRC sdml :noeval :exports code
 module example is
 
@@ -42,7 +41,6 @@ Informal constraints, much like regular string values, have an optional language
 strings this specifier has a more limited range as it's purpose is to identify a /controlled natural language/ used for
 specification.
 
-#+NAME: lst:grammar-informal-constraint
 #+BEGIN_SRC ebnf
 InformalConstraint
     ::= "=" QuotedString ControlledLanguageTag?
@@ -67,7 +65,8 @@ ControlledLanguageScheme
 
 [[./ebnf-diagram/ControlledLanguageScheme.svg]]
 
-#+CAPTION: Informal Constraint with Natural Language
+#+NAME: lst:sdml-ex-natural-language-constraint
+#+CAPTION: Example: Informal Constraint with Natural Language
 #+BEGIN_SRC sdml :noeval :exports code
 module example is
 
@@ -80,7 +79,8 @@ end
 For example, Common Logic Controlled English[fn:clce] (or Attempto Controlled English[fn:ace]) are well-known controlled
 forms of English with formal structure and defined transformations into logical forms.  
 
-#+CAPTION: Informal Constraint with Controlled Language
+#+NAME: lst:sdml-ex-controlled-language-constraint
+#+CAPTION: Example: Informal Constraint with Controlled Language
 #+BEGIN_SRC sdml :noeval :exports code
 module example is
 
@@ -107,7 +107,6 @@ Logic[fn:isocl]. ISO Common Logic is most easily understood as an abstract langu
 logical expressions based in first-order predicate logic between systems using standardized representations (Common
 Logic Interchange Format (CLIF), Conceptual Graph Interchange Format (CGIF), and XML notation for Common Logic (XCL)).
 
-#+NAME: lst:grammar-formal-constraint
 #+BEGIN_SRC ebnf
 FormalConstraint
     ::= "is"
@@ -120,7 +119,7 @@ FormalConstraint
 Listing [[lst:ex-tagged-constraint-1]] is another informal constraint.
 
 #+NAME: lst:ex-tagged-constraint-1
-#+CAPTION: Example Formal Constraint (1 of 3)
+#+CAPTION: Example: Formal Constraint (1 of 3)
 #+BEGIN_SRC sdml :noeval :exports code
 module tagged is
   datatype Tag <- string
@@ -145,7 +144,7 @@ For each element in the sequence of tags an existential statement ensures there 
 structure's tag collection (~self.container.tags~). 
 
 #+NAME: lst:ex-tagged-constraint-2
-#+CAPTION: Example Formal Constraint (2 of 3)
+#+CAPTION: Example: Formal Constraint (2 of 3)
 #+BEGIN_SRC sdml :noeval :exports code
 module tagged is
   structure Thing is
@@ -158,12 +157,29 @@ module tagged is
 end
 #+END_SRC
 
+Alternatively, listing [[lst:ex-tagged-constraint-3]] turns each sequence of tags into a set with the library function
+~into_set~ and can then perform a simple subset check with the library function ~is_subset~.
+
+#+NAME: lst:ex-tagged-constraint-3
+#+CAPTION: Example: Formal Constraint (3 of 3)
+#+BEGIN_SRC sdml :noeval :exports code
+module tagged is
+  structure Thing is
+    tags -> {0..} Tag
+    inner -> Target is
+      assert tag_subset is
+        ∀ self ( is_subset( into_set(self.tags) into_set(self.container.tags)) )
+      end
+    end
+  end
+end
+#+END_SRC
+
 Using the terminology of Common Logic a formal constraint consists of a constraint /sentence/ which is evaluated in the
 context of the model element the constraint is attached to. This contextual element is bound to the identifier ~self~ and
 the type of ~self~ is bound to the identifier ~Self~. Additionally, an optional /environment/ allows for the definition of
 temporary values and functions for use in the constraint sentence.
 
-#+NAME: lst:grammar-constraint-sentence
 #+BEGIN_SRC ebnf
 ConstraintSentence
     ::= SimpleSentence
@@ -176,7 +192,6 @@ ConstraintSentence
 
 *** Simple Sentences
 
-#+NAME: lst:grammar-simple-sentence
 #+BEGIN_SRC ebnf
 SimpleSentence
     ::= Atomic | Equation | Inequation
@@ -230,7 +245,6 @@ InequationRelation
 
 Boolean sentences allow for the logical composition of sentences. 
 
-#+NAME: lst:grammar-boolean-sentence
 #+BEGIN_SRC ebnf
 BooleanSentence
     ::= UnaryBooleanSentence | BinaryBooleanSentence
@@ -239,7 +253,6 @@ BooleanSentence
 [[./ebnf-diagram/BooleanSentence.svg]]
 
 
-#+NAME: lst:grammar-unary-boolean-sentence
 #+BEGIN_SRC ebnf
 UnaryBooleanSentence
     ::= NegationOperator ConstraintSentence
@@ -251,7 +264,6 @@ Negation
 
 [[./ebnf-diagram/NegationOperator.svg]]
 
-#+NAME: lst:grammar-binary-boolean-sentence
 #+BEGIN_SRC ebnf
 BinaryBooleanSentence
     ::= ConstraintSentence LogicalConnective ConstraintSentence
@@ -267,7 +279,6 @@ LogicalConnective
 
 [[./ebnf-diagram/LogicalConnective.svg]]
 
-#+NAME: lst:grammar-boolean-connectives
 #+BEGIN_SRC ebnf
 ConjunctionOperator
     ::= ( "and" | "∧" ) ConstraintSentence
@@ -297,7 +308,6 @@ SDML supports, as shown in listing [[lst:ex-tagged-constraint-2]] sentences that
 or existential ($\exists$) quantifiers. A quantified sentence is therefore a sentence body with a set of variables bound to these
 quantified values.
 
-#+NAME: lst:grammar-quantified-sentence
 #+BEGIN_SRC ebnf
 QuantifiedSentence
     ::= QuantifiedVariableBinding+ ","? ConstraintSentence
@@ -338,7 +348,6 @@ MembershipOperator
 
 *** Terms
 
-#+NAME: lst:grammar-constraint-term
 #+BEGIN_SRC ebnf
 Term
     ::= SequenceBuilder
@@ -351,7 +360,6 @@ Term
 
 [[./ebnf-diagram/Term.svg]]
 
-#+NAME: lst:grammar-functional-term
 #+BEGIN_SRC ebnf
 FunctionalTerm
     ::= Term ActualArguments
@@ -359,7 +367,6 @@ FunctionalTerm
 
 [[./ebnf-diagram/FunctionalTerm.svg]]
 
-#+NAME: lst:grammar-function-composition
 #+BEGIN_SRC ebnf
 FunctionComposition
     ::= ( "self" | Identifier ) ( "." Identifier )+
@@ -380,7 +387,6 @@ transformation rules are:
 
 Similarly the quantifier collection ~self.definitions~ becomes ~definitions(self)~.
 
-#+NAME: lst:grammar-predicate-values
 #+BEGIN_SRC ebnf
 PredicateValue
     ::= SimpleValue | SequenceOfPredicateValues
@@ -397,7 +403,6 @@ of values, sequence constraints may be included.
 
 [[./ebnf-diagram/SequenceOfPredicateValues.svg]]
 
-#+NAME: lst:grammar-self
 #+BEGIN_SRC ebnf
 ReservedSelf
     ::= "self"
@@ -418,7 +423,6 @@ the expression because of this lack of /binding/. The expression $\bigl\{ x \mid
 to the elements of the sequence, or the values of the type, named $X$. SDML does not allow free variables in sequence
 builders and so variable bindings must be present for all specified variables.
 
-#+NAME: lst:grammar-sequence-builder
 #+BEGIN_SRC ebnf
 SequenceBuilder
     ::= "{"
@@ -433,7 +437,6 @@ SequenceBuilder
 The variables returned to the caller are specified before the =|= character and may either be a list of identifiers or a
 single mapping of identifer to identifer.
 
-#+NAME: lst:grammar-sequence-builder-variables
 #+BEGIN_SRC ebnf
 NamedVariableSet
     ::= Identifier+
@@ -453,7 +456,6 @@ On the other hand, a /mapping variable/ returns a sequence of mapping values whi
 
 $$t ≔ \bigl\{ \left(d \rightarrow r\right) \mid \forall d \in D, \exists r \in R, id_{D}(d) = id_{R}(r) \bigr\}$$
 
-#+NAME: lst:grammar-sequence-builder-local-body
 #+BEGIN_SRC ebnf
 SequenceBuilderBody
     ::= QuantifiedSentence | "(" QuantifiedSentence ")"
@@ -467,7 +469,6 @@ A formal constraint may start with an /environment/ that includes one or more /d
 constraint body. A definition introduces a new /function/ or /constant/ -- a constant is effectively a 0-arity function --
 although the function body may be a value or a constraint sentence and not specify side-effects.
 
-#+NAME: lst:grammar-constraint-environment
 #+BEGIN_SRC ebnf
 ConstraintEnvironment
     ::= EnvironmentDef+ "in"
@@ -475,7 +476,6 @@ ConstraintEnvironment
 
 [[./ebnf-diagram/ConstraintEnvironment.svg]]
 
-#+NAME: lst:grammar-environment-definition
 #+BEGIN_SRC ebnf
 EnvironmentDef
     ::= "def" Identifier ( FunctionDef | ConstantDef )
@@ -485,7 +485,6 @@ EnvironmentDef
 
 A defined function has a signature that describes it's domain, or /parameters/, and it's range, or /return type/. 
 
-#+NAME: lst:grammar-environment-function
 #+BEGIN_SRC ebnf
 FunctionDef
     ::= FunctionSignature FunctionBody
@@ -503,7 +502,6 @@ FunctionParameter
 
 Function type specifications may use wildcard symbols to denote their application to undefined types.
 
-#+NAME: lst:grammar-environment-function-type
 #+BEGIN_SRC ebnf
 FunctionType
     ::= HasType FunctionCardinality? FunctionTypeRef
@@ -523,7 +521,6 @@ Optional
 
 [[./ebnf-diagram/FunctionTypeRef.svg]]
 
-#+NAME: lst:grammar-environment-function-body
 #+BEGIN_SRC ebnf
 FunctionBody
     ::= ByDefinition ConstraintSentence
@@ -531,7 +528,6 @@ FunctionBody
 
 [[./ebnf-diagram/FunctionBody.svg]]
 
-#+NAME: lst:grammar-environment-constraint
 #+BEGIN_SRC ebnf
 ConstantDef
     ::= ByDefinition ( PredicateValue | ConstraintSentence )
@@ -539,13 +535,13 @@ ConstantDef
 
 [[./ebnf-diagram/ConstantDef.svg]]
 
-The example in listing [[lst:ex-formal-constraint]] is an expansion of the informal example in listing
-[[lst:ex-informal-constraint]]. Here we check for the presence of the annotation on every top-level definition and then any
+The example in listing [[lst:sdml-ex-formal-constraint]] is an expansion of the informal example in listing
+[[lst:sdml-ex-informal-constraint]]. Here we check for the presence of the annotation on every top-level definition and then any
 members of that definition. Note that this example also demonstrates the ability to create new predicates as in
 ~has_pref_label~ which simplifies the body of the constraint.
 
-#+NAME: lst:ex-formal-constraint
-#+CAPTION: Example Formal Constraint
+#+NAME: lst:sdml-ex-formal-constraint
+#+CAPTION: Example: Formal Constraint
 #+BEGIN_SRC sdml :noeval :exports code
 module labelled is
 
@@ -576,7 +572,6 @@ TBD
 
 TBD
 
-#+NAME: lst:grammar-type-class
 #+BEGIN_SRC ebnf
 TypeClassDef
     ::= "class" Identifier TypeClassParameters TypeClassBody?
@@ -586,7 +581,6 @@ TypeClassDef
 
 *** Type Parameters
 
-#+NAME: lst:grammar-type-class-parameters
 #+BEGIN_SRC ebnf
 TypeClassParameters
     ::= "(" TypeVariable+ ")"
@@ -598,7 +592,6 @@ TypeVariable
 
 [[./ebnf-diagram/TypeVariable.svg]]
 
-#+NAME: lst:grammar-type-class-restriction
 #+BEGIN_SRC ebnf
 TypeVariableRestriction
     ::= HasType TypeClassReference ( "+" TypeClassReference )*
@@ -616,7 +609,6 @@ Wildcard
 
 [[./ebnf-diagram/TypeClassArguments.svg]]
 
-#+NAME: lst:grammar-type-class-body
 #+BEGIN_SRC ebnf
 TypeClassBody
     ::= "is" Annotation* MethodDef+ "end"
@@ -626,7 +618,6 @@ TypeClassBody
 
 *** Methods
 
-#+NAME: lst:grammar-type-class-method
 #+BEGIN_SRC ebnf
 MethodDef
     ::= "def" Identifier FunctionSignature FunctionBody? AnnotationOnlyBody?
@@ -651,26 +642,6 @@ def relation(value1 -> Type1, value2 -> Type2) -> boolean
 def function(Type, ...) -> RType
 def function(value -> Type, ...) -> RType
 #+END_EXAMPLE
-
-
-Alternatively, listing [[lst:ex-tagged-constraint-3]] turns each sequence of tags into a set with the library function
-~into_set~ and can then perform a simple subset check with the library function ~is_subset~.
-
-#+NAME: lst:ex-tagged-constraint-3
-#+CAPTION: Example Formal Constraint (3 of 3)
-#+BEGIN_SRC sdml :noeval :exports code
-module tagged is
-  structure Thing is
-    tags -> {0..} Tag
-    inner -> Target is
-      assert tag_subset is
-        ∀ self ( is_subset( into_set(self.tags) into_set(self.container.tags)) )
-      end
-    end
-  end
-end
-#+END_SRC
-
 
 
 # ----- Footnotes

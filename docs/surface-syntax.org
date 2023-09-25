@@ -22,7 +22,6 @@ For the complete grammar, and notes on BNF notation, see section [[sec:complete-
 This grammar chooses to use the JavaScript regular expression character class =\s= which includes the following values,
 including all Unicode whitespace.
 
-#+NAME: lst:grammar-whitespace
 #+BEGIN_SRC ebnf
 Whitespace
     ::= [^\f\n\r\t\v#x20#xa0#x1680#x2000#x200a#x2028#x2029#x202f#x205f#x3000#xfeff]
@@ -33,7 +32,6 @@ intended to capture only information regarding the file contents and not model c
 *not* required to capture comments, and tools are *not* required to emit comments back into changed files. For persistent
 comments within the model, relevant annotation properties may be attached to the model elements.
 
-#+NAME: lst:grammar-line-comment
 #+BEGIN_SRC ebnf
 LineComment
     ::= ";" [^\r\n]*
@@ -47,11 +45,11 @@ LineComment
 ; <- comments start here and end here ->
 #+END_SRC
 
-In the following example a tool reading the following file is not required to preserve the comment, which in this case
+In the following example ([[lst:sdml-ex-annotation-comment]]) a tool reading the following file is not required to preserve the comment, which in this case
 is OK as the ~editorialNote~ will be preserved and correctly used for the same purpose.
 
-#+NAME: lst:grammar-annotation-comment
-#+CAPTION: Annotation Comments
+#+NAME: lst:sdml-ex-annotation-comment
+#+CAPTION: Example: Annotation Comments
 #+BEGIN_SRC sdml :exports code :noeval
 module foo is
   import [dc skos]
@@ -72,7 +70,6 @@ an identifer *must* start with and *must* begin and end with a letter such that 
 
 The following is the BNF description of the identifier syntax.
 
-#+NAME: lst:grammar-identifier
 #+BEGIN_SRC ebnf
 Identifier
     ::= IdentifierInitial
@@ -114,7 +111,6 @@ Naming Conventions:
 A qualified identifier comprises a module identifier followed by the Colon (":", =U+003A=) character and the identifier of
 a member within that module.
 
-#+NAME: lst:grammar-qualified-identifier
 #+BEGIN_SRC ebnf
 QualifiedIdentifier
     ::= Identifier ":" Identifier
@@ -124,7 +120,6 @@ QualifiedIdentifier
 
 A type reference may be to a locally defined type by an identifier, or an imported type by a qualified identifier.
 
-#+NAME: lst:grammar-identifier-reference
 #+BEGIN_SRC ebnf
 IdentifierReference
     ::= QualifiedIdentifier | Identifier
@@ -138,7 +133,6 @@ A module is the container for a set of type definitions and typically models a /
 (in the web sense of some /thing/ identified by an IRI) may contain only a single module; therefore, the smallest valid
 resource is one with an empty module.
 
-#+NAME: lst:grammar-module
 #+BEGIN_SRC ebnf
 Module
     ::= "module" Identifier ModuleBase? ModuleBody
@@ -150,7 +144,7 @@ An empty module (listing [[lst:sdml-ex-empty-module]]) is any module with an emp
 *~end~*.
 
 #+NAME: lst:sdml-ex-empty-module
-#+CAPTION: Empty Module
+#+CAPTION: Example: Empty Module
 #+BEGIN_SRC sdml :exports code :noeval
 module example is end
 #+END_SRC
@@ -167,10 +161,10 @@ ModuleBase
 The keyword *~base~* provides the base IRI for the module and corresponding RDF schema or OWL ontology. This corresponds
 to the use of the ~xml:base~ attribute in RDF/XML and the ~@base~ directive in Turtle and SPARQL[fn:sparql]. This IRI is
 used as a prefix for defined type names so that each type has a unique IRI. The example in listing
-[[lst:sdml-ex-empty-module-base]] demonstrates the assigned IRI identifier for the structure type named ~Thing~.
+[[lst:sdml-ex-module-base]] demonstrates the assigned IRI identifier for the structure type named ~Thing~.
 
-#+NAME: lst:sdml-ex-empty-module-base
-#+CAPTION: Empty Module with Base
+#+NAME: lst:sdml-ex-module-base
+#+CAPTION: Example: Empty Module with Base
 #+BEGIN_SRC sdml :exports code :noeval
 module example base <https://example.org/rdf/example#> is
 
@@ -227,7 +221,6 @@ ModuleBody
 To import types from other modules you add one or more import statements to the module body. Each statement may
 reference one or more module names or the qualified name of a type within a module.
 
-#+NAME: lst:grammar-import-statement
 #+BEGIN_SRC ebnf
 ImportStatement
     ::= "import" ( Import | "[" Import+ "]" )
@@ -263,7 +256,7 @@ The module in listing [[lst:sdml-ex-import-module]] contains a single import sta
 making it's members /visible/ in the qualified form =xsd:*=.
 
 #+NAME: lst:sdml-ex-import-module
-#+CAPTION: Importing Module
+#+CAPTION: Example: Importing Module
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -276,7 +269,7 @@ The module in listing [[lst:sdml-ex-import-member]] contains a single import sta
 the module =xsd= making it visible.
 
 #+NAME: lst:sdml-ex-import-member
-#+CAPTION: Importing Member
+#+CAPTION: Example: Importing Member
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -291,7 +284,7 @@ with the Left Square Bracket ("[", =U+005B=) character and end with the Right Sq
 no separator character between members of the list.
 
 #+NAME: lst:sdml-ex-import-list
-#+CAPTION: Importing a List
+#+CAPTION: Example: Importing a List
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -399,7 +392,6 @@ this mathematically as follows.
 A data type /individual/, or simply a /value/, is either a simple value, a value constructor, an identifier reference, a
 mapping value, or a list of values.
 
-#+NAME: lst:grammar-value
 #+BEGIN_SRC ebnf
 Value
     ::=  SimpleValue
@@ -417,7 +409,6 @@ invalid to use the identifier of an individual that is not itself a value.
 The core data types supported by SDML are ~boolean~, ~integer~, ~decimal~, ~double~, ~string~, (Language-Tagged String), and ~iri~
 for IRI References. Values corresponding to these types are termed /simple values/.
 
-#+NAME: lst:grammar-simple-value
 #+BEGIN_SRC ebnf
 SimpleValue
     ::= Boolean
@@ -432,7 +423,6 @@ translated into a qualified identifier where the module name is the reserved nam
 types have an underlying RDF/OWL equivalence relationship to a subset of the XML Schema datatypes, all shown in table
 [[tbl:builtin-simple-types]].
 
-#+NAME: lst:builtin-simple-types
 #+BEGIN_SRC ebnf
 BuiltinSimpleType
     ::= "boolean"
@@ -476,7 +466,6 @@ referenced explicitly.
 A /boolean/ value in SDML is either a truth value, or a falsity value. Other types are not coerced into boolean values as
 they may be in other languages.
 
-#+NAME: lst:grammar-boolean
 #+BEGIN_SRC ebnf
 Boolean
     ::= Truth | Falsity
@@ -506,7 +495,6 @@ Falsity
 An /unsigned/ value in SDML is a string of ASCII decimal digits, without leading zeros; zero, =0=, is a valid value however
 =00= and =01= are not. The unsigned type corresponds to a 64-bit unsigned integer number (values $[0, 2^{64}-1]$).
 
-#+NAME: lst:grammar-unsigned
 #+BEGIN_SRC ebnf
 Unsigned
     ::= Zero | NonZero ASCII_DIGIT*
@@ -528,7 +516,6 @@ A /signed integer/ value in SDML consists of an optional a sign character (Hyphe
 =U+002B=) followed by a string of ASCII decimal digits, without leading zeros; zero, =0=, is a valid value however =00= and =01=
 are not. The integer type corresponds to a 64-bit signed integer number (values $[−2^{63}, 2^{63} − 1]$).
 
-#+NAME: lst:grammar-integer
 #+BEGIN_SRC ebnf
 Integer
     ::= NumericSign? Unsigned
@@ -546,7 +533,6 @@ A /decimal/ (fixed point) value in SDML is an integer value, followed by the Ful
 integer-like value although this second value allows any number of leading zeros. The decimal type corresponds to a
 128-bit representation of a fixed-precision decimal number.
 
-#+NAME: lst:grammar-decimal
 #+BEGIN_SRC ebnf
 Decimal
     ::= Integer "." ASCII_DIGIT+
@@ -559,7 +545,6 @@ A /double/ value in SDML is a decimal-like value followed by a lower or upper ca
 and an integer-like value. The double type is a 64-bit floating point number (specifically, the "binary64" type defined
 in IEEE 754-2008).
 
-#+NAME: lst:grammar-double
 #+BEGIN_SRC ebnf
 Double
     ::= Decimal ExponentChar NumericSign? Integer
@@ -576,7 +561,6 @@ ExponentChar
 A /string/ value in SDML is a sequence of Unicode characters starting and ending with a Quotation Mark ('"', =U+0022=)
 character. While standard escape sequences allow for embedding non-printing characters. 
 
-#+NAME: lst:grammar-string
 #+BEGIN_SRC ebnf
 String
     ::= QuotedString LanguageTag?
@@ -596,7 +580,6 @@ Standard single-character escape forms are supported, described in table [[tbl:s
 =\u{XXXX}=, where =X= is a single hex digit, allows for the inclusion of any Unicode characters by their code point. Note
 that this form requires a minimum of 2 and a maximum of 6 such digits.
 
-#+NAME: lst:grammar-string-escape
 #+BEGIN_SRC ebnf
 Escape              ::= "\\" ( CharacterEscape | UnicodeEscape )
 CharacterEscape     ::= [\"\\/abefnrtv]
@@ -635,7 +618,6 @@ A /language-tagged string/ value in SDML is a string as above but immediately fo
 character and an unquoted string of characters that conform to a language identifier. Note that both components of such
 a string contribute to equality tests, so that ="abc"@en= is not equal to ="abc"@fr=.
 
-#+NAME: lst:grammar-language-tag
 #+BEGIN_SRC ebnf
 LanguageTag
     ::= "@"
@@ -697,7 +679,6 @@ An /IRI reference/ value in SDML is a value IRI value, either absolute or relati
 character and a Greater-Than Sign (">", =U+003E=) character. IRI references are more permissive in the SDML grammar than
 the Turtle[fn:iri] language.
 
-#+NAME: lst:grammar-iri-reference
 #+BEGIN_SRC ebnf
 Iri
     ::= "<"
@@ -714,7 +695,6 @@ the other built-in types. The representation of a binary string is a sequence of
 of the sequence has a leading Number Sign ("#", =U+0023=) character to differentiate from other sequence values. Note that
 whitespace is entirely optional, but recommended to layout the hex values.
 
-#+NAME: lst:grammar-binary
 #+BEGIN_SRC ebnf
 Binary
     ::= "#[" HexPair* "]"
@@ -748,7 +728,6 @@ The syntax appears as a function call with a type reference followed by a valid 
 Parenthesis ("(", =U+0028=) and Right Parenthesis (")", =U+0029=) characters. The literal value MUST be valid for the
 referenced type, or one of it's super-types.
 
-#+NAME: lst:grammar-value-constructor
 #+BEGIN_SRC ebnf
 ValueConstructor
     ::= IdentifierReference "(" SimpleValue ")"
@@ -759,7 +738,7 @@ ValueConstructor
 Here we assert that the value =1= is an unsigned rather than the default signed integer.
 
 #+NAME: lst:sdml-ex-type-constructor
-#+CAPTION: Value Constructor Example
+#+CAPTION: Example: Value Constructor
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -777,7 +756,6 @@ complete for all examples.
 
 A mapping value denotes a /functional relationship/ between the /domain/ (left-hand value) and /range/ (right-hand value).  
 
-#+NAME: lst:grammar-mapping-value
 #+BEGIN_SRC ebnf
 MappingValue
     ::= SimpleValue HasType Value
@@ -788,7 +766,7 @@ MappingValue
 Mapping values are most often used within lists to create dictionary-like structures.
 
 #+NAME: lst:sdml-ex-mapping-list
-#+CAPTION: Mapping List Example
+#+CAPTION: Example: Mapping List
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -825,9 +803,8 @@ SequenceValueConstraint
 
 [[./ebnf-diagram/SequenceValueConstraint.svg]]
 
-*Example*
-
-#+CAPTION: Sequence Value Example
+#+NAME: lst:sdml-ex-sequence-value
+#+CAPTION: Example: Sequence Value 
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -838,9 +815,8 @@ module example is
 end
 #+END_SRC
 
-*Example*
-
-#+CAPTION: Sequence Value Example
+#+NAME: lst:sdml-ex-sequence-value-constraint
+#+CAPTION: Example: Sequence Value
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -855,7 +831,6 @@ end
 
 A datatype definition introduces a new simple data type by /restriction/ of some existing base type.
 
-#+NAME: lst:grammar-data-type-def
 #+BEGIN_SRC ebnf
 DataTypeDef
     ::= "datatype" Identifier
@@ -867,7 +842,6 @@ DataTypeDef
 #+BEGIN_SRC ebnf
 TypeRestriction
     ::= "<-" | "←"
-
 DataTypeBase
     ::= IdentifierReference | BuiltinSimpleType
 #+END_SRC
@@ -878,7 +852,7 @@ Listing [[lst:sdml-ex-datatype]] shows the /type restriction/ operator, =<-=, de
 the existing XML Schema data type ~xsd:string~.
 
 #+NAME: lst:sdml-ex-datatype
-#+CAPTION: New Datatype
+#+CAPTION: Example: New Datatype
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -895,7 +869,7 @@ constraints on the new type. For example, in listing [[lst:sdml-ex-restricted-da
 is a string whose length is between 5 and 25 characters only.
 
 #+NAME: lst:sdml-ex-restricted-datatype
-#+CAPTION: New Datatype with Restrictions
+#+CAPTION: Example: New Datatype with Restrictions
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -914,7 +888,7 @@ However, in some cases we may want the underlying type to be inaccessible to cli
 /opaque/. The only operations that can be performed on an opaque type are equality and strict inequality.
 
 #+NAME: lst:sdml-ex-opaque-datatype
-#+CAPTION: New Opaque Datatype
+#+CAPTION: Example: New Opaque Datatype
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -976,7 +950,6 @@ enforce uniqueness and thus is a /multi-map/.
 Annotations allow for the assertion of facts attached to model elements that go beyond what is possible to describe in
 the core syntax. Annotations are available in two forms, annotation properties, and constraints.
 
-#+NAME: lst:grammar-annotation
 #+BEGIN_SRC ebnf
 Annotation
     ::= AnnotationProperty | Constraint
@@ -987,7 +960,6 @@ Annotation
 A number of model elements described in the following sections have a body that may only contain annotations and so the
 following common production is used.
 
-#+NAME: lst:grammar-annotation-only-body
 #+BEGIN_SRC ebnf
 AnnotationOnlyBody
     ::= "is" Annotation+ "end"
@@ -1003,7 +975,6 @@ that it can express arbitrary statements about the model element. An SDML annota
 has an identifier that resolves to an OWL annotation property (see section [[sec:define-rdf]] for the detailed rules), and a
 value for the corresponding property range.
 
-#+NAME: lst:grammar-annotation-property
 #+BEGIN_SRC ebnf
 AnnotationProperty
     ::= "@" IdentiferReference "=" Value
@@ -1011,12 +982,10 @@ AnnotationProperty
 
 [[./ebnf-diagram/AnnotationProperty.svg]]
 
-*Example:*
-
 The following example demonstrates a common annotation property attached to a module.
 
 #+NAME: lst:sdml-ex-annotation-property
-#+CAPTION: Annotation Property
+#+CAPTION: Example: Annotation Property
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1030,10 +999,8 @@ end
 For descriptive annotation properties it is valuable to use the language specific string format so allow for
 localization of labels and descriptions. The following example shows a simple label specified in multiple languages.
 
-*Example:*
-
 #+NAME: lst:sdml-ex-annotation-property-list
-#+CAPTION: Annotation Property List
+#+CAPTION: Example: Annotation Property List
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1051,10 +1018,8 @@ end
 A model element may have any number of annotation properties, especially the module itself which often includes
 annotations for the domain itself.
 
-*Example:*
-
 #+NAME: lst:sdml-ex-annotated-module
-#+CAPTION: Annotated Module
+#+CAPTION: Example: Annotated Module
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1086,7 +1051,7 @@ The first example, in listing [[lst:sdml-ex-constrained-module]], provides an in
 string which is useful to readers but cannot be verified.
 
 #+NAME: lst:sdml-ex-constrained-module
-#+CAPTION: Informal Constraint on Module
+#+CAPTION: Example: Informal Constraint on Module
 #+BEGIN_SRC sdml :exports code :noeval
 module rental is
 
@@ -1103,7 +1068,7 @@ listing [[lst:sdml-ex-formal-constrained-module]] example above by methodically 
 therein.
 
 #+NAME: lst:sdml-ex-formal-constrained-module
-#+CAPTION: Formal Constraint on Module
+#+CAPTION: Example: Formal Constraint on Module
 #+BEGIN_SRC sdml :exports code :noeval
 module rental is
 
@@ -1182,244 +1147,11 @@ Structured types fall into two primary categories, /Product/ types and /Sum/ typ
 these are enumerations and disjoint unions. In the surface syntax product type bodies are introduced by the keyword ~is~
 whereas sum type bodies are introduced by the keyword ~of~.
 
-*** <<sec:members>>Members
-
-Product type members are familiar to 
-
-#+NAME: lst:grammar-value-member
-#+BEGIN_SRC ebnf
-Member
-    ::= Identifier
-        ( PropertyReference | ( InverseName? TypeExpressionTo AnnotationOnlyBody? ) )
-#+END_SRC
-
-[[./ebnf-diagram/Member.svg]]
-
-
-#+NAME: lst:grammar-reference-inverse
-#+BEGIN_SRC ebnf
-InverseName
-    ::= "(" Identifier ")"
-#+END_SRC
-
-[[./ebnf-diagram/InverseName.svg]]
-
-*Example: declaring inverse names*
-
-#+NAME: lst:sdml-ex-entity-identity
-#+CAPTION: Entity Identity
-#+BEGIN_SRC sdml :exports code :noeval
-module accounts is
-
-  import users
-
-  entity Account is
-    identity id -> AccountId
-    owner (owned_account) -> users:User
-  end
-
-end
-#+END_SRC
-
-#+NAME: lst:grammar-property-member
-#+BEGIN_SRC ebnf
-PropertyReference
-    ::= "in" IdentifierReference
-#+END_SRC
-
-[[./ebnf-diagram/PropertyReference.svg]]
-
-In the following example we see two members, ~default~ and ~name~. The former is actually a reference to a property role,
-specifically the role ~default~ within the property definition ~AccountId~ in module ~account~. The latter is a /defined/ member
-with the name ~name~ and the type ~string~ and default cardinality.
-
-*Example: using a property reference*
-
-#+NAME: lst:sdml-ex-members
-#+CAPTION: Members in a Structure
-#+BEGIN_SRC sdml :exports code :noeval
-module example is
-
-  import accounts
-
-  structure Record is
-    default in accounts:AccountId
-    name -> string
-  end
-
-end
-#+END_SRC
-
-#+NAME: lst:grammar-identity-member
-#+BEGIN_SRC ebnf
-EntityIdentity
-    ::= "identity" Identifier
-        ( PropertyMember | ( TypeExpression AnnotationOnlyBody? ) )
-#+END_SRC
-
-[[./ebnf-diagram/EntityIdentity.svg]]
-
-*Example: entity identity member*
-
-#+NAME: lst:sdml-ex-entity-identity
-#+CAPTION: Entity Identity
-#+BEGIN_SRC sdml :exports code :noeval
-module accounts is
-
-  datatype AccountId <- opaque string
-
-  entity Account is
-    identity id -> AccountId
-    name -> string
-  end
-
-end
-#+END_SRC
-
-*Member Types*
-
-For identity, by-value, and by-reference members the general syntax uses the /type reference/ operator, /name/ ~->~ /type/, with
-additional keywords and cardinality included as follows.
-
-#+NAME: tbl:member-summary
-#+CAPTION: Summary of Member Formats
-| Kind         | Keyword  | To-Cardinality | Target Types                            |
-|--------------+----------+----------------+-----------------------------------------|
-| Identity     | ~identity~ | No             | Enumeration, Event, Structure, or Union |
-| By-Value     |          | Yes            | Enumeration, Event, Structure, or Union |
-| By-Reference | ~ref~      | Yes            | Entity                                  |
-
-Additionally, to allow for the capture of member names before the elaboration of all types the language allows for the
-target type to be replaced with the keyword ~unknown~. This marks the member, and by extension it's owning type, as
-/incomplete/. Note the grammar allows ASCII and Unicode representations of the /has type/ operator.
-
-#+NAME: lst:grammar-type-expressions
-#+BEGIN_SRC ebnf
-TypeExpression 
-    ::= HasType TypeReference
-TypeExpressionTo
-    ::= HasType Cardinality? "features"? TypeReference
-HasType
-    ::= "->" | "→" | "↦"
-TypeReference
-    ::=  UnknownType | IdentifierReference | BuiltinSimpleType | MappingType
-UnknownType
-    ::= "unknown"
-#+END_SRC
-
-[[./ebnf-diagram/TypeExpression.svg]]
-
-[[./ebnf-diagram/TypeExpressionTo.svg]]
-
-[[./ebnf-diagram/TypeReference.svg]]
-
-
-*Example: declaring features*
-
-...
-
-#+NAME: lst:sdml-ex-entity-features
-#+CAPTION: Entity Identity
-#+BEGIN_SRC sdml :exports code :noeval
-module rentals is
-
-  import vehicles
-
-  entity Rental is
-    identity id -> unknown
-    options -> features vehicles:Options
-  end
-
-end
-#+END_SRC
-
-#+NAME: lst:sdml-ex-entity-features-expanded
-#+CAPTION: Entity Identity
-#+BEGIN_SRC sdml :exports code :noeval
-module rentals is
-
-  import vehicles
-
-  entity Rental is
-    identity id -> unknown
-    options -> vehicles:Options is
-      assert is_exclusive_feature is
-        forall self (
-          self.type_of_type = sdml:Union and
-          is_unique({ t | forall t in X, type_of(t) })
-        )
-      end
-    end
-  end
-
-end
-#+END_SRC
-
-
-A mapping type denotes a /functional relationship/ between the /domain/ (left-hand type) and /range/ (right-hand type).
-
-#+BEGIN_SRC ebnf
-MappingType
-    ::= "(" TypeReference HasType TypeReference ")"
-#+END_SRC
-
-[[./ebnf-diagram/MappingType.svg]]
-
-The syntax for mapping values is described in section [[sec:mapping-values]].
-
-*Member Cardinality*
-
-The *cardinality* of a member is specified as a range operation with a minimum and maximum number of occurrences
-specified. Additionally cardinality constraints determine the ordering and uniqueness of the collection of member values
-in a sequence type (see section [[sec:sequence-types]]).
-
-- The form ~{1..3}~ specifies a cardinality of 1 to 3 inclusive, or $[1,3]$ in interval notation.
-- The form ~{1..}~ specifies a minimum of 1 occurrences an unbounded maximum, or $[1,\infty]$ in interval notation.
-- The form ~{1}~ specifies that 1 is both the minimum and maximum value, or $[1,1]$ in interval notation, commonly termed
-  a /degenerate/ interval.
-
-#+NAME: lst:grammar-cardinality
-#+BEGIN_SRC ebnf
-Cardinality
-    ::= "{" SequenceOrdering? SequenceUniqueness? CardinalityInner "}"
-CardinalityInner
-    ::= Unsigned CardinalityRange?
-CardinalityRange
-    ::= ".." Unsigned?
-#+END_SRC
-
-[[./ebnf-diagram/Cardinality.svg]]
-
-[[./ebnf-diagram/CardinalityInner.svg]]
-
-[[./ebnf-diagram/CardinalityRange.svg]]
-
-#+BEGIN_SRC ebnf
-SequenceOrdering
-    ::= ( "ordered" | "unordered" )
-SequenceUniqueness
-    ::= ( "unique" | "nonunique" )
-#+END_SRC
-
-[[./ebnf-diagram/SequenceOrdering.svg]]
-
-[[./ebnf-diagram/SequenceUniqueness.svg]]
-
-*** Variants
-
-Sum type variants fall into the following categories.
-
-- Value Variant :: A member within an enumeration that specifies a numeric value for each member rather than a type.
-- *Type Variant* :: A type reference that is a unique variant of a disjoint union.
-
-The details of the two variant types are in the sections on /enumerations/ and /disjoint unions/ following.
-
 *** Structures
 
 A structure is a product type that is composed of named and typed members. A structure is therefore akin to a record
 type, a table in data modeling, or a class in object modeling.
 
-#+NAME: lst:grammar-structure-def
 #+BEGIN_SRC ebnf
 StructureDef
     ::= "structure" Identifier StructuredBody?
@@ -1427,13 +1159,11 @@ StructureDef
 
 [[./ebnf-diagram/StructureDef.svg]]
 
-*Example*:
-
 As only the keyword ~structure~ and the identifier are required, the listing [[lst:sdml-ex-empty-structure]] is therefore a
 valid model.
 
 #+NAME: lst:sdml-ex-empty-structure
-#+CAPTION: Empty Structure
+#+CAPTION: Example: Empty Structure
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1447,7 +1177,6 @@ structure, between ~is~ and ~end~, makes it complete even if it has no actual me
 [[lst:sdml-ex-annotated-structure]] the structure Length is now complete.
 
 
-#+NAME: lst:grammar-structure-body
 #+BEGIN_SRC ebnf
 StructuredBody
     ::= "is" Annotation* StructuredBodyInner "end"
@@ -1457,10 +1186,8 @@ StructuredBodyInner
 
 [[./ebnf-diagram/StructuredBody.svg]]
 
-*Example*:
-
 #+NAME: lst:sdml-ex-annotated-structure
-#+CAPTION: Annotated Structure
+#+CAPTION: Example: Annotated Structure
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1471,12 +1198,10 @@ module example is
 end
 #+END_SRC
 
-*Example*:
-
 Listing [[lst:sdml-ex-structure-members]] adds the members ~value~ and ~unit~ and their corresponding types.
 
 #+NAME: lst:sdml-ex-structure-members
-#+CAPTION: Structure Members
+#+CAPTION: Example: Structure Members
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1492,7 +1217,6 @@ end
 
 In listing [[lst:sdml-ex-member-group]] we see a more complex structure with both members and groups.
 
-#+NAME: lst:grammar-member-group
 #+BEGIN_SRC ebnf
 MemberGroup
     ::= "group" Annotation* Member+ "end"
@@ -1500,10 +1224,8 @@ MemberGroup
 
 [[./ebnf-diagram/MemberGroup.svg]]
 
-*Example*:
-
 #+NAME: lst:sdml-ex-member-group
-#+CAPTION: Structure Members and Groups
+#+CAPTION: Example: Structure Members and Groups
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1529,7 +1251,6 @@ end
 
 *** Entities
 
-#+NAME: lst:grammar-entity-def
 #+BEGIN_SRC ebnf
 EntityDef
     ::= "entity" Identifier EntityBody?
@@ -1538,10 +1259,8 @@ EntityDef
 
 [[./ebnf-diagram/EntityDef.svg]]
 
-*Example*:
-
 #+NAME: lst:sdml-ex-empty-entity
-#+CAPTION: Empty Entity
+#+CAPTION: Example: Empty Entity
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1561,10 +1280,8 @@ EntityBody
 
 [[./ebnf-diagram/EntityBody.svg]]
 
-*Example*:
-
 #+NAME: lst:sdml-ex-entity-identifying-member
-#+CAPTION: Entity with Identifying Member
+#+CAPTION: Example: Entity with Identifying Member
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1603,7 +1320,6 @@ Entity Events, or simply Events, model notifications generated by an entity most
 As such a ~source~ reference denotes the entity which generates this event. Any expansion of the event structure *must* include the
 identifiers of the source entity.
 
-#+NAME: lst:grammar-event-def
 #+BEGIN_SRC ebnf
 EventDef
     ::= "event" Identifier
@@ -1613,10 +1329,8 @@ EventDef
 
 [[./ebnf-diagram/EventDef.svg]]
 
-*Example*:
-
 #+NAME: lst:sdml-ex-empty-event
-#+CAPTION: Empty Event
+#+CAPTION: Example: Empty Event
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1641,12 +1355,10 @@ end
 
 As we have seen before, the event ~PersonNameChanged~ in listing [[lst:sdml-ex-empty-event]] is valid but incomplete.
 
-*Example*:
-
 The following is a valid /and/ complete event definition with two structure members.
 
 #+NAME: lst:sdml-ex-event
-#+CAPTION: Event
+#+CAPTION: Example: Event
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1664,7 +1376,6 @@ An enumeration is a numeric type that expressly names the values it may take. Th
 found in most languages as not only *must* all names be unique but all names *must* specify a value *and* all values *must* also
 be unique. Note also that the keyword =of= and not =is= starts an enumeration body.
 
-#+NAME: lst:grammar-enum-def
 #+BEGIN_SRC ebnf
 EnumDef
     ::= "enum" Identifier EnumBody?
@@ -1672,10 +1383,8 @@ EnumDef
 
 [[./ebnf-diagram/EnumDef.svg]]
 
-*Example*:
-
 #+NAME: lst:sdml-ex-empty-enum
-#+CAPTION: Empty Enum
+#+CAPTION: Example: Empty Enum
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1694,7 +1403,6 @@ EnumBody
 
 [[./ebnf-diagram/EnumBody.svg]]
 
-#+NAME: lst:grammar-enum-variant
 #+BEGIN_SRC ebnf
 ValueVariant
     ::= Identifier ByDefinition Unsigned AnnotationOnlyBody?
@@ -1703,12 +1411,10 @@ ByDefinition
 #+END_SRC
 [[./ebnf-diagram/ValueVariant.svg]]
 
-*Example*:
-
 The following demonstrates a valid /and/ complete enumeration.
 
 #+NAME: lst:sdml-ex-enum
-#+CAPTION: Enum With Variants
+#+CAPTION: Example: Enum With Variants
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1726,7 +1432,6 @@ A disjoint, or discriminated, union is a mechanism to allow for a selection of d
 type. As such the /variants/ of the union are simply type references, although they do allow annotations. Note also that
 the keyword =of= and not =is= starts a union body.
 
-#+NAME: lst:grammar-union-def
 #+BEGIN_SRC ebnf
 UnionDef
     ::= "union" Identifier UnionBody?
@@ -1734,10 +1439,8 @@ UnionDef
 
 [[./ebnf-diagram/UnionDef.svg]]
 
-*Example*:
-
 #+NAME: lst:sdml-ex-empty-union
-#+CAPTION: Empty Union
+#+CAPTION: Example: Empty Union
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1758,7 +1461,6 @@ UnionBody
 
 [[./ebnf-diagram/UnionBody.svg]]
 
-#+NAME: lst:grammar-type-variant
 #+BEGIN_SRC ebnf
 TypeVariant
     ::= IdentifierReference TypeVariantRename? AnnotationOnlyBody?
@@ -1773,12 +1475,10 @@ TypeVariantRename
 
 [[./ebnf-diagram/TypeVariantRename.svg]]
 
-*Example*:
-
 The following is a valid /and/ complete example with three type variants and one that is renamed from =Van= to =LittleTruck=.
 
 #+NAME: lst:sdml-ex-union
-#+CAPTION: Union With Variants
+#+CAPTION: Example: Union With Variants
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1791,12 +1491,235 @@ module example is
 end
 #+END_SRC
 
+** <<sec:members>>Structure Members
+
+Product type members should be familiar to anyone exposed to either programming languages or data definition languages
+such as SQL. A name is associated with a type, an optional inverse name, and may have annotations.
+
+#+BEGIN_SRC ebnf
+Member
+    ::= Identifier
+        ( PropertyReference | ( InverseName? TypeExpressionTo AnnotationOnlyBody? ) )
+#+END_SRC
+
+[[./ebnf-diagram/Member.svg]]
+
+#+NAME: lst:sdml-ex-min-member
+#+CAPTION: Example: Minimal Structure Member
+#+BEGIN_SRC sdml :exports code :noeval
+module accounts is
+
+  structure Account is
+    name -> string
+  end
+
+end
+#+END_SRC
+
+*** Member Types
+
+To allow for the capture of member names before the elaboration of all types the language allows for the
+target type to be replaced with the keyword ~unknown~. This marks the member, and by extension it's owning type, as
+/incomplete/. Note the grammar allows ASCII and Unicode representations of the /has type/ operator.
+
+#+BEGIN_SRC ebnf
+TypeExpression 
+    ::= HasType TypeReference
+TypeExpressionTo
+    ::= HasType Cardinality? "features"? TypeReference
+HasType
+    ::= "->" | "→"
+TypeReference
+    ::=  UnknownType | IdentifierReference | BuiltinSimpleType | MappingType
+UnknownType
+    ::= "unknown"
+#+END_SRC
+
+[[./ebnf-diagram/TypeExpression.svg]]
+
+[[./ebnf-diagram/TypeExpressionTo.svg]]
+
+[[./ebnf-diagram/TypeReference.svg]]
+
+A mapping type denotes a /functional relationship/ between the /domain/ (left-hand type) and /range/ (right-hand type).
+
+#+BEGIN_SRC ebnf
+MappingType
+    ::= "(" TypeReference HasType TypeReference ")"
+#+END_SRC
+
+[[./ebnf-diagram/MappingType.svg]]
+
+The syntax for mapping values was previously described in section [[sec:mapping-values]].
+
+*** Member Cardinality
+
+The *cardinality* of a member is specified as a range operation with a minimum and maximum number of occurrences
+specified. Additionally cardinality constraints determine the ordering and uniqueness of the collection of member values
+in a sequence type (see section [[sec:sequence-types]]).
+
+- The form ~{1..3}~ specifies a cardinality of 1 to 3 inclusive, or $[1,3]$ in interval notation.
+- The form ~{1..}~ specifies a minimum of 1 occurrences an unbounded maximum, or $[1,\infty]$ in interval notation.
+- The form ~{1}~ specifies that 1 is both the minimum and maximum value, or $[1,1]$ in interval notation, commonly termed
+  a /degenerate/ interval.
+
+#+BEGIN_SRC ebnf
+Cardinality
+    ::= "{" SequenceOrdering? SequenceUniqueness? CardinalityInner "}"
+CardinalityInner
+    ::= Unsigned CardinalityRange?
+CardinalityRange
+    ::= ".." Unsigned?
+#+END_SRC
+
+[[./ebnf-diagram/Cardinality.svg]]
+
+[[./ebnf-diagram/CardinalityInner.svg]]
+
+[[./ebnf-diagram/CardinalityRange.svg]]
+
+#+BEGIN_SRC ebnf
+SequenceOrdering
+    ::= ( "ordered" | "unordered" )
+SequenceUniqueness
+    ::= ( "unique" | "nonunique" )
+#+END_SRC
+
+[[./ebnf-diagram/SequenceOrdering.svg]]
+
+[[./ebnf-diagram/SequenceUniqueness.svg]]
+
+*** Inverse Names
+
+#+BEGIN_SRC ebnf
+InverseName
+    ::= "(" Identifier ")"
+#+END_SRC
+
+[[./ebnf-diagram/InverseName.svg]]
+
+#+NAME: lst:sdml-ex-inverse-name
+#+CAPTION: Example: Inverse Name
+#+BEGIN_SRC sdml :exports code :noeval
+module accounts is
+
+  import users
+
+  entity Account is
+    identity id -> AccountId
+    owner (owned_account) -> users:User
+  end
+
+end
+#+END_SRC
+
+*** Identity Members
+
+#+BEGIN_SRC ebnf
+EntityIdentity
+    ::= "identity" Identifier
+        ( PropertyMember | ( TypeExpression AnnotationOnlyBody? ) )
+#+END_SRC
+
+[[./ebnf-diagram/EntityIdentity.svg]]
+
+#+NAME: lst:sdml-ex-entity-identity
+#+CAPTION: Example: Entity Identity
+#+BEGIN_SRC sdml :exports code :noeval
+module accounts is
+
+  datatype AccountId <- opaque string
+
+  entity Account is
+    identity id -> AccountId
+    name -> string
+  end
+
+end
+#+END_SRC
+*** Property Reference
+
+#+BEGIN_SRC ebnf
+PropertyReference
+    ::= "in" IdentifierReference
+#+END_SRC
+
+[[./ebnf-diagram/PropertyReference.svg]]
+
+In the following example ([[lst:sdml-ex-property-reference]]) we see two members, ~default~ and ~name~. The former is actually a reference to a property role,
+specifically the role ~default~ within the property definition ~AccountId~ in module ~account~. The latter is a /defined/ member
+with the name ~name~ and the type ~string~ and default cardinality.
+
+#+NAME: lst:sdml-ex-property-reference
+#+CAPTION: Example: Using a Property Reference
+#+BEGIN_SRC sdml :exports code :noeval
+module example is
+
+  import accounts
+
+  structure Record is
+    default in accounts:AccountId
+    name -> string
+  end
+
+end
+#+END_SRC
+
+*** Feature Members
+
+...
+
+#+NAME: lst:sdml-ex-entity-features
+#+CAPTION: Example: Declaring Feature Member
+#+BEGIN_SRC sdml :exports code :noeval
+module rentals is
+
+  import vehicles
+
+  entity Rental is
+    identity id -> unknown
+    options -> features vehicles:Options
+  end
+
+end
+#+END_SRC
+
+#+NAME: lst:sdml-ex-entity-features-expanded
+#+CAPTION: Example: Feature Member Constraint
+#+BEGIN_SRC sdml :exports code :noeval
+module rentals is
+
+  import vehicles
+
+  entity Rental is
+    identity id -> unknown
+    options -> vehicles:Options is
+      assert is_exclusive_feature is
+        forall self (
+          self.type_of_type = sdml:Union and
+          is_unique({ t | forall t in X, type_of(t) })
+        )
+      end
+    end
+  end
+
+end
+#+END_SRC
+
+*** Variants
+
+Sum type variants fall into the following categories.
+
+- Value Variant :: A member within an enumeration that specifies a numeric value for each member rather than a type.
+- *Type Variant* :: A type reference that is a unique variant of a disjoint union.
+
+The details of the two variant types are in the sections on /enumerations/ and /disjoint unions/ following.
+
 ** <<sec:properties>>Property Definitions
 
 SDML provides for a data dictionary, or element-first, style of model capture where key properties of the domain are
 defined and annotated in a stand-alone form. These are often key identifiers and other shared properties 
 
-#+NAME: lst:grammar-property-def
 #+BEGIN_SRC ebnf
 PropertyDef
     ::= "property" Identifier PropertyBody?
@@ -1804,10 +1727,8 @@ PropertyDef
 
 [[./ebnf-diagram/PropertyDef.svg]]
 
-*Example*:
-
 #+NAME: lst:sdml-ex-empty-property
-#+CAPTION: Empty Property Definition
+#+CAPTION: Example: Empty Property Definition
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
@@ -1819,7 +1740,6 @@ end
 The property ~account_id~ in [[lst:sdml-ex-empty-property]] is valid but incomplete. Completion of the property requires the
 addition of a body with roles defined.
 
-#+NAME: lst:grammar-property-body
 #+BEGIN_SRC ebnf
 PropertyBody
     ::= "is" Annotation* ( IdentityRole | MemberRole )+ "end"
@@ -1844,12 +1764,10 @@ MemberRole
 
 [[./ebnf-diagram/MemberRole.svg]]
 
-*Example*:
-
 The following is a valid /and/ complete example.
 
 #+NAME: lst:sdml-ex-property-role
-#+CAPTION: Property Definition with Roles
+#+CAPTION: Example: Property Definition with Roles
 #+BEGIN_SRC sdml :exports code :noeval
 module account is
 
