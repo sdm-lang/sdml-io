@@ -65,10 +65,7 @@ EnumBody
     ::= "of" Annotation* ValueVariant+ "end"
 
 ValueVariant
-    ::= Identifier ByDefinition Unsigned AnnotationOnlyBody?
-
-ByDefinition
-    ::= ( ":=" | "≔" )
+    ::= Identifier AnnotationOnlyBody?
 
 EventDef
     ::= "event" Identifier
@@ -487,6 +484,9 @@ FunctionBody
 
 ConstantDef
     ::= ByDefinition ( PredicateValue | ConstraintSentence )
+
+ByDefinition
+    ::= ( ":=" | "≔" )
 
 /* --------------------------------------------------------------------------- */
 

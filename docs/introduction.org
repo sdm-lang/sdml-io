@@ -1,7 +1,6 @@
 #+LANGUAGE: en
 #+STARTUP: overview hidestars inlineimages entitiespretty
 
-
 * Introduction
 
 The Simple Domain Modeling Language[fn:sdml] is a small data-oriented language for constructing, documenting, and
@@ -15,7 +14,7 @@ between them. However, the primary focus of the documentation is the surface syn
 with it alone.
 
 #+NAME: fig:sdml-overview
-#+BEGIN_SRC dot :file sdml-overview.svg :exports results
+#+BEGIN_SRC dot :file ./images/sdml-overview.svg :exports results
 digraph G {
   bgcolor="transparent";
   rankdir="LR";
@@ -36,7 +35,7 @@ digraph G {
 
 #+CAPTION: Model Overview
 #+RESULTS: fig:sdml-overview
-[[file:sdml-overview.svg]]
+[[file:./images/sdml-overview.svg]]
 
 The problem with any language, or technology in general, that aims to be /simple/ it has to leave a lot of things out that
 at least some people would like to see. SDML is simple in that it started with the simplest possible set of constructs
@@ -217,7 +216,7 @@ RDF in a graph database along with SKOS definitions and other vocabularies will 
 information. Figure [[fig:sdml-foundation]] shows how these different viewpoints may come together.
 
 #+NAME: fig:sdml-foundation
-#+BEGIN_SRC dot :file sdml-foundation.svg :exports results
+#+BEGIN_SRC dot :file ./images/sdml-foundation.svg :exports results
 digraph G {
   bgcolor="transparent";
   compound=true;
@@ -255,7 +254,7 @@ digraph G {
 
 #+CAPTION: Model Foundations
 #+RESULTS: fig:sdml-foundation
-[[file:sdml-foundation.svg]]
+[[file:./images/sdml-foundation.svg]]
 
 ** <<sec:sdml-role>>Domain Modeling's Role in Development
 
@@ -266,7 +265,7 @@ We can stratify these levels of abstraction as shown in figure [[fig:artifact-la
 stratification will crash headlong into any number of detractors.
 
 #+NAME: fig:artifact-layering
-#+BEGIN_SRC dot :file artifact-layering.svg :exports results
+#+BEGIN_SRC dot :file ./images/artifact-layering.svg :exports results
 digraph G {
   bgcolor="transparent";
   rankdir="TD";
@@ -325,7 +324,7 @@ digraph G {
 
 #+CAPTION: Artifact Layers in Software Development
 #+RESULTS: fig:artifact-layering
-[[file:artifact-layering.svg]]
+[[file:./images/artifact-layering.svg]]
 
 While this figure groups these levels into three groups, /abstract models/, /concrete models/, and /artifacts/ this is again
 somewhat arbitrary given that even the executable deployment artifacts are an abstraction concerning how the operating
@@ -339,7 +338,7 @@ the domain model but which are required in the transformation target. For exampl
 SQL DDL statement may need to know the specific SQL dialect to target.
 
 #+NAME: fig:model-transforms
-#+BEGIN_SRC dot :file model-transforms.svg :exports results
+#+BEGIN_SRC dot :file ./images/model-transforms.svg :exports results
 digraph G {
   bgcolor="transparent";
   rankdir="LR";
@@ -361,7 +360,7 @@ digraph G {
 
 #+CAPTION: Model Transformations
 #+RESULTS: fig:model-transforms
-[[file:model-transforms.svg]]
+[[file:./images/model-transforms.svg]]
 
 *Example:*
 
@@ -372,7 +371,7 @@ of significant issues. One of the major reasons for giving up on this approach i
 edit the generated thing, how does that get reverse engineered back into the higher-level model?
 
 #+NAME: fig:example-transform
-#+BEGIN_SRC dot :file example-transform.svg :exports results
+#+BEGIN_SRC dot :file ./images/example-transform.svg :exports results
 digraph G {
   bgcolor="transparent";
   rankdir="TD";
@@ -419,7 +418,7 @@ digraph G {
 
 #+CAPTION: Example Model Transformations
 #+RESULTS: fig:example-transform
-[[file:example-transform.svg]]
+[[file:./images/example-transform.svg]]
 
 One key aspect of figure [[fig:example-transform]] is that all of the arrows flow in a single direction. Modeling tool
 vendors got hung up on the fact that they generated artifacts in programming languages that /could/ be edited and so

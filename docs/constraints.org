@@ -566,7 +566,9 @@ end
 
 *** Optional Types
 
-TBD
+The introduction of optional types, that it a type name preceded by the operator "?" may be considered a convenience
+over the same type specified with a cardinality of ~{0..1}~. However, this greatly simplifies the implementation of
+constraints over possibly missing values.  
 
 ** <<sec:type-classes>>Type Classes
 

@@ -121,7 +121,7 @@ classes actually referenced by other model elements. For more information on OWL
 Document Overview (Second Edition)]] and [[https://cambridgesemantics.com/blog/semantic-university/learn-owl-rdfs/owl-references-humans/][OWL References for Humans]].
 
 #+NAME: fig:owl-ontology
-#+BEGIN_SRC dot :file owl-ontology.svg :exports results
+#+BEGIN_SRC dot :file ./images/owl-ontology.svg :exports results
 digraph G {
   bgcolor="transparent";
   rankdir="LR";
@@ -191,7 +191,7 @@ digraph G {
 
 #+CAPTION: OWL Ontology
 #+RESULTS: fig:owl-ontology
-[[file:owl-ontology.svg]]
+[[file:./images/owl-ontology.svg]]
 
 Figure [[fig:owl-ontology]] uses some notation elements from UML, although not a UML diagram itself. 
 For a higher resolution version, [[file:owl-ontology.svg][click here]].

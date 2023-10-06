@@ -39,7 +39,7 @@ by modeling the enumeration ~AdType~ above as a feature extension point. Figure 
 details on feature diagrams and their elements.
 
 #+NAME: fig:feature-pattern-diagram
-#+BEGIN_SRC dot :file ./feature-pattern-diagram.svg :exports results
+#+BEGIN_SRC dot :file ./images/feature-pattern-diagram.svg :exports results
 digraph G {
   bgcolor="transparent";
   rankdir="TD";
@@ -81,7 +81,7 @@ digraph G {
 
 #+CAPTION: Feature Diagram
 #+RESULTS: fig:feature-pattern-diagram
-[[file:./feature-pattern-diagram.svg]]
+[[file:./images/feature-pattern-diagram.svg]]
 
 The following explanation of figure [[fig:feature-pattern-diagram]] demonstrates the major components of a feature diagram,
 more details are shown in figure [[fig:feature-diagram-key]].
@@ -101,7 +101,7 @@ more details are shown in figure [[fig:feature-diagram-key]].
    2. Excludes, the inclusion of the one feature requires that the other feature *not* be present.
 
 #+NAME: fig:feature-diagram-key
-#+BEGIN_SRC dot :file ./feature-diagram-key.svg :exports results
+#+BEGIN_SRC dot :file ./images/feature-diagram-key.svg :exports results
 digraph G {
   bgcolor="transparent";
   rankdir="TD";
@@ -145,7 +145,7 @@ digraph G {
 
 #+CAPTION: Feature Diagram Elements
 #+RESULTS: fig:feature-diagram-key
-[[file:./feature-diagram-key.svg]]
+[[file:./images/feature-diagram-key.svg]]
 
 While figure [[fig:feature-diagram-key]] shows the common elements of a feature diagram, these have been extended in
 different implementations. Figure [[fig:feature-diagram-extended]] shows some of common extensions.
@@ -159,7 +159,7 @@ different implementations. Figure [[fig:feature-diagram-extended]] shows some of
    be hard to control complexity.
 
 #+NAME: fig:feature-diagram-extended
-#+BEGIN_SRC dot :file ./feature-diagram-extended.svg :exports results
+#+BEGIN_SRC dot :file ./images/feature-diagram-extended.svg :exports results
 digraph G {
   bgcolor="transparent";
   rankdir="TD";
@@ -193,7 +193,7 @@ digraph G {
 
 #+CAPTION: Feature Diagram Extended Elements
 #+RESULTS: fig:feature-diagram-extended
-[[file:./feature-diagram-extended.svg]]
+[[file:./images/feature-diagram-extended.svg]]
 
 In the cases of multiple feature sets it is ...
 

@@ -16,7 +16,7 @@ As such the much expanded figure
 [[fig:implementation-overview]] shows the 
 
 #+NAME: fig:implementation-overview
-#+BEGIN_SRC dot :file implementation-overview.svg :exports results
+#+BEGIN_SRC dot :file ./images/implementation-overview.svg :exports results
 digraph G {
     bgcolor="transparent";
     rankdir="TB";
@@ -82,9 +82,9 @@ digraph G {
  
 #+CAPTION: Implementation Overview
 #+RESULTS: fig:implementation-overview
-[[file:implementation-overview.svg]]
+[[file:./images/implementation-overview.svg]]
 
-** Installation
+** <<sec:tool-installation>>Installation
 
 While the following sections will provide more details on the components of figure [[fig:implementation-overview]] this
 section will cover the install script provided on this site. Because the script was developed on, and for, Mac systems,
@@ -110,14 +110,22 @@ The script performs the following:
    2. Install [[https://graphviz.org/][GraphViz]], for use in producing other diagrams.
    3. Install [[https://rust-lang.github.io/rustup/][Rustup]], for the cargo command.
 3. Using cargo, install sdml-cli, for the sdml command.
-4. Prompt the user to install Emacs if not present, and if requested:
-   1. Install Emacs (emacs-plus@28) using brew.
-   2. Create the Emacs init directory.
-   3. Install Git using brew.
-   4. Clone the =tree-sitter-sdml= repository into the Emacs init directory.
-   5. Install GNU Make using brew.
-   6. Make the tree-sitter library and install for Emacs.
-   7. Clone the =emacs-sdml-mode= repository into the Emacs init directory.
+4. Prompt the user to install an editor and associated language support packages.
+
+Table [[tbl:editor-support]] lists the supported editors at the time of writing. Note that while Emacs has had the most
+testing it is probably the most complex install process and learning curve if you haven't used Emacs in the past. For
+this reason alone we recommend Visual Studio Code as the easiest to configure and get started with. 
+
+#+NAME: tbl:editor-support
+#+CAPTION: Editor Support Packages
+| Editor        | See                      | Mechanism        | Package          | Status                 |
+|---------------+--------------------------+------------------+------------------+------------------------|
+| [[https://www.gnu.org/software/emacs/][Emacs]] (<29)   | §<<sec:editor-emacs>>    | Tree-sitter      | [[https://github.com/sdm-lang/emacs-sdml-mode][sdml-mode.el]]     | Primary tool, tested   |
+| [[https://code.visualstudio.com/][VSCode]]        | §<<sec:editor-vscode>>   | TextMate grammar | [[https://github.com/sdm-lang/sdml-vscode][sdml extension]]   | Secondary tool, tested |
+| [[https://macromates.com/][TextMate]]      | §<<sec:editor-textmate>> | TextMate grammar | [[https://github.com/sdm-lang/SDML.tmbundle][SDML.tmplugin]]    | Some testing           |
+| [[https://www.sublimetext.com/][Sublime Text]]  | §<<sec:editor-sublime>>  | TextMate grammar | [[https://github.com/sdm-lang/SDML.tmbundle][SDML.tmplugin]]    | Untested               |
+| [[https://www.jetbrains.com/idea/][IntelliJ IDEA]] | §<<sec:editor-idea>>     | TextMate grammar | [[https://github.com/sdm-lang/SDML.tmbundle][SDML.tmplugin]]    | Untried                |
+| Vim ([[https://neovim.io/][Neovim]])  | §<<sec:editor-neovim>>   | Tree-sitter      | [[https://github.com/sdm-lang/tree-sitter-sdml][tree-sitter-sdml]] | Untried                |
 
 ** Command-Line Tool
 
@@ -312,8 +320,7 @@ module subDomain is
 end
 #+END_SRC
 
-** Emacs Support
-
+** <<sec:editor-emacs>>Emacs
 Emacs has been the primary /playground/ for SDML and as such has some tools already built for editing and documentation.
 The package [[https://github.com/sdm-lang/emacs-sdml-mode][sdml-mode]] (currently not in any package repository) is associated with any file ending in =.sdm= or =.sdml= with
 highlighting and indentation support. Follow the installation instructions on the package's own site.
@@ -321,6 +328,16 @@ highlighting and indentation support. Follow the installation instructions on th
 Emacs standard customization allows for managing all package variables and can be accessed via:
 
 =M-x customize-group RET sdml RET=
+
+The installer script performs the following steps if you select Emacs as your editor:
+
+1. Install Emacs (emacs-plus@28) using brew.
+2. Create the Emacs init directory.
+3. Install Git using brew.
+4. Clone the =tree-sitter-sdml= repository into the Emacs init directory.
+5. Install GNU Make using brew.
+6. Make the tree-sitter library and install for Emacs.
+7. Clone the =emacs-sdml-mode= repository into the Emacs init directory.
 
 *** Highlighting
 
@@ -435,46 +452,130 @@ as well.
 #+END_SRC
 #+END_EXAMPLE
 
-** Rust Libraries and Command-Line
+** <<sec:editor-vscode>>Visual Studio Code
 
+Visual Studio Code is a modern, powerful, configurable, and cross-platform editor and IDE. It has excellent language
+support based on years of Microsoft IDE development experience. VSCode is also lightweight enough to use for quick tasks
+and launches from the command-line easily. Lastly, VSCode is free and you can download directly from Microsoft or from
+common package managers such as Homebrew.
 
-Crates:
-  
-- [[https://crates.io/crates/sdml-core][sdml-core]] :: The in-memory model of the SDML language.
-- [[https://crates.io/crates/sdml-parse][sdml-parse]] :: The parser that relies on the tree-sitter parser above to
-  create the in-memory model defined in ~sdml-core~.
-- [[https://crates.io/crates/sdml-generate][sdml-generate]] :: The set of generators and transformers using the
-  ~sdml-core~ in-memory model as the source.
-- [[https://crates.io/crates/sdml-cli][sdml-cli]] :: The command-line tool that parses existing models and executes
-  generators.
+The SDML extension is accessible from the Visual Studio Marketplace, as shown in figure [[fig:sc-vscode-marketplace]]. This
+makes installation easy, and VSCode will also keep the extension up to date with any published changes.
 
-The source is in the Github repository [[https://github.com/sdm-lang/rust-sdml][rust-sdml]].
+#+NAME: fig:sc-vscode-marketplace
+#+CAPTION: SDML Extension in the Marketplace
+[[file:./images/vscode-marketplace.png]]
 
-** Tree-Sitter Parser Library
+Alternatively, the extension can be installed manually from the command-line which the installer above uses to provide a
+single-step editor setup.
 
-- Source at [[https://github.com/sdm-lang/tree-sitter-sdml][Github]]
-
-Build.
-
-#+BEGIN_EXAMPLE
-git clone https://github.com/sdm-lang/tree-sitter-sdml
+#+BEGIN_EXAMPLE bash
+$ code --force --install-extension SimonJohnston.sdml
 #+END_EXAMPLE
 
-#+BEGIN_EXAMPLE
-make setup
-#+END_EXAMPLE
+The extension provides syntax highlighting, seen in figure [[fig:sc-vscode-highlighting]], as well as a number of snippets
+for type declarations, annotations, and idioms. The VSCode extension is derived from the TextMate bundle in that it uses
+the original grammar file as-is, and copies over a number of the snippets into a native format.
 
-#+BEGIN_EXAMPLE
-make build
-#+END_EXAMPLE
+#+NAME: fig:sc-vscode-highlighting
+#+CAPTION: SDML Syntax Highlighting
+[[file:./images/vscode-highlighting.png]]
 
-*Bindings:*
+Additionally, the plug-in can invoke the command-line tool to draw diagrams from the file in the current editor window.
+These commands are accessible via the command palette and all start with the text "draw" for searching. Figure
+[[fig:sc-vscode-draw-commands]] shows the command palette narrowed to the three supported drawing commands.
 
-- Node binding, published to [[https://www.npmjs.com/package/tree-sitter-sdml][npm.js]]
-- Rust binding, published to [[https://crates.io/crates/tree-sitter-sdml][crates.io]]
+#+NAME: fig:sc-vscode-draw-commands
+#+CAPTION: Drawing Commands in the Palette
+[[file:./images/vscode-draw-commands.png]]
 
-** Other Tools
-*** Neovim
+These commands are executed in a dedicated Terminal window (figure [[fig:sc-vscode-draw-terminal]]), this has a few
+advantages to running the command in the background. First, you get to see the command-line used and so you can learn
+the parameters; secondly, you will see the errors as they are output by the tool without filtering; lastly, you can
+interact with the Terminal window to try out other commands.
+
+#+NAME: fig:sc-vscode-draw-terminal
+#+CAPTION: Command-Line Usage in Terminal
+[[file:./images/vscode-draw-terminal.png]]
+
+The extension has a number of settings that are, of course, available for the user to override if necessary. Figure
+[[fig:sc-vscode-settings]] shows the standard settings window with the SDML section selected. At this time you can change
+the name of the command-line tool, the name of the terminal window used for output, and the format of drawings generated
+by the tool.
+
+#+NAME: fig:sc-vscode-settings
+#+CAPTION: Extension Settings
+[[file:./images/vscode-settings.png]]
+
+The installer script (section [[sec:tool-installation]]) performs the following steps if you select Visual Studio Code as
+your editor:
+
+1. Install the editor using brew.
+2. Install the extension from the marketplace.
+
+** Other Editors
+*** <<sec:editor-textmate>>TextMate
+
+TextMate is another popular editor, and it's in-built language descriptions have been adopted by other tools as a
+semi-standard mechanism for providing syntax highlighting. The SDML TextMate bundle includes a grammar file as well as a
+set of snippets for easy addition of language features in source files.
+
+Figure [[fig:sc-tm-declarations]] shows the bundle menu for SDML with the list of declaration snippets.
+
+#+NAME: fig:sc-tm-declarations
+#+CAPTION: Declaration Snippets
+[[file:./images/tm-declarations.png]]
+
+Figure [[fig:sc-tm-declarations]] shows the bundle menu for SDML with the list of annotation property snippets.
+
+#+NAME: fig:sc-tm-annotations
+#+CAPTION: Annotation Snippets
+[[file:./images/tm-annotations.png]]
+
+Additionally, every TextMate window has an integrated /Symbol List/ in the footer to easily navigate around a large file.
+SDML includes every type declaration as a symbol in the list with their corresponding members or variants shown indented
+as seen in figure [[fig:sc-tm-list]].
+
+#+NAME: fig:sc-tm-list
+#+CAPTION: Symbol List Integration
+[[file:./images/tm-list.png]]
+
+The installer script (section [[sec:tool-installation]]) performs the following steps if you select TextMate as your editor:
+
+1. Install the editor using brew.
+2. Clone the language bundle into the editor's bundle folder.
+3. Have TextMate reload all bundles (on macos only).
+
+*** <<sec:editor-sublime>>Sublime Text
+
+The installer script (section [[sec:tool-installation]]) performs the following steps if you select Sublime Text as your
+editor:
+
+1. Install the editor using brew.
+2. Clone the language bundle into the editor's bundle folder.
+
+*** <<sec:editor-idea>>IntelliJ IDEA
+
+IntelliJ IDEA, and by extension most of the JetBrains tools, has a native plugin that acts as a bridge to use TextMate
+bundles as-is.
+
+To enable this plugin go to the IDE settings and select the *Plugins* section and the *Installed* tab. Find the bundle named
+"TextMate Bundles" and set the checkbox next to it to enable. Click the *Apply* button to save the changes and close the
+dialog. Restart the IDE if prompted.
+
+To add the SDML bundle either download the bundle from [[https://github.com/sdm-lang/SDML.tmbundle]], or use Git to clone
+onto your local file system. Go to the IDE settings and select the *Editor* section and *TextMate Bundles* sub-section.
+Click the =+= at the top of the list and locate the bundle you downloaded. You should see it now in the list of bundles
+and you can enable/disable it with the checkbox next to it.
+
+Opening SDML files should now provide syntax highlighting.
+
+The installer script (section [[sec:tool-installation]]) performs the following steps if you select IDEA as your editor:
+
+1. install the editor using brew.
+2. Point the user to next-step instructions.
+   
+*** <<sec:editor-neovim>>Neovim
 
 [[https://neovim.io/][Neovim]] has some great tree-sitter support with the [[https://github.com/nvim-treesitter/nvim-treesitter][nvim-tree-sitter]] and a nice in-editor [[https://github.com/nvim-treesitter/playground][playground]]. Firstly, add the
 tree-sitter plugin, but don't install yet, as shown on the nvim-treesitter page (using [[https://github.com/junegunn/vim-plug][vim-plug]]):
@@ -588,14 +689,48 @@ require'nvim-treesitter.configs'.setup {
 }
 #+END_SRC
 
-*** VSCode
+The installer script (section [[sec:tool-installation]]) performs the following steps if you select Neovim as your editor:
 
-Try here:
+1. install the editor using brew.
+2. Point the user to next-step instructions.
 
-- https://github.com/georgewfraser/vscode-tree-sitter
-- https://github.com/EvgeniyPeshkov/syntax-highlighter
+** Rust Libraries and Command-Line
 
+Crates:
   
+- [[https://crates.io/crates/sdml-core][sdml-core]] :: The in-memory model of the SDML language.
+- [[https://crates.io/crates/sdml-parse][sdml-parse]] :: The parser that relies on the tree-sitter parser above to
+  create the in-memory model defined in ~sdml-core~.
+- [[https://crates.io/crates/sdml-generate][sdml-generate]] :: The set of generators and transformers using the
+  ~sdml-core~ in-memory model as the source.
+- [[https://crates.io/crates/sdml-cli][sdml-cli]] :: The command-line tool that parses existing models and executes
+  generators.
+
+The source is in the Github repository [[https://github.com/sdm-lang/rust-sdml][rust-sdml]].
+
+** Tree-Sitter Parser Library
+
+- Source at [[https://github.com/sdm-lang/tree-sitter-sdml][Github]]
+
+Build.
+
+#+BEGIN_EXAMPLE
+git clone https://github.com/sdm-lang/tree-sitter-sdml
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+make setup
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+make build
+#+END_EXAMPLE
+
+*Bindings:*
+
+- Node binding, published to [[https://www.npmjs.com/package/tree-sitter-sdml][npm.js]]
+- Rust binding, published to [[https://crates.io/crates/tree-sitter-sdml][crates.io]]
+
 ** <<sec:resolver-catalog>>Resolver Catalog File
 
 The SDML catalog format is based on the OASIS [[https://www.oasis-open.org/committees/download.php/14809/xml-catalogs.html][XML Catalogs]] for XML namespace resolution for offline development. This

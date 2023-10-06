@@ -55,7 +55,6 @@
 
 #+INCLUDE: ../LICENSE example
 
-
 * Tables of Other Content
 
 #+TOC: figures

@@ -332,7 +332,7 @@ A subset of the definition types in the EBNF above are types, and the complete t
   sometimes termed /bottom/ or /absurdity/ ~⊥~.
 
 #+NAME: lst:sdml-type-model
-#+BEGIN_SRC dot :file sdml-type-model.svg :exports results
+#+BEGIN_SRC dot :file ./images/sdml-type-model.svg :exports results
 strict digraph {
    bgcolor="transparent";
    rankdir=BT;
@@ -369,7 +369,7 @@ strict digraph {
 #+NAME: fig:sdml-type-model
 #+CAPTION: SDML Type Model
 #+RESULTS: lst:sdml-type-model
-[[file:sdml-type-model.svg]]
+[[file:./images/sdml-type-model.svg]]
 
 *Sum vs. Product*
 
@@ -1372,9 +1372,10 @@ end
 
 *** Enumerations
 
-An enumeration is a numeric type that expressly names the values it may take. This is a restricted form of the =enum= type
-found in most languages as not only *must* all names be unique but all names *must* specify a value *and* all values *must* also
-be unique. Note also that the keyword =of= and not =is= starts an enumeration body.
+An enumeration defines a set of unique constant values. The representation of these values is not defined by SDML,
+allowing users of the model to choose a scheme that matches their need.
+
+Note that the keyword =of= and not =is= starts an enumeration body.
 
 #+BEGIN_SRC ebnf
 EnumDef
@@ -1405,10 +1406,9 @@ EnumBody
 
 #+BEGIN_SRC ebnf
 ValueVariant
-    ::= Identifier ByDefinition Unsigned AnnotationOnlyBody?
-ByDefinition
-    ::= ( ":=" | "≔" )
+    ::= Identifier AnnotationOnlyBody?
 #+END_SRC
+
 [[./ebnf-diagram/ValueVariant.svg]]
 
 The following demonstrates a valid /and/ complete enumeration.
@@ -1419,8 +1419,8 @@ The following demonstrates a valid /and/ complete enumeration.
 module example is
 
   enum DistanceUnit of
-    Meter := 1
-    Foot := 2
+    Meter
+    Foot
   end
 
 end
@@ -1705,15 +1705,6 @@ module rentals is
 
 end
 #+END_SRC
-
-*** Variants
-
-Sum type variants fall into the following categories.
-
-- Value Variant :: A member within an enumeration that specifies a numeric value for each member rather than a type.
-- *Type Variant* :: A type reference that is a unique variant of a disjoint union.
-
-The details of the two variant types are in the sections on /enumerations/ and /disjoint unions/ following.
 
 ** <<sec:properties>>Property Definitions
 
