@@ -342,8 +342,12 @@ The installer script performs the following steps if you select Emacs as your ed
 *** Highlighting
 
 Syntax highlighting is enabled by the =tree-sitter-hl-mode= minor mode based on the configuration in the constant
-=sdml-mode-tree-sitter-hl-patterns=. The highlighting also carries over into Org Babel source blocks and into generated
+=sdml-mode-tree-sitter-hl-patterns=. The highlighting (figure [[fig:sc-emacs-editing]]) also carries over into Org Babel source blocks and into generated
 content such as this documentation.
+
+#+NAME: fig:sc-emacs-editing
+#+CAPTION: Emacs Syntax Highlighting
+[[file:./images/emacs-editing.png]]
 
 The =sdml-mode= also adds to the =prettify-symbols-alist= list, the set of symbols is in the custom variable
 =sdml-prettify-symbols-alist=.
@@ -370,7 +374,46 @@ Block Folding is provided by the =ts-fold-mode= minor mode based on the configur
 As well as the mechanics of folding, the =ts-fold= package also has indicator support for windowed clients and this is
 enabled by default with =window-system= is non-nil.
 
-*** Debugging
+*** Abbreviations and Skeletons
+
+This package provides a number of useful abbreviations/skeletons to help editing. The built-in =abbrev-mode= is enabled by
+=sdml-mode= and when typing one of the abbreviations below use a space to expand. For example, typing =d t SPC= will prompt
+for a name and expand into the SDML declaration where the underscore character represents the new cursor position. A
+number of abbreviations will ask for values, check the minibuffer.
+
+#+BEGIN_EXAMPLE
+  datatype MyName ← opaque _
+#+END_EXAMPLE
+
+| Kind                  | Abbreviation | Expands to                        |
+|-----------------------+--------------+-----------------------------------|
+| Declaration           | =mo=           | module                            |
+| Declaration           | =dt=           | datatype                          |
+| Declaration           | =en=           | enumeration                       |
+| Declaration           | =ev=           | event                             |
+| Declaration           | =pr=           | property                          |
+| Declaration           | =st=           | structure                         |
+| Datatype              | =db=           | boolean                           |
+| Datatype              | =dd=           | decimal                           |
+| Datatype              | =df=           | double                            |
+| Datatype              | =dh=           | binary                            |
+| Datatype              | =di=           | integer                           |
+| Datatype              | =ds=           | string                            |
+| Datatype              | =du=           | unsigned                          |
+| Annotation Properties | =pal=          | SKOS alternate label              |
+| Annotation Properties | =pdf=          | SKOS definition                   |
+| Annotation Properties | =ped=          | SKOS editorial note               |
+| Annotation Properties | =ppl=          | SKOS preferred label              |
+| Annotation Properties | =pco=          | RDF Schema comment                |
+| Constraint            | =ci=           | informal constraint               |
+| Constraint            | =cf=           | formal constraint                 |
+| Constraint            | =all=          | universally quantified sentence   |
+| Constraint            | =any=          | existentially quantified sentence |
+
+Where an abbreviation expands a property whose value is a language string the current value of the Emacs variable
+~locale-language~ is included as the string language.
+
+*** Tree-Sitter Debugging
 
 The following two comands are provided by the underlying =tree-sitter= package, but exposed here with the common key
 prefix.
@@ -392,7 +435,8 @@ By default only strings and comments will be checked, although this can be overr
 
 The additional package =flycheck-sdml= provides on-the-fly linting for SDML buffers. To enable, simply ensure Flycheck
 mode is enabled for your buffer. Rather than per-buffer, you can enable this by setting =flycheck-mode= for all SDML files
-with a hook.
+with a hook. Figure [[fig:sc-emacs-editing]] shows the flycheck buffer open with advice provided and a fringe indicator for
+the reported issue.
 
 The entire set of lint rules are stored in the custom variable =sdml-lint-rules= with the form:
 
@@ -410,7 +454,7 @@ This is marked as a warning by Flycheck and provided with the necessary message.
   "((module name: (identifier) @name) (#match? @name \"^[:upper:]\"))")
 #+END_SRC
 
-*** Org-Babel
+*** Org-Mode and Babel
 
 Org-Babel support provides the ability to call the SDML [[https://github.com/sdm-lang/rust-sdml][command-line tool]] to produce diagrams and more. For example, the
 following source block calls the CLI to draw a concept diagram for the enclosed module. It is worth noting that this
@@ -439,6 +483,14 @@ The results block then references the resulting image.
 #+RESULTS: lst:rentals-example
 [[file:./rentals-concepts.svg]]
 #+END_EXAMPLE
+
+Figure [[fig:sc-emacs-org-mode]] shows this experience in Emacs, note that each =SRC= block has language-specific syntax
+highlighting. Emacs provides a command, ~org-edit-special~, which opens the block in it's own buffer for editing with all
+the capabilities of a file-backed resource.
+
+#+NAME: fig:sc-emacs-org-mode
+#+CAPTION: Emacs Org-Mode Editing
+[[file:./images/emacs-org-mode.png]]
 
 But, what if we want to produce more than one diagram from the same source? By using the built-in
 /[[https://orgmode.org/manual/Noweb-Reference-Syntax.html][noweb]]/ syntax we can create a new source block, but
