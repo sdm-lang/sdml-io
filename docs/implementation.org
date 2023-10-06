@@ -379,12 +379,15 @@ enabled by default with =window-system= is non-nil.
 This package provides a number of useful abbreviations/skeletons to help editing. The built-in =abbrev-mode= is enabled by
 =sdml-mode= and when typing one of the abbreviations below use a space to expand. For example, typing =d t SPC= will prompt
 for a name and expand into the SDML declaration where the underscore character represents the new cursor position. A
-number of abbreviations will ask for values, check the minibuffer.
+number of abbreviations will ask for values, check the minibuffer. A complete list of abbreviations set by =sdml-mode= is
+shown in table [[tbl:abbreviations-expansions]].
 
 #+BEGIN_EXAMPLE
   datatype MyName ← opaque _
 #+END_EXAMPLE
 
+#+NAME: tbl:abbreviations-expansions
+#+CAPTION: Abbreviation Expansions
 | Kind                  | Abbreviation | Expands to                        |
 |-----------------------+--------------+-----------------------------------|
 | Declaration           | =mo=           | module                            |
