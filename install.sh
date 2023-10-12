@@ -148,6 +148,8 @@ function install_textmate_bundle {
 		install_path = '${INSTALL_DIR}/TextMate/Bundles'
 	fi
 
+    mkdir -p ${install_path}
+
     pushd ${install_path} 2>&1 >/dev/null
 	if [[ -d "./SDML.tmbundle" ]]; then
 		pushd SDML.tmbundle 2>&1 >/dev/null
@@ -185,6 +187,8 @@ function install_sublime_package {
 		install_path = '${INSTALL_DIR}/Sublime\ Text/Packages'
 	fi
 
+    mkdir -p ${install_path}
+ 
     pushd ${install_path} 2>&1 >/dev/null
 	if [[ -d "./SDML" ]]; then
 		cd SDML
