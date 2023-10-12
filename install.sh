@@ -5,7 +5,7 @@ WARNING="\033[33;1m!\033[0m"
 ERROR="\033[31;1m✗\033[0m"
 
 case "$OSTYPE" in
-  darwin*)  INSTALL_DIR='$HOME/Library/Application Support' ;;
+  darwin*)  INSTALL_DIR='$HOME/Library/Application\ Support' ;;
   linux*)   INSTALL_DIR='$HOME/.config' ;;
   msys*)    INSTALL_DIR='$HOMEPATH/AppData/Roaming' ;;
   cygwin*)  INSTALL_DIR='$HOMEPATH/AppData/Roaming' ;;
@@ -99,7 +99,10 @@ N - No editor support
 EOF
 
 function install_emacs {
-    brew tap d12frosted/emacs-plus
+    if ! brew tap d12frosted/emacs-plus; then
+        echo "${ERROR} Could not tap the emacs-plus cask"
+        exit 3
+    fi
     install_package brew emacs "emacs-plus@28" Emacs
 
     EMACS_HOME=$(emacsclient --eval user-emacs-directory |cut -d '"' -f 2) || exit 3
@@ -137,32 +140,67 @@ function install_emacs {
 }
 
 function install_textmate_bundle {
-    editor_name=$1
-    bundle_dir=$2
+    install_package brew mate textmate "TextMate" ;
 
     if [[ "$OSTYPE" == "linux"* ]]; then
-		safe_editor=$(echo "${editor}" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
-		install_path = '${INSTALL_DIR}/${safe_editor}/${bundle_dir}'
+		install_path = '${INSTALL_DIR}/textmate/bundles'
 	else
-		install_path = '${INSTALL_DIR}/${editor}/${bundle_dir}'
+		install_path = '${INSTALL_DIR}/TextMate/Bundles'
 	fi
 
-	pushd ${install_path} 2>&1 >/dev/null
-	if [[ -d "./SDML.tmbundle.git" ]]; then
-		cd SDML.tmbundle
+    pushd ${install_path} 2>&1 >/dev/null
+	if [[ -d "./SDML.tmbundle" ]]; then
+		pushd SDML.tmbundle 2>&1 >/dev/null
 		if git pull; then
             echo "${SUCCESS} Updated bundle from repository"
         else
             echo "${ERROR} Could not update bundle from repository";
             exit 4
         fi
-		cd ..
+		popd 2>&1 >/dev/null
 	else
 		if git clone git://github.com/sdm-lang/SDML.tmbundle.git "SDML.tmbundle"; then
             echo "${SUCCESS} Cloned bundle from repository"
         else
             echo "${ERROR} Could not clone bundle from repository";
             exit 4
+        fi
+	fi
+    popd 2>&1 >/dev/null
+
+    if osascript -e 'tell app "TextMate" to reload bundles'; then
+        echo "${SUCCESS} TextMate reloading bundles"
+    else
+        echo "${ERROR} Could not tell TextMate to reload ";
+        exit 5
+    fi
+}
+
+function install_sublime_package {
+    install_package brew subl sublime-text "Sublime Text" ;
+
+    if [[ "$OSTYPE" == "linux"* ]]; then
+		install_path = '${INSTALL_DIR}/sublime-text/packages'
+	else
+		install_path = '${INSTALL_DIR}/Sublime\ Text/Packages'
+	fi
+
+    pushd ${install_path} 2>&1 >/dev/null
+	if [[ -d "./SDML" ]]; then
+		cd SDML
+		if git pull; then
+            echo "${SUCCESS} Updated bundle from repository"
+        else
+            echo "${ERROR} Could not update bundle from repository";
+            exit 5
+        fi
+		cd ..
+	else
+		if git clone git://github.com/sdm-lang/sdml-sublime-package.git "SDML"; then
+            echo "${SUCCESS} Cloned bundle from repository"
+        else
+            echo "${ERROR} Could not clone bundle from repository";
+            exit 5
         fi
 	fi
     popd 2>&1 >/dev/null
@@ -176,21 +214,14 @@ while true; do
                echo "${SUCCESS} Visual Studio Extension installed"
            else
                echo "${ERROR} Visual Studio Extension install failed";
-               exit 5
+               exit 6
            fi
            ;;
-        2) install_emacs ;;
-        3) install_package brew mate textmate "TextMate" ;
-           install_textmate_bundle TextMate Bundless ;
-           if osascript -e 'tell app "TextMate" to reload bundles'; then
-               echo "${SUCCESS} TextMate reloading bundles"
-           else
-               echo "${ERROR} Could not tell TextMate to reload ";
-               exit 5
-           fi
+        2) install_emacs
            ;;
-        4) install_package brew subl sublime-text "Sublime Text" ;
-           install_textmate_bundle "Sublime Text" Packages
+        3) install_textmate_bundle
+           ;;
+        4) install_sublime_package
            ;;
         5) install_package brew vim neovim "Neovim" ;
            echo "${WARNING} Follow: some instructions"

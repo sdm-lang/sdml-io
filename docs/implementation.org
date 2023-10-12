@@ -514,8 +514,8 @@ support based on years of Microsoft IDE development experience. VSCode is also l
 and launches from the command-line easily. Lastly, VSCode is free and you can download directly from Microsoft or from
 common package managers such as Homebrew.
 
-The SDML extension is accessible from the Visual Studio Marketplace, as shown in figure [[fig:sc-vscode-marketplace]]. This
-makes installation easy, and VSCode will also keep the extension up to date with any published changes.
+The SDML extension is accessible from the Visual Studio [[https://marketplace.visualstudio.com/items?itemName=SimonJohnston.sdml][Marketplace]], as shown in figure [[fig:sc-vscode-marketplace]]. This
+makes installation easy, using the Extensions View, and VSCode will also keep the extension up to date with any published changes.
 
 #+NAME: fig:sc-vscode-marketplace
 #+CAPTION: SDML Extension in the Marketplace
