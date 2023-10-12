@@ -279,7 +279,7 @@ module rentals base <https://example.org/v/rentals> is
   structure LicenseInformation is
     assert drivers_license_valid =
       "Ensure the drivers license date is in the future."
-  
+
     number -> xsd:string
     state -> xsd:string
     expiration -> xsd:date

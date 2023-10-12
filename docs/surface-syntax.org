@@ -1426,6 +1426,123 @@ module example is
 end
 #+END_SRC
 
+While SDML only guarantees that a /unique value/ is assigned to each variant within an enumeration it does not say what
+the type of this value is, or how it is represented. In effect the datatype of a variant's value is /opaque/ and therefore
+supports only equality tests.
+
+Where it is useful to assign specific values to variants this can be accomplished with a pair of annotations,
+~owl:equivalentClass~ and ~rdf:value~. The first identifies a specific datatype to be used to represent the
+enumeration. Listing [[lst:sdml-ex-typed-enum]] shows our previous enum declaration with a representation type of
+~sdml:integer~, however the specific values for each variant are still assigned by the model. Only types derived from
+the types ~boolean~, ~decimal~, ~integer~, ~iri~, ~string~ or ~unsigned~ are allowed as enum representation types.
+
+#+NAME: lst:sdml-ex-typed-enum
+#+CAPTION: Example: Enum With Equivalent Datatype
+#+BEGIN_SRC sdml :exports code :noeval
+module example is
+
+  import owl
+
+  enum DistanceUnit of
+    @owl:equivalentClass = sdml:integer
+  
+    Meter
+    Foot
+  end
+
+end
+#+END_SRC
+
+It is possible for the model author to set specific values for each variant, *if* they have provided an equivalent class
+annotation to the declaration for the enum itself. To accomplish this, the author adds an ~rdf:value~ attribute property
+to each variant with a unique value with the datatype specified. 
+
+#+NAME: lst:sdml-ex-valued-enum
+#+CAPTION: Example: Enum With Variant Values
+#+BEGIN_SRC sdml :exports code :noeval
+module example is
+
+  import [ owl rdf ]
+
+  enum DistanceUnit of
+    @owl:equivalentClass = sdml:integer
+
+    Meter is
+      @rdf:value = 1
+    end
+
+    Foot is
+      @rdf:value = 2
+    end
+
+  end
+
+end
+#+END_SRC
+
+Specifically, to assign values to enumerations the following constraints must be met:
+
+1. The value of an ~owl:equivalentClass~ annotation on an enum declaration *must* be one of the supported datatypes, or a
+   type derived from one.
+1. If more than one ~owl:equivalentClass~ annotation is present they *must* have distinct base data types. See listing
+   [[lst:sdml-ex-multi-valued-enum]].
+1. The presence of an ~rdf:value~ annotation on a variant *requires* the presence of a corresponding ~owl:equivalentClass~
+   annotation on the enclosing enum declaration.
+1. If *no* ~rdf:value~ is specified for a variant the model will assign a unique value.
+   1. It is *recommended* that you either specify *all* values, or leave all to the model to assign.
+1. Each variant's ~rdf:value~ *must* be unique.
+1. Where the literal syntax of a type overlaps, specifically for ~signed~ and ~unsigned~ integers, type constructors may be
+   used to disambiguate the value type. See listing [[lst:sdml-ex-conflicting-valued-enum]].
+   
+#+NAME: lst:sdml-ex-multi-valued-enum
+#+CAPTION: Example: Enum With Multiple Variant Values
+#+BEGIN_SRC sdml :exports code :noeval
+module example is
+
+  import [ owl rdf ]
+
+  enum DistanceUnit of
+    @owl:equivalentClass = sdml:integer
+    @owl:equivalentClass = sdml:string
+
+    Meter is
+      @rdf:value = 1
+    end
+
+    Foot is
+      @rdf:value = 2
+    end
+
+  end
+
+end
+#+END_SRC
+   
+#+NAME: lst:sdml-ex-conflicting-valued-enum
+#+CAPTION: Example: Enum With Conflicting Variant Values
+#+BEGIN_SRC sdml :exports code :noeval
+module example is
+
+  import [ owl rdf ]
+
+  enum DistanceUnit of
+    @owl:equivalentClass = sdml:integer
+    @owl:equivalentClass = sdml:unsigned
+
+    Meter is
+      @rdf:value = xsd:integer(1)
+    end
+
+    Foot is
+      @rdf:value = xsd:integer(2)
+    end
+
+  end
+
+end
+#+END_SRC
+
+
 *** Disjoint Unions
 
 A disjoint, or discriminated, union is a mechanism to allow for a selection of disjoint types to be treated as a single

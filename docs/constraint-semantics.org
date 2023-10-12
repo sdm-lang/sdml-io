@@ -9,27 +9,39 @@ corresponds to a Common Logic /sentence/ which may be one of the following forms
 
 *Notation*
 
-- We use the letters $f, g, h, \cdots$, to denote /functions/, and the letters $P, Q, R, \cdots$ to denote /predicates/. Properly
-  these are function and predicate /symbols/, however this level of indirection is not useful in this description.
-- We use $A$ to denote the universe of concrete $values$
-- Functions map a /domain/ $\mathcal{d}$ to a /range/ $\mathcal{r}$ of values in $A$.
-- Predicates are functions over a domain of /relations/ and have a range of /boolean/ values.
-- We also associate with each function and predicate symbol a non-negative integer, called its arity which indicates the
-  number of arguments a function or relation takes.
-  - A function or predicate of arity 0 is called a constant.
+- We use the symbol $\mathcal{D}$ to denote the domain of discourse which is defined as the set $\{\mathcal{F},
+  \mathcal{P}, \mathcal{T}, \mathcal{V}\}$ of /functions/, /predicates/, /types/, and /concrete values/. 
+- We use the letters $f, g, h, \cdots$ to denote functions in the set $\mathcal{F}$.
+- We use the letters $P, Q, R, \cdots$ to denote predicates in the set $\mathcal{P}$.
+- We use the letters $\tau, \delta, \rho, \cdots$ to denote types in the set $\mathcal{T}$.
+- Functions map a /domain/ type $\rho$ to a /range/ type $\rho$ of values in $\mathcal{V}$.
+- We also associate with each function or predicate symbol a non-negative integer, called its arity, $|f|$, which indicates the
+  number of arguments a function or predicate takes.
+  - A function of arity 0 is called a constant.
   - Sometimes we use superscripts to indicate the arity of a symbol, e.g., we may write $f^2$ for a binary function.
-- We use the letters $x, y, z, \cdots$ to denote (individual) variables, ranging over elements of a specified domain.
-- We use the symbol $\mathcal{D}$ to denote the domain of discourse.
+  - Predicates are functions over a domain of /relations/ and have a range of /boolean/ values.
+  - We use the letters $x, y, z, \cdots$ to denote (individual) /variable/ in $\mathcal{X}$s, ranging over values in $\mathcal{V}$.
 
-- Given the above, the relationship between /symbols/ and concrete functions and predicates is as follows.
-  - For each /n/-ary function symbol $f \in \mathcal{F}$, there exists an /n/-ary function $f^\mathcal{D}: A^n \rightarrow A$.
-  - For each /n/-ary predicate symbol $P \in \mathcal{P}$ there exists an /n/-ary predicate $P^\mathcal{D}: ⊆ A^n$.
-     
+#+BEGIN_COMMENT
+This is easier to explain without the following.
+- Properly these are function and predicate /symbols/, however this level of indirection is not useful in this
+  description. Given the above, the relationship between /symbols/ and concrete functions and predicates is as follows.
+  - For each /n/-ary function symbol $f \in \mathcal{F}$, there exists an /n/-ary function in $\mathcal{D}$; $f^\mathcal{D}: \mathcal{V}^n \rightarrow \mathcal{V}$.
+  - For each /n/-ary predicate symbol $P \in \mathcal{P}$ there exists an /n/-ary predicate in $\mathcal{D}$; $P^\mathcal{D}: ⊆ \mathcal{V}^n$.
+#+END_COMMENT
+
+$$\mathcal{D} = \left\{\mathcal{F}, \mathcal{P}, \mathcal{V}\right\}$$
+
+$$\forall \tau \in \mathcal{T} \left( \tau \in \mathcal{V}\right)$$
+
+$$\forall f \in \mathcal{F} \left( f: \delta \mapsto \rho \implies \delta \in \mathcal{T} \land \rho \in \mathcal{T}\right)$$
+
+$$\forall P \in \mathcal{P} \left( P: \delta \mapsto \rho \implies |P| \geq 2 \land \delta \in \mathcal{T} \land \rho \in \left\{⊤, ⊥\right\}\right)$$
+
+
 *General Semantics*
 
-1. Let $\mathcal{F}$ and $\mathcal{P}$ be sets of functions and predicates respectively, and $\mathcal{X}$ be a set of
-   variables.
-1. The set $\mathcal{T} (\mathcal{F}, \mathcal{V})$ of terms (over $\mathcal{F}$ and $\mathcal{X}$) is defined inductively
+1. The set $T(\mathcal{F}, \mathcal{V})$ of /terms/ (over $\mathcal{F}$ and $\mathcal{X}$) is defined inductively
    by:
    - every variable $x$ in $\mathcal{X}$ is a term, and
    - if $f$ is a function in $\mathcal{F}$ of arity $n$, and $t_1, \cdots, t_n$ are terms, then $f(t_1,\cdots, t_n)$ is also a term.
@@ -37,7 +49,7 @@ corresponds to a Common Logic /sentence/ which may be one of the following forms
    are all terms.
 1. Similarly, we define:
    - if $P$ is a predicate symbol in $\mathcal{P}$ of arity $n$, and $t1, \cdots, t_n$ are terms, then $P(t_1, \cdots, t_n)$ is an
-     atomic formula, or /atom/ for short.
+     /atomic formula/, or /atom/ for short.
 1. Thus, if $P$ is a binary predicate symbol, then $P(x, x)$ and $P(a, f(x, a))$ are atomic formulas.
 1. If a term or atom contains no variables, it is said to be variable-free or /ground/.
 1. The same variable may occur several times in a formula. We distinguish between free and bound occurrences of variables.
@@ -48,7 +60,7 @@ corresponds to a Common Logic /sentence/ which may be one of the following forms
 1. Formulas without free occurrences of variables are called /sentences/. Thus, $∀x∃y P(x, y)$ is a sentence but $∃y P(x,
    y)$ is not.
 
-Semantically, sentences are formulas that can be true or false, whereas the truth value of a formula with free
+Semantically, sentences are formulas that can be /true/ (⊤) or /false/ (⊥), whereas the truth value of a formula with free
 occurrences of variables depends on the assignment of values to these variables.
 
 ** Simple Sentences
@@ -155,22 +167,23 @@ exists e in Sequence s
 
 *Notation*
 
-- We use the symbol $\mathbb{S}$ to denote an arbitrary sequence of values such that $\mathbb{S} ⊆ A$.
-- We use the type $\mathbb{T}$ to denote an arbitrary type which is a set of values such that $\mathbb{T} ⊆ A$.
-- We use the symbol $\tau_x$ to denote the type $\mathbb{T}$ of a value $x \in A$. Given that a function or predicate with an
-  arity of $0$ is a constant value:
-  - for functions the following equivalence holds $\forall f \in \mathcal{F} \left(arity(f) = 0 \implies \mathcal{r}_f =
+- We use the symbol $\mathbb{S}$ to denote an arbitrary sequence of values such that $\mathbb{S} ⊆ \mathcal{V}$.
+- We use $\tau(x)$ to denote the type a variable $x$.
+- Given that a function or predicate with an arity of $0$ is a constant value:
+  - for functions the following equivalence holds $\forall f \in \mathcal{F} \left(|f| = 0 \implies \mathcal{r}_f =
     \tau_f\right)$, and
-  - for predicates the following equivalence holds $\forall p \in \mathcal{P} \left(arity(p) = 0 \implies \mathcal{r}_p = \tau_p\right)$.
+  - for predicates the following equivalence holds $\forall p \in \mathcal{P} \left(|p| = 0 \implies \mathcal{r}_p = \tau_p\right)$.
   
 The value of a sequence builder of the form $t ≔ \bigl\{ x, y \mid \ldots\}$ provides a relation for each variable of
 the form $x(\tau_t) → \tau_x$ and $y(\tau_t) \rightarrow \tau_y$. This can be expressed in the following:
 
-$$t ≔ \bigl\{ x_1, \cdots, x_n \mid \ldots \bigr\} \implies \forall x \in x_1, \cdots, x_n, \exists f \in \mathcal{F} \bigl(arity(f) = 1 \land \mathcal{d}_f =
+$$t ≔ \bigl\{ x_1, \cdots, x_n \mid \ldots \bigr\} \implies \forall x \in x_1, \cdots, x_n, \exists f \in \mathcal{F} \bigl(|f| = 1 \land \mathcal{d}_f =
 \tau_t \land \mathcal{r}_f = \tau_x\bigr)$$
 
+#+BEGIN_COMMENT
 The expression from section [[sec:sequence-builders]] does not provide a domain for the variable $x$ and so will take on all
 values from the domain of discourse, $\mathcal{D}$. We may then define a transform in the following manner.
+#+END_COMMENT
 
 $$\bigl\{ x \mid P(x)\bigr\} \equiv \bigl\{ x \mid x \in \mathcal{D} \land P(x)\bigr\}$$
 
