@@ -865,7 +865,28 @@ end
 
 While such a type is useful for conveying semantic meaning with types it doesn't provide any actual restriction on the
 value space of the type. This is accomplished by using a subset of the /facets/ described in XML Schema part 2 to specify
-constraints on the new type. For example, in listing [[lst:sdml-ex-restricted-datatype]] we now see that the Name type
+constraints on the new type.
+
+
+#+NAME: lst:sdml-ex-currency
+#+CAPTION: Example: New Currency Datatype
+#+BEGIN_SRC sdml :exports code :noeval
+module example is
+
+  import ex
+
+  datatype Currency <- decimal is
+    @xsd:fractionDigits = 3
+  end
+
+  datatype Price <- Currency is
+    @xsd:totalDigits = 7
+  end
+
+end
+#+END_SRC
+
+Also, in listing [[lst:sdml-ex-restricted-datatype]] we now see that the Name type
 is a string whose length is between 5 and 25 characters only.
 
 #+NAME: lst:sdml-ex-restricted-datatype
@@ -1511,6 +1532,7 @@ module example is
 
     Foot is
       @rdf:value = 2
+    
     end
 
   end
@@ -1541,7 +1563,6 @@ module example is
 
 end
 #+END_SRC
-
 
 *** Disjoint Unions
 

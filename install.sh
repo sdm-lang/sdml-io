@@ -188,7 +188,7 @@ function install_sublime_package {
 	fi
 
     mkdir -p ${install_path}
- 
+
     pushd ${install_path} 2>&1 >/dev/null
 	if [[ -d "./SDML" ]]; then
 		cd SDML
