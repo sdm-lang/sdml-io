@@ -12,19 +12,19 @@ module rentals base <https://example.org/v/rentals> is
   end
 
   enum RentalClass of
-    SubCompact = 1
-    Compact = 2
-    FullSize = 3
-    CompactUtilityVehicle = 4
-    FullSizeUtilityVehicle = 5
-    Luxury = 6
-    Sports = 7
+    SubCompact
+    Compact
+    FullSize
+    CompactUtilityVehicle
+    FullSizeUtilityVehicle
+    Luxury
+    Sports
   end
 
   enum CustomerLevel of
-    Basic = 1
-    Silver = 2
-    Gold = 3
+    Basic
+    Silver
+    Gold
   end
 
   entity Location
@@ -35,7 +35,7 @@ module rentals base <https://example.org/v/rentals> is
     identity vin -> VehicleIdentificationNumber
 
     information -> VehicleInformation
-    ref rentalClass -> {1} RentalClass
+    rentalClass -> {1} RentalClass
   end
 
   structure VehicleInformation is
@@ -47,29 +47,28 @@ module rentals base <https://example.org/v/rentals> is
     end
   end
 
-  entity Location
-
   entity Customer is
     identity id -> UniqueId
+    name -> string
   end
 
   entity Booking is
     identity bookingCode -> unknown
 
-    ref customer -> {1} Customer
+    customer -> {1} Customer
 
     group
       @skos:prefLabel = "Rental Period"@en
       pickup_date -> xsd:date
-      ref pickup_location -> Location
+      pickup_location -> Location
       dropoff_date -> xsd:date
-      ref dropoff_location -> Location
+      dropoff_location -> Location
     end
 
     group
       @skos:prefLabel = "Requested"@en
-      ref bookingClass -> {1} RentalClass
-      ref vehicle -> {0..1} Vehicle
+      bookingClass -> {1} RentalClass
+      vehicle -> {0..1} Vehicle
     end
   end
 

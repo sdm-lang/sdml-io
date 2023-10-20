@@ -9,9 +9,9 @@ module rentals is
   entity Booking is
     identity id -> unknown
 
-    ref vehicle -> {0..1} Vehicle
-    ref from -> Location
-    ref customer -> Customer
+    vehicle -> {0..1} Vehicle
+    from -> Location
+    customer -> Customer
   end
 
 end

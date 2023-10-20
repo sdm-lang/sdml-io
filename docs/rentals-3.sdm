@@ -7,7 +7,7 @@ module rentals is
   entity Vehicle is
     identity vin -> VehicleIdentificationNumber
 
-    ref rentalClass -> {1} Class
+    rentalClass -> {1} Class
   end
 
   entity Location
@@ -17,10 +17,10 @@ module rentals is
   entity Booking is
     identity bookingCode -> unknown
 
-    ref bookingClass -> {1} Class
-    ref vehicle -> {0..1} Vehicle
-    ref from -> Location
-    ref customer -> {1} Customer
+    bookingClass -> {1} Class
+    vehicle -> {0..1} Vehicle
+    from -> Location
+    customer -> {1} Customer
   end
 
 end

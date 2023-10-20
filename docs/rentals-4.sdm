@@ -8,7 +8,7 @@ module rentals is
   entity Vehicle is
     identity vin -> cids:VehicleIdentificationNumber
 
-    ref rentalClass -> {1} Class
+    rentalClass -> {1} Class
   end
 
   entity Location is
@@ -35,13 +35,13 @@ module rentals is
   entity Booking is
     identity bookingCode -> unknown
 
-    ref bookingClass -> {1} Class
-    ref vehicle -> {0..1} Vehicle
-    ref pickup -> {1} Location
+    bookingClass -> {1} Class
+    vehicle -> {0..1} Vehicle
+    pickup -> {1} Location
     pickupDate -> {1} xsd:date
-    ref dropoff -> {1} Location
+    dropoff -> {1} Location
     dropoffDate -> {1} xsd:date
-    ref customer -> {1} Customer
+    customer -> {1} Customer
   end
 
 end
