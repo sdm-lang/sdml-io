@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-10-06 Fri 12:59 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Simon Johnston" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org2f38b8f">1. Appendix: Constraint Semantics</a>
+<ul>
+<li><a href="#org32deb2e">1.1. Simple Sentences</a></li>
+<li><a href="#org78e0f71">1.2. Boolean Sentences</a></li>
+<li><a href="#org50fecdc">1.3. Quantified Sentences</a></li>
+<li><a href="#org84cb276">1.4. Sequence Builders</a></li>
+<li><a href="#org14ca3aa">1.5. Quantified Sentences as Sequence Builders</a></li>
+<li><a href="#orgc41bd94">1.6. Constraints to ISO/IEC Common Logic</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2f38b8f" class="outline-2">
+<h2 id="org2f38b8f"><span class="section-number-2">1.</span> <a id="org4f3250c"></a>Appendix: Constraint Semantics</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+The embedded constraint language is purely functional and constraint assertions MUST return a single boolean value
+determining correctness. The constraint language follows the naming convention of Common Logic, and so a constraint
+corresponds to a Common Logic <i>sentence</i> which may be one of the following forms.
+</p>
+
+<p>
+<b>Notation</b>
+</p>
+
+<ul class="org-ul">
+<li>We use the symbol \(\mathcal{D}\) to denote the domain of discourse which is defined as the set \(\{\mathcal{F},
+  \mathcal{P}, \mathcal{T}, \mathcal{V}\}\) of <i>functions</i>, <i>predicates</i>, <i>types</i>, and <i>concrete values</i>.</li>
+<li>We use the letters \(f, g, h, \cdots\) to denote functions in the set \(\mathcal{F}\).</li>
+<li>We use the letters \(P, Q, R, \cdots\) to denote predicates in the set \(\mathcal{P}\).</li>
+<li>We use the letters \(\tau, \delta, \rho, \cdots\) to denote types in the set \(\mathcal{T}\).</li>
+<li>Functions map a <i>domain</i> type \(\rho\) to a <i>range</i> type \(\rho\) of values in \(\mathcal{V}\).</li>
+<li>We also associate with each function or predicate symbol a non-negative integer, called its arity, \(|f|\), which indicates the
+number of arguments a function or predicate takes.
+<ul class="org-ul">
+<li>A function of arity 0 is called a constant.</li>
+<li>Sometimes we use superscripts to indicate the arity of a symbol, e.g., we may write \(f^2\) for a binary function.</li>
+<li>Predicates are functions over a domain of <i>relations</i> and have a range of <i>boolean</i> values.</li>
+<li>We use the letters \(x, y, z, \cdots\) to denote (individual) <i>variable</i> in $\mathcal{X}$s, ranging over values in \(\mathcal{V}\).</li>
+</ul></li>
+</ul>
+
+<p>
+\[\mathcal{D} = \left\{\mathcal{F}, \mathcal{P}, \mathcal{V}\right\}\]
+</p>
+
+<p>
+\[\forall \tau \in \mathcal{T} \left( \tau \in \mathcal{V}\right)\]
+</p>
+
+<p>
+\[\forall f \in \mathcal{F} \left( f: \delta \mapsto \rho \implies \delta \in \mathcal{T} \land \rho \in \mathcal{T}\right)\]
+</p>
+
+<p>
+\[\forall P \in \mathcal{P} \left( P: \delta \mapsto \rho \implies |P| \geq 2 \land \delta \in \mathcal{T} \land \rho \in \left\{⊤, ⊥\right\}\right)\]
+</p>
+
+
+<p>
+<b>General Semantics</b>
+</p>
+
+<ol class="org-ol">
+<li>The set \(T(\mathcal{F}, \mathcal{V})\) of <i>terms</i> (over \(\mathcal{F}\) and \(\mathcal{X}\)) is defined inductively
+by:
+<ul class="org-ul">
+<li>every variable \(x\) in \(\mathcal{X}\) is a term, and</li>
+<li>if \(f\) is a function in \(\mathcal{F}\) of arity \(n\), and \(t_1, \cdots, t_n\) are terms, then \(f(t_1,\cdots, t_n)\) is also a term.</li>
+</ul></li>
+<li>For example, if \(f\) is a binary function, \(a\) is a constant, and \(x\) is a variable, then \(a\), \(f(a, x)\), and \(f(a, a)\)
+are all terms.</li>
+<li>Similarly, we define:
+<ul class="org-ul">
+<li>if \(P\) is a predicate symbol in \(\mathcal{P}\) of arity \(n\), and \(t1, \cdots, t_n\) are terms, then \(P(t_1, \cdots, t_n)\) is an
+<i>atomic formula</i>, or <i>atom</i> for short.</li>
+</ul></li>
+<li>Thus, if \(P\) is a binary predicate symbol, then \(P(x, x)\) and \(P(a, f(x, a))\) are atomic formulas.</li>
+<li>If a term or atom contains no variables, it is said to be variable-free or <i>ground</i>.</li>
+<li>The same variable may occur several times in a formula. We distinguish between free and bound occurrences of variables.</li>
+<li>Each occurrence of a variable \(x\) that is in the scope of a quantifier expression \(∀x\) or \(∃x\) is said to be <i>bound</i>.
+An occurrence of \(x\) that is not bound is said to be <i>free</i>.</li>
+<li>For example, in \(∀x∃y P(x, y)\) all variable occurrences are bound, whereas in \(∃y P(x, y)\) the occurrence of \(x\) is free.</li>
+<li>The same variable may have both free and bound occurrences in a formula, e.g., the variable \(x\) in \(Q(x) ∨ ∃x ¬R(x)\).</li>
+<li>Formulas without free occurrences of variables are called <i>sentences</i>. Thus, \(∀x∃y P(x, y)\) is a sentence but \(∃y P(x,
+   y)\) is not.</li>
+</ol>
+
+<p>
+Semantically, sentences are formulas that can be <i>true</i> (⊤) or <i>false</i> (⊥), whereas the truth value of a formula with free
+occurrences of variables depends on the assignment of values to these variables.
+</p>
+</div>
+
+<div id="outline-container-org32deb2e" class="outline-3">
+<h3 id="org32deb2e"><span class="section-number-3">1.1.</span> Simple Sentences</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+An <i>atomic sentence</i> takes the form of a predicate with a set of zero or more arguments.
+</p>
+
+<pre class="example" id="orga0c0578">
+predicate(a1, ..., an)
+</pre>
+
+<p>
+An <i>equation</i> sentence asserts the equality of two terms.
+</p>
+
+<pre class="example" id="org8fa9ed6">
+rhs = rhs
+</pre>
+
+<p>
+An <i>inequation</i> sentence asserts an inequality relation between two terms.
+</p>
+
+<pre class="example" id="org544f231">
+lhs /= rhs
+lhs ≠ rhs
+lhs &lt; rhs
+lhs &lt;= rhs
+lhs ≤ rhs
+lhs &gt; rhs
+lhs &gt;= rhs
+lhs ≥ rhs
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org78e0f71" class="outline-3">
+<h3 id="org78e0f71"><span class="section-number-3">1.2.</span> Boolean Sentences</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+The <i>negation</i> of a sentence takes the form of a preceding logical <i>not</i> operator.
+</p>
+
+<pre class="example" id="org012f002">
+not rhs
+¬rhs
+</pre>
+
+<p>
+The <i>conjunction</i> of two sentences takes the form of the application of the logical <i>and</i> operator.
+</p>
+
+<pre class="example" id="org7418db1">
+lhs and rhs
+lhs  ∧  rhs
+</pre>
+
+<p>
+The <i>disjunction</i> of two sentences takes the form of the application of the logical <i>or</i> operator.
+</p>
+
+<pre class="example" id="org85df74d">
+lhs or rhs
+lhs ∧  rhs
+</pre>
+
+<p>
+The <i>exclusive disjunction</i> of two sentences takes the form of the application of the logical <i>xor</i> operator.
+</p>
+
+<pre class="example" id="orgd07416a">
+lhs xor rhs
+lhs  ⊻  rhs
+</pre>
+
+<p>
+An <i>implication</i> relation between two sentences holds true when the right-hand proposition is a logical
+consequence of the left-hand. In effect it says that "if the left-hand side is true, then the right-hand side is also
+true"; however, it does not say what one can deduce if the left-hand side is not true, or under what other conditions
+the right-hand side may be true.
+</p>
+
+<p>
+Note that the left-hand side is often named the <i>antecedent</i> and the right-hand side is the <i>consequent</i>. The entire
+expression is often termed a <i>conditional</i>.
+</p>
+
+<pre class="example" id="org49d82ac">
+lhs implies rhs
+lhs   ==&gt;   rhs
+lhs    ⇒    rhs
+</pre>
+
+<p>
+A <i>biconditional</i> relation between two sentences holds true when the both sides are either true or false. In effect, "the
+left-hand side implies the right-hand side and the right-hand side implies the left-hand-side".
+</p>
+
+<pre class="example" id="org724f74c">
+lhs iff  rhs
+lhs &lt;==&gt; rhs
+lhs  ⇔   rhs
+</pre>
+
+<p>
+\[L \iff R \equiv (L \implies R) \land (R \implies L)\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org50fecdc" class="outline-3">
+<h3 id="org50fecdc"><span class="section-number-3">1.3.</span> Quantified Sentences</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+The <i>universal quantification</i> over a sequence says that "for all elements \(e\) in the sequence \(S\) the sentence \(s\) must hold
+true".
+</p>
+
+<pre class="example" id="org8e63b0c">
+forall e in Sequence s
+     ∀ e ∈  Sequence s
+</pre>
+
+<p>
+The <i>existential quantification</i> over a sequence says that "there exists an element \(e\) in the sequence \(S\) where the sentence
+\(s\) holds true".
+</p>
+
+<pre class="example" id="org2319751">
+exists e in Sequence s
+     ∃ e ∈  Sequence s
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org84cb276" class="outline-3">
+<h3 id="org84cb276"><span class="section-number-3">1.4.</span> Sequence Builders</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+<b>Notation</b>
+</p>
+
+<ul class="org-ul">
+<li>We use the symbol \(\mathbb{S}\) to denote an arbitrary sequence of values such that \(\mathbb{S} ⊆ \mathcal{V}\).</li>
+<li>We use \(\tau(_x)\) to denote the type \(\tau \in \mathcal{T}\) of a value \(x \in \mathcal{X}§\). Given that a function or predicate with an
+arity of \(0\) is a constant value:
+<ul class="org-ul">
+<li>for functions the following equivalence holds \(\forall f \in \mathcal{F} \left(|f| = 0 \implies \mathcal{r}_f =
+    \tau_f\right)\), and</li>
+<li>for predicates the following equivalence holds \(\forall p \in \mathcal{P} \left(|p| = 0 \implies \mathcal{r}_p = \tau_p\right)\).</li>
+</ul></li>
+</ul>
+
+<p>
+The value of a sequence builder of the form \(t ≔ \bigl\{ x, y \mid \ldots\}\) provides a relation for each variable of
+the form \(x(\tau_t) → \tau_x\) and \(y(\tau_t) \rightarrow \tau_y\). This can be expressed in the following:
+</p>
+
+<p>
+\[t ≔ \bigl\{ x_1, \cdots, x_n \mid \ldots \bigr\} \implies \forall x \in x_1, \cdots, x_n, \exists f \in \mathcal{F} \bigl(|f| = 1 \land \mathcal{d}_f =
+\tau_t \land \mathcal{r}_f = \tau_x\bigr)\]
+</p>
+
+<p>
+\[\bigl\{ x \mid P(x)\bigr\} \equiv \bigl\{ x \mid x \in \mathcal{D} \land P(x)\bigr\}\]
+</p>
+
+<p>
+In natural language this transformed expression read as follows "construct a sequence of values of \(x\) <b>such that</b> \(x\) is
+in the sequence \(\mathcal{D}\) <b>and</b> the predicate \(P\) holds true for \(x\)".
+</p>
+
+<p>
+Predicates may also be combined with the usual boolean operations; negation \(\bigl\{ x \mid ¬P(x)\bigr\}\), conjunction
+\(\bigl\{ x \mid P(x) \wedge Q(x)\bigr\}\), disjunction \(\bigl\{ x \mid P(x) \vee Q(x)\bigr\}\), and exclusive disjunction \(\{ x
+\mid P(x) \veebar Q(x)\bigr\}\).
+</p>
+
+<p>
+The domain for each variable \(x\) may either be described as the set of all elements in a sequence value
+\(\mathbb{S}\), or the set of all values for a type \(\mathbb{T}\).
+</p>
+
+<ol class="org-ol">
+<li>\(\bigl\{ x \mid x \in \mathbb{S} \land P(x)\bigr\}\) returns a sequence of all values \(x\) in the collection \(\mathbb{S}\) for which the
+predicate \(P\) holds (evaluates to <code>true</code>).
+<ul class="org-ul">
+<li>Example: \(\bigl\{ m \mid x \in self.members \land optional(m)\bigr\}\)</li>
+</ul></li>
+<li>\(\bigl\{ x \mid x \in \mathbb{T} \land P(x)\bigr\}\) returns a sequence of all values \(x\) in the type \(\mathbb{T}\) for which the
+predicate \(P\) holds (evaluates to <code>true</code>).
+<ul class="org-ul">
+<li>Example: \(\bigl\{ v \mid v \in FutureDate \land gt(v, today)\bigr\}\).</li>
+<li>Example: \(\bigl\{ v \mid v → FutureDate \land gt(v, today)\bigr\}\).</li>
+</ul></li>
+</ol>
+
+<p>
+It can be shown that this is a universal quantification, <i>all</i> values from the type \(\mathbb{T}\) or sequence
+\(\mathbb{S}\) will be considered. A variable can be identified as existentially quantified by prefacing it's definition
+with either the keyword <code>exists</code> or the operator <code>∃</code>.
+</p>
+
+<p>
+\[\bigl\{ x \mid x \in self.tags \land ∃ y \in self.container.tags \land x = y\bigr\}\]
+</p>
+
+<p>
+The following definitions are taken from the standard library and act as filters over a sequence of <code>Annotation</code> union
+values to provide sequences which only contain one or other of the types in the union.
+</p>
+
+<pre class="example" id="org6854292">
+def annotation_properties(anns -&gt; {} Annotation) -&gt; {} AnnotationProperty
+    ≔ {a | a ∈ anns is_annotation_property(a)}
+
+def constraints(anns - &gt; {}  Annotation) -&gt; {} Constraint
+    ≔ {a | a ∈ anns is_constraint(a)}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org14ca3aa" class="outline-3">
+<h3 id="org14ca3aa"><span class="section-number-3">1.5.</span> Quantified Sentences as Sequence Builders</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+The existential qualifier specifically determines that there is <i>at least one</i> element in the type or sequence where the
+sentence provided holds true. If you need to ensure a specific cardinality, for example that <i>exactly three</i> elements in
+type or sequence are selected, use a sequence comprehension.
+</p>
+
+<pre class="example" id="orgdea58e9">
+count({ e | e in Sequence s}) = 3
+</pre>
+
+<p>
+By this definition we can show that the following are equivalent.
+</p>
+
+<pre class="example" id="org854df78">
+exists e in Sequence s
+not is_empty({ e | e in Sequence s})
+</pre>
+
+<p>
+More formally, the following equivalence holds true.
+</p>
+
+<p>
+\[∃ e \in \mathbb{S} \bigl(P\left(e\right)\bigr) ≡ ¬\bigl\{e \mid e \in \mathbb{S} ∧ P\left(e\right)\bigr\}=∅\]
+</p>
+
+<p>
+We can also show that the following are equivalent for universal quantification.
+</p>
+
+<pre class="example" id="org47edeba">
+forall e in Sequence s
+is_empty({ e | e in Sequence not s}
+</pre>
+
+<p>
+\[∀ e \in \mathbb{S} \bigl(P\left(e\right)\bigr) ≡ \bigl\{e \mid e \in \mathbb{S} ∧ ¬P(e)\bigr\}=∅\]
+</p>
+
+<p>
+In this manner we can treat the quantified sentences as syntactic sugar over specific forms of sequence comprehensions.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc41bd94" class="outline-3">
+<h3 id="orgc41bd94"><span class="section-number-3">1.6.</span> <a id="orgb9beed9"></a>Constraints to ISO/IEC Common Logic</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+This appendix describes the <b>normative</b> mapping from SDML/Constraints to the ISO/IEC Common Logic standard.
+</p>
+
+<p>
+TBD
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Simon Johnston</p>
+<p class="date">Created: 2023-10-06 Fri 12:59</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -2,6 +2,9 @@
 #+STARTUP: overview hidestars inlineimages entitiespretty
 
 * Introduction
+:PROPERTIES:
+:CUSTOM_ID: introduction
+:END:
 
 The Simple Domain Modeling Language[fn:sdml] is a small data-oriented language for constructing, documenting, and
 reasoning about a conceptual domain model. For a background on domain modeling see section [[sec:domain-modeling]]. At it's
@@ -10,10 +13,9 @@ ontology (see section [[sec:rdf-semantic-model]] for more details), *2.* a /surf
 artifacts (see section [[sec:surface-syntax]] for more details), *3.* a /constraint language/ to capture model invariants not
 covered by the data descriptions in the surface syntax. Figure [[fig:sdml-overview]] shows the relationship between
 these high-level components. This book covers both the surface syntax and semantic model as well as the correspondence
-between them. However, the primary focus of the documentation is the surface syntax as most users will be interacting
-with it alone.
+between them. If you are looking for a quick introduction to the language you may prefer the [[./primer.org][SDML Primer]].
 
-#+NAME: fig:sdml-overview
+#+NAME: src:sdml-overview
 #+BEGIN_SRC dot :file ./images/sdml-overview.svg :exports results
 digraph G {
   bgcolor="transparent";
@@ -33,8 +35,9 @@ digraph G {
 }
 #+END_SRC
 
+#+NAME: fig:sdml-overview
 #+CAPTION: Model Overview
-#+RESULTS: fig:sdml-overview
+#+RESULTS: src:sdml-overview
 [[file:./images/sdml-overview.svg]]
 
 The problem with any language, or technology in general, that aims to be /simple/ it has to leave a lot of things out that
@@ -60,6 +63,9 @@ attributes but has no conceptual identity/), simply termed structures in SDML. T
 DDD first-class concepts: /aggregates/, /repositories/, /factories/, or /services/.
 
 ** <<sec:domain-modeling>>What is Domain Modeling?
+:PROPERTIES:
+:CUSTOM_ID: intro-what-is-domain-modeling
+:END:
 
 Domain modeling is the process by which we develop a model of our business domain. In particular, we model /what/ our
 business does and not /how/ it is done. The resulting model should be recognizable by different stakeholders both
@@ -180,6 +186,9 @@ However, the method's focus on the business and it's vocabulary as the basis for
 the Universal API where the model will represent our business model in different presentations.
 
 ** Domain-Related Models
+:PROPERTIES:
+:CUSTOM_ID: intro-domain-related-models
+:END:
 
 Domain modeling is often an isolated activity in that the created model is applied in a singular fashion. However,
 there are other modeling activities that share similar aims, whose subjects intersect, and which are also conceptual or
@@ -215,7 +224,7 @@ combined with other RDF-based vocabularies such as SKOS[fn:skos] for thesauri, o
 RDF in a graph database along with SKOS definitions and other vocabularies will enhance each viewpoint with additional
 information. Figure [[fig:sdml-foundation]] shows how these different viewpoints may come together.
 
-#+NAME: fig:sdml-foundation
+#+NAME: src:sdml-foundation
 #+BEGIN_SRC dot :file ./images/sdml-foundation.svg :exports results
 digraph G {
   bgcolor="transparent";
@@ -252,11 +261,15 @@ digraph G {
 }
 #+END_SRC
 
+#+NAME: fig:sdml-foundation
 #+CAPTION: Model Foundations
-#+RESULTS: fig:sdml-foundation
+#+RESULTS: src:sdml-foundation
 [[file:./images/sdml-foundation.svg]]
 
 ** <<sec:sdml-role>>Domain Modeling's Role in Development
+:PROPERTIES:
+:CUSTOM_ID: intro-domain-modeling-role
+:END:
 
 The software development process may be described as the management of abstraction; requirements are an abstraction
 representing actual needs of some group of individuals, a whiteboard drawing may be an (informal) abstraction of a
@@ -264,7 +277,7 @@ system design, a UML model may be a more-or-less formal abstraction of system or
 We can stratify these levels of abstraction as shown in figure [[fig:artifact-layering]] although almost any such
 stratification will crash headlong into any number of detractors.
 
-#+NAME: fig:artifact-layering
+#+NAME: src:artifact-layering
 #+BEGIN_SRC dot :file ./images/artifact-layering.svg :exports results
 digraph G {
   bgcolor="transparent";
@@ -322,8 +335,9 @@ digraph G {
 }
 #+END_SRC
 
+#+NAME: fig:artifact-layering
 #+CAPTION: Artifact Layers in Software Development
-#+RESULTS: fig:artifact-layering
+#+RESULTS: src:artifact-layering
 [[file:./images/artifact-layering.svg]]
 
 While this figure groups these levels into three groups, /abstract models/, /concrete models/, and /artifacts/ this is again
@@ -337,7 +351,7 @@ The transformation also should allow configuration to direct the transform, perh
 the domain model but which are required in the transformation target. For example, converting an SDML structure into a
 SQL DDL statement may need to know the specific SQL dialect to target.
 
-#+NAME: fig:model-transforms
+#+NAME: src:model-transforms
 #+BEGIN_SRC dot :file ./images/model-transforms.svg :exports results
 digraph G {
   bgcolor="transparent";
@@ -358,8 +372,9 @@ digraph G {
 }
 #+END_SRC
 
+#+NAME: fig:model-transforms
 #+CAPTION: Model Transformations
-#+RESULTS: fig:model-transforms
+#+RESULTS: src:model-transforms
 [[file:./images/model-transforms.svg]]
 
 *Example:*
@@ -370,7 +385,7 @@ of déjà vu, you or your employer may have tried different model-driven develop
 of significant issues. One of the major reasons for giving up on this approach is the /round-trip/ problem -- what if I
 edit the generated thing, how does that get reverse engineered back into the higher-level model?
 
-#+NAME: fig:example-transform
+#+NAME: src:example-transform
 #+BEGIN_SRC dot :file ./images/example-transform.svg :exports results
 digraph G {
   bgcolor="transparent";
@@ -416,8 +431,9 @@ digraph G {
 }
 #+END_SRC
 
+#+NAME: fig:example-transform
 #+CAPTION: Example Model Transformations
-#+RESULTS: fig:example-transform
+#+RESULTS: src:example-transform
 [[file:./images/example-transform.svg]]
 
 One key aspect of figure [[fig:example-transform]] is that all of the arrows flow in a single direction. Modeling tool
@@ -431,6 +447,9 @@ it is often possible to inspect these intermediate forms it is not realistic to 
 developer) and there is *no* expectation that the compiler will put your changes back into your source code.
 C
 ** SDML as a Domain Modeling Language
+:PROPERTIES:
+:CUSTOM_ID: sdml-as-dml
+:END:
 
 TBD
 
@@ -465,6 +484,9 @@ the surface syntax is the canonical authoring form.
 4. Standardization
 
 ** Acknowledgments
+:PROPERTIES:
+:CUSTOM_ID: intro-acknowledgments
+:END:
 
 Obviously this work relies on the decades of prior art in domain modeling and modeling languages in general; in
 particular, the many authors and contributors to the UML family of specifications. Similarly SDML relies heavily on the

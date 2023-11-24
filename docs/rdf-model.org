@@ -120,7 +120,7 @@ classes in this diagram that are in a lighter color are /abstract/ in that they 
 classes actually referenced by other model elements. For more information on OWL itself, see [[https://www.w3.org/TR/owl2-overview/][OWL 2 Web Ontology Language
 Document Overview (Second Edition)]] and [[https://cambridgesemantics.com/blog/semantic-university/learn-owl-rdfs/owl-references-humans/][OWL References for Humans]].
 
-#+NAME: fig:owl-ontology
+#+NAME: src:owl-ontology
 #+BEGIN_SRC dot :file ./images/owl-ontology.svg :exports results
 digraph G {
   bgcolor="transparent";
@@ -189,8 +189,9 @@ digraph G {
 }
 #+END_SRC
 
+#+NAME: fig:owl-ontology
 #+CAPTION: OWL Ontology
-#+RESULTS: fig:owl-ontology
+#+RESULTS: src:owl-ontology
 [[file:./images/owl-ontology.svg]]
 
 Figure [[fig:owl-ontology]] uses some notation elements from UML, although not a UML diagram itself. 

@@ -1,0 +1,41 @@
+digraph G {
+  bgcolor="transparent";
+  rankdir="TB";
+  fontname="Helvetica,Arial,sans-serif";
+  node [fontname="Helvetica,Arial,sans-serif"; fontsize=10];
+  edge [fontname="Helvetica,Arial,sans-serif"; fontsize=9; fontcolor="dimgrey";
+        labelfontcolor="blue"; labeldistance=2.0];
+  graph [pad="0.5", nodesep="1", ranksep="1"];
+  splines="ortho";
+
+  cids-vehicleidentificationnumber [label="cids:VehicleIdentificationNumber"; style="dashed"; color="dimgrey"; fontcolor="dimgrey"];
+  cids-uuid [label="cids:Uuid"; style="dashed"; color="dimgrey"; fontcolor="dimgrey"];
+  xsd-date [label="xsd:date"; style="dashed"; color="dimgrey"; fontcolor="dimgrey"];
+  xsd-string [label="xsd:string"; style="dashed"; color="dimgrey"; fontcolor="dimgrey"];
+  address [label="Address"; style="dashed"; color="dimgrey"; fontcolor="dimgrey"];
+  booking [label="Booking"; penwidth=1.5];
+  unknown [shape=rect; label="Unknown"; color="grey"; fontcolor="grey"];
+  booking -> unknown [tooltip="bookingCode";dir="both";arrowtail="teetee";arrowhead="teetee"];
+  booking -> rentalclass [tooltip="bookingClass";dir="both"];
+  booking -> vehicle [tooltip="vehicle";dir="both"];
+  booking -> location [tooltip="pickup";dir="both"];
+  booking -> xsd-date [tooltip="pickupDate";dir="both"];
+  booking -> location [tooltip="dropoff";dir="both"];
+  booking -> xsd-date [tooltip="dropoffDate";dir="both"];
+  booking -> customer [tooltip="customer";dir="both"];
+  customer [label="Customer"; penwidth=1.5];
+  customer -> cids-uuid [tooltip="id";dir="both";arrowtail="teetee";arrowhead="teetee"];
+  customer -> address [tooltip="contactAddress";dir="both"];
+  customer -> licenseinformation [tooltip="driverLicense";dir="both"];
+  licenseinformation [label="LicenseInformation"; style="dashed"; color="dimgrey"; fontcolor="dimgrey"];
+  licenseinformation -> xsd-string [tooltip="number";dir="both"];
+  licenseinformation -> xsd-string [tooltip="state";dir="both"];
+  licenseinformation -> xsd-date [tooltip="expiration";dir="both"];
+  location [label="Location"; penwidth=1.5];
+  location -> cids-uuid [tooltip="id";dir="both";arrowtail="teetee";arrowhead="teetee"];
+  location -> address [tooltip="address";dir="both"];
+  rentalclass [label="≣ RentalClass"; style="dashed"; color="dimgrey"; fontcolor="dimgrey"];
+  vehicle [label="Vehicle"; penwidth=1.5];
+  vehicle -> cids-vehicleidentificationnumber [tooltip="vin";dir="both";arrowtail="teetee";arrowhead="teetee"];
+  vehicle -> rentalclass [tooltip="rentalClass";dir="both"];
+}

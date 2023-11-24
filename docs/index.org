@@ -18,6 +18,10 @@
 (require 'ob-sdml)
 #+END_SRC
 
+#+NAME: img:sdml-logo
+#+ATTR_HTML: :width 75% :height 75%
+[[./logo/svg/square-dark.svg]]
+
 #+INCLUDE: "./introduction.org" :minlevel 1
 
 #+INCLUDE: "./surface-syntax.org" :minlevel 1

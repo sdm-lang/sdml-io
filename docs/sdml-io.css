@@ -38,6 +38,13 @@ body {
     counter-reset: formula;
 }
 
+/* Title */
+
+h1.title span.subtitle {
+    font-size: 0.8em;
+    color: #888888;
+}
+
 /* Navigation */
 
 div#table-of-contents li {
@@ -48,6 +55,11 @@ div#table-of-contents li {
 
 p, li, dd {
     text-align: justify;
+    line-height: 1.5em;
+}
+
+p {
+    margin-bottom: 1.5em;
 }
 
 /* Headings */
@@ -99,14 +111,72 @@ div.org-src-container label.org-src-name {
 div.NOTE {
     margin: 1em;
     padding-left: 1em;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
     border-left: 0.4em solid;
     border-color: darkblue;
 }
 
-div.NOTE > p::before {
+div.NOTE > p:first-child::before {
     color: darkblue;
     font-weight: bold;
-    content: 'ⓘ ';
+    content: 'ⓘ \00a0';
+}
+
+div.NOTE > p:last-child {
+    margin-bottom: 0px;
+}
+
+div.ADVNOTE {
+    margin: 1em;
+    padding-left: 1em;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+    border-left: 0.4em solid;
+    border-color: darkturquoise;
+}
+
+div.ADVNOTE > p:first-child::before {
+    color: darkturquoise;
+    font-weight: bold;
+    content: '🎛 \00a0';
+}
+
+div.ADVNOTE > p:last-child {
+    margin-bottom: 0px;
+}
+
+div.INDENTED {
+    margin: 1em !important;
+    padding-left: 1em;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+    border-left: 0.4em solid;
+    border-color: #edf0f2;
+}
+
+div.INDENTED > p:last-child {
+    margin-bottom: 0px;
+}
+
+blockquote {
+    margin: 1em !important;
+    padding-left: 1em;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+    border-left: 0.4em solid;
+    border-color: darkgray;
+}
+
+blockquote > p:first-child::before {
+    content: '\201c';
+    font-size: 2em;
+    color: darkgray;
+    vertical-align: text-top;
+}
+
+blockquote > p:last-child {
+    margin-bottom: 0px;
 }
 
 /* MathJax */

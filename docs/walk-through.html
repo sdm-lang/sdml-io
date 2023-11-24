@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-11-01 Wed 15:32 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Simon Johnston" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org58e5a17">1. Walk-Through Example</a>
+<ul>
+<li><a href="#org10e3a54">1.1. Starting with Core Entities</a></li>
+<li><a href="#org25685e3">1.2. Adding Relationships</a></li>
+<li><a href="#org865652b">1.3. Adding our first Properties</a></li>
+<li><a href="#org77c5b06">1.4. More detail, and a new diagram</a></li>
+<li><a href="#org123608d">1.5. More detail, and yet another diagram</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org58e5a17" class="outline-2">
+<h2 id="org58e5a17"><span class="section-number-2">1.</span> Walk-Through Example</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+The following section walks through the process of model creation and iterative elaboration to add detail as domain
+experts provide more information. In our example we will build a domain model for a vehicle rental company.
+</p>
+</div>
+
+<div id="outline-container-org10e3a54" class="outline-3">
+<h3 id="org10e3a54"><span class="section-number-3">1.1.</span> Starting with Core Entities</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+So, as you might imagine we can start the model with some pretty obvious entities, but with no detail beyond their
+names. Listing <a href="#org989c8bb">1</a> is this first-pass domain model.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>Rentals Concepts (First Pass)</label><pre class="src src-sdml" id="org989c8bb"><span style="color: #859900;">module</span> <span style="color: #268bd2;">rentals</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Location</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Vehicle</span>
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<p>
+The <code>sdml</code> tool can be used to generate a concept diagram, a high-level view of only the entities in the model and their
+relationships. The following command-line will generate figure <a href="#org6cbd060">1</a> from listing
+<a href="#org989c8bb">1</a>.
+</p>
+
+<pre class="example" id="org96a845b">
+sdml draw --diagram concepts \
+          --output-format svg \
+          --output-file docs/rentals-concept-1.svg \
+          docs/rental-1.sdm
+</pre>
+
+
+<div id="org6cbd060" class="figure">
+<p><img src="./rentals-concept-1.svg" alt="rentals-concept-1.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Rentals Concepts (First Pass)</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org25685e3" class="outline-3">
+<h3 id="org25685e3"><span class="section-number-3">1.2.</span> Adding Relationships</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Figure <a href="#org3fdf9a4">2</a> is the second-pass at our model, adding relationships from the <code>Booking</code> entity to the
+<code>Customer</code>, <code>Location</code>, and  <code>Vehicle</code> entities. Adding a body to the <code>Booking</code> entity, between <code>is</code> … <code>end</code>, requires the entity
+specify an identifier. To allow the addition of <code>bookingCode</code> without spending time on the details of it's type the
+keyword <code>unknown</code> is used to defer the type until later.
+</p>
+
+<p>
+Additionally, the <code>vehicle</code> relationship specifies a new cardinality overriding the usual <code>0..</code> with <code>0..1</code>.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Rentals Basic Relationships</label><pre class="src src-sdml" id="org3fdf9a4"><span style="color: #859900;">module</span> <span style="color: #268bd2;">rentals</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> bookingCode <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
+
+    ref vehicle <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Vehicle</span>
+    ref from <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+    ref customer <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Customer</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Vehicle</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Location</span>
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<p>
+Re-running the <code>sdml</code> tool on listing <a href="#org3fdf9a4">2</a> will result in the relationships added, as shown in figure
+<a href="#orgcc97946">2</a>.
+</p>
+
+
+<div id="orgcc97946" class="figure">
+<p><img src="./rentals-concept-2.svg" alt="rentals-concept-2.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Rentals Basic Relationships</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org865652b" class="outline-3">
+<h3 id="org865652b"><span class="section-number-3">1.3.</span> Adding our first Properties</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+In the next edit of our rentals model we see some additions:
+</p>
+
+<ol class="org-ol">
+<li>The use of <code>import</code> to use the <code>VehicleIdentificationNumber</code> data type from the <code>cids</code> (Common Identifiers) model.</li>
+<li>The new entity <code>Class</code> to model the rental class of a vehicle.</li>
+<li><code>Vehicle</code> now has an identifier, a relationship to the new <code>Class</code> entity, and a relationship to <code>Location</code>.</li>
+<li><code>Booking</code> also has a relationship to the new <code>Class</code> entity.</li>
+<li>We demonstrate the non-range cardinality notation, <code>{1}</code>, which is a shortcut for the range <code>1..1</code>.</li>
+</ol>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Rentals More Detail</label><pre class="src src-sdml" id="org01b7512"><span style="color: #859900;">module</span> <span style="color: #268bd2;">rentals</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">cids:VehicleIdentificationNumber</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> bookingCode <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
+
+    bookingClass <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Class</span>
+    vehicle <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Vehicle</span>
+    from <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+    customer <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Customer</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Vehicle</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> vin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">cids:VehicleIdentificationNumber</span>
+
+    rentalClass <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Class</span>
+    onProperty <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Location</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Class</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Location</span>
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<p>
+As usual we generate the concept diagram in figure <a href="#org4f31930">3</a> from listing <a href="#org01b7512">3</a>.
+</p>
+
+
+<div id="org4f31930" class="figure">
+<p><img src="./rentals-concept-3.svg" alt="rentals-concept-3.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Rentals More Detail</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org77c5b06" class="outline-3">
+<h3 id="org77c5b06"><span class="section-number-3">1.4.</span> More detail, and a new diagram</h3>
+<div class="outline-text-3" id="text-1-4">
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>Rentals Non-Entity Detail</label><pre class="src src-sdml" id="org127418e"><span style="color: #859900;">module</span> <span style="color: #268bd2;">rentals</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span><span style="color: #268bd2;">cids:VehicleIdentificationNumber</span> <span style="color: #268bd2;">cids:Uuid</span><span style="color: #657b83; background-color: #fdf6e3;">]</span>
+  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span><span style="color: #268bd2;">xsd:date</span> <span style="color: #268bd2;">xsd:string</span><span style="color: #657b83; background-color: #fdf6e3;">]</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Address</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">assert</span> <span style="color: #d33682;">dropoff_after_pickup</span> <span style="color: #859900;">=</span>
+      <span style="color: #657b83; background-color: #fdf6e3;">"Ensure the dropoff date is greater than or equal to the pickup date."</span>
+      
+    <span style="color: #859900;">identity</span> bookingCode <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
+
+    bookingClass <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">RentalClass</span>
+    vehicle <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Vehicle</span>
+    pickup <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Location</span>
+    pickupDate <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">xsd:date</span>
+    dropoff <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Location</span>
+    dropoffDate <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">xsd:date</span>
+    customer <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Customer</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">assert</span> <span style="color: #d33682;">drivers_license_valid</span> <span style="color: #859900;">=</span>
+      <span style="color: #657b83; background-color: #fdf6e3;">"Ensure the drivers license date is in the future."</span>
+
+    <span style="color: #859900;">identity</span> id <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">cids:Uuid</span>
+
+    contactAddress <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Address</span>
+    driverLicense <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">LicenseInformation</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">LicenseInformation</span> <span style="color: #859900;">is</span>
+    number <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:string</span>
+    state <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:string</span>
+    expiration <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Location</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> id <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">cids:Uuid</span>
+
+    address <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Address</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">RentalClass</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Vehicle</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> vin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">cids:VehicleIdentificationNumber</span>
+
+    rentalClass <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">RentalClass</span>
+  <span style="color: #859900;">end</span>
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<p>
+As usual we generate the concept diagram in figure <a href="#orga09a279">4</a> from listing <a href="#org127418e">4</a>.
+</p>
+
+
+<div id="orga09a279" class="figure">
+<p><img src="./rentals-concept-4.svg" alt="rentals-concept-4.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Rentals Non-Entity Detail</p>
+</div>
+
+<pre class="example" id="org867cf3c">
+sdml draw --diagram entity-relationship \
+          --output-format svg \
+          --output-file docs/rentals-concept-4.svg \
+          docs/rental-4.sdm
+</pre>
+
+
+<div id="org69d3187" class="figure">
+<p><img src="./rentals-erd-4.svg" alt="rentals-erd-4.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 5: </span>Rentals ERD Diagram</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org123608d" class="outline-3">
+<h3 id="org123608d"><span class="section-number-3">1.5.</span> More detail, and yet another diagram</h3>
+<div class="outline-text-3" id="text-1-5">
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Rentals Structural Detail</label><pre class="src src-sdml" id="orgc68d4ca"><span style="color: #859900;">module</span> <span style="color: #268bd2;">rentals</span> <span style="color: #859900;">base</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.org/v/rentals">&lt;https://example.org/v/rentals&gt;</a></span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+
+  <span style="color: #93a1a1; font-style: italic;">;; This is actually a US VIN</span>
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">cids:VehicleIdentificationNumber</span>
+
+  <span style="color: #d33682;">@dc:version</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">2</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Address</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">assert</span> <span style="color: #d33682;">dropoff_after_pickup</span> <span style="color: #859900;">=</span>
+      <span style="color: #657b83; background-color: #fdf6e3;">"Ensure the dropoff date is greater than or equal to the pickup date."</span>
+
+    <span style="color: #859900;">identity</span> bookingCode <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">BookingCode</span>
+
+    customer <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Customer</span>
+
+    <span style="color: #859900;">group</span>
+      <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Rental Period"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+      pickup_date <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+      pickup_location <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+      dropoff_date <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+      dropoff_location <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+    <span style="color: #859900;">end</span>
+
+    <span style="color: #859900;">group</span>
+      <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Requested"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+      bookingClass <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">RentalClass</span>
+      vehicle <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Vehicle</span>
+    <span style="color: #859900;">end</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> id <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">UniqueId</span>
+
+    <span style="color: #859900;">group</span>
+      <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Personal Information"</span>
+      name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+      contactAddress <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Address</span>
+      driverLicense <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">LicenseInformation</span>
+    <span style="color: #859900;">end</span>
+  
+    <span style="color: #859900;">group</span>
+      <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Membership"</span>
+      level <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span> <span style="color: #268bd2;">MembershipLevel</span>
+      since <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+    <span style="color: #859900;">end</span>
+  
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">LicenseInformation</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">assert</span> <span style="color: #d33682;">drivers_license_valid</span> <span style="color: #859900;">=</span>
+      <span style="color: #657b83; background-color: #fdf6e3;">"Ensure the drivers license date is in the future."</span>
+
+    number <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:string</span>
+    state <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:string</span>
+    expiration <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Location</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> id <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">cids:Uuid</span>
+
+    address <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Address</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">MembershipLevel</span> <span style="color: #859900;">of</span>
+    <span style="color: #268bd2;">Basic</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">1</span>
+    <span style="color: #268bd2;">Silver</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">2</span>
+    <span style="color: #268bd2;">Gold</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">3</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">RentalClass</span> <span style="color: #859900;">of</span>
+    <span style="color: #268bd2;">SubCompact</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">1</span>
+    <span style="color: #268bd2;">Compact</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">2</span>
+    <span style="color: #268bd2;">FullSize</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">3</span>
+    <span style="color: #268bd2;">CompactUtilityVehicle</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">4</span>
+    <span style="color: #268bd2;">FullSizeUtilityVehicle</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">5</span>
+    <span style="color: #268bd2;">Luxury</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">6</span>
+    <span style="color: #268bd2;">Sports</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">7</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">BookingCode</span> <span style="color: #859900;">&lt;-</span> <span style="color: #268bd2;">xsd:string</span> <span style="color: #859900;">is</span>
+    <span style="color: #d33682;">@xsd:pattern</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"[A-Za-z0-9_-]{22}"</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Vehicle</span> <span style="color: #859900;">is</span>
+    <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Vehicle"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+
+    <span style="color: #859900;">identity</span> vin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">VehicleIdentificationNumber</span>
+
+    information <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">VehicleInformation</span>
+    rentalClass <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">RentalClass</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">VehicleInformation</span> <span style="color: #859900;">is</span>
+    make <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:string</span>
+    model <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:string</span>
+    year <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:integer</span> <span style="color: #859900;">is</span>
+      <span style="color: #d33682;">@xsd:minValue</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">2000</span>
+      <span style="color: #d33682;">@xsd:maxValue</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">3000</span>
+    <span style="color: #859900;">end</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">VehicleAssigned</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Booking</span> <span style="color: #859900;">is</span>
+    vehicle <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">VehicleIdentificationNumber</span>
+  <span style="color: #859900;">end</span>
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+
+<div id="org3854a5d" class="figure">
+<p><img src="./rentals-uml-5.svg" alt="rentals-uml-5.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 6: </span>Rentals Structural Detail</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Simon Johnston</p>
+<p class="date">Created: 2023-11-01 Wed 15:32</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

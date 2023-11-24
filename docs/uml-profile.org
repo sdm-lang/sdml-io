@@ -14,7 +14,7 @@ tailored to a specific domain. In this case the profile creates a way to use UML
 module as well as the dependencies between modules. Figure [[fig:uml-profile-package]] it the top-level of the profile and
 shows the set of /stereotypes/ used to represent the elements of SDML. 
  
-#+NAME: fig:uml-profile-package
+#+NAME: src:uml-profile-package
 #+BEGIN_SRC plantuml :file uml-profile-package.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -42,8 +42,9 @@ package sdml <<profile>> {
 sdml ..> uml: <<references>>
 #+END_SRC
 
+#+NAME: fig:uml-profile-package
 #+CAPTION: The «sdml» Profile Package
-#+RESULTS: fig:uml-profile-package
+#+RESULTS: src:uml-profile-package
 [[file:uml-profile-package.svg]]
 
 *Example: Applying the Profile*
@@ -51,7 +52,7 @@ sdml ..> uml: <<references>>
 Figure [[fig:uml-ex-profile-applied]] shows how the SDML profile is applied to a model; note that some tools have alternative
 methods for applying profiles to a model.
 
-#+NAME: fig:uml-ex-profile-applied
+#+NAME: src:uml-ex-profile-applied
 #+BEGIN_SRC plantuml :file uml-ex-profile-applied.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -69,8 +70,9 @@ package sdml <<profile>> #white {
 rentals .> sdml: <<apply>>
 #+END_SRC
 
+#+NAME: fig:uml-ex-profile-applied
 #+CAPTION: Applying the Profile
-#+RESULTS: fig:uml-ex-profile-applied
+#+RESULTS: src:uml-ex-profile-applied
 [[file:uml-ex-profile-applied.svg]]
 
 ** Modules
@@ -78,7 +80,7 @@ rentals .> sdml: <<apply>>
 The SDML profile introduces a stereotype /module/ that may then be applied to a package within the model to denote a named
 module.
 
-#+NAME: fig:uml-profile-module
+#+NAME: src:uml-profile-module
 #+BEGIN_SRC plantuml :file uml-profile-module.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -130,8 +132,9 @@ note bottom of module
 end note
 #+END_SRC
 
+#+NAME: fig:uml-profile-module
 #+CAPTION: The «module» Stereotype
-#+RESULTS: fig:uml-profile-module
+#+RESULTS: src:uml-profile-module
 [[file:uml-profile-module.svg]]
 
 *Constraints*
@@ -155,7 +158,7 @@ module rentals is end
 
 This empty module above will transform into the following UML.
 
-#+NAME: fig:uml-ex-module
+#+NAME: src:uml-ex-module
 #+BEGIN_SRC plantuml :file uml-ex-module.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -171,8 +174,9 @@ package rentals-model <<sdml>> {
 }
 #+END_SRC
 
+#+NAME: fig:uml-ex-module
 #+CAPTION: An Empty Module
-#+RESULTS: fig:uml-ex-module
+#+RESULTS: src:uml-ex-module
 [[file:uml-ex-module.svg]]
 
 ** Imports
@@ -182,7 +186,7 @@ has two separate import relations, =ImportElement= and =ImportPackage=. Importin
 elements of the package into the current namespace unqualified. In SDML there is no way to reference an external
 definition unqualified, so this profile only uses element import.
 
-#+NAME: fig:uml-ex-imports-profile
+#+NAME: src:uml-ex-imports-profile
 #+BEGIN_SRC plantuml :file uml-ex-imports-profile.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -219,8 +223,9 @@ note right of import
 end note
 #+END_SRC
 
+#+NAME: fig:uml-ex-imports-profile
 #+CAPTION: The «import» Stereotype
-#+RESULTS: fig:uml-ex-imports-profile
+#+RESULTS: src:uml-ex-imports-profile
 [[file:uml-ex-imports-profile.svg]]
 
 *Constraints*
@@ -238,7 +243,7 @@ module rentals is
 end
 #+END_SRC
 
-#+NAME: fig:uml-ex-module-imports
+#+NAME: src:uml-ex-module-imports
 #+BEGIN_SRC plantuml :file uml-ex-module-imports.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -256,8 +261,9 @@ package sdml <<module>> #white {
 rentals .> sdml: <<import>>
 #+END_SRC
 
+#+NAME: fig:uml-ex-module-imports
 #+CAPTION: Importing a Module
-#+RESULTS: fig:uml-ex-module-imports
+#+RESULTS: src:uml-ex-module-imports
 [[file:uml-ex-module-imports.svg]]
 
 *Example: Importing Module Members*
@@ -271,7 +277,7 @@ module rentals is
 end
 #+END_SRC
 
-#+NAME: fig:uml-ex-member-imports
+#+NAME: src:uml-ex-member-imports
 #+BEGIN_SRC plantuml :file uml-ex-member-imports.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -294,8 +300,9 @@ rentals ..left..> prefLabel: <<import>>
 rentals ..right..> description: <<import>>
 #+END_SRC
 
+#+NAME: fig:uml-ex-member-imports
 #+CAPTION: Importing Module Members
-#+RESULTS: fig:uml-ex-member-imports
+#+RESULTS: src:uml-ex-member-imports
 [[file:uml-ex-member-imports.svg]]
 
 ** Annotations
@@ -307,7 +314,7 @@ TBD
 The profile element =«datatype»= is a specialization of the UML =PrimitiveType= (section 10.2.3.2 of the UML specification)
 classifier.
 
-#+NAME: fig:uml-profile-datatype
+#+NAME: src:uml-profile-datatype
 #+BEGIN_SRC plantuml :file uml-profile-datatype.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -330,8 +337,9 @@ note left of datatype
 end note
 #+END_SRC
 
+#+NAME: fig:uml-profile-datatype
 #+CAPTION: The «datatype» Stereotype
-#+RESULTS: fig:uml-profile-datatype
+#+RESULTS: src:uml-profile-datatype
 [[file:uml-profile-datatype.svg]]
 
 *Example: A Datatype Example*
@@ -346,7 +354,7 @@ module rentals is
 end
 #+END_SRC
 
-#+NAME: fig:uml-ex-datatype
+#+NAME: src:uml-ex-datatype
 #+BEGIN_SRC plantuml :file uml-ex-datatype.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -363,13 +371,14 @@ package rentals <<module>> {
 }
 #+END_SRC
 
+#+NAME: fig:uml-ex-datatype
 #+CAPTION: A Datatype Example
-#+RESULTS: fig:uml-ex-datatype
+#+RESULTS: src:uml-ex-datatype
 [[file:uml-ex-datatype.svg]]
 
 ** Entity Definitions
 
-#+NAME: fig:uml-profile-entity
+#+NAME: src:uml-profile-entity
 #+BEGIN_SRC plantuml :file uml-profile-entity.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -384,13 +393,14 @@ class entity <<stereotype>> {}
 entity -up-> Class: <<extension>>
 #+END_SRC
 
+#+NAME: fig:uml-profile-entity
 #+CAPTION: The «entity» Stereotype
-#+RESULTS: fig:uml-profile-entity
+#+RESULTS: src:uml-profile-entity
 [[file:uml-profile-entity.svg]]
 
 
 
-#+NAME: fig:uml-profile-identity-members
+#+NAME: src:uml-profile-identity-members
 #+BEGIN_SRC plantuml :file uml-profile-identity-members.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -423,13 +433,14 @@ note bottom of identity
 end note
 #+END_SRC
 
+#+NAME: fig:uml-profile-identity-members
 #+CAPTION: The «identity» Stereotypes
-#+RESULTS: fig:uml-profile-identity-members
+#+RESULTS: src:uml-profile-identity-members
 [[file:uml-profile-identity-members.svg]]
 
 !!!
 
-#+NAME: fig:uml-profile-ref-members
+#+NAME: src:uml-profile-ref-members
 #+BEGIN_SRC plantuml :file uml-profile-ref-members.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -463,8 +474,9 @@ note bottom of ref
 end note
 #+END_SRC
 
+#+NAME: fig:uml-profile-ref-members
 #+CAPTION: The and «ref» Stereotypes
-#+RESULTS: fig:uml-profile-ref-members
+#+RESULTS: src:uml-profile-ref-members
 [[file:uml-profile-ref-members.svg]]
 
 For details on by-value members and groups see section [[sec:uml-structures]] below.
@@ -497,7 +509,7 @@ module rentals is
 end
 #+END_SRC
 
-#+NAME: fig:uml-ex-entity
+#+NAME: src:uml-ex-entity
 #+BEGIN_SRC plantuml :file uml-ex-entity.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -520,14 +532,15 @@ package rentals <<module>> {
 }
 #+END_SRC
 
+#+NAME: fig:uml-ex-entity
 #+CAPTION: An Entity Example
-#+RESULTS: fig:uml-ex-entity
+#+RESULTS: src:uml-ex-entity
 [[file:uml-ex-entity.svg]]
 
 ** Enumeration Definitions
 
 
-#+NAME: fig:uml-profile-enum
+#+NAME: src:uml-profile-enum
 #+BEGIN_SRC plantuml :file uml-profile-enum.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -556,8 +569,9 @@ note bottom of enum
 end note
 #+END_SRC
 
+#+NAME: fig:uml-profile-enum
 #+CAPTION: The «enum» Stereotype
-#+RESULTS: fig:uml-profile-enum
+#+RESULTS: src:uml-profile-enum
 [[file:uml-profile-enum.svg]]
 
 The standard =Enumeration= classifier is used to model enum definitions.
@@ -584,7 +598,7 @@ end
 #+END_SRC
 
 
-#+NAME: fig:uml-ex-enum
+#+NAME: src:uml-ex-enum
 #+BEGIN_SRC plantuml :file uml-ex-enum.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -603,15 +617,16 @@ enum VehicleClass <<enum>> {
 }
 #+END_SRC
 
+#+NAME: fig:uml-ex-enum
 #+CAPTION: An Example Enumeration 
-#+RESULTS: fig:uml-ex-enum
+#+RESULTS: src:uml-ex-enum
 [[file:uml-ex-enum.svg]]
 
 ** Event Definitions
 
 The standard =Signal= (10.3.3.1) and =Dependency=
 
-#+NAME: fig:uml-profile-event
+#+NAME: src:uml-profile-event
 #+BEGIN_SRC plantuml :file uml-profile-event.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -642,8 +657,9 @@ note bottom of event
 end note
 #+END_SRC
 
+#+NAME: fig:uml-profile-event
 #+CAPTION: The «event» and «source» Stereotypes
-#+RESULTS: fig:uml-profile-event
+#+RESULTS: src:uml-profile-event
 [[file:uml-profile-event.svg]]
 
 For details on by-value members and groups see section [[sec:uml-structures]] below.
@@ -664,7 +680,7 @@ module rentals is
 end
 #+END_SRC
 
-#+NAME: fig:uml-ex-event
+#+NAME: src:uml-ex-event
 #+BEGIN_SRC plantuml :file uml-ex-event.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -683,8 +699,9 @@ package rentals <<module>> {
 }
 #+END_SRC
 
+#+NAME: fig:uml-ex-event
 #+CAPTION: An Example Event
-#+RESULTS: fig:uml-ex-event
+#+RESULTS: src:uml-ex-event
 [[file:uml-ex-event.svg]]
 
 ** <<sec:uml-structures>>Structure Definitions
@@ -699,7 +716,7 @@ TBD
 
 Generalization Sets (9.7)
 
-#+NAME: fig:uml-profile-union
+#+NAME: src:uml-profile-union
 #+BEGIN_SRC plantuml :file uml-profile-union.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -746,8 +763,9 @@ note bottom of variant
 end note
 #+END_SRC
 
+#+NAME: fig:uml-profile-union
 #+CAPTION: The «union» and «variant» Stereotypes
-#+RESULTS: fig:uml-profile-union
+#+RESULTS: src:uml-profile-union
 [[file:uml-profile-union.svg]]
 
 *Constraints*
@@ -796,8 +814,9 @@ package rentals <<module>> {
 }
 #+END_SRC
 
+#+NAME: fig:uml-ex-union
 #+CAPTION: An Example Union
-#+RESULTS: fig:uml-ex-union
+#+RESULTS: src:uml-ex-union
 [[file:uml-ex-union.svg]]
 
 ** Property Definitions
@@ -811,7 +830,7 @@ UML
 
 (section 7.5 -- Types and Multiplicities)
   
-#+NAME: fig:uml-profile-cardinality
+#+NAME: src:uml-profile-cardinality
 #+BEGIN_SRC plantuml :file uml-profile-cardinality.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -834,8 +853,9 @@ me "{subsets owner}\l+owningLower\l0..1" *--right--> "{subsets ownedElement}\r+l
 me "{subsets owner}\l+owningUpper\l0..1" *--right--> "{subsets ownedElement}\r+upperValue\r0..1" vs
 #+END_SRC
 
+#+NAME: fig:uml-profile-cardinality
 #+CAPTION: UML Multiplicity Element
-#+RESULTS: fig:uml-profile-cardinality
+#+RESULTS: src:uml-profile-cardinality
 [[file:uml-profile-cardinality.svg]]
 
 While the type =Integer= is clear in the UML above, the type =UnlimitedNatural= is best defined by the text from the UML
@@ -850,7 +870,7 @@ bound of a range, such as a multiplicity; /unlimited/ is used whenever the range
 Using the following example from the UML specification, actually combining the two diagrams from section 7.5.5 of the
 specification into one.
 
-#+NAME: fig:uml-profile-cardinality-example
+#+NAME: src:uml-profile-cardinality-example
 #+BEGIN_SRC plantuml :file uml-profile-cardinality-example.svg
 skinparam backgroundColor transparent
 skinparam style strictuml
@@ -875,8 +895,9 @@ c2 --left--> "purchase\l{ordered,unique}\l*" Purchase
 c2 --right--> "account\r{unique}\r0..5" Account
 #+END_SRC
 
+#+NAME: fig:uml-profile-cardinality-example
 #+CAPTION: UML Multiplicity Example
-#+RESULTS: fig:uml-profile-cardinality-example
+#+RESULTS: src:uml-profile-cardinality-example
 [[file:uml-profile-cardinality-example.svg]]
 
 Either of these representations corresponds to the following SDML structure.

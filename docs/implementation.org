@@ -15,7 +15,7 @@ a concrete syntax tree allowing easy development of the relatively simple tools 
 As such the much expanded figure
 [[fig:implementation-overview]] shows the 
 
-#+NAME: fig:implementation-overview
+#+NAME: src:implementation-overview
 #+BEGIN_SRC dot :file ./images/implementation-overview.svg :exports results
 digraph G {
     bgcolor="transparent";
@@ -80,8 +80,9 @@ digraph G {
 }
 #+END_SRC
  
+#+NAME: fig:implementation-overview
 #+CAPTION: Implementation Overview
-#+RESULTS: fig:implementation-overview
+#+RESULTS: src:implementation-overview
 [[file:./images/implementation-overview.svg]]
 
 ** <<sec:tool-installation>>Installation

@@ -1,0 +1,1254 @@
+#+TITLE: SDML Meta-Model in UML
+#+AUTHOR: Simon Johnston
+#+EMAIL: johnstonskj@gmail.com
+#+LANGUAGE: en
+#+STARTUP: overview hidestars inlineimages entitiespretty
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="sdml-io.css"/>
+#+LATEX_HEADER: \usepackage{makeidx}
+#+LATEX_HEADER: \makeindex
+#+OPTIONS: toc:3 ^:{}
+
+#+BEGIN_ABSTRACT
+#+END_ABSTRACT
+
+
+#+NAME: src:metamodel-overview
+#+BEGIN_SRC plantuml :file ./metamodel-overview.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+
+package Foundation {}
+
+package Modules {}
+Modules ..> Foundation: <<import>>
+Modules ..> Annotations: <<import>>
+
+package Annotations {}
+Annotations ..> Datatypes: <<import>>
+Annotations ..> Values: <<import>>
+
+package Datatypes {}
+Datatypes ..> Foundation: <<import>>
+
+package Sequences {}
+Sequences ..> Foundation: <<import>>
+Sequences ..> Datatypes: <<import>>
+
+package ProductTypes {}
+ProductTypes ..> Foundation: <<import>>
+ProductTypes ..> Modules: <<import>>
+
+package SumTypes {}
+SumTypes ..> Foundation: <<import>>
+SumTypes ..> Modules: <<import>>
+
+package Values {}
+Values ..> Datatypes: <<import>>
+
+@enduml
+#+END_SRC
+
+#+NAME: fig:metamodel-overview
+#+CAPTION: Overview of Metamodel Packages
+#+RESULTS: src:metamodel-overview
+[[file:./metamodel-overview.svg]]
+
+* Package Foundation
+
+#+NAME: src:metamodel-foundation
+#+BEGIN_SRC plantuml :file ./metamodel-foundation.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package Foundation {
+    abstract class "Namespace<T extends Named>" as g_Namespace {
+        +members: {unique} 0..* T
+    }
+    abstract class Named {}
+    class Name {}
+    
+    g_Namespace ..> Named
+    Named *---right---> "identity\l1" Name
+
+    abstract class Type {}
+    abstract class Typed {}
+
+    Type -up-|> Named
+    Typed "members\r0..*" ---left---> "type\l1..*" Type
+}
+@enduml
+#+END_SRC
+
+#+NAME: fig:metamodel-foundation
+#+CAPTION: The Foundation Package
+#+RESULTS: src:metamodel-foundation
+[[file:./metamodel-foundation.svg]]
+
+** Class Name
+
+** Abstract Class Named
+
+#+CAPTION: Properties on class Named
+| Name     | Type | Cardinality | Default |
+|----------+------+-------------+---------|
+| =identity= | =Name= |           1 |         |
+
+** Abstract Class Namespace
+
+*Generic Parameters:* =T extends Named=
+
+#+CAPTION: Properties on class Namespace
+| Name    | Type | Cardinality | Default |
+|---------+------+-------------+---------|
+| =members= | =T=    | 0..*        |         |
+
+** Abstract Class Type
+
+*Super-Class:* =Named=
+
+#+CAPTION: Properties on class Type
+| Name    | Type  | Cardinality | Default |
+|---------+-------+-------------+---------|
+| =members= | =Typed= | 0..*        |         |
+
+** Abstract Class Typed
+
+#+CAPTION: Properties on class Typed
+| Name | Type | Cardinality | Default |
+|------+------+-------------+---------|
+| =type= | =Type= | 1..*        |         |
+
+* Package Modules
+
+#+NAME: src:metamodel-models
+#+BEGIN_SRC plantuml :file ./metamodel-models.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package Foundation {
+    hide members
+    abstract class Named
+    abstract class "Namespace<T extends Named>" as g_Namespace {}
+}
+package Annotations {
+    hide members
+    class Annotated {}
+}
+
+package Modules {
+    abstract class Definition {}
+    class "Module<T=ModuleDefinition>" as g_Module {}
+    abstract class ModuleDefinition {}
+    
+    Definition -up-|> Annotated
+    Definition -down-|> Named
+    
+    g_Module -up-|> Definition
+    g_Module -down-|> g_Namespace
+
+    ModuleDefinition -up-|> Definition
+}
+
+Modules .up.> Foundation: <<import>>
+Modules .down.> Annotations: <<import>>
+@enduml
+#+END_SRC
+
+#+NAME: fig:metamodel-models
+#+CAPTION: The Modules Package
+#+RESULTS: src:metamodel-models
+[[file:./metamodel-models.svg]]
+
+** Abstract Class Definition
+
+*Super-Class:* =Annotated=, =Named=
+
+** Class Module
+
+*Super-Class:* =Definition=, =Namespace<ModuleDefinition>=
+
+** Abstract Class ModuleDefinition
+
+*Super-Class:* =Definition=
+
+* Package Annotations
+
+#+NAME: src:metamodel-annotations
+#+BEGIN_SRC plantuml :file ./metamodel-annotations.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package Datatypes {
+    hide members
+    class String {}
+}
+
+package Foundation {
+    hide members
+    class Named {}
+}
+
+package Values {
+    hide members
+    class Value {}
+}
+
+package Constraints {
+    package Values {
+        hide members
+        abstract class Sentence {}
+    }
+}
+
+package Annotations {
+    abstract class Annotated {}
+    abstract class Annotation {}
+    class AnnotationProperty {
+        +value: Value
+    }
+    
+    Annotated "subject\l1" *---right--> "annotations\r0..*" Annotation
+
+    Annotation -up-|> Named
+    
+    AnnotationProperty -up-|> Annotation
+    
+    abstract class Constraint {}
+    class InformalConstraint {
+        +text: String
+    }
+    class FormalConstraint {
+        +sentence: Sentence
+    }
+    
+    Constraint -up-|> Annotation
+    InformalConstraint -up-|> Constraint
+    FormalConstraint -up-|> Constraint
+}
+
+Annotations .down.> Datatypes: <<import>>
+Annotations .up.> Foundation: <<import>>
+Annotations .down.> Values: <<import>>
+@enduml
+#+END_SRC
+
+#+NAME: fig:metamodel-annotations
+#+CAPTION: The Annotations Package
+#+RESULTS: src:metamodel-annotations
+[[file:./metamodel-annotations.svg]]
+
+** Abstract Class Annotated
+
+#+CAPTION: Properties on class Annotated
+| Name        | Type       | Cardinality | Default |
+|-------------+------------+-------------+---------|
+| =annotations= | =Annotation= | 0..*        |         |
+
+** Abstract Class Annotation
+
+*Super Class:* =Named=
+
+#+CAPTION: Properties on class Annotation
+| Name   | Type      | Cardinality | Default |
+|--------+-----------+-------------+---------|
+| =subject= | =Annotated= |           1 |         |
+
+** Class AnnotationProperty
+
+*Super Class:* =Annotation=
+
+#+CAPTION: Properties on class AnnotationProperty
+| Name  | Type  | Cardinality | Default |
+|-------+-------+-------------+---------|
+| =value= | =Value= |           1 |         |
+
+** Abstract Class Constraint
+
+*Super Class:* =Annotation=
+
+** Class FormalConstraint
+
+*Super Class:* =Constraint=
+
+#+CAPTION: Properties on class FormalConstraint
+| Name       | Type | Cardinality | Default |
+|------------+------+-------------+---------|
+| =expression= |      |           1 |         |
+
+** Class InformalConstraint
+
+*Super Class:* =Constraint=
+
+#+CAPTION: Properties on class InformalConstraint
+| Name  | Type  | Cardinality | Default |
+|-------+-------+-------------+---------|
+| =text= | =String= |           1 |         |
+
+* Package Datatypes
+
+#+NAME: src:metamodel-datatypes
+#+BEGIN_SRC plantuml :file ./metamodel-datatypes.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package Foundation {
+    hide members
+    abstract class Type {}
+}
+
+package Modules {
+    hide members
+    abstract class ModuleDefinition {}
+}
+
+package Datatypes {
+    abstract class Datatype {}
+    Datatype -up-|> Type
+    Datatype -up-|> ModuleDefinition
+    
+    class Binary {}
+    Binary -up-|> Datatype
+    class Boolean {}
+    Boolean -up-|> Datatype
+    class Decimal {}
+    Decimal -up-|> Datatype
+    class Double {}
+    Double -up-|> Datatype
+    class Integer{}
+    Integer -up-|> Datatype
+    class String{}
+    String -up-|> Datatype
+    class Unsigned{}
+    Unsigned -up-|> Datatype
+    class Uri{}
+    Uri -up-|> Datatype
+}
+
+Datatypes .up.> Foundation: <<import>>
+Datatypes .up.> Modules: <<import>>
+@enduml
+#+END_SRC
+
+#+CAPTION: The Datatypes Package
+#+RESULTS: src:metamodel-datatypes
+[[file:./metamodel-datatypes.svg]]
+
+** Class Datatype
+
+*Super Class:* =Type=
+
+** Class Binary
+
+*Super Class:* Datatype
+
+** Class Boolean
+
+*Super Class:* Datatype
+
+** Class Decimal
+
+*Super Class:* Datatype
+
+** Class Double
+
+*Super Class:* Datatype
+
+** Class Integer
+
+*Super Class:* Datatype
+
+** Class String
+
+*Super Class:* Datatype
+
+** Class Unsigned
+
+*Super Class:* Datatype
+
+** Class Uri
+
+*Super Class:* Datatype
+
+* Package Sequence Types
+
+#+NAME: src:metamodel-sequences
+#+BEGIN_SRC plantuml :file ./metamodel-sequences.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package Foundation {
+    hide members
+    abstract class Type {}
+}
+
+package Modules {
+    hide members
+    abstract class ModuleDefinition {}
+}
+
+package Values {
+    hide members
+    class Unsigned {}
+}
+
+package SequenceTypes {
+    class Cardinality {
+        +ordering: Ordering = Unordered
+        +uniqueness: Uniqueness = Nonunique
+        +min_length: Unsigned
+        +max_length: 0..1 Unsigned
+    }
+    
+    class "SequenceType<T extends Type>" as g_Sequence {
+        +values: 0..* T
+    }
+    
+    enum Ordering {
+        +Unordered
+        +Ordered
+    }
+    
+    enum Uniqueness {
+        +Unique
+        +Nonunique
+    }
+
+    g_Sequence -up-|> Type
+    g_Sequence .up.> Type
+    g_Sequence -up-|> ModuleDefinition
+    g_Sequence *-down-> "+cardinality\r1" Cardinality
+}
+
+SequenceTypes .up.> Foundation: <<import>>
+SequenceTypes .up.> Modules: <<import>>
+SequenceTypes .down.> Values: <<import>>
+@enduml
+#+END_SRC
+
+#+CAPTION: The Sequence Types Package
+#+RESULTS: src:metamodel-sequences
+[[file:./metamodel-sequences.svg]]
+
+** Class Cardinality
+
+#+CAPTION: Properties on class Cardinality
+| Name       | Type       | Cardinality | Default   |
+|------------+------------+-------------+-----------|
+| =ordering=   | =Ordering=   |           1 | =Unordered= |
+| =uniqueness= | =Uniqueness= |           1 | =Nonunique= |
+| =min_length= | =Unsigned=   |           1 | 0         |
+| =max_length= | =Unsigned=   |        0..1 |           |
+
+** Enumeration Ordering
+
+*Variants*
+
+- Ordered :: ...
+- Unordered :: ...
+
+** Class SequenceType
+
+*Generic Parameters:* =T extends Type=
+
+*Super Class:* =Type=
+
+#+CAPTION: Properties on class SequenceType
+| Name        | Type        | Cardinality | Default |
+|-------------+-------------+-------------+---------|
+| =cardinality= | =Cardinality= | 1           |         |
+| =values=      | =T=           | 0..*        |         |
+
+** Enumeration Uniqueness
+
+*Variants*
+
+- Nonunique :: ...
+- Unique :: ...
+
+* Package Product Types
+
+#+NAME: src:metamodel-product-types
+#+BEGIN_SRC plantuml :file ./metamodel-product-types.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package Foundation {
+    hide members
+    abstract class Named {}
+    abstract class "Namespace<T extends Named>" as g_Namespace {}
+    abstract class Type {}
+    abstract class Typed {}
+}
+
+package Modules {
+    hide members
+    abstract class ModuleDefinition {}
+}
+
+package ProductTypes {
+    class Entity {}
+    class Event {}
+    class "Structure<T=Member>" as g_Structure {}
+    class MemberGroup {}
+    abstract class Member {}
+
+    g_Structure -up-|> Type
+    g_Structure -up-|> ModuleDefinition
+    g_Structure -up-|> g_Namespace
+    g_Structure "+owner\l1" *--> "+groups\r0..*" MemberGroup
+    
+    Entity -up-|> g_Structure
+    Entity *---right--> "+identity\r1" Member
+    
+    Event -up-|> g_Structure
+    Event --> "+source\r1" Entity
+
+    MemberGroup -up-|> Annotated
+    MemberGroup o--> "+members\r1..*" Member
+
+    
+      class "Property<T=Role>" as g_Property {}
+    class Role {
+        +is_identity: boolean
+    }
+
+    g_Property -up-|> ModuleDefinition
+    g_Property -up-|> g_Namespace
+    g_Property ---right--> "roles\r{unique}\r1..*" Role
+    Role -up-|> Annotated
+    Role -up-|> Typed
+
+    Member -up-|> Named
+
+    class MemberDefinition {}
+    MemberDefinition -up-|> Annotated
+    MemberDefinition -up-|> Member
+    MemberDefinition -up-|> Typed
+
+    class MemberReference {
+        role: Role
+    }
+    MemberReference-up-|> Member
+
+    ' TODO: Add features
+}
+
+ProductTypes .up.> Foundation: <<import>>
+ProductTypes .up.> Modules: <<import>>
+@enduml
+#+END_SRC
+
+#+CAPTION: The Product Types Package
+#+RESULTS: src:metamodel-product-types
+[[file:./metamodel-product-types.svg]]
+
+** Class Entity
+
+*Super Class:* =Structure=
+
+#+CAPTION: Properties on class Entity
+| Name     | Type     | Cardinality | Default |
+|----------+----------+-------------+---------|
+| =identity= | =Member= |           1 |         |
+
+** Class Event
+
+*Super Class:* =Structure=
+
+#+CAPTION: Properties on class Event
+| Name   | Type  | Cardinality | Default |
+|--------+-------+-------------+---------|
+| =source= | =Event= |           1 |         |
+
+** Abstract Class Member
+
+*Super Class:* =Typed=
+
+** Class MemberDefinition
+
+*Super Class:* =Annotated=, =Member=, =Typed=
+
+** Class MemberGroup
+
+*Super Class:* =Annotated=
+
+#+CAPTION: Properties on class MemberGroup
+| Name   | Type  | Cardinality | Default |
+|--------+-------+-------------+---------|
+| =members= | =Member= | unique 1..* |         |
+
+** Class MemberReference
+
+*Super Class:* =Member=
+
+#+CAPTION: Properties on class MemberReference
+| Name   | Type | Cardinality | Default |
+|--------+------+-------------+---------|
+| +role= | =Role= |           1 |         |
+
+** Class Structure
+
+*Super Class:* =Type=, =ModuleDefinition=, =Namespace<Member>=
+
+#+CAPTION: Properties on class Entity
+| Name   | Type  | Cardinality | Default |
+|--------+-------+-------------+---------|
+| =+groups= | =MemberGroup= | unique 0..* |         |
+
+* Package Sum Types
+
+#+NAME: src:metamodel-sum-types
+#+BEGIN_SRC plantuml :file ./metamodel-sum-types.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package Foundation {
+    hide members
+    abstract class Named {}
+    abstract class "Namespace<T extends Named>" as g_Namespace {}
+    abstract class Type {}
+    abstract class Typed {}
+}
+
+package Modules {
+    hide members
+    abstract class ModuleDefinition {}
+}
+
+package Values {
+    hide members
+    abstract class Valued {}
+}
+
+package SumTypes {
+    class "Enum<T=ValueVariant>" as g_Enum {}
+    class "Union<T=TypeVariant>" as g_Union {}
+    abstract class Variant {}
+    class TypeVariant {}
+    class ValueVariant {}
+
+    g_Enum -up-|> Type
+    g_Enum -up-|> ModuleDefinition
+    g_Enum -up-|> g_Namespace
+
+    g_Union -up-|> Type
+    g_Union -up-|> ModuleDefinition
+    g_Union -up-|> g_Namespace
+
+    Variant -up-|> Named
+    TypeVariant -up-|> Variant
+    TypeVariant -up-|> Typed
+    ValueVariant -up-|> Variant
+    ValueVariant -up-|> Valued
+
+    class "MappingType<K extends Type,\nV extends Type>" as g_MappingType {
+        key: K
+        value: V
+    }
+    g_MappingType -up-|> Type
+}
+
+SumTypes .up.> Foundation: <<import>>
+SumTypes .up.> Values: <<import>>
+SumTypes .down.> Modules: <<import>>
+@enduml
+#+END_SRC
+
+#+CAPTION: The Sum Types Package
+#+RESULTS: src:metamodel-sum-types
+[[file:./metamodel-sum-types.svg]]
+
+** Class Enum
+
+*Super Class:* =Type=, =ModuleDefinition=, =Namespace<ValueVariant>=
+
+** Class MappingType
+
+*Generic Parameters* =K extends Type=, =V extends Type=
+
+*Super Class:* =Type=
+
+#+CAPTION: Properties on class MappingType
+| Name  | Type | Cardinality | Default |
+|-------+------+-------------+---------|
+| =key=   | =K=    |           1 |         |
+| =value= | =V=    |           1 |         |
+
+** Class TypeVariant
+
+*Super Class:* =Variant=, =Typed=
+
+** Class Union
+
+*Super Class:* =Type=, =ModuleDefinition=, =Namespace<TypeVariant>=
+
+** Abstract Class Variant
+
+*Super Class:* =Named=
+
+** Class ValueVariant
+
+*Super Class:* =Variant=
+
+* Package Values
+
+#+NAME: src:metamodel-values
+#+BEGIN_SRC plantuml :file ./metamodel-values.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package Foundation {
+    hide members
+    abstract class Typed {}
+}
+
+package Datatypes {
+    hide members
+    class Binary {}
+    class Boolean {}
+    class Decimal {}
+    class Double {}
+    class Integer {}
+    class String {}
+    class Unsigned {}
+    class Uri {}
+}
+
+package SequenceTypes {
+    hide members
+    class "SequenceType<T extends Type>" as g_Sequence {}    
+}
+
+package SumTypes {
+    hide members
+    class "MappingType<K extends Type,\nV extends Type>" as g_MappingType   
+}
+
+package Values {
+    abstract class Value {}
+    Value -up-|> Typed
+
+    abstract class Valued {}
+    Valued ---right---> "+value\r1" Value
+    
+    abstract class SimpleValue {}
+    SimpleValue -up-|> Value
+    
+    class BinaryValue {}
+    BinaryValue -up-|> SimpleValue
+    BinaryValue --> "{subsets type}" Binary
+    
+    class BooleanValue {}
+    BooleanValue -up-|> SimpleValue
+    BooleanValue --> "{subsets type}" Boolean
+    
+    class DecimalValue {}
+    DecimalValue -up-|> SimpleValue
+    DecimalValue --> "{subsets type}" Decimal
+    
+    class DoubleValue {}
+    DoubleValue -up-|> SimpleValue
+    DoubleValue --> "{subsets type}" Double
+    
+    class IntegerValue {}
+    IntegerValue -up-|> SimpleValue
+    IntegerValue --> "{subsets type}" Integer
+    
+    class StringValue {}
+    StringValue -up-|> SimpleValue
+    StringValue --> "{subsets type}" String
+    
+    class UnsignedValue {}
+    UnsignedValue -|> SimpleValue
+    UnsignedValue --> "{subsets type}" Unsigned
+    
+    class UriValue {}
+    UriValue -|> SimpleValue
+    UriValue --> "{subsets type}" Uri
+
+    class "MappingValue<Kv extends SimpleValue,\nVv extends Value>" as g_Mapping {
+        +key: Kv
+        +value: Vv
+    }
+    g_Mapping -up-|> Value
+    g_Mapping --> "{subsets type}" g_MappingType: "K=type(Kv),\nV=type(Vv)"
+
+    class "SequenceValue<V extends Value>" as g_SequenceValue {
+        +values: {0..*} V
+    }
+    g_SequenceValue -up-|> Value
+    g_SequenceValue --> "{subsets type}" g_Sequence: "T=type(V)"
+}
+
+Values .up.> Foundation: <<import>>
+Values .down.> Datatypes: <<import>>
+Values .down.> SequenceTypes: <<import>>
+Values .down.> SumTypes: <<import>>
+@enduml
+#+END_SRC
+
+#+CAPTION: The Values Package
+#+RESULTS: src:metamodel-values
+[[file:./metamodel-values.svg]]
+
+** Class BinaryValue
+
+*Super Class:* =SimpleValue=
+
+#+CAPTION: Properties on class BinaryValue
+| Name                | Type | Cardinality | Default |
+|---------------------+------+-------------+---------|
+| ={subsets} +domain= | =Binary= |           1 |         |
+
+** Class BooleanValue
+
+*Super Class:* =SimpleValue=
+
+#+CAPTION: Properties on class BooleanValue
+| Name                | Type | Cardinality | Default |
+|---------------------+------+-------------+---------|
+| ={subsets} +domain= | =Boolean=      |           1 |         |
+
+** Class DecimalValue
+
+*Super Class:* =SimpleValue=
+
+#+CAPTION: Properties on class DecimalValue
+| Name                | Type | Cardinality | Default |
+|---------------------+------+-------------+---------|
+| ={subsets} +domain= | =Decimal=      |           1 |         |
+
+** Class DoubleValue
+
+*Super Class:* =SimpleValue=
+
+#+CAPTION: Properties on class DoubleValue
+| Name                | Type | Cardinality | Default |
+|---------------------+------+-------------+---------|
+| ={subsets} +domain= | =Double=      |           1 |         |
+
+** Class IntegerValue
+
+*Super Class:* =SimpleValue=
+
+#+CAPTION: Properties on class IntegerValue
+| Name                | Type | Cardinality | Default |
+|---------------------+------+-------------+---------|
+| ={subsets} +domain= | =Integer=      |           1 |         |
+
+** Class MappingValue
+
+*Super Class:* =SimpleValue=
+
+#+CAPTION: Properties on class MappingValue
+| Name                | Type | Cardinality | Default |
+|---------------------+------+-------------+---------|
+| ={subsets} +domain= | =MappingType=       |           1 |         |
+** Class SequenceValue
+
+*Super Class:* =SimpleValue=
+
+#+CAPTION: Properties on class SequenceValue
+| Name              | Type           | Cardinality | Default |
+|-------------------+----------------+-------------+---------|
+| ={subsets} +domain= | =SequenceType= |           1 |         |
+** Abstract Class SimpleValue
+
+*Super Class:* =Value=
+** Class StringValue
+
+*Super Class:* =SimpleValue=
+
+#+CAPTION: Properties on class StringValue
+| Name                | Type | Cardinality | Default |
+|---------------------+------+-------------+---------|
+| ={subsets} +domain= | =String=      |           1 |         |
+
+** Class UnsignedValue
+
+*Super Class:* =SimpleValue=
+
+#+CAPTION: Properties on class UnsignedValue
+| Name                | Type | Cardinality | Default |
+|---------------------+------+-------------+---------|
+| ={subsets} +domain= | =Unsigned= |           1 |         |
+
+** Class UriValue
+
+*Super Class:* =SimpleValue=
+
+#+CAPTION: Properties on class UriValue
+| Name                | Type | Cardinality | Default |
+|---------------------+------+-------------+---------|
+| ={subsets} +domain= | =Uri=      |           1 |         |
+
+** Abstract Class Value
+
+*Super Class:* =Typed=
+
+
+
+* Package Constraint Sentences
+
+#+NAME: src:metamodel-constraint-sentences
+#+BEGIN_SRC plantuml :file ./metamodel-constraint-sentences.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package Foundation {
+    hide members
+    abstract class Named {}
+}
+
+package Constraints {
+    package Terms {
+        hide members
+        abstract class Term {}
+    }
+    package Sentences {
+        abstract class Sentence {}
+        abstract class SimpleSentence {}
+        abstract class BooleanSentence {}
+        class QuantifiedSentence {
+            +body: Sentence
+        }
+        QuantifiedSentence *--> "+binding" QuantifiedVariableBinding
+
+        SimpleSentence -up-|> Sentence
+        BooleanSentence -up-|> Sentence
+        QuantifiedSentence -up-|> Sentence
+        
+        class AtomicSentence {
+            +predicate: Term
+            +arguments: 0..* Term
+        }
+        abstract class RelationalSentence {
+            +lhs: Term
+            +rhs: Term
+        }
+        
+        class Equation {}
+        class Inequation {}
+        class LessThan {}
+        class LessThanOrEqual {}
+        class GreaterThan {}
+        class GreaterThanOrEqual {}
+
+        AtomicSentence -up-|> SimpleSentence
+        RelationalSentence -up-|> SimpleSentence
+        Equation -up-|> RelationalSentence
+        Inequation -up-|> RelationalSentence
+        LessThan -up-|> RelationalSentence
+        LessThanOrEqual -up-|> RelationalSentence
+        GreaterThan -up-|> RelationalSentence
+        GreaterThanOrEqual -up-|> RelationalSentence
+        
+        abstract class UnaryBooleanSentence {
+            +rhs: Sentence
+        }
+        abstract class BinaryBooleanSentence {
+            +lhs: Sentence
+            +rhs: Sentence
+        }
+
+        UnaryBooleanSentence -up-|> BooleanSentence
+        BinaryBooleanSentence -up-|> BooleanSentence
+
+        class NegationSentence {}
+        NegationSentence -up-|> UnaryBooleanSentence
+
+        class ConjunctiveSentence {}
+        class DisjunctiveSentence {}
+        class ExclusiveDisjunctiveSentence {}
+        class ImplicationSentence {}
+        class BiconditionalSentence {}
+
+        ConjunctiveSentence -up-|> BinaryBooleanSentence
+        DisjunctiveSentence -up-|> BinaryBooleanSentence
+        ExclusiveDisjunctiveSentence -up-|> BinaryBooleanSentence
+        ImplicationSentence -up-|> BinaryBooleanSentence
+        BiconditionalSentence -up-|> BinaryBooleanSentence
+
+        enum Quantifier {
+            Universal
+            Existential
+        }
+
+        class QuantifiedVariable {
+            source: 1 Term
+        }
+        QuantifiedVariable -up-|> Named
+
+        class QuantifiedVariableBinding {}
+        QuantifiedVariableBinding *--> "+quantifier\r1" Quantifier
+        QuantifiedVariableBinding *--> "+binding\r0..1" QuantifiedVariable
+    }
+    Sentences .up.> Foundation: "<<import>>"
+    Sentences .up.> Term: "<<import>>"
+}
+@enduml
+#+END_SRC
+
+#+CAPTION: The Constraint Sentences Package
+#+RESULTS: src:metamodel-constraint-sentences
+[[file:./metamodel-constraint-sentences.svg]]
+
+** Class AtomicSentence
+
+*Super Class:* =SimpleSentence=
+
+#+CAPTION: Properties on class AtomicSentence
+| Name      | Type | Cardinality  | Default |
+|-----------+------+--------------+---------|
+| =predicate= | =Term= | 1            |         |
+| =arguments= | =Term= | ordered 0..* |         |
+
+** Class BiconditionalSentence
+
+*Super Class:* =BinaryBooleanSentence=
+
+** Abstract Class BinaryBooleanSentence
+
+*Super Class:* =BooleanSentence=
+
+#+CAPTION: Properties on class RelationalSentence
+| Name | Type     | Cardinality | Default |
+|------+----------+-------------+---------|
+| =lhs=  | =Sentence= |           1 |         |
+| =rhs=  | =Sentence= |           1 |         |
+
+
+** Abstract Class BooleanSentence
+
+*Super Class:* =Sentence=
+
+
+*Super Class:* =Sentence=
+
+** Class ConjunctiveSentence
+
+*Super Class:* =BinaryBooleanSentence=
+
+
+*Super Class:* =BinaryBooleanSentence=
+
+** Class DisjunctiveSentence
+
+*Super Class:* =BinaryBooleanSentence=
+
+** Class Equation
+
+*Super Class:* =RelationalSentence=
+
+** Class ExclusiveDisjunctiveSentence
+
+*Super Class:* =BinaryBooleanSentence=
+
+** Class GreaterThan
+
+*Super Class:* =RelationalSentence=
+
+** Class GreaterThanOrEqual
+
+*Super Class:* =RelationalSentence=
+
+** Class ImplicationSentence
+
+*Super Class:* =BinaryBooleanSentence=
+
+** Class Inequation
+
+*Super Class:* =RelationalSentence=
+
+** Class LessThan
+
+*Super Class:* =RelationalSentence=
+
+
+*Super Class:* =RelationalSentence=
+
+** Class LessThanOrEqual
+
+*Super Class:* =RelationalSentence=
+
+** Class NegationSentence
+
+*Super Class:* =UnaryBooleanSentence=
+
+** Abstract Class Sentence
+** Class QuantifiedSentence
+
+*Super Class:* =Sentence=
+
+#+CAPTION: Properties on class QuantifiedSentence
+| Name    | Type                        | Cardinality | Default |
+|---------+-----------------------------+-------------+---------|
+| =binding= | =Sentence=                    |           1 |         |
+| =body=    | =QuantifiedVariableBinding= |           1 |         |
+
+** Class QuanntifiedVariable
+** Class QuanntifiedVariableBinding
+** Enum Quantifier
+** Abstract Class RelationalSentence
+
+*Super Class:* =SimpleSentence=
+
+#+CAPTION: Properties on class RelationalSentence
+| Name | Type | Cardinality | Default |
+|------+------+-------------+---------|
+| =lhs=  | =Term= |           1 |         |
+| =rhs=  | =Term= |           1 |         |
+
+
+** Abstract Class SimpleSentence
+
+*Super Class:* =Sentence=
+
+
+*Super Class:* =Sentence=
+
+** Abstract Class UnaryBooleanSentence
+
+*Super Class:* =BooleanSentence=
+
+#+CAPTION: Properties on class RelationalSentence
+| Name | Type | Cardinality | Default |
+|------+------+-------------+---------|
+| =rhs=  | =Sentence= |           1 |         |
+
+
+
+
+* Package Constraint Terms
+
+#+NAME: src:metamodel-constraint-terms
+#+BEGIN_SRC plantuml :file ./metamodel-constraint-terms.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package Foundation {
+    hide members
+    class Name {}
+}
+
+package Values {
+    hide members
+    abstract class Value {}
+}
+
+package Constraints {
+    package Terms {
+
+        abstract class Term {}
+
+        Name -up-|> Term
+        Value -up-|> Term
+
+        class FunctionalTerm {
+            +function: 1 Term
+            +arguments: 0..* Term
+        }
+        FunctionalTerm -up-|> Term
+
+        class SequenceBuilder  {}
+        SequenceBuilder -up-|> Term
+        SequenceBuilder *--> "+variables" SequenceVariables
+        SequenceBuilder *--> "+body" QuantifiedSentence
+
+        abstract class SequenceVariables {}
+        class SequenceVariableSet {
+            names: {unique} 1..* Name
+        }
+        class MappingSequenceVariables {
+            key: Name
+            value: Name
+        }
+
+        SequenceVariableSet -up-|> SequenceVariables
+        MappingSequenceVariables -up-|> SequenceVariables
+    }
+    Terms .up.> Name: "<<import>>"
+    Terms .up.> Value: "<<import>>"
+}
+@enduml
+#+END_SRC
+
+#+CAPTION: The Constraint Terms Package
+#+RESULTS: src:metamodel-constraint-terms
+[[file:./metamodel-constraint-terms.svg]]
+
+** Class FunctionalTerm
+
+*Super Class:* =Term=
+
+#+CAPTION: Properties on class FunctionalTerm
+| Name      | Type | Cardinality | Default |
+|-----------+------+-------------+---------|
+| =function=  | =Term= | 1           |         |
+| =arguments= | =Term= | 0..*        |         |
+
+** Class MappingSequenceVariables
+
+*Super Class:* =SequenceVariables=
+
+#+CAPTION: Properties on class MappingSequenceVariables
+| Name  | Type | Cardinality | Default |
+|-------+------+-------------+---------|
+| =key= | =Name= |           1 |         |
+| =value= | =Name= |           1 |         |
+
+** Class SequenceBuilder
+
+*Super Class:* =Term=
+
+#+CAPTION: Properties on class SequenceBuilder
+| Name      | Type                 | Cardinality | Default |
+|-----------+----------------------+-------------+---------|
+| =variables= | =SequenceVariables=    |           1 |         |
+| =body=      | =QuantifiedSentence= |           1 |         |
+
+** Abstract Class SequenceVariables
+** Class SequenceVariableSet
+
+*Super Class:* =SequenceVariables=
+
+#+CAPTION: Properties on class SequenceVariableSet
+| Name  | Type   | Cardinality  | Default |
+|-------+--------+--------------+---------|
+| =names= | =Name= | unique  1..* |         |
+
+** Abstract Class Term
+

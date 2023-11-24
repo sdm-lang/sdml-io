@@ -60,9 +60,9 @@ module rentals is
   entity Booking is
     identity bookingCode -> unknown
 
-    ref vehicle -> {0..1} Vehicle
-    ref from -> Location
-    ref customer -> Customer
+    vehicle -> {0..1} Vehicle
+    from -> Location
+    customer -> Customer
   end
 
   entity Customer
@@ -126,16 +126,17 @@ end
 
 As usual we generate the concept diagram in figure [[fig:example-third-pass]] from listing [[lst:example-third-pass]].
 
-#+NAME: fig:example-third-pass
+#+NAME: lst:example-third-pass-again
 #+BEGIN_SRC sdml :cmdline draw --diagram concepts :file ./rentals-concept-3.svg :exports results :noweb yes
 <<lst:example-third-pass>>
 #+END_SRC
 
-** More detail, and a new diagram
-
+#+NAME: fig:example-third-pass
 #+CAPTION: Rentals More Detail
-#+RESULTS: fig:example-third-pass
+#+RESULTS: lst:example-third-pass-again
 [[file:./rentals-concept-3.svg]]
+
+** More detail, and a new diagram
 
 #+NAME: lst:example-fourth-pass
 #+CAPTION: Rentals Non-Entity Detail
@@ -189,7 +190,7 @@ module rentals is
   entity Vehicle is
     identity vin -> cids:VehicleIdentificationNumber
 
-    ref rentalClass -> {1} RentalClass
+    rentalClass -> {1} RentalClass
   end
 
 end
@@ -203,21 +204,21 @@ As usual we generate the concept diagram in figure [[fig:example-fourth-pass]] f
 [[file:./rentals-concept-4.svg]]
 
 #+BEGIN_EXAMPLE
-sdml draw --diagram erd \
+sdml draw --diagram entity-relationship \
           --output-format svg \
           --output-file docs/rentals-concept-4.svg \
-          docs/rental-4.sdm
+          --input-file docs/rentals-4.sdm
 #+END_EXAMPLE
 
 #+NAME: lst:example-fourth-pass-erd
-#+BEGIN_SRC sdml :cmdline draw --diagram erd :file ./rentals-erd-4.svg :exports results :noweb yes
-<<lst:example-third-pass>>
+#+BEGIN_SRC sdml :cmdline draw --diagram entity-relationship :file ./rentals-erd-4.svg :exports results :noweb yes
+<<lst:example-fourth-pass>>
 #+END_SRC
 
 #+NAME: fig:example-fourth-pass-erd
 #+CAPTION: Rentals ERD Diagram
 #+RESULTS: lst:example-fourth-pass-erd
-[[./rentals-erd-4.svg]]
+[[file:./rentals-erd-4.svg]]
 
 ** More detail, and yet another diagram
 
@@ -226,7 +227,7 @@ sdml draw --diagram erd \
 #+BEGIN_SRC sdml :cmdline draw --diagram uml-class :file ./rentals-uml-5.svg :exports both :noweb yes
 module rentals base <https://example.org/v/rentals> is
 
-  import [ dc skos xsd ]
+  import [ dc sdml skos xsd ]
 
   ;; This is actually a US VIN
   import cids:VehicleIdentificationNumber
@@ -292,19 +293,19 @@ module rentals base <https://example.org/v/rentals> is
   end
 
   enum MembershipLevel of
-    Basic = 1
-    Silver = 2
-    Gold = 3
+    Basic
+    Silver
+    Gold
   end
 
   enum RentalClass of
-    SubCompact = 1
-    Compact = 2
-    FullSize = 3
-    CompactUtilityVehicle = 4
-    FullSizeUtilityVehicle = 5
-    Luxury = 6
-    Sports = 7
+    SubCompact
+    Compact
+    FullSize
+    CompactUtilityVehicle
+    FullSizeUtilityVehicle
+    Luxury
+    Sports
   end
 
   datatype BookingCode <- xsd:string is

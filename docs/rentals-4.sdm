@@ -1,14 +1,39 @@
 module rentals is
 
-  import [ cids:VehicleIdentificationNumber cids:Uuid ]
-  import [ xsd:date xsd:string ]
+  import [cids:VehicleIdentificationNumber cids:Uuid]
+  import [xsd:date xsd:string]
 
-  entity Class
+  structure Address
 
-  entity Vehicle is
-    identity vin -> cids:VehicleIdentificationNumber
+  entity Booking is
+    assert dropoff_after_pickup =
+      "Ensure the dropoff date is greater than or equal to the pickup date."
 
-    rentalClass -> {1} Class
+    identity bookingCode -> unknown
+
+    bookingClass -> {1} RentalClass
+    vehicle -> {0..1} Vehicle
+    pickup -> {1} Location
+    pickupDate -> {1} xsd:date
+    dropoff -> {1} Location
+    dropoffDate -> {1} xsd:date
+    customer -> {1} Customer
+  end
+
+  entity Customer is
+    assert drivers_license_valid =
+      "Ensure the drivers license date is in the future."
+
+    identity id -> cids:Uuid
+
+    contactAddress -> {1} Address
+    driverLicense -> {0..1} LicenseInformation
+  end
+
+  structure LicenseInformation is
+    number -> xsd:string
+    state -> xsd:string
+    expiration -> xsd:date
   end
 
   entity Location is
@@ -17,31 +42,12 @@ module rentals is
     address -> {1} Address
   end
 
-  entity Customer is
-    identity id -> cids:Uuid
+  enum RentalClass
 
-    contactAddress -> {1} Address
-    driverLicense -> {0..1} LicenseInformation
-  end
+  entity Vehicle is
+    identity vin -> cids:VehicleIdentificationNumber
 
-  structure Address
-
-  structure LicenseInformation is
-    number -> xsd:string
-    state -> xsd:string
-    expiration -> xsd:date
-  end
-
-  entity Booking is
-    identity bookingCode -> unknown
-
-    bookingClass -> {1} Class
-    vehicle -> {0..1} Vehicle
-    pickup -> {1} Location
-    pickupDate -> {1} xsd:date
-    dropoff -> {1} Location
-    dropoffDate -> {1} xsd:date
-    customer -> {1} Customer
+    rentalClass -> {1} RentalClass
   end
 
 end

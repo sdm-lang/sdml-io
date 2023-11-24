@@ -1,0 +1,627 @@
+#+TITLE: Simple Domain Modeling Language
+#+SUBTITLE: Language Primer
+#+AUTHOR: Simon Johnston
+#+EMAIL: johnstonskj@gmail.com
+#+LANGUAGE: en
+#+STARTUP: overview hidestars inlineimages entitiespretty
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="sdml-io.css"/>
+#+LATEX_HEADER: \usepackage{makeidx}
+#+LATEX_HEADER: \makeindex
+#+OPTIONS: toc:3 ^:{}
+
+
+#+BEGIN_SRC emacs-lisp :exports none
+(require 'ebnf-mode)
+(require 'lua-mode)
+(require 'ob-dot) ;; builtin
+(require 'ob-lua)
+(require 'ob-sdml)
+#+END_SRC
+
+#+NAME: img:sdml-logo
+#+ATTR_HTML: :width 75% :height 75%
+[[./logo/svg/square-dark.svg]]
+
+This short primer introduces the Simple Domain Modeling Language (SDML) and how you can apply it to model your business
+domain. This is not a replacement for the main SDML [[https://sdml.io][documentation]] but instead a quick tour of the language, it's
+features and application. This introduction will focus only on the SDML /surface syntax/, the textual representation that
+most people will interact with directly, whereas the main documentation also covers the semantics of the language and
+mappings between SDML and other key models. The primer also covers the core concepts that almost everyone will need to
+know, with pointers to the more advanced topics in the main documentation (notes marked with 🎛).
+
+So, let's start...
+
+* Why do I want a Domain Model?
+:PROPERTIES:
+:CUSTOM_ID: why-domain-model
+:END:
+
+Modeling in software development has had a difficult history, in some technical domains it is considered an essential
+tool. However, in many others, and especially with the emergence of agile development practices, it is considered an
+unnecessary overhead. George Box (statistician) famously wrote, "/All models are wrong, some are useful./", and later
+expanded it to
+
+#+BEGIN_QUOTE
+All models are approximations. Assumptions, whether implied or clearly stated, are never exactly true. All models are
+wrong, but some models are useful. So the question you need to ask is not "Is the model true?" (it never is) but "Is the
+model good enough for this particular application?" --- George E. P. Box, 1976.
+#+END_QUOTE
+
+So why would we build a domain model? Well, from the introduction to the guidance topic /Domain Modeling/ in the Scaled
+Agile Framework we get the following.
+
+#+BEGIN_QUOTE
+Domain modeling is one of the key models used in software engineering: *if you only model one thing in Agile, model the
+domain*. A relatively small domain-modeling effort is a great tool for controlling the complexity of the system under
+development. It may help in resolving countless ambiguities in both the requirements and the design intent. Domain
+modeling simply reflects our understanding of real-world *entities* and their *relationships* and *responsibilities* that
+cover the problem domain.
+#+END_QUOTE
+
+It is the essential characteristic of the domain model that it *must* reflect real-world entities, the tangible and
+intangible artifacts that are the common vocabulary of the domain. For example, in a Hotel domain model we may introduce
+Hotel, Room, Customer, and Booking as entities whereas a car rental domain model would have Location, Vehicle, Customer,
+and Booking. These entities should not be abstracted more than necessary, while the term /Location/ in the rental model
+could be considered as a generic form for /Hotel/ it is not, they are not the same and the choice of Location was not for
+genericity or abstraction but because that is the term that the rental car industry uses.
+
+As such, a domain model is an essential communication tool, not only between the business and technology sides of an
+organization but also between the business and it's customers and partners. Some industry standards for example use a
+common domain model to help facilitate the understanding of the standards themselves and how they apply between parties. 
+
+** Where do I start?
+:PROPERTIES:
+:CUSTOM_ID: where-to-start
+:END:
+
+One answer to that question is whether existing domain models already exist for your industry, often from standards
+organizations. If not then you would want to get a group of subject-matter experts (SMEs) together to talk through the
+key components of your business and how they relate to each other. You want to identify first those real-world entities
+that comprise the core of the business, and start with the ones your customers would be able to articulate -- only
+because that simple test helps to identify the truly essential elements.
+
+Include stakeholders across your business /and/ with different roles and perspectives. This is not a time to be parochial,
+to codify existing organizational structures or silos. Ask yourself, "/If we were to fundamentally reorganize our
+internal structure, would these entities have to change?/" and if the answer is /yes/ you almost certainly have something
+wrong. The danger is that your modeling effort falls foul of Conway's law:
+
+#+BEGIN_QUOTE
+Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the
+organization's communication structure. --- Melvin E. Conway, 1967.
+#+END_QUOTE
+
+Another good place to start is to ask participants to describe the business in only 1 or 2 sentences. In the following
+we have highlighted obvious candidate entities in bold, and phrases that may hide entities in italics.
+
+- Retail: *Customers* go to a *store* to *purchase* *items*, they may have a specific item in mind or expect to find /choices
+  they can choose between/. Depending on the /kind of item/ this choice may be /variations (in size or color for example)/ of
+  the same item or the same kind of item from /different manufacturers/.
+- Hotel: A *customer* *books* a *room* according to their choice of /size, bed type, or other criteria/, for /specific dates/ at a
+  particular *property*. A customer may make /certain kinds/ of *purchase* against their room which are then added to the
+  final *bill* on /completion of their stay/.
+- Long-Haul Logistics: The business comprises /matching/ available transportation *capacity* on one or more *routes* to
+  /deliver/ a *customer*'s load from /source to destination/ within some /time constraint/. A load may be one or more *standard
+  palettes*, or one or more *standard containers*. This results in one or more *delivery contracts*.
+
+The next step may be to ask questions such as "/does the (candidate) entity *X* have a natural and unique identifier?/",
+"/what properties does the (candidate) entity *X* have?/", or "/if we don't think *X* is an entity, what is it?/". All of these
+help to elaborate an initial framework that you can hang more detail on as you spend more time with more stakeholders.
+Whether you capture this in a structured form such as SDML, a graphical form such as a Visio diagram or data model
+diagram, or even natural language notes, you now have a domain model.
+
+The first of these questions is actually the most important as we can define an entity according to the following rules.
+
+An Entity is
+
+1. the name of a real-world concept,
+2. usually being a noun in the language used to describe the domain,
+3. that has an independent lifecycle (is not dependent on the lifecycle of another),
+4. and has a natural and unique identifier.
+
+* What is SDML?
+:PROPERTIES:
+:CUSTOM_ID: what-is-sdml
+:END:
+
+SDML is a textual language that allows you to describe a domain model in a /relatively/ simple structured manner. We say
+relatively because the language allows you to build models iteratively, capturing the essentials first and elaborating
+on them over time. It is common for domain models to be the output of workshop sessions and so the ability to capture a
+valid model in real-time even if it lacks detail is a useful feature. With this in mind we will elaborate on the module
+/definition/ in listing [[src:retail-module]] during this primer.
+
+#+NAME: src:retail-module
+#+CAPTION: An empty module
+#+BEGIN_SRC sdml :exports code :noeval
+module retail is end
+#+END_SRC
+
+This is, obviously, not a very informative definition of the retail domain; however, it is a valid model and a good
+enough place to start. But, as you've been tasked with being the scribe at a workshop outlining the domain model for a
+retail business you're on track so far. We will see more features in the following sections.
+
+One question you may have, why a textual language, why not a fancy graphical one, or an even fancier web-based graphical
+one? The reasons are purely pragmatic; *1.* simpler to build, *2.* now you have a persistent format, *3.* easier to agree
+details, *4.* not everyone is a visual thinker, and *5.* it's usually easier to define a visual representation of textual
+form than a textual representation of a visual one. One (and not necessarily the most urgent) of the problems that has
+hampered the adoption of the UML language for example is that there is no standard representation and so all tools have
+to write import/export capabilities to share models leading to errors or inconsistencies. SDML has a native
+representation, the surface syntax (it actually has two, more on that in a moment) and all tool builders can rely on
+being able to read and write that syntax.
+
+#+BEGIN_ADVNOTE
+What is the other representation? The textual language, shown in listing [[src:retail-module]] has a direct mapping to, and
+can be considered an alternate syntax for, a particular [[https://www.w3.org/TR/rdf12-concepts][RDF]]/[[https://www.w3.org/OWL/][OWL]] ontology *[need link]*. This means that the /semantics/ of
+SDML are then described by the OWL ontology, then OWL, and then RDF. Understanding this is not necessary to using or
+understanding the SDML syntax.
+#+END_ADVNOTE
+
+The SDML /project/, which is more than just the language definition, provides editor integration for authoring and tools
+for drawing and documentation. It also produces this primer and the main documentation.
+
+** What it isn't
+
+- SDML is not, as we said above, a graphical language. It relies on a defined mapping to the UML language that allows
+  the core elements of the textual language to be represented visually in UML.
+- SDML is not a product, it's freely available and open source.
+- SDML is not a standard, there's no committee managing changes. Feel free to file an enhancement request, or if you
+  have a change a pull request, because...
+- SDML is not done, we expect evolution as we see interesting opportunities to help you, and you see things we missed.
+
+* What can I do with it?
+:PROPERTIES:
+:CUSTOM_ID: what-can-it-do
+:END:
+
+The value of a domain model is in being able to describe the domain in an unambiguous way, so that it can become a
+shared vocabulary which in turn requires some rigor. One of the goals of SDML is to allow you to apply rigor as needed
+and elaborate the model over time. Some modeling tools, techniques, and processes, seem to require you to front-load the
+details and it can be hard to get past the /blank page/ problem as it feels like you need to do so much just to start.
+
+This section will show this elaboration process in action as we build the models for our example domains: Retail,
+Hospitality, and Logistics. 
+
+** Capture Entities
+
+Let's add the entities from the previous natural language description to our module. In each of the following sections
+we will repeat the descriptive text and follow it with an initial model. Note that all we need to do at this stage is
+list the entities we have identified so far using the rather obvious keyword ~entity~. 
+
+*** Retail Example
+
+#+BEGIN_INDENTED
+*Customers* go to a *store* to *purchase* *items*, they may have a specific item in mind or expect to find /choices they can
+choose between/. Depending on the /kind of item/ this choice may be /variations (in size or color for example)/ of the same
+item or the same kind of item from /different manufacturers/.
+#+END_INDENTED
+
+When we look at the italic text above we note the possible entities Kind, Variation, Size, Color, and Manufacturer.
+However, as we talk them through with the stakeholders we feel that they do not meet the criteria outlined in the
+section [[#where-to-start][Where do I start?]], except ~Manufacturer~.
+
+#+NAME: src:initial-retail-entities
+#+CAPTION: Initial Retail Entities
+#+BEGIN_SRC sdml :exports code :noeval
+module retail is
+
+  entity Customer
+
+  entity Store
+
+  entity Purchase
+
+  entity Item
+
+  entity Manufacturer
+
+end
+#+END_SRC
+
+Note that, depending on how you state the initial part of the description above you may end up with a different name for
+the entity ~Purchase~; "A store sells items to customers" for example will result in essentially the same entity but with
+the name ~Sale~ only because the subject of the sentence has changed. Beware of this, try and always pick a subject to use
+for all descriptions to avoid models that include both purchase and sale! In general, we recommend that you pick the
+customer as the primary subject as it means you end up with fewer internal names or jargon names for things.
+
+*** Hospitality Example
+
+#+BEGIN_INDENTED
+A *customer* *books* a *room* according to their choice of /size, bed type, or other criteria/, for /specific dates/ at a
+particular *property*. A customer may make /certain kinds/ of *purchases* against their room which are then added to the
+final *bill* on /completion of their stay/.
+#+END_INDENTED
+
+The only additional entity beyond the set already identified in bold is possibly ~Stay~, which at first looks a lot like
+~Booking~ in that it has a start and end date and references a ~Customer~ and ~Property~. However, a booking reference the
+/type of room/ where as the stay references the actual room, and the start and end dates may not be the same if the
+customer left early for example.
+
+In listing [[src:initial-hospitality-entities]] we will fill in some details, just to see how it's done. Specifically note
+the use of the arrow operator ~->~ or ~→~ that denotes the type (right-hand side) of a member (left-hand side).
+
+#+NAME: src:initial-hospitality-entities
+#+CAPTION: Initial Hospitality Entities
+#+BEGIN_SRC sdml :exports code :noeval
+module hospitality is
+
+  import xsd
+
+  entity Customer
+
+  entity Booking is
+    identity booking_code -> string
+
+    customer -> Customer
+    property -> Property
+    room_type -> unknown ;; don't know what this is yet.
+
+    start_date -> xsd:date
+    end_date -> xsd:date
+    number_of_adults -> integer
+    number_of_children -> integer
+  end
+
+  entity Room
+
+  entity Property
+
+  entity Purchase
+
+  entity Bill is
+    identity transaction_id -> unknown
+
+    for_stay -> Stay
+    charges -> {0..} Purchase
+  end
+
+  entity Stay is
+    identity id -> unknown
+  
+    from_booking -> {0..1} Booking
+  end
+
+end
+#+END_SRC
+
+The following are useful pointers to features of the entity definition.
+
+1. The members named ~customer~ and ~property~
+2. The member named ~room_type~
+3. The semi-colon introduces a line comment, so we added a little note to ourselves about the unknown type for this
+   member.
+4. The type names ~string~ and ~integer~ (and ~unknown~) are builtin, the type ~xsd:date~ is not, ..
+5. The member named in ~charges~ in ~Bill~ is a /sequence type/
+6. The member named ~from_booking~ in ~Stay~ 
+
+The builtin datatypes in SDML are derived from those in the XML Schema, Part 2 specification, the same datatypes used in
+RDF. The major datatypes are listed in table [[tbl:datatype-comparisons]] and compared to corresponding datatypes in SQL,
+Java and Rust. We choose SQL as it is closer to SDML in some respects as there is no behavior associated with the
+datatypes and data structures defined in SDML.
+
+#+NAME: tbl:datatype-comparisons
+#+CAPTION: Datatype Comparisons
+| Datatype     | SQL Equivalent      | Java Equivalent         | Rust Equivalent |
+|--------------+---------------------+-------------------------+-----------------|
+| ~binary~       | ~BINARY~ or ~VARBINARY~ | ~byte[]~                  | ~Vec<u8>~ or ~[u8]~ |
+| ~boolean~      | ~BIT~                 | ~boolean~                 | ~bool~            |
+| ~decimal~      | ~DECIMAL~             | ~BigDecimal~ in ~java.math~ |                 |
+| ~double~       | ~DOUBLE PRECISION~    | ~double~                  | ~f64~             |
+| ~integer~      | ~INTEGER~             | ~long~                    | ~i64~             |
+| ~string~       | ~CHAR~ or ~VARCHAR~     | ~String~                  | ~String~ or ~str~   |
+| ~unsigned~     |                     |                         | ~u64~             |
+| ~uri~          |                     |                         |                 |
+| ~xsd:date~     | ~DATE~                |                         |                 |
+| ~xsd:time~     | ~TIME~                |                         |                 |
+| ~xsd:dateTime~ | ~DATETIME~            |                         |                 |
+| ~xsd:duration~ | ~INTERVAL~            |                         |                 |
+
+*** Logistics Example
+
+#+BEGIN_INDENTED
+The business comprises /matching/ available transportation *capacity* on one or more *routes* to /deliver/ a *customer*'s load
+from /source to destination/ within some /time constraint/. A load may be one or more *standard palettes*, or one or more
+*standard containers*. This results in one or more *delivery contracts*.
+#+END_INDENTED
+
+You can use Annotation Properties to attach documentation properties to your model. In the following example we have
+added a /preferred label/ "Logistics", an /alternate label/ "Shipping", and a /description/ annotation to the module itself.
+Don't worry about the syntax of these for now, that's covered in an advanced topic later. We have added some to the
+logistics example in listing [[src:initial-logistics-entities]].
+
+#+NAME: src:initial-logistics-entities
+#+CAPTION: Initial Logistics Entities
+#+BEGIN_SRC sdml :exports code :noeval
+module logistics is
+
+  import [ dc skos ]
+
+  @skos:prefLabel = "Logistics"@en
+  @skos:altLabel = "Shipping"@en
+  @dc:description = "A domain model for long-haul logistics."@en
+
+  entity Capacity
+
+  entity Route
+
+  entity Customer
+
+  entity Palette
+
+  entity Container
+
+  entity Contract is
+
+    @skos:prefLabel = "Contract"
+    @skos:altLabel = "Delivery Contract"
+
+    identity contract_number -> unknown
+
+    sub_contracts -> {0..} Contract is
+      @skos:definition = "
+      Where a contract cannot be fulfilled with a single delivery,
+      each delivery becomes a sub-contract."
+    end
+  end
+
+end
+#+END_SRC
+
+The member named ~sub_contracts~ in ~Contract~ is interesting as it could cause trouble in some programming languages that
+do not allow recursive definitions without some level of indirection (We are all looking at you Rust). However, 
+
+It is also time to deal with the ~import~ statement that we have already seen in a number of examples.
+
+#+BEGIN_ADVNOTE
+Annotation properties are like constants in programming, they become attached to their enclosing definition and are
+immutable. A property is introduced by the initial =@= character and the property name follows. This property is then
+assigned a value, using the datatypes in table [[tbl:datatype-comparisons]].
+
+Strings, as you can see in listing [[src:initial-logistics-entities]] may be followed by another =@= character which
+introduces a language tag that identifies the natural language used in the string constant.
+#+END_ADVNOTE
+
+** Add details with Structures and Enums
+
+#+NAME: src:initial-retail-entities
+#+CAPTION: Initial Retail Entities
+#+BEGIN_SRC sdml :exports code :noeval
+module retail is
+
+  import [ skos xsd ]
+  import gs_one
+  import iso_17442
+  import iso_3166_1
+
+  entity Customer is
+    identity customer_id -> unknown
+
+    address -> Address
+  end
+
+  structure Address is
+    street {1..2} -> string
+    apartment {0..1} -> string
+    city -> string
+    state_or_district -> string
+    postal_code -> string
+    country -> iso_3166_1:CountryCode
+  end
+
+  entity Store is
+    identity location_number -> gs_one:GlobalLocationNumber
+
+    address -> Address
+    open_hours -> {ordered 7} Hours
+    has_pickup -> boolean
+  end
+
+  structure Hours is
+    open -> xsd:time
+    close -> xsd:time
+  end
+
+  entity Purchase
+
+  entity Item is
+    @skos:note = "See following advanced topic."
+
+    identity gtin -> gs_one:GlobalTradeItemNumber
+
+    description -> string
+    manufacturer -> Manufacturer
+  end
+
+  entity Manufacturer is
+    identity manufacturer_id -> iso_17442:LegalEntityId
+
+    address -> Address
+  end
+
+end
+#+END_SRC
+
+#+BEGIN_ADVNOTE
+Consider using custom datatypes to constrain basic types to avoid errors. For example, in listing
+[[src:gs1-datatypes]] the identifier for an ~Item~ is a GTIN or Global Trade Item Number. This standardized
+identifier has a number of specific formats but the shortest of those is 8 characters and the longest is 13 characters.
+So, we create a new datatype which limits the basic string to between 8 and 13 characters only.
+
+#+NAME: src:gs1-datatypes
+#+CAPTION: GS1 Standard Datatypes
+#+BEGIN_SRC sdml :exports code :noeval
+module gs_one is
+
+  import xsd
+
+  datatype GlobalLocationNumber <- string is
+    @xsd:pattern = "^[0-9]{13}$"
+  end
+
+  datatype GlobalTradeItemNumber <- string is
+    @xsd:pattern = "(^[0-9]{8}$)|(^[0-9]{13}$)|(^[0-9]{14}$)"
+  end
+
+end
+#+END_SRC
+#+END_ADVNOTE
+
+#+BEGIN_ADVNOTE
+Use Constraints to capture conditions that cannot be expressed by the model's structure alone. For example, in listing
+[[src:hospitality-daterange]] we have a simple structure that contains a start date and an end date. They are correctly
+typed so we know they have to be dates, but what if we were to set the start date to be after the end date, how do we
+validate that? Can we?
+
+#+NAME: src:hospitality-daterange
+#+CAPTION: Hospitality Entities
+#+BEGIN_SRC sdml :exports code :noeval
+module hospitality is
+
+  import xsd
+
+  structure DateRange is
+    assert valid_range = "range starts before it ends"
+
+    assert formal_range is forall self, self.starts <= self.ends
+
+    starts -> xsd:date
+    ends -> xsd:date
+  end
+
+end
+#+END_SRC
+#+END_ADVNOTE
+
+** Describe Events emitted by Entities
+
+TBD
+
+** Describe polymorphism with Unions
+
+
+#+NAME: src:gtin-types
+#+CAPTION: Types of GTIN
+#+BEGIN_SRC sdml :exports code :noeval
+module gtin is
+
+  import [ xsd ]
+
+  datatype Upc <- string
+
+  datatype Ean <- string
+
+  datatype Isbn <- string
+
+  union Gtin of
+    @skos:prefLabel = "GTIN"
+    Upc
+    Ean
+    Isbn
+  end
+
+end
+#+END_SRC
+
+#+BEGIN_ADVNOTE
+Use Unions to model Features
+#+END_ADVNOTE
+
+* How do I use it?
+:PROPERTIES:
+:CUSTOM_ID: how-to-use
+:END:
+
+DDD
+
+** Editing SDML Source
+
+** Drawing Diagrams
+
+** Document Modules
+
+* What do I do next?
+:PROPERTIES:
+:CUSTOM_ID: what-next
+:END:
+
+TBD
+
+** For Authors
+
+** For Tool Builders
+
+** More Reading
+
+- [[https://sdml.io#intro-what-is-domain-modeling][What is Domain Modeling?]] in the SDML documentation.
+- [[https://www.thoughtworks.com/en-us/insights/blog/agile-project-management/domain-modeling-what-you-need-to-know-before-coding][Domain Modeling: What you need to know before coding]], Norberto Rodríguez (Norbs). Thoughtworks.
+- [[https://olegchursin.medium.com/a-brief-introduction-to-domain-modeling-862a30b38353][A Brief Introduction to Domain Modeling]], Oleg Chursin.
+- [[https://simplea.com/Articles/domain-model][What is a Domain Model?]], [A].
+- [[https://en.wikipedia.org/wiki/Domain_model][Domain Model]], Wikipedia.
+
+
+
+* A Brief Glossary
+:PROPERTIES:
+:CUSTOM_ID: glossary
+:END:
+
+- Annotation :: A /property/ or /constraint/ attached to a definition that may document, classify, or constrain the
+  definition in ways the SDML syntax cannot. For example, attaching a descriptive property, a prescriptive definition,
+  or categorization labels.
+- Constraint :: A mechanism to describe correctness, or well-formedness, rules for a particular model and specifically
+  those rules that may be hard or impossible to capture in the SDML syntax itself.
+- Datatype :: An unstructured type that describes the atomic values (strings, numbers, etc.) in a model. Making a
+  datatype more specific such as saying a string has 4-10 characters only, or a quantity is 1-100 only, documents more
+  information than string/number alone.
+- Definition :: In SDML all elements in a model such as modules, entities, structures, fields in a structure, or variants
+  of an enumeration, are definitions. Definitions all have an identity which is unique within it's parent /namespace/.
+- Domain ::
+- Domain Model ::
+- Domain-Driven Development ::
+- Entity ::
+- Enumeration ::
+- Features ::
+- Formal Constraint :: 
+- Informal Constraint :: 
+- Member :: A member is a field within a /product type/, consisting of a name and target type. A member may alternatively
+  be a reference to a property /role/.
+- Model ::
+- Module :: 
+- Namespace ::
+- Ordering (Sequence) :: A constraint that denotes whether a /sequence/ is ordered or unordered.
+- Product Type :: A product type is one of /entity/, /event/, or /structure/.
+- Property (Annotation) :: 
+- Property (Member) ::
+- Role :: 
+- Sequence :: 
+- Structure ::
+- Sum Type :: A sum type is one of /enumeration/, /property/, or /union/.
+- Type Variant :: 
+- UML :: 
+- Union ::
+- Uniqueness (Sequence) :: A constraint that denotes whether a /sequence/ contains only unique elements or is non-unique.
+- Value Variant :: 
+- Variant :: A unique 
+
+
+#+BEGIN_COMMENT
+
+#+NAME: tbl:datatype-comparisons
+#+CAPTION: Datatype Comparisons
+| Datatype     | Builtin Constraints                     | SQL Equivalent                      | Java Equivalent         | Rust Equivalent        |
+|--------------+-----------------------------------------+-------------------------------------+-------------------------+------------------------|
+| ~binary~       | ~minLength~, ~maxLength~, and ~length~        | ~BINARY(length)~ or ~VARBINARY(length)~ | ~byte[length]~            | ~Vec<u8>~ or ~[u8;length]~ |
+| ~boolean~      |                                         | ~BIT~                                 | ~boolean~                 | ~bool~                   |
+| ~decimal~      | ~totalDigits~, ~fractionDigits~, and /scalar/ | ~DECIMAL(total, fraction)~            | ~BigDecimal~ in ~java.math~ |                        |
+| ~double~       | /scalar/                                  | ~DOUBLE PRECISION~                    | ~double~                  | ~f64~                    |
+| ~integer~      | /scalar/                                  | ~INTEGER~                             | ~long~                    | ~i64~                    |
+| ~string~       | ~minLength~, ~maxLength~, and ~length~        | ~CHAR(length)~ or ~VARCHAR(length)~     | ~String~                  | ~String~ or ~str~          |
+| ~unsigned~     | /scalar/                                  |                                     |                         | ~u64~                    |
+| ~uri~          | ~minLength~, ~maxLength~, and ~length~        |                                     |                         |                        |
+| ~xsd:date~     | ~explicitTimezone~ and /scalar/             | DATE                                |                         |                        |
+| ~xsd:time~     | ~explicitTimezone~ and /scalar/             | TIME                                |                         |                        |
+| ~xsd:dateTime~ | ~explicitTimezone~ and /scalar/             | DATE                                |                         |                        |
+| ~xsd:duration~ | ~explicitTimezone~ and /scalar/             | INTERVAL                            |                         |                        |
+
+All scalar types have the following additional constraints; ~maxInclusive~, ~maxExclusive~, ~minInclusive~, and ~minExclusive~.
+#+END_COMMENT
+#  LocalWords:  lifecycle iteratively UML SDML RDF genericity datatypes namespace formedness

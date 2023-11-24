@@ -38,7 +38,7 @@ The following explanation of figure [[fig:feature-pattern-diagram]] demonstrates
 by modeling the enumeration ~AdType~ above as a feature extension point. Figure [[fig:feature-diagram-key]] contains specific
 details on feature diagrams and their elements.
 
-#+NAME: fig:feature-pattern-diagram
+#+NAME: src:feature-pattern-diagram
 #+BEGIN_SRC dot :file ./images/feature-pattern-diagram.svg :exports results
 digraph G {
   bgcolor="transparent";
@@ -79,8 +79,9 @@ digraph G {
 }
 #+END_SRC
 
+#+NAME: fig:feature-pattern-diagram
 #+CAPTION: Feature Diagram
-#+RESULTS: fig:feature-pattern-diagram
+#+RESULTS: src:feature-pattern-diagram
 [[file:./images/feature-pattern-diagram.svg]]
 
 The following explanation of figure [[fig:feature-pattern-diagram]] demonstrates the major components of a feature diagram,
@@ -100,7 +101,7 @@ more details are shown in figure [[fig:feature-diagram-key]].
    1. Requires, the inclusion of the one feature requires that the other feature be present.
    2. Excludes, the inclusion of the one feature requires that the other feature *not* be present.
 
-#+NAME: fig:feature-diagram-key
+#+NAME: src:feature-diagram-key
 #+BEGIN_SRC dot :file ./images/feature-diagram-key.svg :exports results
 digraph G {
   bgcolor="transparent";
@@ -143,8 +144,9 @@ digraph G {
 }
 #+END_SRC
 
+#+NAME: fig:feature-diagram-key
 #+CAPTION: Feature Diagram Elements
-#+RESULTS: fig:feature-diagram-key
+#+RESULTS: src:feature-diagram-key
 [[file:./images/feature-diagram-key.svg]]
 
 While figure [[fig:feature-diagram-key]] shows the common elements of a feature diagram, these have been extended in
@@ -158,7 +160,7 @@ different implementations. Figure [[fig:feature-diagram-extended]] shows some of
 4. Alternatively the idea of feature sets directly owning other feature sets is present in some literature but again can
    be hard to control complexity.
 
-#+NAME: fig:feature-diagram-extended
+#+NAME: src:feature-diagram-extended
 #+BEGIN_SRC dot :file ./images/feature-diagram-extended.svg :exports results
 digraph G {
   bgcolor="transparent";
@@ -191,8 +193,9 @@ digraph G {
 }
 #+END_SRC
 
+#+NAME: fig:feature-diagram-extended
 #+CAPTION: Feature Diagram Extended Elements
-#+RESULTS: fig:feature-diagram-extended
+#+RESULTS: src:feature-diagram-extended
 [[file:./images/feature-diagram-extended.svg]]
 
 In the cases of multiple feature sets it is ...
