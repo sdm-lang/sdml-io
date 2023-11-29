@@ -295,8 +295,8 @@ The following are useful pointers to features of the entity definition.
 
 The builtin datatypes in SDML are derived from those in the XML Schema, Part 2 specification, the same datatypes used in
 RDF. The major datatypes are listed in table [[tbl:datatype-comparisons]] and compared to corresponding datatypes in SQL,
-Java and Rust. We choose SQL as it is closer to SDML in some respects as there is no behavior associated with the
-datatypes and data structures defined in SDML.
+Java and Rust. SQL's Data Definition Language (DDL) is a useful comparison given that it may be familiar to less
+technical stakeholders.
 
 #+NAME: tbl:datatype-comparisons
 #+CAPTION: Datatype Comparisons
@@ -367,9 +367,18 @@ end
 #+END_SRC
 
 The member named ~sub_contracts~ in ~Contract~ is interesting as it could cause trouble in some programming languages that
-do not allow recursive definitions without some level of indirection (We are all looking at you Rust). However, 
+do not allow recursive definitions without some level of indirection (We are all looking at you Rust). However, In the
+case of any member whose type is an entity it would not be possible to include one entity /within/ another as that would
+violate the independent lifecycle property of entities. In this case SDML actually stores a reference to that entity
+using it's ~*identity*~ member.
 
-It is also time to deal with the ~import~ statement that we have already seen in a number of examples.
+It is also time to deal with the ~import~ statement that we have already seen in a number of examples. An import statement
+is used to make definitions in other modules available to us in the current module. Import statements are simpler than a
+lot of programming languages in that you can import /either/ a module by name /or/ individual definitions within a module.
+In either case SDML requires you to use the qualified name of any imported definition. A qualified name is simply the
+name of the module followed by a colon and then the name of the definition. In listing [[src:initial-logistics-entities]] we
+see a single import statement with a list of module names, ~dc~ and ~skos~. These modules allow us to reference the
+annotation properties ~dc:description~, ~skos:altLabel~, ~skos:definition~, and ~skos:prefLabel~.
 
 #+BEGIN_ADVNOTE
 Annotation properties are like constants in programming, they become attached to their enclosing definition and are
@@ -463,6 +472,27 @@ module gs_one is
 
 end
 #+END_SRC
+
+#+NAME: tbl:datatype-comparisons
+#+CAPTION: Datatype Constraints
+| Datatype       | Builtin Constraints                                  |
+|----------------+------------------------------------------------------|
+| ~binary~         | ~minLength~, ~maxLength~, and ~length~                     |
+| ~boolean~        |                                                      |
+| ~decimal~        | ~totalDigits~, ~fractionDigits~, ~pattern~, and /scalar/     |
+| ~double~         | ~pattern~, scalar/                                     |
+| ~integer~        | ~pattern~, scalar/                                     |
+| ~string~         | ~pattern~, ~minLength~, ~maxLength~, ~length~, and ~langRange~ |
+| ~unsigned~       | ~pattern~, /scalar/                                      |
+| ~uri~            | ~pattern~, ~minLength~, ~maxLength~, and ~length~            |
+| ~xsd:date~       | ~pattern~, ~explicitTimezone~ and /scalar/                 |
+| ~xsd:time~       | ~pattern~, ~explicitTimezone~ and /scalar/                 |
+| ~xsd:dateTime~   | ~pattern~, ~explicitTimezone~ and /scalar/                 |
+| ~xsd:duration~   | ~pattern~, ~explicitTimezone~ and /scalar/                 |
+| Sequence Types | ~pattern~, ~minLength~, ~maxLength~, and ~length~            |
+
+All /scalar/ types have the following additional constraints; ~maxInclusive~, ~maxExclusive~, ~minInclusive~, and ~minExclusive~.
+
 #+END_ADVNOTE
 
 #+BEGIN_ADVNOTE
@@ -602,26 +632,4 @@ TBD
 - Value Variant :: 
 - Variant :: A unique 
 
-
-#+BEGIN_COMMENT
-
-#+NAME: tbl:datatype-comparisons
-#+CAPTION: Datatype Comparisons
-| Datatype     | Builtin Constraints                     | SQL Equivalent                      | Java Equivalent         | Rust Equivalent        |
-|--------------+-----------------------------------------+-------------------------------------+-------------------------+------------------------|
-| ~binary~       | ~minLength~, ~maxLength~, and ~length~        | ~BINARY(length)~ or ~VARBINARY(length)~ | ~byte[length]~            | ~Vec<u8>~ or ~[u8;length]~ |
-| ~boolean~      |                                         | ~BIT~                                 | ~boolean~                 | ~bool~                   |
-| ~decimal~      | ~totalDigits~, ~fractionDigits~, and /scalar/ | ~DECIMAL(total, fraction)~            | ~BigDecimal~ in ~java.math~ |                        |
-| ~double~       | /scalar/                                  | ~DOUBLE PRECISION~                    | ~double~                  | ~f64~                    |
-| ~integer~      | /scalar/                                  | ~INTEGER~                             | ~long~                    | ~i64~                    |
-| ~string~       | ~minLength~, ~maxLength~, and ~length~        | ~CHAR(length)~ or ~VARCHAR(length)~     | ~String~                  | ~String~ or ~str~          |
-| ~unsigned~     | /scalar/                                  |                                     |                         | ~u64~                    |
-| ~uri~          | ~minLength~, ~maxLength~, and ~length~        |                                     |                         |                        |
-| ~xsd:date~     | ~explicitTimezone~ and /scalar/             | DATE                                |                         |                        |
-| ~xsd:time~     | ~explicitTimezone~ and /scalar/             | TIME                                |                         |                        |
-| ~xsd:dateTime~ | ~explicitTimezone~ and /scalar/             | DATE                                |                         |                        |
-| ~xsd:duration~ | ~explicitTimezone~ and /scalar/             | INTERVAL                            |                         |                        |
-
-All scalar types have the following additional constraints; ~maxInclusive~, ~maxExclusive~, ~minInclusive~, and ~minExclusive~.
-#+END_COMMENT
 #  LocalWords:  lifecycle iteratively UML SDML RDF genericity datatypes namespace formedness

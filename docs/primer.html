@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-11-21 Tue 20:53 -->
+<!-- 2023-11-28 Tue 06:44 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Simple Domain Modeling Language</title>
@@ -34,35 +34,35 @@
 </li>
 <li><a href="#what-is-sdml">2. What is SDML?</a>
 <ul>
-<li><a href="#org5e3bc41">2.1. What it isn't</a></li>
+<li><a href="#orgc4ea7c7">2.1. What it isn't</a></li>
 </ul>
 </li>
 <li><a href="#what-can-it-do">3. What can I do with it?</a>
 <ul>
-<li><a href="#org43d8d06">3.1. Capture Entities</a>
+<li><a href="#org5ffef16">3.1. Capture Entities</a>
 <ul>
-<li><a href="#orga90e1d0">3.1.1. Retail Example</a></li>
-<li><a href="#org25d1eaf">3.1.2. Hospitality Example</a></li>
-<li><a href="#orgb783680">3.1.3. Logistics Example</a></li>
+<li><a href="#orgb869f9d">3.1.1. Retail Example</a></li>
+<li><a href="#org3312516">3.1.2. Hospitality Example</a></li>
+<li><a href="#orgb8d9ce2">3.1.3. Logistics Example</a></li>
 </ul>
 </li>
-<li><a href="#org50b9920">3.2. Add details with Structures and Enums</a></li>
-<li><a href="#org8fe29fa">3.3. Describe Events emitted by Entities</a></li>
-<li><a href="#org07ab068">3.4. Describe polymorphism with Unions</a></li>
+<li><a href="#org1a2f366">3.2. Add details with Structures and Enums</a></li>
+<li><a href="#orgbed3647">3.3. Describe Events emitted by Entities</a></li>
+<li><a href="#orga6e6500">3.4. Describe polymorphism with Unions</a></li>
 </ul>
 </li>
 <li><a href="#how-to-use">4. How do I use it?</a>
 <ul>
-<li><a href="#org245f151">4.1. Editing SDML Source</a></li>
-<li><a href="#orgfcacfb5">4.2. Drawing Diagrams</a></li>
-<li><a href="#org8957295">4.3. Document Modules</a></li>
+<li><a href="#org53ef3a9">4.1. Editing SDML Source</a></li>
+<li><a href="#org1d1f5d1">4.2. Drawing Diagrams</a></li>
+<li><a href="#orgec45ece">4.3. Document Modules</a></li>
 </ul>
 </li>
 <li><a href="#what-next">5. What do I do next?</a>
 <ul>
-<li><a href="#org413cb9b">5.1. For Authors</a></li>
-<li><a href="#org7f00b09">5.2. For Tool Builders</a></li>
-<li><a href="#orgf4e71c0">5.3. More Reading</a></li>
+<li><a href="#org1a3eae4">5.1. For Authors</a></li>
+<li><a href="#org94fb9fb">5.2. For Tool Builders</a></li>
+<li><a href="#org7d76ea6">5.3. More Reading</a></li>
 </ul>
 </li>
 <li><a href="#glossary">6. A Brief Glossary</a></li>
@@ -70,7 +70,7 @@
 </div>
 </div>
 
-<div id="org12afcc6" class="figure">
+<div id="org5aa865e" class="figure">
 <p><img src="./logo/svg/square-dark.svg" alt="square-dark.svg" class="org-svg" width="75%" height="75%" />
 </p>
 </div>
@@ -213,11 +213,11 @@ SDML is a textual language that allows you to describe a domain model in a <i>re
 relatively because the language allows you to build models iteratively, capturing the essentials first and elaborating
 on them over time. It is common for domain models to be the output of workshop sessions and so the ability to capture a
 valid model in real-time even if it lacks detail is a useful feature. With this in mind we will elaborate on the module
-<i>definition</i> in listing <a href="#org00ff3db">1</a> during this primer.
+<i>definition</i> in listing <a href="#org5c5a72f">1</a> during this primer.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>An empty module</label><pre class="src src-sdml" id="org00ff3db"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>An empty module</label><pre class="src src-sdml" id="org5c5a72f"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
 </pre>
 </div>
 
@@ -238,9 +238,9 @@ representation, the surface syntax (it actually has two, more on that in a momen
 being able to read and write that syntax.
 </p>
 
-<div class="ADVNOTE" id="orgad64487">
+<div class="ADVNOTE" id="orge817b60">
 <p>
-What is the other representation? The textual language, shown in listing <a href="#org00ff3db">1</a> has a direct mapping to, and
+What is the other representation? The textual language, shown in listing <a href="#org5c5a72f">1</a> has a direct mapping to, and
 can be considered an alternate syntax for, a particular <a href="https://www.w3.org/TR/rdf12-concepts">RDF</a>/<a href="https://www.w3.org/OWL/">OWL</a> ontology <b>[need link]</b>. This means that the <i>semantics</i> of
 SDML are then described by the OWL ontology, then OWL, and then RDF. Understanding this is not necessary to using or
 understanding the SDML syntax.
@@ -254,8 +254,8 @@ for drawing and documentation. It also produces this primer and the main documen
 </p>
 </div>
 
-<div id="outline-container-org5e3bc41" class="outline-3">
-<h3 id="org5e3bc41"><span class="section-number-3">2.1.</span> What it isn't</h3>
+<div id="outline-container-orgc4ea7c7" class="outline-3">
+<h3 id="orgc4ea7c7"><span class="section-number-3">2.1.</span> What it isn't</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>SDML is not, as we said above, a graphical language. It relies on a defined mapping to the UML language that allows
@@ -285,8 +285,8 @@ Hospitality, and Logistics.
 </p>
 </div>
 
-<div id="outline-container-org43d8d06" class="outline-3">
-<h3 id="org43d8d06"><span class="section-number-3">3.1.</span> Capture Entities</h3>
+<div id="outline-container-org5ffef16" class="outline-3">
+<h3 id="org5ffef16"><span class="section-number-3">3.1.</span> Capture Entities</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Let's add the entities from the previous natural language description to our module. In each of the following sections
@@ -295,10 +295,10 @@ list the entities we have identified so far using the rather obvious keyword <co
 </p>
 </div>
 
-<div id="outline-container-orga90e1d0" class="outline-4">
-<h4 id="orga90e1d0"><span class="section-number-4">3.1.1.</span> Retail Example</h4>
+<div id="outline-container-orgb869f9d" class="outline-4">
+<h4 id="orgb869f9d"><span class="section-number-4">3.1.1.</span> Retail Example</h4>
 <div class="outline-text-4" id="text-3-1-1">
-<div class="INDENTED" id="org7694b7b">
+<div class="INDENTED" id="org31100a1">
 <p>
 <b>Customers</b> go to a <b>store</b> to <b>purchase</b> <b>items</b>, they may have a specific item in mind or expect to find <i>choices they can
 choose between</i>. Depending on the <i>kind of item</i> this choice may be <i>variations (in size or color for example)</i> of the same
@@ -314,7 +314,7 @@ section <a href="#where-to-start">Where do I start?</a>, except <code>Manufactur
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Initial Retail Entities</label><pre class="src src-sdml" id="org79245e4"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Initial Retail Entities</label><pre class="src src-sdml" id="org4a93b47"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
 
@@ -340,10 +340,10 @@ customer as the primary subject as it means you end up with fewer internal names
 </div>
 </div>
 
-<div id="outline-container-org25d1eaf" class="outline-4">
-<h4 id="org25d1eaf"><span class="section-number-4">3.1.2.</span> Hospitality Example</h4>
+<div id="outline-container-org3312516" class="outline-4">
+<h4 id="org3312516"><span class="section-number-4">3.1.2.</span> Hospitality Example</h4>
 <div class="outline-text-4" id="text-3-1-2">
-<div class="INDENTED" id="org9c4a44e">
+<div class="INDENTED" id="orge563720">
 <p>
 A <b>customer</b> <b>books</b> a <b>room</b> according to their choice of <i>size, bed type, or other criteria</i>, for <i>specific dates</i> at a
 particular <b>property</b>. A customer may make <i>certain kinds</i> of <b>purchases</b> against their room which are then added to the
@@ -360,12 +360,12 @@ customer left early for example.
 </p>
 
 <p>
-In listing <a href="#org2c7f946">3</a> we will fill in some details, just to see how it's done. Specifically note
+In listing <a href="#org98a48d8">3</a> we will fill in some details, just to see how it's done. Specifically note
 the use of the arrow operator <code>-&gt;</code> or <code>→</code> that denotes the type (right-hand side) of a member (left-hand side).
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Initial Hospitality Entities</label><pre class="src src-sdml" id="org2c7f946"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Initial Hospitality Entities</label><pre class="src src-sdml" id="org98a48d8"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
 
@@ -423,12 +423,12 @@ member.</li>
 
 <p>
 The builtin datatypes in SDML are derived from those in the XML Schema, Part 2 specification, the same datatypes used in
-RDF. The major datatypes are listed in table <a href="#org3e1831c">1</a> and compared to corresponding datatypes in SQL,
+RDF. The major datatypes are listed in table <a href="#org9d334a1">1</a> and compared to corresponding datatypes in SQL,
 Java and Rust. We choose SQL as it is closer to SDML in some respects as there is no behavior associated with the
 datatypes and data structures defined in SDML.
 </p>
 
-<table id="org3e1831c" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org9d334a1" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption class="t-above"><span class="table-number">Table 1:</span> Datatype Comparisons</caption>
 
 <colgroup>
@@ -537,10 +537,10 @@ datatypes and data structures defined in SDML.
 </div>
 </div>
 
-<div id="outline-container-orgb783680" class="outline-4">
-<h4 id="orgb783680"><span class="section-number-4">3.1.3.</span> Logistics Example</h4>
+<div id="outline-container-orgb8d9ce2" class="outline-4">
+<h4 id="orgb8d9ce2"><span class="section-number-4">3.1.3.</span> Logistics Example</h4>
 <div class="outline-text-4" id="text-3-1-3">
-<div class="INDENTED" id="org3ed5180">
+<div class="INDENTED" id="orgcd26646">
 <p>
 The business comprises <i>matching</i> available transportation <b>capacity</b> on one or more <b>routes</b> to <i>deliver</i> a <b>customer</b>'s load
 from <i>source to destination</i> within some <i>time constraint</i>. A load may be one or more <b>standard palettes</b>, or one or more
@@ -553,11 +553,11 @@ from <i>source to destination</i> within some <i>time constraint</i>. A load may
 You can use Annotation Properties to attach documentation properties to your model. In the following example we have
 added a <i>preferred label</i> "Logistics", an <i>alternate label</i> "Shipping", and a <i>description</i> annotation to the module itself.
 Don't worry about the syntax of these for now, that's covered in an advanced topic later. We have added some to the
-logistics example in listing <a href="#org61177b4">4</a>.
+logistics example in listing <a href="#org5d791f3">4</a>.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 4: </span>Initial Logistics Entities</label><pre class="src src-sdml" id="org61177b4"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>Initial Logistics Entities</label><pre class="src src-sdml" id="org5d791f3"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
 
@@ -602,15 +602,15 @@ do not allow recursive definitions without some level of indirection (We are all
 It is also time to deal with the <code>import</code> statement that we have already seen in a number of examples.
 </p>
 
-<div class="ADVNOTE" id="org45a843b">
+<div class="ADVNOTE" id="orge56422e">
 <p>
 Annotation properties are like constants in programming, they become attached to their enclosing definition and are
 immutable. A property is introduced by the initial <code>@</code> character and the property name follows. This property is then
-assigned a value, using the datatypes in table <a href="#org3e1831c">1</a>.
+assigned a value, using the datatypes in table <a href="#org9d334a1">1</a>.
 </p>
 
 <p>
-Strings, as you can see in listing <a href="#org61177b4">4</a> may be followed by another <code>@</code> character which
+Strings, as you can see in listing <a href="#org5d791f3">4</a> may be followed by another <code>@</code> character which
 introduces a language tag that identifies the natural language used in the string constant.
 </p>
 
@@ -619,11 +619,11 @@ introduces a language tag that identifies the natural language used in the strin
 </div>
 </div>
 
-<div id="outline-container-org50b9920" class="outline-3">
-<h3 id="org50b9920"><span class="section-number-3">3.2.</span> Add details with Structures and Enums</h3>
+<div id="outline-container-org1a2f366" class="outline-3">
+<h3 id="org1a2f366"><span class="section-number-3">3.2.</span> Add details with Structures and Enums</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 5: </span>Initial Retail Entities</label><pre class="src src-sdml" id="org630cdc6"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Initial Retail Entities</label><pre class="src src-sdml" id="org940c4ce"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">gs_one</span>
@@ -679,16 +679,16 @@ introduces a language tag that identifies the natural language used in the strin
 </pre>
 </div>
 
-<div class="ADVNOTE" id="orgafdf113">
+<div class="ADVNOTE" id="orga5c2ba5">
 <p>
 Consider using custom datatypes to constrain basic types to avoid errors. For example, in listing
-<a href="#orgb4c2599">6</a> the identifier for an <code>Item</code> is a GTIN or Global Trade Item Number. This standardized
+<a href="#org1b25cc0">6</a> the identifier for an <code>Item</code> is a GTIN or Global Trade Item Number. This standardized
 identifier has a number of specific formats but the shortest of those is 8 characters and the longest is 13 characters.
 So, we create a new datatype which limits the basic string to between 8 and 13 characters only.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 6: </span>GS1 Standard Datatypes</label><pre class="src src-sdml" id="orgb4c2599"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs_one</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>GS1 Standard Datatypes</label><pre class="src src-sdml" id="org1b25cc0"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs_one</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
 
@@ -706,16 +706,16 @@ So, we create a new datatype which limits the basic string to between 8 and 13 c
 
 </div>
 
-<div class="ADVNOTE" id="org4b40b8b">
+<div class="ADVNOTE" id="org6f9103a">
 <p>
 Use Constraints to capture conditions that cannot be expressed by the model's structure alone. For example, in listing
-<a href="#orgd99e4f0">7</a> we have a simple structure that contains a start date and an end date. They are correctly
+<a href="#org36d10b5">7</a> we have a simple structure that contains a start date and an end date. They are correctly
 typed so we know they have to be dates, but what if we were to set the start date to be after the end date, how do we
 validate that? Can we?
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 7: </span>Hospitality Entities</label><pre class="src src-sdml" id="orgd99e4f0"><span style="color: #859900;">module</span> hospitality <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 7: </span>Hospitality Entities</label><pre class="src src-sdml" id="org36d10b5"><span style="color: #859900;">module</span> hospitality <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
 
@@ -736,8 +736,8 @@ end
 </div>
 </div>
 
-<div id="outline-container-org8fe29fa" class="outline-3">
-<h3 id="org8fe29fa"><span class="section-number-3">3.3.</span> Describe Events emitted by Entities</h3>
+<div id="outline-container-orgbed3647" class="outline-3">
+<h3 id="orgbed3647"><span class="section-number-3">3.3.</span> Describe Events emitted by Entities</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 TBD
@@ -745,11 +745,11 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-org07ab068" class="outline-3">
-<h3 id="org07ab068"><span class="section-number-3">3.4.</span> Describe polymorphism with Unions</h3>
+<div id="outline-container-orga6e6500" class="outline-3">
+<h3 id="orga6e6500"><span class="section-number-3">3.4.</span> Describe polymorphism with Unions</h3>
 <div class="outline-text-3" id="text-3-4">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 8: </span>Types of GTIN</label><pre class="src src-sdml" id="org6eb83a7"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gtin</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 8: </span>Types of GTIN</label><pre class="src src-sdml" id="org7ff9978"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gtin</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
 
@@ -770,7 +770,7 @@ TBD
 </pre>
 </div>
 
-<div class="ADVNOTE" id="orga0ddec9">
+<div class="ADVNOTE" id="org2d4511d">
 <p>
 Use Unions to model Features
 </p>
@@ -788,16 +788,16 @@ DDD
 </p>
 </div>
 
-<div id="outline-container-org245f151" class="outline-3">
-<h3 id="org245f151"><span class="section-number-3">4.1.</span> Editing SDML Source</h3>
+<div id="outline-container-org53ef3a9" class="outline-3">
+<h3 id="org53ef3a9"><span class="section-number-3">4.1.</span> Editing SDML Source</h3>
 </div>
 
-<div id="outline-container-orgfcacfb5" class="outline-3">
-<h3 id="orgfcacfb5"><span class="section-number-3">4.2.</span> Drawing Diagrams</h3>
+<div id="outline-container-org1d1f5d1" class="outline-3">
+<h3 id="org1d1f5d1"><span class="section-number-3">4.2.</span> Drawing Diagrams</h3>
 </div>
 
-<div id="outline-container-org8957295" class="outline-3">
-<h3 id="org8957295"><span class="section-number-3">4.3.</span> Document Modules</h3>
+<div id="outline-container-orgec45ece" class="outline-3">
+<h3 id="orgec45ece"><span class="section-number-3">4.3.</span> Document Modules</h3>
 </div>
 </div>
 
@@ -809,16 +809,16 @@ TBD
 </p>
 </div>
 
-<div id="outline-container-org413cb9b" class="outline-3">
-<h3 id="org413cb9b"><span class="section-number-3">5.1.</span> For Authors</h3>
+<div id="outline-container-org1a3eae4" class="outline-3">
+<h3 id="org1a3eae4"><span class="section-number-3">5.1.</span> For Authors</h3>
 </div>
 
-<div id="outline-container-org7f00b09" class="outline-3">
-<h3 id="org7f00b09"><span class="section-number-3">5.2.</span> For Tool Builders</h3>
+<div id="outline-container-org94fb9fb" class="outline-3">
+<h3 id="org94fb9fb"><span class="section-number-3">5.2.</span> For Tool Builders</h3>
 </div>
 
-<div id="outline-container-orgf4e71c0" class="outline-3">
-<h3 id="orgf4e71c0"><span class="section-number-3">5.3.</span> More Reading</h3>
+<div id="outline-container-org7d76ea6" class="outline-3">
+<h3 id="org7d76ea6"><span class="section-number-3">5.3.</span> More Reading</h3>
 <div class="outline-text-3" id="text-5-3">
 <ul class="org-ul">
 <li><a href="https://sdml.io#intro-what-is-domain-modeling">What is Domain Modeling?</a> in the SDML documentation.</li>
@@ -900,7 +900,7 @@ be a reference to a property <i>role</i>.</dd>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-11-21 Tue 20:53</p>
+<p class="date">Created: 2023-11-28 Tue 06:44</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

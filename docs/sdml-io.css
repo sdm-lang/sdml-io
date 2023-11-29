@@ -38,7 +38,7 @@ body {
     counter-reset: formula;
 }
 
-/* Title */
+/* Titles */
 
 h1.title span.subtitle {
     font-size: 0.8em;
@@ -49,6 +49,20 @@ h1.title span.subtitle {
 
 div#table-of-contents li {
     text-align: left;
+}
+
+/* Abstract Block */
+
+div.ABSTRACT {
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 1em;
+    margin-left: 3em;
+}
+
+div.ABSTRACT > p:first-child::before {
+    content: "Abstract.";
+    font-weight: bold;
 }
 
 /* Main Body Text */
@@ -176,7 +190,23 @@ blockquote > p:first-child::before {
 }
 
 blockquote > p:last-child {
-    margin-bottom: 0px;
+    margin-bottom: 0;
+}
+
+/* Hierarchy Lists */
+
+div.HIERARCHY {
+    margin-bottom: 1.5em;
+}
+
+div.HIERARCHY ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+div.HIERARCHY ul > li {
+    margin-left: 1em;
 }
 
 /* MathJax */
@@ -202,6 +232,8 @@ div#list-of-listings > h2 {
     page-break-before: avoid;
     border-top: 0px;
 }
+
+/* Footer */
 
 div#footnotes h2.footnotes {
     page-break-before: avoid;
