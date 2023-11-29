@@ -112,7 +112,7 @@ diagram, or even natural language notes, you now have a domain model.
 
 The first of these questions is actually the most important as we can define an entity according to the following rules.
 
-An Entity is
+An Entity is:
 
 1. the name of a real-world concept,
 2. usually being a noun in the language used to describe the domain,
@@ -237,7 +237,9 @@ The only additional entity beyond the set already identified in bold is possibly
 customer left early for example.
 
 In listing [[src:initial-hospitality-entities]] we will fill in some details, just to see how it's done. Specifically note
-the use of the arrow operator ~->~ or ~→~ that denotes the type (right-hand side) of a member (left-hand side).
+the use of the arrow operator ~->~ or ~→~ that denotes the type (right-hand side) of a member (left-hand side). Also, if you
+remember that a part of the definition of an entity is that it has strong identity, so as we are adding details to
+entities we *must* provide an ~identity~ member.
 
 #+NAME: src:initial-hospitality-entities
 #+CAPTION: Initial Hospitality Entities
@@ -285,13 +287,20 @@ end
 
 The following are useful pointers to features of the entity definition.
 
-1. The members named ~customer~ and ~property~
-2. The member named ~room_type~
+1. The members named ~customer~ and ~property~ reference other entities in the same module /even though/ neither of those
+   entities are complete.
+2. The member named ~room_type~ has the type ~*unknown*~ which is an explicit signal that this model is incomplete as the
+   type has not yet been decided.
 3. The semi-colon introduces a line comment, so we added a little note to ourselves about the unknown type for this
-   member.
-4. The type names ~string~ and ~integer~ (and ~unknown~) are builtin, the type ~xsd:date~ is not, ..
-5. The member named in ~charges~ in ~Bill~ is a /sequence type/
-6. The member named ~from_booking~ in ~Stay~ 
+   member. The use of two semi-colons is a style preference as it makes the comment easier to find.
+4. The type names ~string~ and ~integer~ (and ~unknown~) are builtin, the type ~xsd:date~ is not, it has been imported from
+   another module named ~xsd~. The name ~xsd:date~ is a /qualified name/ which uses the colon character to combine module and
+   definition name.
+5. The member named in ~charges~ in ~Bill~ is a /sequence type/, which means it can have a varying number of values. The
+   specification for upper and lower bounds on a sequence type are it's cardinality, the lack of a upper bound means
+   that the range is /unbounded/. The default cardinality being ~1~.
+6. The member named ~from_booking~ in ~Stay~ is another sequence type, although with the cardinality of ~0..1~ may be seen as
+   /optional/.
 
 The builtin datatypes in SDML are derived from those in the XML Schema, Part 2 specification, the same datatypes used in
 RDF. The major datatypes are listed in table [[tbl:datatype-comparisons]] and compared to corresponding datatypes in SQL,
@@ -323,54 +332,57 @@ from /source to destination/ within some /time constraint/. A load may be one or
 *standard containers*. This results in one or more *delivery contracts*.
 #+END_INDENTED
 
+Note also that we have dropped some of the entities from
+the original 
+
 You can use Annotation Properties to attach documentation properties to your model. In the following example we have
 added a /preferred label/ "Logistics", an /alternate label/ "Shipping", and a /description/ annotation to the module itself.
 Don't worry about the syntax of these for now, that's covered in an advanced topic later. We have added some to the
-logistics example in listing [[src:initial-logistics-entities]].
+logistics example in listing [[src:initial-logistics-entities]]. 
 
 #+NAME: src:initial-logistics-entities
 #+CAPTION: Initial Logistics Entities
 #+BEGIN_SRC sdml :exports code :noeval
 module logistics is
 
-  import [ dc skos ]
+  import [ dc skos uuid ]
+  import [ gs1 ]
 
   @skos:prefLabel = "Logistics"@en
   @skos:altLabel = "Shipping"@en
   @dc:description = "A domain model for long-haul logistics."@en
 
-  entity Capacity
+  entity Location
+  ; Global Location Number GLN
 
-  entity Route
+  enum LocationKind
 
-  entity Customer
+  entity Consignor is
+    identity gln -> GlobalLocationNumber
+    lei -> {0..1} gs1:LegalEntityIdentifier
+    name -> string
+  end
 
-  entity Palette
+  entity Consignment is
+    identity ginc -> gs1:GlobalIdentificationNumberForConsignment
 
-  entity Container
+    consignor -> Consignor
+    shipments -> {1..} Shipment
+  end
 
-  entity Contract is
+  entity Shipment is
 
-    @skos:prefLabel = "Contract"
-    @skos:altLabel = "Delivery Contract"
+    @editorialNote = "need to add logistic units -- are these entities?"
 
-    identity contract_number -> unknown
+    identity gsin -> gs1:GlobalShipmentIdentificationNumber
 
-    sub_contracts -> {0..} Contract is
-      @skos:definition = "
-      Where a contract cannot be fulfilled with a single delivery,
-      each delivery becomes a sub-contract."
-    end
+    from -> Location
+    to -> Location
   end
 
 end
 #+END_SRC
 
-The member named ~sub_contracts~ in ~Contract~ is interesting as it could cause trouble in some programming languages that
-do not allow recursive definitions without some level of indirection (We are all looking at you Rust). However, In the
-case of any member whose type is an entity it would not be possible to include one entity /within/ another as that would
-violate the independent lifecycle property of entities. In this case SDML actually stores a reference to that entity
-using it's ~*identity*~ member.
 
 It is also time to deal with the ~import~ statement that we have already seen in a number of examples. An import statement
 is used to make definitions in other modules available to us in the current module. Import statements are simpler than a
@@ -390,6 +402,8 @@ introduces a language tag that identifies the natural language used in the strin
 #+END_ADVNOTE
 
 ** Add details with Structures and Enums
+
+*** Retail Example
 
 #+NAME: src:initial-retail-entities
 #+CAPTION: Initial Retail Entities
@@ -450,10 +464,10 @@ end
 #+END_SRC
 
 #+BEGIN_ADVNOTE
-Consider using custom datatypes to constrain basic types to avoid errors. For example, in listing
-[[src:gs1-datatypes]] the identifier for an ~Item~ is a GTIN or Global Trade Item Number. This standardized
-identifier has a number of specific formats but the shortest of those is 8 characters and the longest is 13 characters.
-So, we create a new datatype which limits the basic string to between 8 and 13 characters only.
+Consider using custom datatypes to constrain basic types to avoid errors. For example, in listing [[src:gs1-datatypes]] the
+identifier for an ~Item~ is a GTIN or Global Trade Item Number. This standardized identifier has a number of specific
+formats but the shortest of those is 8 characters and the longest is 13 characters. So, we create a new datatype which
+/restricts/ the basic string to between 8 and 13 characters only using a regex pattern.
 
 #+NAME: src:gs1-datatypes
 #+CAPTION: GS1 Standard Datatypes
@@ -473,13 +487,16 @@ module gs_one is
 end
 #+END_SRC
 
+Table [[tbl:datatype-comparisons]] lists the constraints that can you can use to restrict existing types. All /scalar/ types
+have the following additional constraints; ~maxInclusive~, ~maxExclusive~, ~minInclusive~, and ~minExclusive~.
+
 #+NAME: tbl:datatype-comparisons
 #+CAPTION: Datatype Constraints
 | Datatype       | Builtin Constraints                                  |
 |----------------+------------------------------------------------------|
 | ~binary~         | ~minLength~, ~maxLength~, and ~length~                     |
 | ~boolean~        |                                                      |
-| ~decimal~        | ~totalDigits~, ~fractionDigits~, ~pattern~, and /scalar/     |
+| ~decimal~        | ~pattern~, ~totalDigits~, ~fractionDigits~, and /scalar/     |
 | ~double~         | ~pattern~, scalar/                                     |
 | ~integer~        | ~pattern~, scalar/                                     |
 | ~string~         | ~pattern~, ~minLength~, ~maxLength~, ~length~, and ~langRange~ |
@@ -490,10 +507,10 @@ end
 | ~xsd:dateTime~   | ~pattern~, ~explicitTimezone~ and /scalar/                 |
 | ~xsd:duration~   | ~pattern~, ~explicitTimezone~ and /scalar/                 |
 | Sequence Types | ~pattern~, ~minLength~, ~maxLength~, and ~length~            |
-
-All /scalar/ types have the following additional constraints; ~maxInclusive~, ~maxExclusive~, ~minInclusive~, and ~minExclusive~.
-
 #+END_ADVNOTE
+
+*** Hospitality Example
+
 
 #+BEGIN_ADVNOTE
 Use Constraints to capture conditions that cannot be expressed by the model's structure alone. For example, in listing
@@ -511,7 +528,9 @@ module hospitality is
   structure DateRange is
     assert valid_range = "range starts before it ends"
 
-    assert formal_range is forall self, self.starts <= self.ends
+    assert formal_range is
+      forall self, self.starts <= self.ends
+    end
 
     starts -> xsd:date
     ends -> xsd:date
@@ -521,9 +540,181 @@ end
 #+END_SRC
 #+END_ADVNOTE
 
+*** Logistics Example
+
+#+NAME: src:initial-logistics-structures
+#+CAPTION: Logistics Structures
+#+BEGIN_SRC sdml :exports code :noeval
+module logistics is
+
+  import [ dc skos uuid ]
+  import [ gs1 ]
+
+  @skos:prefLabel = "Logistics"@en
+  @skos:altLabel = "Shipping"@en
+  @dc:description = "A domain model for long-haul logistics."@en
+
+  entity Location is
+    identity gln -> gs1:GlobalLocationNumber
+    kind -> LocationKind
+  end
+
+  enum LocationKind of
+    Office
+    Warehouse
+    WarehouseYard
+    WarehouseDock
+    RailDepot
+    RailYard
+    Port
+    PortLoading
+    Airport
+    AirportTransfer
+  end
+
+  entity Consignor is
+    identity gln -> gs1:GlobalLocationNumber
+    lei -> {0..1} gs1:LegalEntityIdentifier
+    name -> string
+  end
+
+  entity Consignment is
+    identity ginc -> gs1:GlobalIdentificationNumberForConsignment
+
+    consignor -> Consignor
+    shipments -> {1..} Shipment
+  end
+
+  entity Shipment is
+    identity gsin -> gs1:GlobalShipmentIdentificationNumber
+
+    from -> Location
+    to -> Location
+  end
+
+  enum TransferKind of
+    Pickup
+    Dropoff
+  end
+
+  structure LogisticsUnit is
+    sscc -> gs1:SerialShippingContainerCode
+    asset -> {1..} LogisticsAsset
+  end
+
+  structure LogisticsAsset is
+    grai -> gs1:GlobalReturnableAssetIdentifier
+    kind -> LogisticsAssetKind
+  end
+
+  enum LogisticsAssetKind of
+    Pallet,
+    PalletStack,
+    Container,
+    RailCar,
+  end
+
+end
+#+END_SRC
+
 ** Describe Events emitted by Entities
 
 TBD
+
+*** Retail Example
+*** Hospitality Example
+*** Logistics Example
+
+#+NAME: src:initial-logistics-structures
+#+CAPTION: Logistics Structures
+#+BEGIN_SRC sdml :exports code :noeval
+module logistics is
+
+  import [ dc skos uuid ]
+  import [ gs1 ]
+
+  @skos:prefLabel = "Logistics"@en
+  @skos:altLabel = "Shipping"@en
+  @dc:description = "A domain model for long-haul logistics."@en
+
+  entity Location is
+    identity gln -> gs1:GlobalLocationNumber
+    kind -> LocationKind
+  end
+
+  enum LocationKind of
+    Office
+    Warehouse
+    WarehouseYard
+    WarehouseDock
+    RailDepot
+    RailYard
+    Port
+    PortLoading
+    Airport
+    AirportTransfer
+  end
+
+  entity Consignor is
+    identity gln -> gs1:GlobalLocationNumber
+    lei -> {0..1} gs1:LegalEntityIdentifier
+    name -> string
+  end
+
+  event CarrierLoadTender source Consignor ;; X.12 204
+
+  entity Carrier
+
+  event CarrierLoadTenderResponse source Carrier ;; X.12 990
+  ;; PickUpManifest X.12 5
+
+  entity Consignment is
+    identity ginc -> gs1:GlobalIdentificationNumberForConsignment
+
+    consignor -> Consignor
+    shipments -> {1..} Shipment
+  end
+
+  event BillOfLading source Consignment X.12 211
+  event FreightDetailsAndInvoice source Consignment ;; X.12 210
+
+  entity Shipment is
+    identity gsin -> gs1:GlobalShipmentIdentificationNumber
+
+    from -> Location
+    to -> Location
+  end
+
+  event AdvanceShippingNotice source Shipment ;; X.12 856
+;; ShippingSchedule X.12 862
+  event TransportStatusNotification source Shipment ;; X.12 214
+  event TransferRequest source Shipment
+  event TransferConfirmation source Shipment
+
+  enum TransferKind of
+    Pickup
+    Dropoff
+  end
+
+  structure LogisticsUnit is
+    sscc -> gs1:SerialShippingContainerCode
+    asset -> {1..} LogisticsAsset
+  end
+
+  structure LogisticsAsset is
+    grai -> gs1:GlobalReturnableAssetIdentifier
+    kind -> LogisticsAssetKind
+  end
+
+  enum LogisticsAssetKind of
+    Pallet,
+    PalletStack,
+    Container,
+    RailCar,
+  end
+
+end
+#+END_SRC
 
 ** Describe polymorphism with Unions
 
@@ -586,7 +777,6 @@ TBD
 - [[https://olegchursin.medium.com/a-brief-introduction-to-domain-modeling-862a30b38353][A Brief Introduction to Domain Modeling]], Oleg Chursin.
 - [[https://simplea.com/Articles/domain-model][What is a Domain Model?]], [A].
 - [[https://en.wikipedia.org/wiki/Domain_model][Domain Model]], Wikipedia.
-
 
 
 * A Brief Glossary

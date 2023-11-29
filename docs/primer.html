@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-11-28 Tue 06:44 -->
+<!-- 2023-11-29 Wed 11:17 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Simple Domain Modeling Language</title>
@@ -34,35 +34,47 @@
 </li>
 <li><a href="#what-is-sdml">2. What is SDML?</a>
 <ul>
-<li><a href="#orgc4ea7c7">2.1. What it isn't</a></li>
+<li><a href="#org0f0e96d">2.1. What it isn't</a></li>
 </ul>
 </li>
 <li><a href="#what-can-it-do">3. What can I do with it?</a>
 <ul>
-<li><a href="#org5ffef16">3.1. Capture Entities</a>
+<li><a href="#orgf0a270e">3.1. Capture Entities</a>
 <ul>
-<li><a href="#orgb869f9d">3.1.1. Retail Example</a></li>
-<li><a href="#org3312516">3.1.2. Hospitality Example</a></li>
-<li><a href="#orgb8d9ce2">3.1.3. Logistics Example</a></li>
+<li><a href="#org5d17911">3.1.1. Retail Example</a></li>
+<li><a href="#orgf5907e3">3.1.2. Hospitality Example</a></li>
+<li><a href="#org831339b">3.1.3. Logistics Example</a></li>
 </ul>
 </li>
-<li><a href="#org1a2f366">3.2. Add details with Structures and Enums</a></li>
-<li><a href="#orgbed3647">3.3. Describe Events emitted by Entities</a></li>
-<li><a href="#orga6e6500">3.4. Describe polymorphism with Unions</a></li>
+<li><a href="#org7f4b62e">3.2. Add details with Structures and Enums</a>
+<ul>
+<li><a href="#orgd40d2fa">3.2.1. Retail Example</a></li>
+<li><a href="#orga48540b">3.2.2. Hospitality Example</a></li>
+<li><a href="#org51c8ccb">3.2.3. Logistics Example</a></li>
+</ul>
+</li>
+<li><a href="#orgc2e0483">3.3. Describe Events emitted by Entities</a>
+<ul>
+<li><a href="#org84f26e1">3.3.1. Retail Example</a></li>
+<li><a href="#org7d7114b">3.3.2. Hospitality Example</a></li>
+<li><a href="#orgf680919">3.3.3. Logistics Example</a></li>
+</ul>
+</li>
+<li><a href="#orge0296f8">3.4. Describe polymorphism with Unions</a></li>
 </ul>
 </li>
 <li><a href="#how-to-use">4. How do I use it?</a>
 <ul>
-<li><a href="#org53ef3a9">4.1. Editing SDML Source</a></li>
-<li><a href="#org1d1f5d1">4.2. Drawing Diagrams</a></li>
-<li><a href="#orgec45ece">4.3. Document Modules</a></li>
+<li><a href="#org2bc2708">4.1. Editing SDML Source</a></li>
+<li><a href="#orgcdc723f">4.2. Drawing Diagrams</a></li>
+<li><a href="#org9a44bce">4.3. Document Modules</a></li>
 </ul>
 </li>
 <li><a href="#what-next">5. What do I do next?</a>
 <ul>
-<li><a href="#org1a3eae4">5.1. For Authors</a></li>
-<li><a href="#org94fb9fb">5.2. For Tool Builders</a></li>
-<li><a href="#org7d76ea6">5.3. More Reading</a></li>
+<li><a href="#org64c520b">5.1. For Authors</a></li>
+<li><a href="#orgcf89405">5.2. For Tool Builders</a></li>
+<li><a href="#org7d1e018">5.3. More Reading</a></li>
 </ul>
 </li>
 <li><a href="#glossary">6. A Brief Glossary</a></li>
@@ -70,7 +82,7 @@
 </div>
 </div>
 
-<div id="org5aa865e" class="figure">
+<div id="org23e63aa" class="figure">
 <p><img src="./logo/svg/square-dark.svg" alt="square-dark.svg" class="org-svg" width="75%" height="75%" />
 </p>
 </div>
@@ -192,7 +204,7 @@ The first of these questions is actually the most important as we can define an 
 </p>
 
 <p>
-An Entity is
+An Entity is:
 </p>
 
 <ol class="org-ol">
@@ -213,11 +225,11 @@ SDML is a textual language that allows you to describe a domain model in a <i>re
 relatively because the language allows you to build models iteratively, capturing the essentials first and elaborating
 on them over time. It is common for domain models to be the output of workshop sessions and so the ability to capture a
 valid model in real-time even if it lacks detail is a useful feature. With this in mind we will elaborate on the module
-<i>definition</i> in listing <a href="#org5c5a72f">1</a> during this primer.
+<i>definition</i> in listing <a href="#org572b10f">1</a> during this primer.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>An empty module</label><pre class="src src-sdml" id="org5c5a72f"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>An empty module</label><pre class="src src-sdml" id="org572b10f"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
 </pre>
 </div>
 
@@ -238,9 +250,9 @@ representation, the surface syntax (it actually has two, more on that in a momen
 being able to read and write that syntax.
 </p>
 
-<div class="ADVNOTE" id="orge817b60">
+<div class="ADVNOTE" id="orga6f0cb9">
 <p>
-What is the other representation? The textual language, shown in listing <a href="#org5c5a72f">1</a> has a direct mapping to, and
+What is the other representation? The textual language, shown in listing <a href="#org572b10f">1</a> has a direct mapping to, and
 can be considered an alternate syntax for, a particular <a href="https://www.w3.org/TR/rdf12-concepts">RDF</a>/<a href="https://www.w3.org/OWL/">OWL</a> ontology <b>[need link]</b>. This means that the <i>semantics</i> of
 SDML are then described by the OWL ontology, then OWL, and then RDF. Understanding this is not necessary to using or
 understanding the SDML syntax.
@@ -254,8 +266,8 @@ for drawing and documentation. It also produces this primer and the main documen
 </p>
 </div>
 
-<div id="outline-container-orgc4ea7c7" class="outline-3">
-<h3 id="orgc4ea7c7"><span class="section-number-3">2.1.</span> What it isn't</h3>
+<div id="outline-container-org0f0e96d" class="outline-3">
+<h3 id="org0f0e96d"><span class="section-number-3">2.1.</span> What it isn't</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>SDML is not, as we said above, a graphical language. It relies on a defined mapping to the UML language that allows
@@ -285,8 +297,8 @@ Hospitality, and Logistics.
 </p>
 </div>
 
-<div id="outline-container-org5ffef16" class="outline-3">
-<h3 id="org5ffef16"><span class="section-number-3">3.1.</span> Capture Entities</h3>
+<div id="outline-container-orgf0a270e" class="outline-3">
+<h3 id="orgf0a270e"><span class="section-number-3">3.1.</span> Capture Entities</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Let's add the entities from the previous natural language description to our module. In each of the following sections
@@ -295,10 +307,10 @@ list the entities we have identified so far using the rather obvious keyword <co
 </p>
 </div>
 
-<div id="outline-container-orgb869f9d" class="outline-4">
-<h4 id="orgb869f9d"><span class="section-number-4">3.1.1.</span> Retail Example</h4>
+<div id="outline-container-org5d17911" class="outline-4">
+<h4 id="org5d17911"><span class="section-number-4">3.1.1.</span> Retail Example</h4>
 <div class="outline-text-4" id="text-3-1-1">
-<div class="INDENTED" id="org31100a1">
+<div class="INDENTED" id="org0d5ade5">
 <p>
 <b>Customers</b> go to a <b>store</b> to <b>purchase</b> <b>items</b>, they may have a specific item in mind or expect to find <i>choices they can
 choose between</i>. Depending on the <i>kind of item</i> this choice may be <i>variations (in size or color for example)</i> of the same
@@ -314,7 +326,7 @@ section <a href="#where-to-start">Where do I start?</a>, except <code>Manufactur
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Initial Retail Entities</label><pre class="src src-sdml" id="org4a93b47"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Initial Retail Entities</label><pre class="src src-sdml" id="org3c724b1"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
 
@@ -340,10 +352,10 @@ customer as the primary subject as it means you end up with fewer internal names
 </div>
 </div>
 
-<div id="outline-container-org3312516" class="outline-4">
-<h4 id="org3312516"><span class="section-number-4">3.1.2.</span> Hospitality Example</h4>
+<div id="outline-container-orgf5907e3" class="outline-4">
+<h4 id="orgf5907e3"><span class="section-number-4">3.1.2.</span> Hospitality Example</h4>
 <div class="outline-text-4" id="text-3-1-2">
-<div class="INDENTED" id="orge563720">
+<div class="INDENTED" id="org7857c48">
 <p>
 A <b>customer</b> <b>books</b> a <b>room</b> according to their choice of <i>size, bed type, or other criteria</i>, for <i>specific dates</i> at a
 particular <b>property</b>. A customer may make <i>certain kinds</i> of <b>purchases</b> against their room which are then added to the
@@ -360,12 +372,14 @@ customer left early for example.
 </p>
 
 <p>
-In listing <a href="#org98a48d8">3</a> we will fill in some details, just to see how it's done. Specifically note
-the use of the arrow operator <code>-&gt;</code> or <code>→</code> that denotes the type (right-hand side) of a member (left-hand side).
+In listing <a href="#org605fc5d">3</a> we will fill in some details, just to see how it's done. Specifically note
+the use of the arrow operator <code>-&gt;</code> or <code>→</code> that denotes the type (right-hand side) of a member (left-hand side). Also, if you
+remember that a part of the definition of an entity is that it has strong identity, so as we are adding details to
+entities we <b>must</b> provide an <code>identity</code> member.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Initial Hospitality Entities</label><pre class="src src-sdml" id="org98a48d8"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Initial Hospitality Entities</label><pre class="src src-sdml" id="org605fc5d"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
 
@@ -412,23 +426,30 @@ The following are useful pointers to features of the entity definition.
 </p>
 
 <ol class="org-ol">
-<li>The members named <code>customer</code> and <code>property</code></li>
-<li>The member named <code>room_type</code></li>
+<li>The members named <code>customer</code> and <code>property</code> reference other entities in the same module <i>even though</i> neither of those
+entities are complete.</li>
+<li>The member named <code>room_type</code> has the type <code>*unknown*</code> which is an explicit signal that this model is incomplete as the
+type has not yet been decided.</li>
 <li>The semi-colon introduces a line comment, so we added a little note to ourselves about the unknown type for this
-member.</li>
-<li>The type names <code>string</code> and <code>integer</code> (and <code>unknown</code>) are builtin, the type <code>xsd:date</code> is not, ..</li>
-<li>The member named in <code>charges</code> in <code>Bill</code> is a <i>sequence type</i></li>
-<li>The member named <code>from_booking</code> in <code>Stay</code></li>
+member. The use of two semi-colons is a style preference as it makes the comment easier to find.</li>
+<li>The type names <code>string</code> and <code>integer</code> (and <code>unknown</code>) are builtin, the type <code>xsd:date</code> is not, it has been imported from
+another module named <code>xsd</code>. The name <code>xsd:date</code> is a <i>qualified name</i> which uses the colon character to combine module and
+definition name.</li>
+<li>The member named in <code>charges</code> in <code>Bill</code> is a <i>sequence type</i>, which means it can have a varying number of values. The
+specification for upper and lower bounds on a sequence type are it's cardinality, the lack of a upper bound means
+that the range is <i>unbounded</i>. The default cardinality being <code>1</code>.</li>
+<li>The member named <code>from_booking</code> in <code>Stay</code> is another sequence type, although with the cardinality of <code>0..1</code> may be seen as
+<i>optional</i>.</li>
 </ol>
 
 <p>
 The builtin datatypes in SDML are derived from those in the XML Schema, Part 2 specification, the same datatypes used in
-RDF. The major datatypes are listed in table <a href="#org9d334a1">1</a> and compared to corresponding datatypes in SQL,
-Java and Rust. We choose SQL as it is closer to SDML in some respects as there is no behavior associated with the
-datatypes and data structures defined in SDML.
+RDF. The major datatypes are listed in table <a href="#org9c10c91">1</a> and compared to corresponding datatypes in SQL,
+Java and Rust. SQL's Data Definition Language (DDL) is a useful comparison given that it may be familiar to less
+technical stakeholders.
 </p>
 
-<table id="org9d334a1" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org9c10c91" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption class="t-above"><span class="table-number">Table 1:</span> Datatype Comparisons</caption>
 
 <colgroup>
@@ -537,10 +558,10 @@ datatypes and data structures defined in SDML.
 </div>
 </div>
 
-<div id="outline-container-orgb8d9ce2" class="outline-4">
-<h4 id="orgb8d9ce2"><span class="section-number-4">3.1.3.</span> Logistics Example</h4>
+<div id="outline-container-org831339b" class="outline-4">
+<h4 id="org831339b"><span class="section-number-4">3.1.3.</span> Logistics Example</h4>
 <div class="outline-text-4" id="text-3-1-3">
-<div class="INDENTED" id="orgcd26646">
+<div class="INDENTED" id="org6aae73e">
 <p>
 The business comprises <i>matching</i> available transportation <b>capacity</b> on one or more <b>routes</b> to <i>deliver</i> a <b>customer</b>'s load
 from <i>source to destination</i> within some <i>time constraint</i>. A load may be one or more <b>standard palettes</b>, or one or more
@@ -550,67 +571,78 @@ from <i>source to destination</i> within some <i>time constraint</i>. A load may
 </div>
 
 <p>
+Note also that we have dropped some of the entities from
+the original 
+</p>
+
+<p>
 You can use Annotation Properties to attach documentation properties to your model. In the following example we have
 added a <i>preferred label</i> "Logistics", an <i>alternate label</i> "Shipping", and a <i>description</i> annotation to the module itself.
 Don't worry about the syntax of these for now, that's covered in an advanced topic later. We have added some to the
-logistics example in listing <a href="#org5d791f3">4</a>.
+logistics example in listing <a href="#orgecff634">4</a>. 
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 4: </span>Initial Logistics Entities</label><pre class="src src-sdml" id="org5d791f3"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>Initial Logistics Entities</label><pre class="src src-sdml" id="orgecff634"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
 
-  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
 
   <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Logistics"</span><span style="color: #268bd2; font-style: italic;">@en</span>
   <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Shipping"</span><span style="color: #268bd2; font-style: italic;">@en</span>
   <span style="color: #d33682;">@dc:description</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"A domain model for long-haul logistics."</span><span style="color: #268bd2; font-style: italic;">@en</span>
 
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Capacity</span>
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Location</span>
+  <span style="color: #93a1a1; font-style: italic;">; Global Location Number GLN</span>
 
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Route</span>
+  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LocationKind</span>
 
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignor</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">GlobalLocationNumber</span>
+    lei <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">gs1:LegalEntityIdentifier</span>
+    name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+  <span style="color: #859900;">end</span>
 
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Palette</span>
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignment</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> ginc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalIdentificationNumberForConsignment</span>
 
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Container</span>
+    consignor <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Consignor</span>
+    shipments <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Shipment</span>
+  <span style="color: #859900;">end</span>
 
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Contract</span> <span style="color: #859900;">is</span>
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> gsin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalShipmentIdentificationNumber</span>
 
-    <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Contract"</span>
-    <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Delivery Contract"</span>
+    from <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+    to <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
 
-    <span style="color: #859900;">identity</span> contract_number <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
-
-    sub_contracts <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Contract</span> <span style="color: #859900;">is</span>
-      <span style="color: #d33682;">@skos:definition</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"</span>
-<span style="color: #2aa198;">      Where a contract cannot be fulfilled with a single delivery,</span>
-<span style="color: #2aa198;">      each delivery becomes a sub-contract."</span>
-    <span style="color: #859900;">end</span>
+    <span style="color: #93a1a1; font-style: italic;">;; need logistic units, are these entities?</span>
   <span style="color: #859900;">end</span>
 
 <span style="color: #859900;">end</span>
 </pre>
 </div>
 
-<p>
-The member named <code>sub_contracts</code> in <code>Contract</code> is interesting as it could cause trouble in some programming languages that
-do not allow recursive definitions without some level of indirection (We are all looking at you Rust). However, 
-</p>
 
 <p>
-It is also time to deal with the <code>import</code> statement that we have already seen in a number of examples.
+It is also time to deal with the <code>import</code> statement that we have already seen in a number of examples. An import statement
+is used to make definitions in other modules available to us in the current module. Import statements are simpler than a
+lot of programming languages in that you can import <i>either</i> a module by name <i>or</i> individual definitions within a module.
+In either case SDML requires you to use the qualified name of any imported definition. A qualified name is simply the
+name of the module followed by a colon and then the name of the definition. In listing <a href="#orgecff634">4</a> we
+see a single import statement with a list of module names, <code>dc</code> and <code>skos</code>. These modules allow us to reference the
+annotation properties <code>dc:description</code>, <code>skos:altLabel</code>, <code>skos:definition</code>, and <code>skos:prefLabel</code>.
 </p>
 
-<div class="ADVNOTE" id="orge56422e">
+<div class="ADVNOTE" id="org6e3dd88">
 <p>
 Annotation properties are like constants in programming, they become attached to their enclosing definition and are
 immutable. A property is introduced by the initial <code>@</code> character and the property name follows. This property is then
-assigned a value, using the datatypes in table <a href="#org9d334a1">1</a>.
+assigned a value, using the datatypes in table <a href="#org9c10c91">1</a>.
 </p>
 
 <p>
-Strings, as you can see in listing <a href="#org5d791f3">4</a> may be followed by another <code>@</code> character which
+Strings, as you can see in listing <a href="#orgecff634">4</a> may be followed by another <code>@</code> character which
 introduces a language tag that identifies the natural language used in the string constant.
 </p>
 
@@ -619,11 +651,15 @@ introduces a language tag that identifies the natural language used in the strin
 </div>
 </div>
 
-<div id="outline-container-org1a2f366" class="outline-3">
-<h3 id="org1a2f366"><span class="section-number-3">3.2.</span> Add details with Structures and Enums</h3>
+<div id="outline-container-org7f4b62e" class="outline-3">
+<h3 id="org7f4b62e"><span class="section-number-3">3.2.</span> Add details with Structures and Enums</h3>
 <div class="outline-text-3" id="text-3-2">
+</div>
+<div id="outline-container-orgd40d2fa" class="outline-4">
+<h4 id="orgd40d2fa"><span class="section-number-4">3.2.1.</span> Retail Example</h4>
+<div class="outline-text-4" id="text-3-2-1">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 5: </span>Initial Retail Entities</label><pre class="src src-sdml" id="org940c4ce"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Initial Retail Entities</label><pre class="src src-sdml" id="orgdea46b6"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">gs_one</span>
@@ -679,16 +715,16 @@ introduces a language tag that identifies the natural language used in the strin
 </pre>
 </div>
 
-<div class="ADVNOTE" id="orga5c2ba5">
+<div class="ADVNOTE" id="org38a8729">
 <p>
-Consider using custom datatypes to constrain basic types to avoid errors. For example, in listing
-<a href="#org1b25cc0">6</a> the identifier for an <code>Item</code> is a GTIN or Global Trade Item Number. This standardized
-identifier has a number of specific formats but the shortest of those is 8 characters and the longest is 13 characters.
-So, we create a new datatype which limits the basic string to between 8 and 13 characters only.
+Consider using custom datatypes to constrain basic types to avoid errors. For example, in listing <a href="#orgc5b1d91">6</a> the
+identifier for an <code>Item</code> is a GTIN or Global Trade Item Number. This standardized identifier has a number of specific
+formats but the shortest of those is 8 characters and the longest is 13 characters. So, we create a new datatype which
+<i>restricts</i> the basic string to between 8 and 13 characters only using a regex pattern.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 6: </span>GS1 Standard Datatypes</label><pre class="src src-sdml" id="org1b25cc0"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs_one</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>GS1 Standard Datatypes</label><pre class="src src-sdml" id="orgc5b1d91"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs_one</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
 
@@ -704,31 +740,125 @@ So, we create a new datatype which limits the basic string to between 8 and 13 c
 </pre>
 </div>
 
+<p>
+Table <a href="#org9c10c91">1</a> lists the constraints that can you can use to restrict existing types. All <i>scalar</i> types
+have the following additional constraints; <code>maxInclusive</code>, <code>maxExclusive</code>, <code>minInclusive</code>, and <code>minExclusive</code>.
+</p>
+
+<table id="org7db01b5" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 2:</span> Datatype Constraints</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Datatype</th>
+<th scope="col" class="org-left">Builtin Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>binary</code></td>
+<td class="org-left"><code>minLength</code>, <code>maxLength</code>, and <code>length</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>boolean</code></td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>decimal</code></td>
+<td class="org-left"><code>pattern</code>, <code>totalDigits</code>, <code>fractionDigits</code>, and <i>scalar</i></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>double</code></td>
+<td class="org-left"><code>pattern</code>, scalar/</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>integer</code></td>
+<td class="org-left"><code>pattern</code>, scalar/</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>string</code></td>
+<td class="org-left"><code>pattern</code>, <code>minLength</code>, <code>maxLength</code>, <code>length</code>, and <code>langRange</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>unsigned</code></td>
+<td class="org-left"><code>pattern</code>, <i>scalar</i></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>uri</code></td>
+<td class="org-left"><code>pattern</code>, <code>minLength</code>, <code>maxLength</code>, and <code>length</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>xsd:date</code></td>
+<td class="org-left"><code>pattern</code>, <code>explicitTimezone</code> and <i>scalar</i></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>xsd:time</code></td>
+<td class="org-left"><code>pattern</code>, <code>explicitTimezone</code> and <i>scalar</i></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>xsd:dateTime</code></td>
+<td class="org-left"><code>pattern</code>, <code>explicitTimezone</code> and <i>scalar</i></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>xsd:duration</code></td>
+<td class="org-left"><code>pattern</code>, <code>explicitTimezone</code> and <i>scalar</i></td>
+</tr>
+
+<tr>
+<td class="org-left">Sequence Types</td>
+<td class="org-left"><code>pattern</code>, <code>minLength</code>, <code>maxLength</code>, and <code>length</code></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 
-<div class="ADVNOTE" id="org6f9103a">
+<div id="outline-container-orga48540b" class="outline-4">
+<h4 id="orga48540b"><span class="section-number-4">3.2.2.</span> Hospitality Example</h4>
+<div class="outline-text-4" id="text-3-2-2">
+<div class="ADVNOTE" id="org1998396">
 <p>
 Use Constraints to capture conditions that cannot be expressed by the model's structure alone. For example, in listing
-<a href="#org36d10b5">7</a> we have a simple structure that contains a start date and an end date. They are correctly
+<a href="#org41d1893">7</a> we have a simple structure that contains a start date and an end date. They are correctly
 typed so we know they have to be dates, but what if we were to set the start date to be after the end date, how do we
 validate that? Can we?
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 7: </span>Hospitality Entities</label><pre class="src src-sdml" id="org36d10b5"><span style="color: #859900;">module</span> hospitality <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 7: </span>Hospitality Entities</label><pre class="src src-sdml" id="org41d1893"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
 
-  <span style="color: #859900;">structure</span> DateRange <span style="color: #859900;">is</span>
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">DateRange</span> <span style="color: #859900;">is</span>
     <span style="color: #859900;">assert</span> <span style="color: #d33682;">valid_range</span> <span style="color: #859900;">=</span> <span style="color: #657b83; background-color: #fdf6e3;">"range starts before it ends"</span>
 
-    <span style="color: #859900;">assert</span> <span style="color: #d33682;">formal_range</span> <span style="color: #859900;">is</span> <span style="color: #859900;">forall</span> <span style="color: #6c71c4;">self</span>, <span style="color: #6c71c4;">self</span><span style="color: #657b83; background-color: #fdf6e3;">.</span><span style="color: #b58900;">starts</span> &lt;= <span style="color: #6c71c4;">self</span><span style="color: #657b83; background-color: #fdf6e3;">.</span><span style="color: #b58900;">ends</span>
+    <span style="color: #859900;">assert</span> <span style="color: #d33682;">formal_range</span> <span style="color: #859900;">is</span>
+      <span style="color: #859900;">forall</span> <span style="color: #6c71c4;">self</span>, <span style="color: #6c71c4;">self</span><span style="color: #657b83; background-color: #fdf6e3;">.</span><span style="color: #b58900;">starts</span> &lt;= <span style="color: #6c71c4;">self</span><span style="color: #657b83; background-color: #fdf6e3;">.</span><span style="color: #b58900;">ends</span>
+    <span style="color: #859900;">end</span>
 
-    starts <span style="color: #859900;">-&gt;</span> xsd:date
-    ends <span style="color: #859900;">-&gt;</span> xsd:date
+    starts <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+    ends <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
   <span style="color: #859900;">end</span>
 
-end
+<span style="color: #859900;">end</span>
 </pre>
 </div>
 
@@ -736,20 +866,201 @@ end
 </div>
 </div>
 
-<div id="outline-container-orgbed3647" class="outline-3">
-<h3 id="orgbed3647"><span class="section-number-3">3.3.</span> Describe Events emitted by Entities</h3>
+<div id="outline-container-org51c8ccb" class="outline-4">
+<h4 id="org51c8ccb"><span class="section-number-4">3.2.3.</span> Logistics Example</h4>
+<div class="outline-text-4" id="text-3-2-3">
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 8: </span>Logistics Structures</label><pre class="src src-sdml" id="orgfa95a40"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+
+  <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Logistics"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+  <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Shipping"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+  <span style="color: #d33682;">@dc:description</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"A domain model for long-haul logistics."</span><span style="color: #268bd2; font-style: italic;">@en</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Location</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalLocationNumber</span>
+    kind <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">LocationKind</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LocationKind</span> <span style="color: #859900;">of</span>
+    <span style="color: #268bd2;">Office</span>
+    <span style="color: #268bd2;">Warehouse</span>
+    <span style="color: #268bd2;">WarehouseYard</span>
+    <span style="color: #268bd2;">WarehouseDock</span>
+    <span style="color: #268bd2;">RailDepot</span>
+    <span style="color: #268bd2;">RailYard</span>
+    <span style="color: #268bd2;">Port</span>
+    <span style="color: #268bd2;">PortLoading</span>
+    <span style="color: #268bd2;">Airport</span>
+    <span style="color: #268bd2;">AirportTransfer</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignor</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalLocationNumber</span>
+    lei <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">gs1:LegalEntityIdentifier</span>
+    name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignment</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> ginc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalIdentificationNumberForConsignment</span>
+
+    consignor <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Consignor</span>
+    shipments <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Shipment</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> gsin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalShipmentIdentificationNumber</span>
+
+    from <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+    to <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">TransferKind</span> <span style="color: #859900;">of</span>
+    <span style="color: #268bd2;">Pickup</span>
+    <span style="color: #268bd2;">Dropoff</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">LogisticsUnit</span> <span style="color: #859900;">is</span>
+    sscc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:SerialShippingContainerCode</span>
+    asset <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">LogisticsAsset</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">LogisticsAsset</span> <span style="color: #859900;">is</span>
+    grai <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalReturnableAssetIdentifier</span>
+    kind <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">LogisticsAssetKind</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LogisticsAssetKind</span> <span style="color: #859900;">of</span>
+    <span style="color: #268bd2;">Pallet</span>,
+    <span style="color: #268bd2;">PalletStack</span>,
+    <span style="color: #268bd2;">Container</span>,
+    <span style="color: #268bd2;">RailCar</span>,
+  <span style="color: #859900;">end</span>
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc2e0483" class="outline-3">
+<h3 id="orgc2e0483"><span class="section-number-3">3.3.</span> Describe Events emitted by Entities</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 TBD
 </p>
 </div>
+
+<div id="outline-container-org84f26e1" class="outline-4">
+<h4 id="org84f26e1"><span class="section-number-4">3.3.1.</span> Retail Example</h4>
+</div>
+<div id="outline-container-org7d7114b" class="outline-4">
+<h4 id="org7d7114b"><span class="section-number-4">3.3.2.</span> Hospitality Example</h4>
+</div>
+<div id="outline-container-orgf680919" class="outline-4">
+<h4 id="orgf680919"><span class="section-number-4">3.3.3.</span> Logistics Example</h4>
+<div class="outline-text-4" id="text-3-3-3">
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 9: </span>Logistics Structures</label><pre class="src src-sdml" id="org8eb234d"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+
+  <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Logistics"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+  <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Shipping"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+  <span style="color: #d33682;">@dc:description</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"A domain model for long-haul logistics."</span><span style="color: #268bd2; font-style: italic;">@en</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Location</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalLocationNumber</span>
+    kind <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">LocationKind</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LocationKind</span> <span style="color: #859900;">of</span>
+    <span style="color: #268bd2;">Office</span>
+    <span style="color: #268bd2;">Warehouse</span>
+    <span style="color: #268bd2;">WarehouseYard</span>
+    <span style="color: #268bd2;">WarehouseDock</span>
+    <span style="color: #268bd2;">RailDepot</span>
+    <span style="color: #268bd2;">RailYard</span>
+    <span style="color: #268bd2;">Port</span>
+    <span style="color: #268bd2;">PortLoading</span>
+    <span style="color: #268bd2;">Airport</span>
+    <span style="color: #268bd2;">AirportTransfer</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignor</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalLocationNumber</span>
+    lei <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">gs1:LegalEntityIdentifier</span>
+    name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CarrierLoadTender</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignor</span> <span style="color: #93a1a1; font-style: italic;">;; X.12 204</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Carrier</span>
+
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CarrierLoadTenderResponse</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Carrier</span> <span style="color: #93a1a1; font-style: italic;">;; X.12 990</span>
+  <span style="color: #93a1a1; font-style: italic;">;; PickUpManifest X.12 5</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignment</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> ginc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalIdentificationNumberForConsignment</span>
+
+    consignor <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Consignor</span>
+    shipments <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Shipment</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BillOfLading</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignment</span> X.12 <span style="color: #268bd2;">211</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">FreightDetailsAndInvoice</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignment</span> <span style="color: #93a1a1; font-style: italic;">;; X.12 210</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> gsin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalShipmentIdentificationNumber</span>
+
+    from <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+    to <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">AdvanceShippingNotice</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #93a1a1; font-style: italic;">;; X.12 856</span>
+<span style="color: #93a1a1; font-style: italic;">;; ShippingSchedule X.12 862</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">TransportStatusNotification</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #93a1a1; font-style: italic;">;; X.12 214</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">TransferRequest</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">TransferConfirmation</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
+
+  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">TransferKind</span> <span style="color: #859900;">of</span>
+    <span style="color: #268bd2;">Pickup</span>
+    <span style="color: #268bd2;">Dropoff</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">LogisticsUnit</span> <span style="color: #859900;">is</span>
+    sscc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:SerialShippingContainerCode</span>
+    asset <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">LogisticsAsset</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">LogisticsAsset</span> <span style="color: #859900;">is</span>
+    grai <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalReturnableAssetIdentifier</span>
+    kind <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">LogisticsAssetKind</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LogisticsAssetKind</span> <span style="color: #859900;">of</span>
+    <span style="color: #268bd2;">Pallet</span>,
+    <span style="color: #268bd2;">PalletStack</span>,
+    <span style="color: #268bd2;">Container</span>,
+    <span style="color: #268bd2;">RailCar</span>,
+  <span style="color: #859900;">end</span>
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+</div>
+</div>
 </div>
 
-<div id="outline-container-orga6e6500" class="outline-3">
-<h3 id="orga6e6500"><span class="section-number-3">3.4.</span> Describe polymorphism with Unions</h3>
+<div id="outline-container-orge0296f8" class="outline-3">
+<h3 id="orge0296f8"><span class="section-number-3">3.4.</span> Describe polymorphism with Unions</h3>
 <div class="outline-text-3" id="text-3-4">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 8: </span>Types of GTIN</label><pre class="src src-sdml" id="org7ff9978"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gtin</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 10: </span>Types of GTIN</label><pre class="src src-sdml" id="org20a0100"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gtin</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
 
@@ -770,7 +1081,7 @@ TBD
 </pre>
 </div>
 
-<div class="ADVNOTE" id="org2d4511d">
+<div class="ADVNOTE" id="org2ef7b72">
 <p>
 Use Unions to model Features
 </p>
@@ -788,16 +1099,16 @@ DDD
 </p>
 </div>
 
-<div id="outline-container-org53ef3a9" class="outline-3">
-<h3 id="org53ef3a9"><span class="section-number-3">4.1.</span> Editing SDML Source</h3>
+<div id="outline-container-org2bc2708" class="outline-3">
+<h3 id="org2bc2708"><span class="section-number-3">4.1.</span> Editing SDML Source</h3>
 </div>
 
-<div id="outline-container-org1d1f5d1" class="outline-3">
-<h3 id="org1d1f5d1"><span class="section-number-3">4.2.</span> Drawing Diagrams</h3>
+<div id="outline-container-orgcdc723f" class="outline-3">
+<h3 id="orgcdc723f"><span class="section-number-3">4.2.</span> Drawing Diagrams</h3>
 </div>
 
-<div id="outline-container-orgec45ece" class="outline-3">
-<h3 id="orgec45ece"><span class="section-number-3">4.3.</span> Document Modules</h3>
+<div id="outline-container-org9a44bce" class="outline-3">
+<h3 id="org9a44bce"><span class="section-number-3">4.3.</span> Document Modules</h3>
 </div>
 </div>
 
@@ -809,16 +1120,16 @@ TBD
 </p>
 </div>
 
-<div id="outline-container-org1a3eae4" class="outline-3">
-<h3 id="org1a3eae4"><span class="section-number-3">5.1.</span> For Authors</h3>
+<div id="outline-container-org64c520b" class="outline-3">
+<h3 id="org64c520b"><span class="section-number-3">5.1.</span> For Authors</h3>
 </div>
 
-<div id="outline-container-org94fb9fb" class="outline-3">
-<h3 id="org94fb9fb"><span class="section-number-3">5.2.</span> For Tool Builders</h3>
+<div id="outline-container-orgcf89405" class="outline-3">
+<h3 id="orgcf89405"><span class="section-number-3">5.2.</span> For Tool Builders</h3>
 </div>
 
-<div id="outline-container-org7d76ea6" class="outline-3">
-<h3 id="org7d76ea6"><span class="section-number-3">5.3.</span> More Reading</h3>
+<div id="outline-container-org7d1e018" class="outline-3">
+<h3 id="org7d1e018"><span class="section-number-3">5.3.</span> More Reading</h3>
 <div class="outline-text-3" id="text-5-3">
 <ul class="org-ul">
 <li><a href="https://sdml.io#intro-what-is-domain-modeling">What is Domain Modeling?</a> in the SDML documentation.</li>
@@ -830,7 +1141,6 @@ TBD
 </div>
 </div>
 </div>
-
 
 
 <div id="outline-container-glossary" class="outline-2">
@@ -900,7 +1210,7 @@ be a reference to a property <i>role</i>.</dd>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-11-28 Tue 06:44</p>
+<p class="date">Created: 2023-11-29 Wed 11:17</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
