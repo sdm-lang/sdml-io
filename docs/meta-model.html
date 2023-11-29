@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-11-24 Fri 12:53 -->
+<!-- 2023-11-29 Wed 08:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SDML Meta-Model in UML</title>
@@ -16,6 +16,27 @@
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
 <link rel="stylesheet" type="text/css" href="sdml-io.css"/>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="content" class="content">
@@ -24,160 +45,288 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgda0fbbe">1. Package Foundation</a>
+<li><a href="#org0f4a4df">1. Introduction</a></li>
+<li><a href="#org312ecbd">2. Package Foundation</a>
 <ul>
-<li><a href="#orgb63db56">1.1. Class Name</a></li>
-<li><a href="#org7ad01cb">1.2. Abstract Class Named</a></li>
-<li><a href="#org95e3b89">1.3. Abstract Class Namespace</a></li>
-<li><a href="#orgde41efe">1.4. Abstract Class Type</a></li>
-<li><a href="#orgbf1fd88">1.5. Abstract Class Typed</a></li>
+<li><a href="#org80a7101">2.1. Abstract Class Definition</a></li>
+<li><a href="#orgdf0b823">2.2. Class Name</a></li>
+<li><a href="#org701e15d">2.3. Abstract Class Named</a></li>
+<li><a href="#orgf020beb">2.4. Abstract Class Namespace</a></li>
+<li><a href="#org45ae1cb">2.5. Abstract Class Type</a></li>
+<li><a href="#org6594a0e">2.6. Abstract Class Typed</a></li>
 </ul>
 </li>
-<li><a href="#orgfb742da">2. Package Modules</a>
+<li><a href="#orgfc5757a">3. Package Modules</a>
 <ul>
-<li><a href="#org2ee5dcc">2.1. Abstract Class Definition</a></li>
-<li><a href="#orgea52886">2.2. Class Module</a></li>
-<li><a href="#org1c62b52">2.3. Abstract Class ModuleDefinition</a></li>
+<li><a href="#orgcb30c07">3.1. Abstract Class Import</a></li>
+<li><a href="#org2dc2475">3.2. Class Module</a></li>
+<li><a href="#org0842700">3.3. Abstract Class Module Definition</a></li>
+<li><a href="#org209d78b">3.4. Abstract Class Module Definition Import</a></li>
+<li><a href="#org30cb494">3.5. Abstract Class Module Import</a></li>
 </ul>
 </li>
-<li><a href="#org1609e5e">3. Package Annotations</a>
+<li><a href="#orgff7451d">4. Package Annotations</a>
 <ul>
-<li><a href="#org036f923">3.1. Abstract Class Annotated</a></li>
-<li><a href="#org79f3f63">3.2. Abstract Class Annotation</a></li>
-<li><a href="#org45ccddf">3.3. Class AnnotationProperty</a></li>
-<li><a href="#org9861355">3.4. Abstract Class Constraint</a></li>
-<li><a href="#orgf425801">3.5. Class FormalConstraint</a></li>
-<li><a href="#org23ee65b">3.6. Class InformalConstraint</a></li>
+<li><a href="#orgf84a243">4.1. Abstract Class Annotated</a></li>
+<li><a href="#orgca6916a">4.2. Abstract Class Annotation</a></li>
+<li><a href="#orgb3fb52e">4.3. Class Annotation Property</a></li>
+<li><a href="#orgadf0b58">4.4. Abstract Class Constraint</a></li>
 </ul>
 </li>
-<li><a href="#org115b5b0">4. Package Datatypes</a>
+<li><a href="#org6c9ec5f">5. Package Datatypes</a>
 <ul>
-<li><a href="#orgdf08fa0">4.1. Class Datatype</a></li>
-<li><a href="#org9769e85">4.2. Class Binary</a></li>
-<li><a href="#org279a959">4.3. Class Boolean</a></li>
-<li><a href="#orgd9e61df">4.4. Class Decimal</a></li>
-<li><a href="#orgfcf48c2">4.5. Class Double</a></li>
-<li><a href="#orga1b27f6">4.6. Class Integer</a></li>
-<li><a href="#org666d58b">4.7. Class String</a></li>
-<li><a href="#org36850e0">4.8. Class Unsigned</a></li>
-<li><a href="#org772a198">4.9. Class Uri</a></li>
+<li><a href="#org32a03a1">5.1. Class Datatype</a></li>
+<li><a href="#org4efa51a">5.2. Class Binary</a></li>
+<li><a href="#orgf91e95e">5.3. Class Boolean</a></li>
+<li><a href="#org9fca6ef">5.4. Class Decimal</a></li>
+<li><a href="#org1a9b028">5.5. Class Double</a></li>
+<li><a href="#org98c35a5">5.6. Class Integer</a></li>
+<li><a href="#orgadbbed4">5.7. Class String</a></li>
+<li><a href="#org7c7e5df">5.8. Class Unsigned</a></li>
+<li><a href="#org0970d23">5.9. Class Uri</a></li>
+<li><a href="#org9caabbb">5.10. Class Language Tag</a></li>
+<li><a href="#org2306fc6">5.11. Class Language Tagged String</a></li>
 </ul>
 </li>
-<li><a href="#orga63483b">5. Package Sequence Types</a>
+<li><a href="#org6671598">6. Package Sequence Types</a>
 <ul>
-<li><a href="#org3e362bf">5.1. Class Cardinality</a></li>
-<li><a href="#orgdb3b00c">5.2. Enumeration Ordering</a></li>
-<li><a href="#org155b2aa">5.3. Class SequenceType</a></li>
-<li><a href="#orge7f150a">5.4. Enumeration Uniqueness</a></li>
+<li><a href="#org9c7402a">6.1. Class Cardinality</a></li>
+<li><a href="#org9dc60e3">6.2. Enumeration Ordering</a></li>
+<li><a href="#org46269c1">6.3. Class SequenceType</a></li>
+<li><a href="#org0f33ffb">6.4. Enumeration Uniqueness</a></li>
 </ul>
 </li>
-<li><a href="#org366500a">6. Package Product Types</a>
+<li><a href="#org5c48b75">7. Package Product Types</a>
 <ul>
-<li><a href="#org3711adc">6.1. Class Entity</a></li>
-<li><a href="#orga601816">6.2. Class Event</a></li>
-<li><a href="#org9e1aa3a">6.3. Abstract Class Member</a></li>
-<li><a href="#orgc7bc42c">6.4. Class MemberDefinition</a></li>
-<li><a href="#orga85c87b">6.5. Class MemberGroup</a></li>
-<li><a href="#org9d44615">6.6. Class MemberReference</a></li>
-<li><a href="#org9094235">6.7. Class Structure</a></li>
+<li><a href="#org193cbee">7.1. Class Entity</a></li>
+<li><a href="#orgc8b0554">7.2. Class Event</a></li>
+<li><a href="#org07d9904">7.3. Abstract Class Member</a></li>
+<li><a href="#org0426d18">7.4. Class Member Definition</a></li>
+<li><a href="#org05e94c1">7.5. Class Member Group</a></li>
+<li><a href="#org3fb0abc">7.6. Class Member Reference</a></li>
+<li><a href="#org614fc0b">7.7. Class Property</a></li>
+<li><a href="#orgbf9b79b">7.8. Class Role</a></li>
+<li><a href="#org6f4eb79">7.9. Class Structure</a></li>
 </ul>
 </li>
-<li><a href="#org9e749ae">7. Package Sum Types</a>
+<li><a href="#org2e962dc">8. Package Sum Types</a>
 <ul>
-<li><a href="#orgeafda03">7.1. Class Enum</a></li>
-<li><a href="#org936ba3b">7.2. Class MappingType</a></li>
-<li><a href="#orgeb7cf9d">7.3. Class TypeVariant</a></li>
-<li><a href="#org4b7c44e">7.4. Class Union</a></li>
-<li><a href="#org12797e5">7.5. Abstract Class Variant</a></li>
-<li><a href="#orgfc2a9c1">7.6. Class ValueVariant</a></li>
+<li><a href="#orgbaddb16">8.1. Class Enum</a></li>
+<li><a href="#orgf1a8d35">8.2. Class Mapping Type</a></li>
+<li><a href="#org08ec000">8.3. Class Type Variant</a></li>
+<li><a href="#orgfdd1023">8.4. Class Union</a></li>
+<li><a href="#org505c918">8.5. Abstract Class Variant</a></li>
+<li><a href="#org61103ab">8.6. Class Value Variant</a></li>
 </ul>
 </li>
-<li><a href="#orgfdbdf6d">8. Package Values</a>
+<li><a href="#org6d9aca5">9. Package Values</a>
 <ul>
-<li><a href="#org4af95fd">8.1. Class BinaryValue</a></li>
-<li><a href="#org6e83140">8.2. Class BooleanValue</a></li>
-<li><a href="#org9dc6e9b">8.3. Class DecimalValue</a></li>
-<li><a href="#org13f4acd">8.4. Class DoubleValue</a></li>
-<li><a href="#org73b3032">8.5. Class IntegerValue</a></li>
-<li><a href="#org692984a">8.6. Class MappingValue</a></li>
-<li><a href="#org0726f14">8.7. Class SequenceValue</a></li>
-<li><a href="#org438ab30">8.8. Abstract Class SimpleValue</a></li>
-<li><a href="#org06c20a6">8.9. Class StringValue</a></li>
-<li><a href="#orgec80b71">8.10. Class UnsignedValue</a></li>
-<li><a href="#orgba09d1c">8.11. Class UriValue</a></li>
-<li><a href="#org97b7f95">8.12. Abstract Class Value</a></li>
+<li><a href="#orgdaeaf22">9.1. Class Binary Value</a></li>
+<li><a href="#orgcb7404a">9.2. Class Boolean Value</a></li>
+<li><a href="#org0cf4179">9.3. Class Decimal Value</a></li>
+<li><a href="#orgc7a8be8">9.4. Class Double Value</a></li>
+<li><a href="#orge25945e">9.5. Class Integer Value</a></li>
+<li><a href="#org36b32a8">9.6. Class Mapping Value</a></li>
+<li><a href="#org44094de">9.7. Class Sequence Value</a></li>
+<li><a href="#org476dc20">9.8. Abstract Class Simple Value</a></li>
+<li><a href="#orge93286a">9.9. Class String Value</a></li>
+<li><a href="#org6c68b2d">9.10. Class Unsigned Value</a></li>
+<li><a href="#org1f7a755">9.11. Class Uri Value</a></li>
+<li><a href="#orgcc324c7">9.12. Abstract Class Value</a></li>
 </ul>
 </li>
-<li><a href="#org25b6f4f">9. Package Constraint Sentences</a>
+<li><a href="#org1a17b0d">10. Package Formal Constraints</a>
 <ul>
-<li><a href="#org58fa957">9.1. Class AtomicSentence</a></li>
-<li><a href="#org92a2c38">9.2. Class BiconditionalSentence</a></li>
-<li><a href="#orgd04bed9">9.3. Abstract Class BinaryBooleanSentence</a></li>
-<li><a href="#org3945d86">9.4. Abstract Class BooleanSentence</a></li>
-<li><a href="#org8499eb7">9.5. Class ConjunctiveSentence</a></li>
-<li><a href="#orgb69c382">9.6. Class DisjunctiveSentence</a></li>
-<li><a href="#orgfd39d78">9.7. Class Equation</a></li>
-<li><a href="#org347c38c">9.8. Class ExclusiveDisjunctiveSentence</a></li>
-<li><a href="#orgff64497">9.9. Class GreaterThan</a></li>
-<li><a href="#org44367f1">9.10. Class GreaterThanOrEqual</a></li>
-<li><a href="#org42d225d">9.11. Class ImplicationSentence</a></li>
-<li><a href="#org1a94146">9.12. Class Inequation</a></li>
-<li><a href="#orgf7c755a">9.13. Class LessThan</a></li>
-<li><a href="#orgebb9ee0">9.14. Class LessThanOrEqual</a></li>
-<li><a href="#orga4d1562">9.15. Class NegationSentence</a></li>
-<li><a href="#org12c83f9">9.16. Abstract Class Sentence</a></li>
-<li><a href="#orgacf815b">9.17. Class QuantifiedSentence</a></li>
-<li><a href="#org841b123">9.18. Class QuanntifiedVariable</a></li>
-<li><a href="#org68999c8">9.19. Class QuanntifiedVariableBinding</a></li>
-<li><a href="#org8fa9774">9.20. Enum Quantifier</a></li>
-<li><a href="#org6a4a5c9">9.21. Abstract Class RelationalSentence</a></li>
-<li><a href="#orgc5ea563">9.22. Abstract Class SimpleSentence</a></li>
-<li><a href="#org13b96f5">9.23. Abstract Class UnaryBooleanSentence</a></li>
+<li><a href="#org5321d34">10.1. Class Constraint Language Tag</a></li>
+<li><a href="#orgfd86dd3">10.2. Class Formal Constraint</a></li>
+<li><a href="#org216c79e">10.3. Class Informal Controlled Language Constraint</a></li>
+<li><a href="#org857feea">10.4. Class Informal Natural Language Constraint</a></li>
 </ul>
 </li>
-<li><a href="#orgf061e4e">10. Package Constraint Terms</a>
+<li><a href="#org2085e46">11. Package Constraint Sentences</a>
 <ul>
-<li><a href="#org600177d">10.1. Class FunctionalTerm</a></li>
-<li><a href="#org0982c0e">10.2. Class MappingSequenceVariables</a></li>
-<li><a href="#org589be1d">10.3. Class SequenceBuilder</a></li>
-<li><a href="#org87f4554">10.4. Abstract Class SequenceVariables</a></li>
-<li><a href="#org9b9d4a3">10.5. Class SequenceVariableSet</a></li>
-<li><a href="#org652ef10">10.6. Abstract Class Term</a></li>
+<li><a href="#org4d74619">11.1. Class Atomic</a></li>
+<li><a href="#org5d5ff4a">11.2. Class Biconditional</a></li>
+<li><a href="#orgc6d4ccb">11.3. Abstract Class Binary</a></li>
+<li><a href="#orge564534">11.4. Abstract Class Boolean</a></li>
+<li><a href="#org97dc5f6">11.5. Class Conjunction</a></li>
+<li><a href="#org6fb4ad2">11.6. Class Disjunction</a></li>
+<li><a href="#org5d5bb8f">11.7. Class Equation</a></li>
+<li><a href="#org032d9a8">11.8. Class Exclusive Disjunction</a></li>
+<li><a href="#org4a6aaa9">11.9. Class Greater Than</a></li>
+<li><a href="#org020953b">11.10. Class Greater Than Or Equal</a></li>
+<li><a href="#orgfe96f56">11.11. Class Implication</a></li>
+<li><a href="#org2ce9391">11.12. Class Less Than</a></li>
+<li><a href="#org77ca934">11.13. Class Less Than Or Equal</a></li>
+<li><a href="#org78c0a7c">11.14. Class Negation</a></li>
+<li><a href="#orged8c2a2">11.15. Abstract Class Sentence</a></li>
+<li><a href="#org985581e">11.16. Class Quantified</a></li>
+<li><a href="#orgdce188c">11.17. Class Quantified Variable</a></li>
+<li><a href="#org420dea1">11.18. Class Quantified Variable Binding</a></li>
+<li><a href="#org9e0bbc7">11.19. Enum Quantifier</a></li>
+<li><a href="#org30ff813">11.20. Abstract Class Relational</a></li>
+<li><a href="#org040b884">11.21. Abstract Class Simple</a></li>
+<li><a href="#org408adcc">11.22. Class Strict Inequation</a></li>
+<li><a href="#org74fe102">11.23. Abstract Class Unary</a></li>
+</ul>
+</li>
+<li><a href="#orgc5790ed">12. Package Constraint Terms</a>
+<ul>
+<li><a href="#org2d8e4d2">12.1. Class FunctionalTerm</a></li>
+<li><a href="#org0540af3">12.2. Class MappingSequenceVariables</a></li>
+<li><a href="#org71b53ba">12.3. Class SequenceBuilder</a></li>
+<li><a href="#org41e5dfc">12.4. Abstract Class SequenceVariables</a></li>
+<li><a href="#orgf104dd6">12.5. Class SequenceVariableSet</a></li>
+<li><a href="#orgcba61ed">12.6. Abstract Class Term</a></li>
+</ul>
+</li>
+<li><a href="#orge5f1aa3">13. Package Constraint Environments</a>
+<ul>
+<li><a href="#orgf5c7436">13.1. Abstract Class Constant</a></li>
+<li><a href="#org3ac27bc">13.2. Abstract Class Environment Definition</a></li>
+<li><a href="#org3c5a04b">13.3. Class Function</a></li>
+<li><a href="#orgadb099b">13.4. Class Parameter</a></li>
+</ul>
+</li>
+<li><a href="#org77f0970">14. Package Type Classes</a>
+<ul>
+<li><a href="#org467fcd3">14.1. Class Method</a></li>
+<li><a href="#orgeeaff81">14.2. Class Parameter</a></li>
+<li><a href="#org54c476b">14.3. Class Reference Argument</a></li>
+<li><a href="#org9785c2a">14.4. Class Reference List</a></li>
+<li><a href="#org5db6f3f">14.5. Class Reference Wildcard</a></li>
+<li><a href="#org75d91be">14.6. Class Type Class</a></li>
+<li><a href="#org712ce72">14.7. Class Type Variable</a></li>
+<li><a href="#orgc60e7a8">14.8. Class Type Class Reference</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div class="ABSTRACT" id="org995bdde">
+<div class="ABSTRACT" id="org5d64611">
+<p>
+This document is a non-normative addition to the documentation for The Simple Domain Modeling Language (SDML) and
+describes a UML meta-model for the SDML language.
+</p>
 
 </div>
 
+<div id="outline-container-org0f4a4df" class="outline-2">
+<h2 id="org0f4a4df"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+While the normative description of SDML exists in the main documentation at <a href="https://sdml.io">https://sdml.io</a> as an EBNF grammar and
+RDF/OWL Ontology. However, for tool makers, an object model is often more easily consumed and useful for <i>tool-to-tool</i>
+integration. The presentation form uses UML (specifically the PlantUML tool) as it is a standard and only commonly used
+elements are used here.
+</p>
+
+<p>
+The model is organized into a set of separate packages and these are shown, with their dependencies in figure
+<a href="#orgda36989">1</a>.
+</p>
 
 
-<div id="org4a4d2ab" class="figure">
+<div id="orgda36989" class="figure">
 <p><img src="./metamodel-overview.svg" alt="metamodel-overview.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Overview of Metamodel Packages</p>
 </div>
+</div>
+</div>
 
-<div id="outline-container-orgda0fbbe" class="outline-2">
-<h2 id="orgda0fbbe"><span class="section-number-2">1.</span> Package Foundation</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-org312ecbd" class="outline-2">
+<h2 id="org312ecbd"><span class="section-number-2">2.</span> Package Foundation</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+This package contains the basic semantic components from which the rest of the language is built. Certain classes here
+are <i>paired</i>, so <code>Type</code> and <code>Typed</code>, <code>Name</code> and <code>Named</code>, and <code>Named</code> and <code>Namespace</code>. 
+</p>
 
-<div id="orga48973b" class="figure">
+
+<div id="org543474d" class="figure">
 <p><img src="./metamodel-foundation.svg" alt="metamodel-foundation.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 2: </span>The Foundation Package</p>
 </div>
 </div>
 
-<div id="outline-container-orgb63db56" class="outline-3">
-<h3 id="orgb63db56"><span class="section-number-3">1.1.</span> Class Name</h3>
+<div id="outline-container-org80a7101" class="outline-3">
+<h3 id="org80a7101"><span class="section-number-3">2.1.</span> Abstract Class Definition</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Some element in the model that acts as a definition, i.e. a classifier.
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org257c208">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏷ <i><code>ModuleDefinition</code></i></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
 </div>
 
-<div id="outline-container-org7ad01cb" class="outline-3">
-<h3 id="org7ad01cb"><span class="section-number-3">1.2.</span> Abstract Class Named</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-orgdf0b823" class="outline-3">
+<h3 id="orgdf0b823"><span class="section-number-3">2.2.</span> Class Name</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+The name of something in the model, names must be unique within any enclosing namespace.
+</p>
+
+<p>
+Syntax: <code>"/\p{Lu}\p{Ll}][\p{Lu}\p{Ll}\p{Nd}]*(_[\p{Lu}\p{Ll}\p{Nd}]+)*/"</code>
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org777e433">
+<ul class="org-ul">
+<li>⏶ <code>String</code>
+<ul class="org-ul">
+<li>∘ <code>Name</code></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org701e15d" class="outline-3">
+<h3 id="org701e15d"><span class="section-number-3">2.3.</span> Abstract Class Named</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+A base class for named model elements, often members of a namespace.
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org75d7c61">
+<ul class="org-ul">
+<li>∘ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏷ <i><code>Definition</code></i></li>
+<li>⏷ <i><code>Type</code></i></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption class="t-above"><span class="table-number">Table 1:</span> Properties on class Named</caption>
 
@@ -195,7 +344,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -203,16 +352,32 @@
 <td class="org-left"><code>identity</code></td>
 <td class="org-left"><code>Name</code></td>
 <td class="org-right">1</td>
-<td class="org-left">&#xa0;</td>
+<td class="org-left">The type of a model element's name.</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 
-<div id="outline-container-org95e3b89" class="outline-3">
-<h3 id="org95e3b89"><span class="section-number-3">1.3.</span> Abstract Class Namespace</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-orgf020beb" class="outline-3">
+<h3 id="orgf020beb"><span class="section-number-3">2.4.</span> Abstract Class Namespace</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+A base class for model elements that contain other, named, elements. This can be thought of as a hash map, or
+dictionary, where the name of the element becomes it's key.
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org4f5bfb5">
+<ul class="org-ul">
+<li>∘ <i><code>Namespace</code></i></li>
+</ul>
+
+</div>
+
 <p>
 <b>Generic Parameters:</b> <code>T extends Named</code>
 </p>
@@ -234,7 +399,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-left">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -242,16 +407,46 @@
 <td class="org-left"><code>members</code></td>
 <td class="org-left"><code>T</code></td>
 <td class="org-left">0..*</td>
-<td class="org-left">&#xa0;</td>
+<td class="org-left">members must have unique names within the namespace.</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 
-<div id="outline-container-orgde41efe" class="outline-3">
-<h3 id="orgde41efe"><span class="section-number-3">1.4.</span> Abstract Class Type</h3>
-<div class="outline-text-3" id="text-1-4">
+<div id="outline-container-org45ae1cb" class="outline-3">
+<h3 id="org45ae1cb"><span class="section-number-3">2.5.</span> Abstract Class Type</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+The base class of all model elements that may be treated as types. All types are named.
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org01209e6">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>Type</code></i>
+<ul class="org-ul">
+<li>⏷ <i><code>Datatype</code></i></li>
+<li>⏷ <code>Enum</code></li>
+<li>⏷ <code>MappingType</code></li>
+<li>⏷ <code>SequenceType</code></li>
+<li>⏷ <code>Structure</code>
+<ul class="org-ul">
+<li>⏷ <code>Entity</code></li>
+<li>⏷ <code>Event</code></li>
+</ul></li>
+<li>⏷ <code>Union</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <p>
 <b>Super-Class:</b> <code>Named</code>
 </p>
@@ -273,7 +468,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-left">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -281,6 +476,13 @@
 <td class="org-left"><code>members</code></td>
 <td class="org-left"><code>Typed</code></td>
 <td class="org-left">0..*</td>
+<td class="org-left">The model elements declared with this type.</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
 <td class="org-left">&#xa0;</td>
 </tr>
 </tbody>
@@ -288,9 +490,21 @@
 </div>
 </div>
 
-<div id="outline-container-orgbf1fd88" class="outline-3">
-<h3 id="orgbf1fd88"><span class="section-number-3">1.5.</span> Abstract Class Typed</h3>
-<div class="outline-text-3" id="text-1-5">
+<div id="outline-container-org6594a0e" class="outline-3">
+<h3 id="org6594a0e"><span class="section-number-3">2.6.</span> Abstract Class Typed</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+A base class for model elements that are typed, and therefore have a association to a type.
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgd454ee4">
+<ul class="org-ul">
+<li>∘ <i><code>Typed</code></i></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption class="t-above"><span class="table-number">Table 4:</span> Properties on class Typed</caption>
 
@@ -308,7 +522,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-left">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -316,7 +530,7 @@
 <td class="org-left"><code>type</code></td>
 <td class="org-left"><code>Type</code></td>
 <td class="org-left">1..*</td>
-<td class="org-left">&#xa0;</td>
+<td class="org-left">The type, or types, of this model element.</td>
 </tr>
 </tbody>
 </table>
@@ -324,61 +538,67 @@
 </div>
 </div>
 
-<div id="outline-container-orgfb742da" class="outline-2">
-<h2 id="orgfb742da"><span class="section-number-2">2.</span> Package Modules</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgfc5757a" class="outline-2">
+<h2 id="orgfc5757a"><span class="section-number-2">3.</span> Package Modules</h2>
+<div class="outline-text-2" id="text-3">
 
-<div id="orgdcf1a96" class="figure">
+<div id="org79495d9" class="figure">
 <p><img src="./metamodel-models.svg" alt="metamodel-models.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 3: </span>The Modules Package</p>
 </div>
 </div>
 
-<div id="outline-container-org2ee5dcc" class="outline-3">
-<h3 id="org2ee5dcc"><span class="section-number-3">2.1.</span> Abstract Class Definition</h3>
-<div class="outline-text-3" id="text-2-1">
-<p>
-<b>Super-Class:</b> <code>Annotated</code>, <code>Named</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgea52886" class="outline-3">
-<h3 id="orgea52886"><span class="section-number-3">2.2.</span> Class Module</h3>
-<div class="outline-text-3" id="text-2-2">
-<p>
-<b>Super-Class:</b> <code>Definition</code>, <code>Namespace&lt;ModuleDefinition&gt;</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org1c62b52" class="outline-3">
-<h3 id="org1c62b52"><span class="section-number-3">2.3.</span> Abstract Class ModuleDefinition</h3>
-<div class="outline-text-3" id="text-2-3">
-<p>
-<b>Super-Class:</b> <code>Definition</code>
-</p>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org1609e5e" class="outline-2">
-<h2 id="org1609e5e"><span class="section-number-2">3.</span> Package Annotations</h2>
-<div class="outline-text-2" id="text-3">
-
-<div id="orgea73bc0" class="figure">
-<p><img src="./metamodel-annotations.svg" alt="metamodel-annotations.svg" class="org-svg" />
-</p>
-<p><span class="figure-number">Figure 4: </span>The Annotations Package</p>
-</div>
-</div>
-
-<div id="outline-container-org036f923" class="outline-3">
-<h3 id="org036f923"><span class="section-number-3">3.1.</span> Abstract Class Annotated</h3>
+<div id="outline-container-orgcb30c07" class="outline-3">
+<h3 id="orgcb30c07"><span class="section-number-3">3.1.</span> Abstract Class Import</h3>
 <div class="outline-text-3" id="text-3-1">
+<p>
+A association from a module to another module, or module definition, to make it available for use.
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org791be4e">
+<ul class="org-ul">
+<li>∘ <i><code>Import</code></i>
+<ul class="org-ul">
+<li>⏷ <code>ModuleImport</code></li>
+<li>⏷ <code>ModuleDefinitionImport</code></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2dc2475" class="outline-3">
+<h3 id="org2dc2475"><span class="section-number-3">3.2.</span> Class Module</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+A named set of related definitions. The module is a namespace for top-level definitions that are therefore name-unique
+within the module.
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org34a30ef">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i></li>
+<li>⏶ <i><code>Namespace&lt;T=ModuleDefinition&gt;</code></i></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>∘ <code>Module</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 5:</span> Properties on class Annotated</caption>
+<caption class="t-above"><span class="table-number">Table 5:</span> Properties on class Module</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -394,7 +614,215 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-left">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+imports</code></td>
+<td class="org-left"><code>Import</code></td>
+<td class="org-left"><code>0..*</code></td>
+<td class="org-left">The set of imported definitions.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org0842700" class="outline-3">
+<h3 id="org0842700"><span class="section-number-3">3.3.</span> Abstract Class Module Definition</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+A module-level, or top-level, definition is one that is directly a member of a module.
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orga510073">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>⏷ <i><code>Datatype</code></i> &#x2026;</li>
+<li>⏷ <code>Enum</code></li>
+<li>⏷ <code>MappingType</code></li>
+<li>⏷ <code>Property</code></li>
+<li>⏷ <code>SequenceType</code></li>
+<li>⏷ <code>Structure</code>
+<ul class="org-ul">
+<li>⏷ <code>Entity</code></li>
+<li>⏷ <code>Event</code></li>
+</ul></li>
+<li>⏷ <code>TypeClass</code></li>
+<li>⏷ <code>Union</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org209d78b" class="outline-3">
+<h3 id="org209d78b"><span class="section-number-3">3.4.</span> Abstract Class Module Definition Import</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+A association from a module to an external module definition to make it available for use.
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org4e545c3">
+<ul class="org-ul">
+<li>⏶ <i><code>Import</code></i>
+<ul class="org-ul">
+<li>∘ <code>ModuleDefinitionImport</code></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 6:</span> Properties on class Module Definition Import</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-left">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+import</code></td>
+<td class="org-left"><code>ModuleDefinition</code></td>
+<td class="org-left"><code>1</code></td>
+<td class="org-left">An imported module definition.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org30cb494" class="outline-3">
+<h3 id="org30cb494"><span class="section-number-3">3.5.</span> Abstract Class Module Import</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+A association from a module to another module to make it's definitions available for use.
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org0e707c7">
+<ul class="org-ul">
+<li>⏶ <i><code>Import</code></i>
+<ul class="org-ul">
+<li>∘ <code>ModuleImport</code></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 7:</span> Properties on class Module Import</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-left">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+import</code></td>
+<td class="org-left"><code>Module</code></td>
+<td class="org-left"><code>1</code></td>
+<td class="org-left">An imported module.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgff7451d" class="outline-2">
+<h2 id="orgff7451d"><span class="section-number-2">4.</span> Package Annotations</h2>
+<div class="outline-text-2" id="text-4">
+
+<div id="org0db89b3" class="figure">
+<p><img src="./metamodel-annotations.svg" alt="metamodel-annotations.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 4: </span>The Annotations Package</p>
+</div>
+</div>
+
+<div id="outline-container-orgf84a243" class="outline-3">
+<h3 id="orgf84a243"><span class="section-number-3">4.1.</span> Abstract Class Annotated</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orge145522">
+<ul class="org-ul">
+<li>∘ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏷ <i><code>Definition</code></i></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 8:</span> Properties on class Annotated</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-left">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -409,15 +837,34 @@
 </div>
 </div>
 
-<div id="outline-container-org79f3f63" class="outline-3">
-<h3 id="org79f3f63"><span class="section-number-3">3.2.</span> Abstract Class Annotation</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-orgca6916a" class="outline-3">
+<h3 id="orgca6916a"><span class="section-number-3">4.2.</span> Abstract Class Annotation</h3>
+<div class="outline-text-3" id="text-4-2">
 <p>
-<b>Super Class:</b> <code>Named</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="org9e2c7d9">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>Annotation</code></i>
+<ul class="org-ul">
+<li>⏷ <i><code>AnnotationProperty</code></i></li>
+<li>⏷ <i><code>Constraint</code></i>
+<ul class="org-ul">
+<li>⏷ <code>FormalConstraint</code></li>
+<li>⏷ <code>InformalControlledLanguageConstraint</code></li>
+<li>⏷ <code>InformalNaturalLanguageConstraint</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 6:</span> Properties on class Annotation</caption>
+<caption class="t-above"><span class="table-number">Table 9:</span> Properties on class Annotation</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -433,7 +880,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -448,15 +895,29 @@
 </div>
 </div>
 
-<div id="outline-container-org45ccddf" class="outline-3">
-<h3 id="org45ccddf"><span class="section-number-3">3.3.</span> Class AnnotationProperty</h3>
-<div class="outline-text-3" id="text-3-3">
+<div id="outline-container-orgb3fb52e" class="outline-3">
+<h3 id="orgb3fb52e"><span class="section-number-3">4.3.</span> Class Annotation Property</h3>
+<div class="outline-text-3" id="text-4-3">
 <p>
-<b>Super Class:</b> <code>Annotation</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="org5ebc285">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Annotation</code></i></li>
+<li>⏶ <i><code>Valued</code></i>
+<ul class="org-ul">
+<li>∘ <code>AnnotationProperty</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 7:</span> Properties on class AnnotationProperty</caption>
+<caption class="t-above"><span class="table-number">Table 10:</span> Properties on class Annotation Property</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -472,7 +933,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -487,24 +948,358 @@
 </div>
 </div>
 
-<div id="outline-container-org9861355" class="outline-3">
-<h3 id="org9861355"><span class="section-number-3">3.4.</span> Abstract Class Constraint</h3>
-<div class="outline-text-3" id="text-3-4">
+<div id="outline-container-orgadf0b58" class="outline-3">
+<h3 id="orgadf0b58"><span class="section-number-3">4.4.</span> Abstract Class Constraint</h3>
+<div class="outline-text-3" id="text-4-4">
 <p>
-<b>Super Class:</b> <code>Annotation</code>
+<b>Hierarchy</b>
 </p>
+
+<div class="HIERARCHY" id="orgd37482b">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Annotation</code></i></li>
+<li>⏶ <i><code>Valued</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>Constraint</code></i>
+<ul class="org-ul">
+<li>⏷ <code>FormalConstraint</code></li>
+<li>⏷ <code>InformalControlledLanguageConstraint</code></li>
+<li>⏷ <code>InformalNaturalLanguageConstraint</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
 </div>
 </div>
 
-<div id="outline-container-orgf425801" class="outline-3">
-<h3 id="orgf425801"><span class="section-number-3">3.5.</span> Class FormalConstraint</h3>
-<div class="outline-text-3" id="text-3-5">
-<p>
-<b>Super Class:</b> <code>Constraint</code>
+<div id="outline-container-org6c9ec5f" class="outline-2">
+<h2 id="org6c9ec5f"><span class="section-number-2">5.</span> Package Datatypes</h2>
+<div class="outline-text-2" id="text-5">
+
+<div id="orge3d9c2d" class="figure">
+<p><img src="./metamodel-datatypes.svg" alt="metamodel-datatypes.svg" class="org-svg" />
 </p>
+<p><span class="figure-number">Figure 5: </span>The Datatypes Package</p>
+</div>
+
+
+<div id="orgc467eb6" class="figure">
+<p><img src="./metamodel-datatype-languages.svg" alt="metamodel-datatype-languages.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 6: </span>The Datatype Languages Tag Detail</p>
+</div>
+</div>
+
+<div id="outline-container-org32a03a1" class="outline-3">
+<h3 id="org32a03a1"><span class="section-number-3">5.1.</span> Class Datatype</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org6842c6b">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>Datatype</code></i></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4efa51a" class="outline-3">
+<h3 id="org4efa51a"><span class="section-number-3">5.2.</span> Class Binary</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org5365cfa">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Datatype</code></i>
+<ul class="org-ul">
+<li>∘ <code>Binary</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf91e95e" class="outline-3">
+<h3 id="orgf91e95e"><span class="section-number-3">5.3.</span> Class Boolean</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org6f07798">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Datatype</code></i>
+<ul class="org-ul">
+<li>∘ <code>Boolean</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9fca6ef" class="outline-3">
+<h3 id="org9fca6ef"><span class="section-number-3">5.4.</span> Class Decimal</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgd8aabe3">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Datatype</code></i>
+<ul class="org-ul">
+<li>∘ <code>Decimal</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1a9b028" class="outline-3">
+<h3 id="org1a9b028"><span class="section-number-3">5.5.</span> Class Double</h3>
+<div class="outline-text-3" id="text-5-5">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgc42b88b">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Datatype</code></i>
+<ul class="org-ul">
+<li>∘ <code>Double</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org98c35a5" class="outline-3">
+<h3 id="org98c35a5"><span class="section-number-3">5.6.</span> Class Integer</h3>
+<div class="outline-text-3" id="text-5-6">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orge75df06">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Datatype</code></i>
+<ul class="org-ul">
+<li>∘ <code>Integer</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgadbbed4" class="outline-3">
+<h3 id="orgadbbed4"><span class="section-number-3">5.7.</span> Class String</h3>
+<div class="outline-text-3" id="text-5-7">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org789000d">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Datatype</code></i>
+<ul class="org-ul">
+<li>∘ <code>String</code>
+<ul class="org-ul">
+<li>⏷ <code>Name</code></li>
+<li>⏷ <code>LanguageTaggedString</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7c7e5df" class="outline-3">
+<h3 id="org7c7e5df"><span class="section-number-3">5.8.</span> Class Unsigned</h3>
+<div class="outline-text-3" id="text-5-8">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org8bd3a0c">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Datatype</code></i>
+<ul class="org-ul">
+<li>∘ <code>Unsigned</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0970d23" class="outline-3">
+<h3 id="org0970d23"><span class="section-number-3">5.9.</span> Class Uri</h3>
+<div class="outline-text-3" id="text-5-9">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org29db47a">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Datatype</code></i>
+<ul class="org-ul">
+<li>∘ <code>Uri</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9caabbb" class="outline-3">
+<h3 id="org9caabbb"><span class="section-number-3">5.10.</span> Class Language Tag</h3>
+<div class="outline-text-3" id="text-5-10">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgfdc4ce8">
+<ul class="org-ul">
+<li>∘ <code>LanguageTag</code></li>
+</ul>
+
+</div>
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 8:</span> Properties on class FormalConstraint</caption>
+<caption class="t-above"><span class="table-number">Table 11:</span> Properties on class LanguageTag</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -520,51 +1315,12 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="org-left"><code>expression</code></td>
-<td class="org-left">&#xa0;</td>
-<td class="org-right">1</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-
-<div id="outline-container-org23ee65b" class="outline-3">
-<h3 id="org23ee65b"><span class="section-number-3">3.6.</span> Class InformalConstraint</h3>
-<div class="outline-text-3" id="text-3-6">
-<p>
-<b>Super Class:</b> <code>Constraint</code>
-</p>
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 9:</span> Properties on class InformalConstraint</caption>
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-right" />
-
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">Name</th>
-<th scope="col" class="org-left">Type</th>
-<th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left"><code>text</code></td>
+<td class="org-left"><code>language</code></td>
 <td class="org-left"><code>String</code></td>
 <td class="org-right">1</td>
 <td class="org-left">&#xa0;</td>
@@ -573,117 +1329,100 @@
 </table>
 </div>
 </div>
-</div>
 
-<div id="outline-container-org115b5b0" class="outline-2">
-<h2 id="org115b5b0"><span class="section-number-2">4.</span> Package Datatypes</h2>
-<div class="outline-text-2" id="text-4">
-
-<div id="org9acdb0a" class="figure">
-<p><img src="./metamodel-datatypes.svg" alt="metamodel-datatypes.svg" class="org-svg" />
-</p>
-<p><span class="figure-number">Figure 5: </span>The Datatypes Package</p>
-</div>
-</div>
-
-<div id="outline-container-orgdf08fa0" class="outline-3">
-<h3 id="orgdf08fa0"><span class="section-number-3">4.1.</span> Class Datatype</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-org2306fc6" class="outline-3">
+<h3 id="org2306fc6"><span class="section-number-3">5.11.</span> Class Language Tagged String</h3>
+<div class="outline-text-3" id="text-5-11">
 <p>
-<b>Super Class:</b> <code>Type</code>
+<b>Hierarchy</b>
 </p>
-</div>
+
+<div class="HIERARCHY" id="org86cb7d7">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Datatype</code></i>
+<ul class="org-ul">
+<li>⏶ <code>String</code>
+<ul class="org-ul">
+<li>∘ <code>LanguageTaggedString</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
 </div>
 
-<div id="outline-container-org9769e85" class="outline-3">
-<h3 id="org9769e85"><span class="section-number-3">4.2.</span> Class Binary</h3>
-<div class="outline-text-3" id="text-4-2">
-<p>
-<b>Super Class:</b> Datatype
-</p>
-</div>
-</div>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 12:</span> Properties on class LanguageTaggedString</caption>
 
-<div id="outline-container-org279a959" class="outline-3">
-<h3 id="org279a959"><span class="section-number-3">4.3.</span> Class Boolean</h3>
-<div class="outline-text-3" id="text-4-3">
-<p>
-<b>Super Class:</b> Datatype
-</p>
-</div>
-</div>
+<colgroup>
+<col  class="org-left" />
 
-<div id="outline-container-orgd9e61df" class="outline-3">
-<h3 id="orgd9e61df"><span class="section-number-3">4.4.</span> Class Decimal</h3>
-<div class="outline-text-3" id="text-4-4">
-<p>
-<b>Super Class:</b> Datatype
-</p>
-</div>
-</div>
+<col  class="org-left" />
 
-<div id="outline-container-orgfcf48c2" class="outline-3">
-<h3 id="orgfcf48c2"><span class="section-number-3">4.5.</span> Class Double</h3>
-<div class="outline-text-3" id="text-4-5">
-<p>
-<b>Super Class:</b> Datatype
-</p>
-</div>
-</div>
+<col  class="org-right" />
 
-<div id="outline-container-orga1b27f6" class="outline-3">
-<h3 id="orga1b27f6"><span class="section-number-3">4.6.</span> Class Integer</h3>
-<div class="outline-text-3" id="text-4-6">
-<p>
-<b>Super Class:</b> Datatype
-</p>
-</div>
-</div>
-
-<div id="outline-container-org666d58b" class="outline-3">
-<h3 id="org666d58b"><span class="section-number-3">4.7.</span> Class String</h3>
-<div class="outline-text-3" id="text-4-7">
-<p>
-<b>Super Class:</b> Datatype
-</p>
-</div>
-</div>
-
-<div id="outline-container-org36850e0" class="outline-3">
-<h3 id="org36850e0"><span class="section-number-3">4.8.</span> Class Unsigned</h3>
-<div class="outline-text-3" id="text-4-8">
-<p>
-<b>Super Class:</b> Datatype
-</p>
-</div>
-</div>
-
-<div id="outline-container-org772a198" class="outline-3">
-<h3 id="org772a198"><span class="section-number-3">4.9.</span> Class Uri</h3>
-<div class="outline-text-3" id="text-4-9">
-<p>
-<b>Super Class:</b> Datatype
-</p>
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-right">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>tag</code></td>
+<td class="org-left"><code>LanguageTag</code></td>
+<td class="org-right">1</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orga63483b" class="outline-2">
-<h2 id="orga63483b"><span class="section-number-2">5.</span> Package Sequence Types</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-org6671598" class="outline-2">
+<h2 id="org6671598"><span class="section-number-2">6.</span> Package Sequence Types</h2>
+<div class="outline-text-2" id="text-6">
 
-<div id="org68f3971" class="figure">
+<div id="orgf0c4979" class="figure">
 <p><img src="./metamodel-sequences.svg" alt="metamodel-sequences.svg" class="org-svg" />
 </p>
-<p><span class="figure-number">Figure 6: </span>The Sequence Types Package</p>
+<p><span class="figure-number">Figure 7: </span>The Sequence Types Package</p>
 </div>
 </div>
 
-<div id="outline-container-org3e362bf" class="outline-3">
-<h3 id="org3e362bf"><span class="section-number-3">5.1.</span> Class Cardinality</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-org9c7402a" class="outline-3">
+<h3 id="org9c7402a"><span class="section-number-3">6.1.</span> Class Cardinality</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org315a38e">
+<ul class="org-ul">
+<li>∘ <code>Cardinality</code></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 10:</span> Properties on class Cardinality</caption>
+<caption class="t-above"><span class="table-number">Table 13:</span> Properties on class Cardinality</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -735,9 +1474,9 @@
 </div>
 </div>
 
-<div id="outline-container-orgdb3b00c" class="outline-3">
-<h3 id="orgdb3b00c"><span class="section-number-3">5.2.</span> Enumeration Ordering</h3>
-<div class="outline-text-3" id="text-5-2">
+<div id="outline-container-org9dc60e3" class="outline-3">
+<h3 id="org9dc60e3"><span class="section-number-3">6.2.</span> Enumeration Ordering</h3>
+<div class="outline-text-3" id="text-6-2">
 <p>
 <b>Variants</b>
 </p>
@@ -749,19 +1488,39 @@
 </div>
 </div>
 
-<div id="outline-container-org155b2aa" class="outline-3">
-<h3 id="org155b2aa"><span class="section-number-3">5.3.</span> Class SequenceType</h3>
-<div class="outline-text-3" id="text-5-3">
+<div id="outline-container-org46269c1" class="outline-3">
+<h3 id="org46269c1"><span class="section-number-3">6.3.</span> Class SequenceType</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org3766da6">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>∘ <code>SequenceType</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <p>
 <b>Generic Parameters:</b> <code>T extends Type</code>
 </p>
 
-<p>
-<b>Super Class:</b> <code>Type</code>
-</p>
-
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 11:</span> Properties on class SequenceType</caption>
+<caption class="t-above"><span class="table-number">Table 14:</span> Properties on class SequenceType</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -777,7 +1536,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-left">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -799,9 +1558,9 @@
 </div>
 </div>
 
-<div id="outline-container-orge7f150a" class="outline-3">
-<h3 id="orge7f150a"><span class="section-number-3">5.4.</span> Enumeration Uniqueness</h3>
-<div class="outline-text-3" id="text-5-4">
+<div id="outline-container-org0f33ffb" class="outline-3">
+<h3 id="org0f33ffb"><span class="section-number-3">6.4.</span> Enumeration Uniqueness</h3>
+<div class="outline-text-3" id="text-6-4">
 <p>
 <b>Variants</b>
 </p>
@@ -814,26 +1573,50 @@
 </div>
 </div>
 
-<div id="outline-container-org366500a" class="outline-2">
-<h2 id="org366500a"><span class="section-number-2">6.</span> Package Product Types</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-org5c48b75" class="outline-2">
+<h2 id="org5c48b75"><span class="section-number-2">7.</span> Package Product Types</h2>
+<div class="outline-text-2" id="text-7">
 
-<div id="org99b7f03" class="figure">
+<div id="org9914882" class="figure">
 <p><img src="./metamodel-product-types.svg" alt="metamodel-product-types.svg" class="org-svg" />
 </p>
-<p><span class="figure-number">Figure 7: </span>The Product Types Package</p>
+<p><span class="figure-number">Figure 8: </span>The Product Types Package</p>
 </div>
 </div>
 
-<div id="outline-container-org3711adc" class="outline-3">
-<h3 id="org3711adc"><span class="section-number-3">6.1.</span> Class Entity</h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-org193cbee" class="outline-3">
+<h3 id="org193cbee"><span class="section-number-3">7.1.</span> Class Entity</h3>
+<div class="outline-text-3" id="text-7-1">
 <p>
-<b>Super Class:</b> <code>Structure</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="org6a1779d">
+<ul class="org-ul">
+<li>⏶ <i><code>Namespace&lt;T=Member&gt;</code></i></li>
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>⏶ <code>Structure</code>
+<ul class="org-ul">
+<li>∘ <code>Entity</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 12:</span> Properties on class Entity</caption>
+<caption class="t-above"><span class="table-number">Table 15:</span> Properties on class Entity</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -849,7 +1632,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -864,15 +1647,39 @@
 </div>
 </div>
 
-<div id="outline-container-orga601816" class="outline-3">
-<h3 id="orga601816"><span class="section-number-3">6.2.</span> Class Event</h3>
-<div class="outline-text-3" id="text-6-2">
+<div id="outline-container-orgc8b0554" class="outline-3">
+<h3 id="orgc8b0554"><span class="section-number-3">7.2.</span> Class Event</h3>
+<div class="outline-text-3" id="text-7-2">
 <p>
-<b>Super Class:</b> <code>Structure</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="orgd2cdd5d">
+<ul class="org-ul">
+<li>⏶ <i><code>Namespace&lt;T=Member&gt;</code></i></li>
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>⏶ <code>Structure</code>
+<ul class="org-ul">
+<li>∘ <code>Event</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 13:</span> Properties on class Event</caption>
+<caption class="t-above"><span class="table-number">Table 16:</span> Properties on class Event</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -888,7 +1695,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -903,33 +1710,71 @@
 </div>
 </div>
 
-<div id="outline-container-org9e1aa3a" class="outline-3">
-<h3 id="org9e1aa3a"><span class="section-number-3">6.3.</span> Abstract Class Member</h3>
-<div class="outline-text-3" id="text-6-3">
+<div id="outline-container-org07d9904" class="outline-3">
+<h3 id="org07d9904"><span class="section-number-3">7.3.</span> Abstract Class Member</h3>
+<div class="outline-text-3" id="text-7-3">
 <p>
-<b>Super Class:</b> <code>Typed</code>
+<b>Hierarchy</b>
 </p>
+
+<div class="HIERARCHY" id="org1939b28">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>∘ <code>Member</code></li>
+</ul></li>
+</ul>
+
+</div>
 </div>
 </div>
 
-<div id="outline-container-orgc7bc42c" class="outline-3">
-<h3 id="orgc7bc42c"><span class="section-number-3">6.4.</span> Class MemberDefinition</h3>
-<div class="outline-text-3" id="text-6-4">
+<div id="outline-container-org0426d18" class="outline-3">
+<h3 id="org0426d18"><span class="section-number-3">7.4.</span> Class Member Definition</h3>
+<div class="outline-text-3" id="text-7-4">
 <p>
-<b>Super Class:</b> <code>Annotated</code>, <code>Member</code>, <code>Typed</code>
+<b>Hierarchy</b>
 </p>
+
+<div class="HIERARCHY" id="org19411d7">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i></li>
+<li>⏶ <i><code>Typed</code></i></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Member</code></i>
+<ul class="org-ul">
+<li>∘ <code>MemberDefinition</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
 </div>
 </div>
 
-<div id="outline-container-orga85c87b" class="outline-3">
-<h3 id="orga85c87b"><span class="section-number-3">6.5.</span> Class MemberGroup</h3>
-<div class="outline-text-3" id="text-6-5">
+<div id="outline-container-org05e94c1" class="outline-3">
+<h3 id="org05e94c1"><span class="section-number-3">7.5.</span> Class Member Group</h3>
+<div class="outline-text-3" id="text-7-5">
 <p>
-<b>Super Class:</b> <code>Annotated</code>
+<b>Hierarchy</b>
 </p>
+
+<div class="HIERARCHY" id="orgf8b4868">
+<ul class="org-ul">
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>∘ <code>MemberGroup</code></li>
+</ul></li>
+</ul>
+
+</div>
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 14:</span> Properties on class MemberGroup</caption>
+<caption class="t-above"><span class="table-number">Table 17:</span> Properties on class MemberGroup</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -945,7 +1790,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-left">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -960,15 +1805,28 @@
 </div>
 </div>
 
-<div id="outline-container-org9d44615" class="outline-3">
-<h3 id="org9d44615"><span class="section-number-3">6.6.</span> Class MemberReference</h3>
-<div class="outline-text-3" id="text-6-6">
+<div id="outline-container-org3fb0abc" class="outline-3">
+<h3 id="org3fb0abc"><span class="section-number-3">7.6.</span> Class Member Reference</h3>
+<div class="outline-text-3" id="text-7-6">
 <p>
-<b>Super Class:</b> <code>Member</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="orgdcd4588">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Member</code></i>
+<ul class="org-ul">
+<li>∘ <code>MemberReference</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 15:</span> Properties on class MemberReference</caption>
+<caption class="t-above"><span class="table-number">Table 18:</span> Properties on class MemberReference</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -984,12 +1842,12 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="org-left">+role=</td>
+<td class="org-left"><code>+role</code></td>
 <td class="org-left"><code>Role</code></td>
 <td class="org-right">1</td>
 <td class="org-left">&#xa0;</td>
@@ -999,15 +1857,126 @@
 </div>
 </div>
 
-<div id="outline-container-org9094235" class="outline-3">
-<h3 id="org9094235"><span class="section-number-3">6.7.</span> Class Structure</h3>
-<div class="outline-text-3" id="text-6-7">
+<div id="outline-container-org614fc0b" class="outline-3">
+<h3 id="org614fc0b"><span class="section-number-3">7.7.</span> Class Property</h3>
+<div class="outline-text-3" id="text-7-7">
 <p>
-<b>Super Class:</b> <code>Type</code>, <code>ModuleDefinition</code>, <code>Namespace&lt;Member&gt;</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="org3d22f46">
+<ul class="org-ul">
+<li>⏶ <i><code>Namespace&lt;T=Role&gt;</code></i></li>
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>∘ <code>Property</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbf9b79b" class="outline-3">
+<h3 id="orgbf9b79b"><span class="section-number-3">7.8.</span> Class Role</h3>
+<div class="outline-text-3" id="text-7-8">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org4424f29">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>∘ <code>Role</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 16:</span> Properties on class Entity</caption>
+<caption class="t-above"><span class="table-number">Table 19:</span> Properties on class Role</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-right">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+is_identity</code></td>
+<td class="org-left"><code>boolean</code></td>
+<td class="org-right">1</td>
+<td class="org-left"><code>false</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org6f4eb79" class="outline-3">
+<h3 id="org6f4eb79"><span class="section-number-3">7.9.</span> Class Structure</h3>
+<div class="outline-text-3" id="text-7-9">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org68f602b">
+<ul class="org-ul">
+<li>⏶ <i><code>Namespace&lt;T=Member&gt;</code></i></li>
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>∘ <code>Structure</code>
+<ul class="org-ul">
+<li>⏷ <code>Entity</code></li>
+<li>⏷ <code>Event</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 20:</span> Properties on class Entity</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1023,7 +1992,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-left">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1039,39 +2008,73 @@
 </div>
 </div>
 
-<div id="outline-container-org9e749ae" class="outline-2">
-<h2 id="org9e749ae"><span class="section-number-2">7.</span> Package Sum Types</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-org2e962dc" class="outline-2">
+<h2 id="org2e962dc"><span class="section-number-2">8.</span> Package Sum Types</h2>
+<div class="outline-text-2" id="text-8">
 
-<div id="org6bc5f82" class="figure">
+<div id="orgbb8f816" class="figure">
 <p><img src="./metamodel-sum-types.svg" alt="metamodel-sum-types.svg" class="org-svg" />
 </p>
-<p><span class="figure-number">Figure 8: </span>The Sum Types Package</p>
+<p><span class="figure-number">Figure 9: </span>The Sum Types Package</p>
 </div>
 </div>
 
-<div id="outline-container-orgeafda03" class="outline-3">
-<h3 id="orgeafda03"><span class="section-number-3">7.1.</span> Class Enum</h3>
-<div class="outline-text-3" id="text-7-1">
+<div id="outline-container-orgbaddb16" class="outline-3">
+<h3 id="orgbaddb16"><span class="section-number-3">8.1.</span> Class Enum</h3>
+<div class="outline-text-3" id="text-8-1">
 <p>
-<b>Super Class:</b> <code>Type</code>, <code>ModuleDefinition</code>, <code>Namespace&lt;ValueVariant&gt;</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org936ba3b" class="outline-3">
-<h3 id="org936ba3b"><span class="section-number-3">7.2.</span> Class MappingType</h3>
-<div class="outline-text-3" id="text-7-2">
-<p>
-<b>Generic Parameters</b> <code>K extends Type</code>, <code>V extends Type</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="org73b0deb">
+<ul class="org-ul">
+<li>⏶ <i><code>Namespace&lt;T=TypeVariant&gt;</code></i></li>
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>∘ <code>Enum</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf1a8d35" class="outline-3">
+<h3 id="orgf1a8d35"><span class="section-number-3">8.2.</span> Class Mapping Type</h3>
+<div class="outline-text-3" id="text-8-2">
 <p>
-<b>Super Class:</b> <code>Type</code>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgeeb52d3">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i>
+<ul class="org-ul">
+<li>∘ <code>MappingType</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
+<p>
+<b>Generic Parameters</b> <code>K extends SimpleType</code>, <code>V extends Type</code>
 </p>
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 17:</span> Properties on class MappingType</caption>
+<caption class="t-above"><span class="table-number">Table 21:</span> Properties on class MappingType</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1087,7 +2090,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1109,63 +2112,137 @@
 </div>
 </div>
 
-<div id="outline-container-orgeb7cf9d" class="outline-3">
-<h3 id="orgeb7cf9d"><span class="section-number-3">7.3.</span> Class TypeVariant</h3>
-<div class="outline-text-3" id="text-7-3">
+<div id="outline-container-org08ec000" class="outline-3">
+<h3 id="org08ec000"><span class="section-number-3">8.3.</span> Class Type Variant</h3>
+<div class="outline-text-3" id="text-8-3">
 <p>
-<b>Super Class:</b> <code>Variant</code>, <code>Typed</code>
+<b>Hierarchy</b>
 </p>
+
+<div class="HIERARCHY" id="org5755575">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i></li>
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Variant</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>TypeVariant</code></i></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
 </div>
 </div>
 
-<div id="outline-container-org4b7c44e" class="outline-3">
-<h3 id="org4b7c44e"><span class="section-number-3">7.4.</span> Class Union</h3>
-<div class="outline-text-3" id="text-7-4">
+<div id="outline-container-orgfdd1023" class="outline-3">
+<h3 id="orgfdd1023"><span class="section-number-3">8.4.</span> Class Union</h3>
+<div class="outline-text-3" id="text-8-4">
 <p>
-<b>Super Class:</b> <code>Type</code>, <code>ModuleDefinition</code>, <code>Namespace&lt;TypeVariant&gt;</code>
+<b>Hierarchy</b>
 </p>
+
+<div class="HIERARCHY" id="org614fa0e">
+<ul class="org-ul">
+<li>⏶ <i><code>Namespace&lt;T=TypeVariant&gt;</code></i></li>
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Type</code></i></li>
+</ul></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>∘ <code>Union</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
 </div>
 </div>
 
-<div id="outline-container-org12797e5" class="outline-3">
-<h3 id="org12797e5"><span class="section-number-3">7.5.</span> Abstract Class Variant</h3>
-<div class="outline-text-3" id="text-7-5">
+<div id="outline-container-org505c918" class="outline-3">
+<h3 id="org505c918"><span class="section-number-3">8.5.</span> Abstract Class Variant</h3>
+<div class="outline-text-3" id="text-8-5">
 <p>
-<b>Super Class:</b> <code>Named</code>
+<b>Hierarchy</b>
 </p>
+
+<div class="HIERARCHY" id="orgc5d4034">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li><i><code>Variant</code></i></li>
+</ul></li>
+</ul>
+
+</div>
 </div>
 </div>
 
-<div id="outline-container-orgfc2a9c1" class="outline-3">
-<h3 id="orgfc2a9c1"><span class="section-number-3">7.6.</span> Class ValueVariant</h3>
-<div class="outline-text-3" id="text-7-6">
+<div id="outline-container-org61103ab" class="outline-3">
+<h3 id="org61103ab"><span class="section-number-3">8.6.</span> Class Value Variant</h3>
+<div class="outline-text-3" id="text-8-6">
 <p>
-<b>Super Class:</b> <code>Variant</code>
+<b>Hierarchy</b>
 </p>
+
+<div class="HIERARCHY" id="org9dd33b4">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Variant</code></i>
+<ul class="org-ul">
+<li>∘ ValueVariant</li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgfdbdf6d" class="outline-2">
-<h2 id="orgfdbdf6d"><span class="section-number-2">8.</span> Package Values</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-org6d9aca5" class="outline-2">
+<h2 id="org6d9aca5"><span class="section-number-2">9.</span> Package Values</h2>
+<div class="outline-text-2" id="text-9">
 
-<div id="org004ed91" class="figure">
+<div id="org9edbc7b" class="figure">
 <p><img src="./metamodel-values.svg" alt="metamodel-values.svg" class="org-svg" />
 </p>
-<p><span class="figure-number">Figure 9: </span>The Values Package</p>
+<p><span class="figure-number">Figure 10: </span>The Values Package</p>
 </div>
 </div>
 
-<div id="outline-container-org4af95fd" class="outline-3">
-<h3 id="org4af95fd"><span class="section-number-3">8.1.</span> Class BinaryValue</h3>
-<div class="outline-text-3" id="text-8-1">
+<div id="outline-container-orgdaeaf22" class="outline-3">
+<h3 id="orgdaeaf22"><span class="section-number-3">9.1.</span> Class Binary Value</h3>
+<div class="outline-text-3" id="text-9-1">
 <p>
-<b>Super Class:</b> <code>SimpleValue</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="org613df44">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Value</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>SimpleValue</code></i>
+<ul class="org-ul">
+<li>∘ <code>BinaryValue</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 18:</span> Properties on class BinaryValue</caption>
+<caption class="t-above"><span class="table-number">Table 22:</span> Properties on class Binary Value</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1181,7 +2258,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1196,15 +2273,31 @@
 </div>
 </div>
 
-<div id="outline-container-org6e83140" class="outline-3">
-<h3 id="org6e83140"><span class="section-number-3">8.2.</span> Class BooleanValue</h3>
-<div class="outline-text-3" id="text-8-2">
+<div id="outline-container-orgcb7404a" class="outline-3">
+<h3 id="orgcb7404a"><span class="section-number-3">9.2.</span> Class Boolean Value</h3>
+<div class="outline-text-3" id="text-9-2">
 <p>
-<b>Super Class:</b> <code>SimpleValue</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="org6f66d57">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Value</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>SimpleValue</code></i>
+<ul class="org-ul">
+<li>∘ <code>BooleanValue</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 19:</span> Properties on class BooleanValue</caption>
+<caption class="t-above"><span class="table-number">Table 23:</span> Properties on class Boolean Value</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1220,7 +2313,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1235,15 +2328,31 @@
 </div>
 </div>
 
-<div id="outline-container-org9dc6e9b" class="outline-3">
-<h3 id="org9dc6e9b"><span class="section-number-3">8.3.</span> Class DecimalValue</h3>
-<div class="outline-text-3" id="text-8-3">
+<div id="outline-container-org0cf4179" class="outline-3">
+<h3 id="org0cf4179"><span class="section-number-3">9.3.</span> Class Decimal Value</h3>
+<div class="outline-text-3" id="text-9-3">
 <p>
-<b>Super Class:</b> <code>SimpleValue</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="org67d705b">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Value</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>SimpleValue</code></i>
+<ul class="org-ul">
+<li>∘ <code>DecimalValue</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 20:</span> Properties on class DecimalValue</caption>
+<caption class="t-above"><span class="table-number">Table 24:</span> Properties on class Decimal alue</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1259,7 +2368,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1274,15 +2383,31 @@
 </div>
 </div>
 
-<div id="outline-container-org13f4acd" class="outline-3">
-<h3 id="org13f4acd"><span class="section-number-3">8.4.</span> Class DoubleValue</h3>
-<div class="outline-text-3" id="text-8-4">
+<div id="outline-container-orgc7a8be8" class="outline-3">
+<h3 id="orgc7a8be8"><span class="section-number-3">9.4.</span> Class Double Value</h3>
+<div class="outline-text-3" id="text-9-4">
 <p>
-<b>Super Class:</b> <code>SimpleValue</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="orge8cdada">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Value</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>SimpleValue</code></i>
+<ul class="org-ul">
+<li>∘ <code>Doublealue</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 21:</span> Properties on class DoubleValue</caption>
+<caption class="t-above"><span class="table-number">Table 25:</span> Properties on class Double Value</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1298,7 +2423,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1313,15 +2438,31 @@
 </div>
 </div>
 
-<div id="outline-container-org73b3032" class="outline-3">
-<h3 id="org73b3032"><span class="section-number-3">8.5.</span> Class IntegerValue</h3>
-<div class="outline-text-3" id="text-8-5">
+<div id="outline-container-orge25945e" class="outline-3">
+<h3 id="orge25945e"><span class="section-number-3">9.5.</span> Class Integer Value</h3>
+<div class="outline-text-3" id="text-9-5">
 <p>
-<b>Super Class:</b> <code>SimpleValue</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="org1c04697">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Value</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>SimpleValue</code></i>
+<ul class="org-ul">
+<li>∘ <code>IntegerValue</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 22:</span> Properties on class IntegerValue</caption>
+<caption class="t-above"><span class="table-number">Table 26:</span> Properties on class Integer Value</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1337,7 +2478,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1352,15 +2493,28 @@
 </div>
 </div>
 
-<div id="outline-container-org692984a" class="outline-3">
-<h3 id="org692984a"><span class="section-number-3">8.6.</span> Class MappingValue</h3>
-<div class="outline-text-3" id="text-8-6">
+<div id="outline-container-org36b32a8" class="outline-3">
+<h3 id="org36b32a8"><span class="section-number-3">9.6.</span> Class Mapping Value</h3>
+<div class="outline-text-3" id="text-9-6">
 <p>
-<b>Super Class:</b> <code>SimpleValue</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="org15f5792">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Value</code></i>
+<ul class="org-ul">
+<li>∘ <code>MappingValue</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 23:</span> Properties on class MappingValue</caption>
+<caption class="t-above"><span class="table-number">Table 27:</span> Properties on class Mapping Value</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1376,7 +2530,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1390,15 +2544,29 @@
 </table>
 </div>
 </div>
-<div id="outline-container-org0726f14" class="outline-3">
-<h3 id="org0726f14"><span class="section-number-3">8.7.</span> Class SequenceValue</h3>
-<div class="outline-text-3" id="text-8-7">
+
+<div id="outline-container-org44094de" class="outline-3">
+<h3 id="org44094de"><span class="section-number-3">9.7.</span> Class Sequence Value</h3>
+<div class="outline-text-3" id="text-9-7">
 <p>
-<b>Super Class:</b> <code>SimpleValue</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="org28c8c2b">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Value</code></i>
+<ul class="org-ul">
+<li>∘ <code>SequenceValue</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 24:</span> Properties on class SequenceValue</caption>
+<caption class="t-above"><span class="table-number">Table 28:</span> Properties on class Sequence Value</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1414,7 +2582,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1428,23 +2596,54 @@
 </table>
 </div>
 </div>
-<div id="outline-container-org438ab30" class="outline-3">
-<h3 id="org438ab30"><span class="section-number-3">8.8.</span> Abstract Class SimpleValue</h3>
-<div class="outline-text-3" id="text-8-8">
+
+<div id="outline-container-org476dc20" class="outline-3">
+<h3 id="org476dc20"><span class="section-number-3">9.8.</span> Abstract Class Simple Value</h3>
+<div class="outline-text-3" id="text-9-8">
 <p>
-<b>Super Class:</b> <code>Value</code>
-</p>
-</div>
-</div>
-<div id="outline-container-org06c20a6" class="outline-3">
-<h3 id="org06c20a6"><span class="section-number-3">8.9.</span> Class StringValue</h3>
-<div class="outline-text-3" id="text-8-9">
-<p>
-<b>Super Class:</b> <code>SimpleValue</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="orgc65f66c">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Value</code></i>
+<ul class="org-ul">
+<li>∘ <i>SimpleValue=</i></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge93286a" class="outline-3">
+<h3 id="orge93286a"><span class="section-number-3">9.9.</span> Class String Value</h3>
+<div class="outline-text-3" id="text-9-9">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgbce143f">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Value</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>SimpleValue</code></i>
+<ul class="org-ul">
+<li>∘ <code>StringValue</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 25:</span> Properties on class StringValue</caption>
+<caption class="t-above"><span class="table-number">Table 29:</span> Properties on class String Value</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1460,7 +2659,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1475,15 +2674,31 @@
 </div>
 </div>
 
-<div id="outline-container-orgec80b71" class="outline-3">
-<h3 id="orgec80b71"><span class="section-number-3">8.10.</span> Class UnsignedValue</h3>
-<div class="outline-text-3" id="text-8-10">
+<div id="outline-container-org6c68b2d" class="outline-3">
+<h3 id="org6c68b2d"><span class="section-number-3">9.10.</span> Class Unsigned Value</h3>
+<div class="outline-text-3" id="text-9-10">
 <p>
-<b>Super Class:</b> <code>SimpleValue</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="orgf4d59a6">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Value</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>SimpleValue</code></i>
+<ul class="org-ul">
+<li>∘ <code>UnsignedValue</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 26:</span> Properties on class UnsignedValue</caption>
+<caption class="t-above"><span class="table-number">Table 30:</span> Properties on class Unsigned Value</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1499,7 +2714,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1514,15 +2729,31 @@
 </div>
 </div>
 
-<div id="outline-container-orgba09d1c" class="outline-3">
-<h3 id="orgba09d1c"><span class="section-number-3">8.11.</span> Class UriValue</h3>
-<div class="outline-text-3" id="text-8-11">
+<div id="outline-container-org1f7a755" class="outline-3">
+<h3 id="org1f7a755"><span class="section-number-3">9.11.</span> Class Uri Value</h3>
+<div class="outline-text-3" id="text-9-11">
 <p>
-<b>Super Class:</b> <code>SimpleValue</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="org35e1508">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Value</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>SimpleValue</code></i>
+<ul class="org-ul">
+<li>∘ <code>UriValue</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 27:</span> Properties on class UriValue</caption>
+<caption class="t-above"><span class="table-number">Table 31:</span> Properties on class Uri Value</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1538,7 +2769,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1553,38 +2784,322 @@
 </div>
 </div>
 
-<div id="outline-container-org97b7f95" class="outline-3">
-<h3 id="org97b7f95"><span class="section-number-3">8.12.</span> Abstract Class Value</h3>
-<div class="outline-text-3" id="text-8-12">
+<div id="outline-container-orgcc324c7" class="outline-3">
+<h3 id="orgcc324c7"><span class="section-number-3">9.12.</span> Abstract Class Value</h3>
+<div class="outline-text-3" id="text-9-12">
 <p>
-<b>Super Class:</b> <code>Typed</code>
+<b>Hierarchy</b>
 </p>
+
+<div class="HIERARCHY" id="org776cb48">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>Value</code></i></li>
+</ul></li>
+</ul>
+
 </div>
 </div>
 </div>
+</div>
 
+<div id="outline-container-org1a17b0d" class="outline-2">
+<h2 id="org1a17b0d"><span class="section-number-2">10.</span> Package Formal Constraints</h2>
+<div class="outline-text-2" id="text-10">
 
-
-<div id="outline-container-org25b6f4f" class="outline-2">
-<h2 id="org25b6f4f"><span class="section-number-2">9.</span> Package Constraint Sentences</h2>
-<div class="outline-text-2" id="text-9">
-
-<div id="org5ac6d45" class="figure">
-<p><img src="./metamodel-constraint-sentences.svg" alt="metamodel-constraint-sentences.svg" class="org-svg" />
+<div id="org80e1022" class="figure">
+<p><img src="./metamodel-constraints.svg" alt="metamodel-constraints.svg" class="org-svg" />
 </p>
-<p><span class="figure-number">Figure 10: </span>The Constraint Sentences Package</p>
+<p><span class="figure-number">Figure 11: </span>The Constraints Package</p>
 </div>
 </div>
 
-<div id="outline-container-org58fa957" class="outline-3">
-<h3 id="org58fa957"><span class="section-number-3">9.1.</span> Class AtomicSentence</h3>
-<div class="outline-text-3" id="text-9-1">
+<div id="outline-container-org5321d34" class="outline-3">
+<h3 id="org5321d34"><span class="section-number-3">10.1.</span> Class Constraint Language Tag</h3>
+<div class="outline-text-3" id="text-10-1">
 <p>
-<b>Super Class:</b> <code>SimpleSentence</code>
+<b>Hierarchy</b>
 </p>
+
+<div class="HIERARCHY" id="orgd1a1d52">
+<ul class="org-ul">
+<li>∘ <code>ConstraintLanguageTag</code></li>
+</ul>
+
+</div>
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 28:</span> Properties on class AtomicSentence</caption>
+<caption class="t-above"><span class="table-number">Table 32:</span> Properties on class Formal Constraint</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-right">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>natural_language</code></td>
+<td class="org-left"><code>String</code></td>
+<td class="org-right">0..1</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>controlled_language</code></td>
+<td class="org-left"><code>String</code></td>
+<td class="org-right">0..1</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgfd86dd3" class="outline-3">
+<h3 id="orgfd86dd3"><span class="section-number-3">10.2.</span> Class Formal Constraint</h3>
+<div class="outline-text-3" id="text-10-2">
+<p>
+This is a constraint described using a structured expression language based on ISO Common Logic.
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org3c73398">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Annotation</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Constraint</code></i>
+<ul class="org-ul">
+<li>∘ <code>FormalConstraint</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 33:</span> Properties on class Formal Constraint</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-right">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>sentence</code></td>
+<td class="org-left"><code>Sentence</code></td>
+<td class="org-right">1</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org216c79e" class="outline-3">
+<h3 id="org216c79e"><span class="section-number-3">10.3.</span> Class Informal Controlled Language Constraint</h3>
+<div class="outline-text-3" id="text-10-3">
+<p>
+This is a constraint described informally using a controlled natural language (CNL).
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org74aa0cf">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Annotation</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Constraint</code></i>
+<ul class="org-ul">
+<li>∘ <code>InformalControlledLanguageConstraint</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 34:</span> Properties on class Informal Controlled Language Constraint</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-right">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>text</code></td>
+<td class="org-left"><code>String</code></td>
+<td class="org-right">1</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org857feea" class="outline-3">
+<h3 id="org857feea"><span class="section-number-3">10.4.</span> Class Informal Natural Language Constraint</h3>
+<div class="outline-text-3" id="text-10-4">
+<p>
+This is a constraint described informally using plain language.
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org080a30c">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Annotation</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Constraint</code></i>
+<ul class="org-ul">
+<li>∘ <code>InformalNaturalLanguageConstraint</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 35:</span> Properties on class Informal Natural Language Constraint</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-right">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>text</code></td>
+<td class="org-left"><code>String</code></td>
+<td class="org-right">1</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2085e46" class="outline-2">
+<h2 id="org2085e46"><span class="section-number-2">11.</span> Package Constraint Sentences</h2>
+<div class="outline-text-2" id="text-11">
+
+<div id="orgedd8401" class="figure">
+<p><img src="./metamodel-constraint-sentences-overview.svg" alt="metamodel-constraint-sentences-overview.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 12: </span>The Constraint Sentences Package Overview</p>
+</div>
+
+
+<div id="orgc3526e6" class="figure">
+<p><img src="./metamodel-constraint-sentences-simple.svg" alt="metamodel-constraint-sentences-simple.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 13: </span>Constraint Simple Sentences</p>
+</div>
+
+
+<div id="org7d18bec" class="figure">
+<p><img src="./metamodel-constraint-sentences-boolean.svg" alt="metamodel-constraint-sentences-boolean.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 14: </span>Constraint Boolean Sentences</p>
+</div>
+
+
+<div id="org79836bf" class="figure">
+<p><img src="./metamodel-constraint-sentences-quantified.svg" alt="metamodel-constraint-sentences-quantified.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 15: </span>Constraint Quantified Sentences</p>
+</div>
+</div>
+
+<div id="outline-container-org4d74619" class="outline-3">
+<h3 id="org4d74619"><span class="section-number-3">11.1.</span> Class Atomic</h3>
+<div class="outline-text-3" id="text-11-1">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org009f6e2">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Simple</code></i>
+<ul class="org-ul">
+<li>∘ <code>Atomic</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 36:</span> Properties on class Atomic</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1600,7 +3115,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-left">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1622,24 +3137,64 @@
 </div>
 </div>
 
-<div id="outline-container-org92a2c38" class="outline-3">
-<h3 id="org92a2c38"><span class="section-number-3">9.2.</span> Class BiconditionalSentence</h3>
-<div class="outline-text-3" id="text-9-2">
+<div id="outline-container-org5d5ff4a" class="outline-3">
+<h3 id="org5d5ff4a"><span class="section-number-3">11.2.</span> Class Biconditional</h3>
+<div class="outline-text-3" id="text-11-2">
 <p>
-<b>Super Class:</b> <code>BinaryBooleanSentence</code>
+Corresponds the expression to <code>A &lt;==&gt; B</code>, or \(A \iff B\).
 </p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgb72f8c7">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Boolean</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Binary</code></i>
+<ul class="org-ul">
+<li>∘ <code>Biconditional</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
 </div>
 </div>
 
-<div id="outline-container-orgd04bed9" class="outline-3">
-<h3 id="orgd04bed9"><span class="section-number-3">9.3.</span> Abstract Class BinaryBooleanSentence</h3>
-<div class="outline-text-3" id="text-9-3">
+<div id="outline-container-orgc6d4ccb" class="outline-3">
+<h3 id="orgc6d4ccb"><span class="section-number-3">11.3.</span> Abstract Class Binary</h3>
+<div class="outline-text-3" id="text-11-3">
 <p>
-<b>Super Class:</b> <code>BooleanSentence</code>
+<b>Hierarchy</b>
 </p>
+
+<div class="HIERARCHY" id="org4dba1d3">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Boolean</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>Binary</code></i>
+<ul class="org-ul">
+<li>⏷ <code>Biconditional</code></li>
+<li>⏷ <code>Conjunction</code></li>
+<li>⏷ <code>Disjunction</code></li>
+<li>⏷ <code>ExclusiveDisjunction</code></li>
+<li>⏷ <code>Implication</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 29:</span> Properties on class RelationalSentence</caption>
+<caption class="t-above"><span class="table-number">Table 37:</span> Properties on class Binary</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1655,7 +3210,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -1663,326 +3218,387 @@
 <td class="org-left"><code>lhs</code></td>
 <td class="org-left"><code>Sentence</code></td>
 <td class="org-right">1</td>
-<td class="org-left">&#xa0;</td>
+<td class="org-left">Subsets the association <code>nested</code>.</td>
 </tr>
 
 <tr>
 <td class="org-left"><code>rhs</code></td>
 <td class="org-left"><code>Sentence</code></td>
 <td class="org-right">1</td>
-<td class="org-left">&#xa0;</td>
+<td class="org-left">Subsets the association <code>nested</code>.</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 
-
-<div id="outline-container-org3945d86" class="outline-3">
-<h3 id="org3945d86"><span class="section-number-3">9.4.</span> Abstract Class BooleanSentence</h3>
-<div class="outline-text-3" id="text-9-4">
+<div id="outline-container-orge564534" class="outline-3">
+<h3 id="orge564534"><span class="section-number-3">11.4.</span> Abstract Class Boolean</h3>
+<div class="outline-text-3" id="text-11-4">
 <p>
-<b>Super Class:</b> <code>Sentence</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="orge9e61b7">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>Boolean</code></i>
+<ul class="org-ul">
+<li>⏷ <i><code>Binary</code></i>
+<ul class="org-ul">
+<li>⏷ <code>Biconditional</code></li>
+<li>⏷ <code>Conjunction</code></li>
+<li>⏷ <code>Disjunction</code></li>
+<li>⏷ <code>ExclusiveDisjunction</code></li>
+<li>⏷ <code>Implication</code></li>
+</ul></li>
+<li>⏷ <i><code>Unary</code></i>
+<ul class="org-ul">
+<li>⏷ <i><code>Negation</code></i></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 
+</div>
+</div>
+</div>
+
+<div id="outline-container-org97dc5f6" class="outline-3">
+<h3 id="org97dc5f6"><span class="section-number-3">11.5.</span> Class Conjunction</h3>
+<div class="outline-text-3" id="text-11-5">
 <p>
-<b>Super Class:</b> <code>Sentence</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org8499eb7" class="outline-3">
-<h3 id="org8499eb7"><span class="section-number-3">9.5.</span> Class ConjunctiveSentence</h3>
-<div class="outline-text-3" id="text-9-5">
-<p>
-<b>Super Class:</b> <code>BinaryBooleanSentence</code>
-</p>
-
-
-<p>
-<b>Super Class:</b> <code>BinaryBooleanSentence</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgb69c382" class="outline-3">
-<h3 id="orgb69c382"><span class="section-number-3">9.6.</span> Class DisjunctiveSentence</h3>
-<div class="outline-text-3" id="text-9-6">
-<p>
-<b>Super Class:</b> <code>BinaryBooleanSentence</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgfd39d78" class="outline-3">
-<h3 id="orgfd39d78"><span class="section-number-3">9.7.</span> Class Equation</h3>
-<div class="outline-text-3" id="text-9-7">
-<p>
-<b>Super Class:</b> <code>RelationalSentence</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org347c38c" class="outline-3">
-<h3 id="org347c38c"><span class="section-number-3">9.8.</span> Class ExclusiveDisjunctiveSentence</h3>
-<div class="outline-text-3" id="text-9-8">
-<p>
-<b>Super Class:</b> <code>BinaryBooleanSentence</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgff64497" class="outline-3">
-<h3 id="orgff64497"><span class="section-number-3">9.9.</span> Class GreaterThan</h3>
-<div class="outline-text-3" id="text-9-9">
-<p>
-<b>Super Class:</b> <code>RelationalSentence</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org44367f1" class="outline-3">
-<h3 id="org44367f1"><span class="section-number-3">9.10.</span> Class GreaterThanOrEqual</h3>
-<div class="outline-text-3" id="text-9-10">
-<p>
-<b>Super Class:</b> <code>RelationalSentence</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org42d225d" class="outline-3">
-<h3 id="org42d225d"><span class="section-number-3">9.11.</span> Class ImplicationSentence</h3>
-<div class="outline-text-3" id="text-9-11">
-<p>
-<b>Super Class:</b> <code>BinaryBooleanSentence</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org1a94146" class="outline-3">
-<h3 id="org1a94146"><span class="section-number-3">9.12.</span> Class Inequation</h3>
-<div class="outline-text-3" id="text-9-12">
-<p>
-<b>Super Class:</b> <code>RelationalSentence</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgf7c755a" class="outline-3">
-<h3 id="orgf7c755a"><span class="section-number-3">9.13.</span> Class LessThan</h3>
-<div class="outline-text-3" id="text-9-13">
-<p>
-<b>Super Class:</b> <code>RelationalSentence</code>
+Corresponds the expression to <code>A and B</code>, or \(A \land B\).
 </p>
 
+<div class="HIERARCHY" id="org065f829">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Boolean</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Binary</code></i>
+<ul class="org-ul">
+<li>∘ <code>Conjunction</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 
-<p>
-<b>Super Class:</b> <code>RelationalSentence</code>
-</p>
 </div>
-</div>
-
-<div id="outline-container-orgebb9ee0" class="outline-3">
-<h3 id="orgebb9ee0"><span class="section-number-3">9.14.</span> Class LessThanOrEqual</h3>
-<div class="outline-text-3" id="text-9-14">
-<p>
-<b>Super Class:</b> <code>RelationalSentence</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-orga4d1562" class="outline-3">
-<h3 id="orga4d1562"><span class="section-number-3">9.15.</span> Class NegationSentence</h3>
-<div class="outline-text-3" id="text-9-15">
-<p>
-<b>Super Class:</b> <code>UnaryBooleanSentence</code>
-</p>
 </div>
 </div>
 
-<div id="outline-container-org12c83f9" class="outline-3">
-<h3 id="org12c83f9"><span class="section-number-3">9.16.</span> Abstract Class Sentence</h3>
-</div>
-<div id="outline-container-orgacf815b" class="outline-3">
-<h3 id="orgacf815b"><span class="section-number-3">9.17.</span> Class QuantifiedSentence</h3>
-<div class="outline-text-3" id="text-9-17">
+<div id="outline-container-org6fb4ad2" class="outline-3">
+<h3 id="org6fb4ad2"><span class="section-number-3">11.6.</span> Class Disjunction</h3>
+<div class="outline-text-3" id="text-11-6">
 <p>
-<b>Super Class:</b> <code>Sentence</code>
+Corresponds the expression to <code>A or B</code>, or \(A \lor B\).
 </p>
+
+<div class="HIERARCHY" id="org1965ce8">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Boolean</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Binary</code></i>
+<ul class="org-ul">
+<li>∘ <code>Disjunction</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5d5bb8f" class="outline-3">
+<h3 id="org5d5bb8f"><span class="section-number-3">11.7.</span> Class Equation</h3>
+<div class="outline-text-3" id="text-11-7">
+<p>
+Corresponds the expression to <code>A = B</code>, or \(A = B\).
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org9754ae1">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Simple</code></i>
+<ul class="org-ul">
+<li>⏶ <code>Atomic</code></li>
+<li>⏶ <i><code>Relational</code></i>
+<ul class="org-ul">
+<li>∘ <code>Equation</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org032d9a8" class="outline-3">
+<h3 id="org032d9a8"><span class="section-number-3">11.8.</span> Class Exclusive Disjunction</h3>
+<div class="outline-text-3" id="text-11-8">
+<p>
+Corresponds the expression to <code>A xor B</code>, or \(A \veebar B\).
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgddecc57">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Boolean</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Binary</code></i>
+<ul class="org-ul">
+<li>∘ <code>ExclusiveDisjunction</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4a6aaa9" class="outline-3">
+<h3 id="org4a6aaa9"><span class="section-number-3">11.9.</span> Class Greater Than</h3>
+<div class="outline-text-3" id="text-11-9">
+<p>
+Corresponds the expression to <code>A &gt; B</code>, or \(A \gt B\).
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org88c78cb">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Simple</code></i>
+<ul class="org-ul">
+<li>⏶ <code>Atomic</code></li>
+<li>⏶ <i><code>Relational</code></i>
+<ul class="org-ul">
+<li>∘ <code>GreaterThan</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org020953b" class="outline-3">
+<h3 id="org020953b"><span class="section-number-3">11.10.</span> Class Greater Than Or Equal</h3>
+<div class="outline-text-3" id="text-11-10">
+<p>
+Corresponds the expression to <code>A &gt;= B</code>, or \(A \geq B\).
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgdee4e3e">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Simple</code></i>
+<ul class="org-ul">
+<li>⏶ <code>Atomic</code></li>
+<li>⏶ <i><code>Relational</code></i>
+<ul class="org-ul">
+<li>∘ <code>GreaterThanOrEqual</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfe96f56" class="outline-3">
+<h3 id="orgfe96f56"><span class="section-number-3">11.11.</span> Class Implication</h3>
+<div class="outline-text-3" id="text-11-11">
+<p>
+Corresponds the expression to <code>A implies B</code>, or \(A \implies B\).
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org3121fdc">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Boolean</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Binary</code></i>
+<ul class="org-ul">
+<li>∘ <code>Implication</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2ce9391" class="outline-3">
+<h3 id="org2ce9391"><span class="section-number-3">11.12.</span> Class Less Than</h3>
+<div class="outline-text-3" id="text-11-12">
+<p>
+Corresponds the expression to <code>A &lt;= B</code>, or \(A \lt B\).
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orge509ac3">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Simple</code></i>
+<ul class="org-ul">
+<li>⏶ <code>Atomic</code></li>
+<li>⏶ <i><code>Relational</code></i>
+<ul class="org-ul">
+<li>∘ <code>LessThan</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org77ca934" class="outline-3">
+<h3 id="org77ca934"><span class="section-number-3">11.13.</span> Class Less Than Or Equal</h3>
+<div class="outline-text-3" id="text-11-13">
+<p>
+Corresponds the expression to <code>A &lt;= B</code>, or \(A \leq B\).
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org54401ac">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Simple</code></i>
+<ul class="org-ul">
+<li>⏶ <code>Atomic</code></li>
+<li>⏶ <i><code>Relational</code></i>
+<ul class="org-ul">
+<li>∘ <code>LessThanOrEqual</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org78c0a7c" class="outline-3">
+<h3 id="org78c0a7c"><span class="section-number-3">11.14.</span> Class Negation</h3>
+<div class="outline-text-3" id="text-11-14">
+<p>
+Corresponds the expression to <code>not A</code>, or \(\neg A\).
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org25e58cf">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Boolean</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Unary</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>Negation</code></i></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-orged8c2a2" class="outline-3">
+<h3 id="orged8c2a2"><span class="section-number-3">11.15.</span> Abstract Class Sentence</h3>
+<div class="outline-text-3" id="text-11-15">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org1513d1e">
+<ul class="org-ul">
+<li>∘ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏷ <i><code>Boolean</code></i>
+<ul class="org-ul">
+<li>⏷ <i><code>Binary</code></i>
+<ul class="org-ul">
+<li>⏷ <code>Biconditional</code></li>
+<li>⏷ <code>Conjunction</code></li>
+<li>⏷ <code>Disjunction</code></li>
+<li>⏷ <code>ExclusiveDisjunction</code></li>
+<li>⏷ <code>Implication</code></li>
+</ul></li>
+<li>⏷ <i><code>Unary</code></i>
+<ul class="org-ul">
+<li>⏷ <i><code>Negation</code></i></li>
+</ul></li>
+</ul></li>
+<li>⏷ <code>Quantified</code></li>
+<li>⏷ <i><code>Simple</code></i>
+<ul class="org-ul">
+<li>⏷ <code>Atomic</code></li>
+<li>⏷ <i><code>Relational</code></i>
+<ul class="org-ul">
+<li>⏷ <code>Equation</code></li>
+<li>⏷ <code>GreaterThan</code></li>
+<li>⏷ <code>GreaterThanOrEqual</code></li>
+<li>⏷ <code>LessThan</code></li>
+<li>⏷ <code>LessThanOrEqual</code></li>
+<li>⏷ <code>StrictInequation</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 30:</span> Properties on class QuantifiedSentence</caption>
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-right" />
-
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">Name</th>
-<th scope="col" class="org-left">Type</th>
-<th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left"><code>binding</code></td>
-<td class="org-left"><code>Sentence</code></td>
-<td class="org-right">1</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left"><code>body</code></td>
-<td class="org-left"><code>QuantifiedVariableBinding</code></td>
-<td class="org-right">1</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-
-<div id="outline-container-org841b123" class="outline-3">
-<h3 id="org841b123"><span class="section-number-3">9.18.</span> Class QuanntifiedVariable</h3>
-</div>
-<div id="outline-container-org68999c8" class="outline-3">
-<h3 id="org68999c8"><span class="section-number-3">9.19.</span> Class QuanntifiedVariableBinding</h3>
-</div>
-<div id="outline-container-org8fa9774" class="outline-3">
-<h3 id="org8fa9774"><span class="section-number-3">9.20.</span> Enum Quantifier</h3>
-</div>
-<div id="outline-container-org6a4a5c9" class="outline-3">
-<h3 id="org6a4a5c9"><span class="section-number-3">9.21.</span> Abstract Class RelationalSentence</h3>
-<div class="outline-text-3" id="text-9-21">
-<p>
-<b>Super Class:</b> <code>SimpleSentence</code>
-</p>
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 31:</span> Properties on class RelationalSentence</caption>
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-right" />
-
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">Name</th>
-<th scope="col" class="org-left">Type</th>
-<th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left"><code>lhs</code></td>
-<td class="org-left"><code>Term</code></td>
-<td class="org-right">1</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left"><code>rhs</code></td>
-<td class="org-left"><code>Term</code></td>
-<td class="org-right">1</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-
-
-<div id="outline-container-orgc5ea563" class="outline-3">
-<h3 id="orgc5ea563"><span class="section-number-3">9.22.</span> Abstract Class SimpleSentence</h3>
-<div class="outline-text-3" id="text-9-22">
-<p>
-<b>Super Class:</b> <code>Sentence</code>
-</p>
-
-
-<p>
-<b>Super Class:</b> <code>Sentence</code>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org13b96f5" class="outline-3">
-<h3 id="org13b96f5"><span class="section-number-3">9.23.</span> Abstract Class UnaryBooleanSentence</h3>
-<div class="outline-text-3" id="text-9-23">
-<p>
-<b>Super Class:</b> <code>BooleanSentence</code>
-</p>
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 32:</span> Properties on class RelationalSentence</caption>
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-right" />
-
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">Name</th>
-<th scope="col" class="org-left">Type</th>
-<th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left"><code>rhs</code></td>
-<td class="org-left"><code>Sentence</code></td>
-<td class="org-right">1</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-
-
-
-
-<div id="outline-container-orgf061e4e" class="outline-2">
-<h2 id="orgf061e4e"><span class="section-number-2">10.</span> Package Constraint Terms</h2>
-<div class="outline-text-2" id="text-10">
-
-<div id="orgda7c6fd" class="figure">
-<p><img src="./metamodel-constraint-terms.svg" alt="metamodel-constraint-terms.svg" class="org-svg" />
-</p>
-<p><span class="figure-number">Figure 11: </span>The Constraint Terms Package</p>
-</div>
-</div>
-
-<div id="outline-container-org600177d" class="outline-3">
-<h3 id="org600177d"><span class="section-number-3">10.1.</span> Class FunctionalTerm</h3>
-<div class="outline-text-3" id="text-10-1">
-<p>
-<b>Super Class:</b> <code>Term</code>
-</p>
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 33:</span> Properties on class FunctionalTerm</caption>
+<caption class="t-above"><span class="table-number">Table 38:</span> Properties on class Sentence</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -1998,7 +3614,427 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-left">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+nested</code></td>
+<td class="org-left"><code>Sentence</code></td>
+<td class="org-left">0..*</td>
+<td class="org-left">Any sentences that are nested within this sentence.</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>+parent</code></td>
+<td class="org-left"><code>Sentence</code></td>
+<td class="org-left">0..1</td>
+<td class="org-left">The parent of this sentence, if nested.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org985581e" class="outline-3">
+<h3 id="org985581e"><span class="section-number-3">11.16.</span> Class Quantified</h3>
+<div class="outline-text-3" id="text-11-16">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgb8363c4">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>∘ <code>Quantified</code></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 39:</span> Properties on class Quantified</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-left">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+binding</code></td>
+<td class="org-left"><code>QuantifiedVariableBinding</code></td>
+<td class="org-left"><code>1</code></td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>+body</code></td>
+<td class="org-left"><code>Sentence</code></td>
+<td class="org-left"><code>1</code></td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgdce188c" class="outline-3">
+<h3 id="orgdce188c"><span class="section-number-3">11.17.</span> Class Quantified Variable</h3>
+<div class="outline-text-3" id="text-11-17">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgf243aa7">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>∘ <code>QuantifiedVariable</code></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 40:</span> Properties on class Quantified Variable</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-left">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+sequence</code></td>
+<td class="org-left"><code>Term</code></td>
+<td class="org-left"><code>1</code></td>
+<td class="org-left">Identifies a term that yields a sequence to be iterated over.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org420dea1" class="outline-3">
+<h3 id="org420dea1"><span class="section-number-3">11.18.</span> Class Quantified Variable Binding</h3>
+<div class="outline-text-3" id="text-11-18">
+<div class="HIERARCHY" id="orgd1cacb1">
+<ul class="org-ul">
+<li>∘ <code>QuantifiedVariableBinding</code></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 41:</span> Properties on class Quantified Variable Binding</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-left">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+quantifier</code></td>
+<td class="org-left"><code>Quantifier</code></td>
+<td class="org-left"><code>1</code></td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>+variable</code></td>
+<td class="org-left"><code>QuantifiedVariable</code></td>
+<td class="org-left"><code>1</code></td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org9e0bbc7" class="outline-3">
+<h3 id="org9e0bbc7"><span class="section-number-3">11.19.</span> Enum Quantifier</h3>
+<div class="outline-text-3" id="text-11-19">
+<dl class="org-dl">
+<dt>Universal</dt><dd>Corresponds to the keyword <code>forall</code> or the operator ∀.</dd>
+<dt>Existential</dt><dd>Corresponds to the keyword <code>exists</code> or the operator ∃</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-org30ff813" class="outline-3">
+<h3 id="org30ff813"><span class="section-number-3">11.20.</span> Abstract Class Relational</h3>
+<div class="outline-text-3" id="text-11-20">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org4da2abf">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Simple</code></i>
+<ul class="org-ul">
+<li>⏶ <code>Atomic</code></li>
+<li>∘ <i><code>Relational</code></i>
+<ul class="org-ul">
+<li>⏷ <code>Equation</code></li>
+<li>⏷ <code>GreaterThan</code></li>
+<li>⏷ <code>GreaterThanOrEqual</code></li>
+<li>⏷ <code>LessThan</code></li>
+<li>⏷ <code>LessThanOrEqual</code></li>
+<li>⏷ <code>StrictInequation</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 42:</span> Properties on class Relational</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-right">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>lhs</code></td>
+<td class="org-left"><code>Term</code></td>
+<td class="org-right">1</td>
+<td class="org-left">Subsets the association <code>nested</code>.</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>rhs</code></td>
+<td class="org-left"><code>Term</code></td>
+<td class="org-right">1</td>
+<td class="org-left">Subsets the association <code>nested</code>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org040b884" class="outline-3">
+<h3 id="org040b884"><span class="section-number-3">11.21.</span> Abstract Class Simple</h3>
+<div class="outline-text-3" id="text-11-21">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgdec74ef">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>Simple</code></i>
+<ul class="org-ul">
+<li>⏷ <code>Atomic</code></li>
+<li>⏷ <i><code>Relational</code></i>
+<ul class="org-ul">
+<li>⏷ <code>Equation</code></li>
+<li>⏷ <code>GreaterThan</code></li>
+<li>⏷ <code>GreaterThanOrEqual</code></li>
+<li>⏷ <code>LessThan</code></li>
+<li>⏷ <code>LessThanOrEqual</code></li>
+<li>⏷ <code>StrictInequation</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org408adcc" class="outline-3">
+<h3 id="org408adcc"><span class="section-number-3">11.22.</span> Class Strict Inequation</h3>
+<div class="outline-text-3" id="text-11-22">
+<p>
+Corresponds the expression to <code>A /= B</code>, or \(A \ne B\).
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orge330e43">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Simple</code></i>
+<ul class="org-ul">
+<li>⏶ <code>Atomic</code></li>
+<li>⏶ <i><code>Relational</code></i>
+<ul class="org-ul">
+<li>∘ <code>StrictInequation</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org74fe102" class="outline-3">
+<h3 id="org74fe102"><span class="section-number-3">11.23.</span> Abstract Class Unary</h3>
+<div class="outline-text-3" id="text-11-23">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org309465d">
+<ul class="org-ul">
+<li>⏶ <i><code>Sentence</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Boolean</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>Unary</code></i>
+<ul class="org-ul">
+<li>⏷ <code>Negation</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 43:</span> Properties on class Unary</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-left">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+rhs</code></td>
+<td class="org-left"><code>Sentence</code></td>
+<td class="org-left"><code>1</code></td>
+<td class="org-left">Subsets the association <code>nested</code>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc5790ed" class="outline-2">
+<h2 id="orgc5790ed"><span class="section-number-2">12.</span> Package Constraint Terms</h2>
+<div class="outline-text-2" id="text-12">
+
+<div id="orgb8b7289" class="figure">
+<p><img src="./metamodel-constraint-terms.svg" alt="metamodel-constraint-terms.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 16: </span>The Constraint Terms Package</p>
+</div>
+</div>
+
+<div id="outline-container-org2d8e4d2" class="outline-3">
+<h3 id="org2d8e4d2"><span class="section-number-3">12.1.</span> Class FunctionalTerm</h3>
+<div class="outline-text-3" id="text-12-1">
+<p>
+Corresponds to <code>function(...arguments)</code> or \(f(a_0,\cdots, a_n)\)
+</p>
+
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgbb89847">
+<ul class="org-ul">
+<li>⏶ <i><code>Term</code></i>
+<ul class="org-ul">
+<li>∘ <code>FunctionalTerm</code></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 44:</span> Properties on class FunctionalTerm</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-left">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -2020,15 +4056,29 @@
 </div>
 </div>
 
-<div id="outline-container-org0982c0e" class="outline-3">
-<h3 id="org0982c0e"><span class="section-number-3">10.2.</span> Class MappingSequenceVariables</h3>
-<div class="outline-text-3" id="text-10-2">
+<div id="outline-container-org0540af3" class="outline-3">
+<h3 id="org0540af3"><span class="section-number-3">12.2.</span> Class MappingSequenceVariables</h3>
+<div class="outline-text-3" id="text-12-2">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgf916eff">
+<ul class="org-ul">
+<li>⏶ <i><code>SequenceVariables</code></i>
+<ul class="org-ul">
+<li>∘ <code>MappingSequenceVariables</code></li>
+</ul></li>
+</ul>
+
+</div>
+
 <p>
 <b>Super Class:</b> <code>SequenceVariables</code>
 </p>
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 34:</span> Properties on class MappingSequenceVariables</caption>
+<caption class="t-above"><span class="table-number">Table 45:</span> Properties on class MappingSequenceVariables</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -2044,7 +4094,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -2066,15 +4116,30 @@
 </div>
 </div>
 
-<div id="outline-container-org589be1d" class="outline-3">
-<h3 id="org589be1d"><span class="section-number-3">10.3.</span> Class SequenceBuilder</h3>
-<div class="outline-text-3" id="text-10-3">
+<div id="outline-container-org71b53ba" class="outline-3">
+<h3 id="org71b53ba"><span class="section-number-3">12.3.</span> Class SequenceBuilder</h3>
+<div class="outline-text-3" id="text-12-3">
 <p>
-<b>Super Class:</b> <code>Term</code>
+Corresponds to <code>{a | forall a, id(a)}</code>
+or \(\left\{ a | \forall a id(a) \right\}\)
 </p>
 
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org4658a6f">
+<ul class="org-ul">
+<li>⏶ <i><code>Term</code></i>
+<ul class="org-ul">
+<li>∘ <code>SequenceBuilder</code></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 35:</span> Properties on class SequenceBuilder</caption>
+<caption class="t-above"><span class="table-number">Table 46:</span> Properties on class SequenceBuilder</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -2090,7 +4155,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-right">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -2112,18 +4177,41 @@
 </div>
 </div>
 
-<div id="outline-container-org87f4554" class="outline-3">
-<h3 id="org87f4554"><span class="section-number-3">10.4.</span> Abstract Class SequenceVariables</h3>
-</div>
-<div id="outline-container-org9b9d4a3" class="outline-3">
-<h3 id="org9b9d4a3"><span class="section-number-3">10.5.</span> Class SequenceVariableSet</h3>
-<div class="outline-text-3" id="text-10-5">
+<div id="outline-container-org41e5dfc" class="outline-3">
+<h3 id="org41e5dfc"><span class="section-number-3">12.4.</span> Abstract Class SequenceVariables</h3>
+<div class="outline-text-3" id="text-12-4">
 <p>
-<b>Super Class:</b> <code>SequenceVariables</code>
+<b>Hierarchy</b>
 </p>
 
+<div class="HIERARCHY" id="orgbedcd3e">
+<ul class="org-ul">
+<li>∘ <i><code>SequenceVariables</code></i></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf104dd6" class="outline-3">
+<h3 id="orgf104dd6"><span class="section-number-3">12.5.</span> Class SequenceVariableSet</h3>
+<div class="outline-text-3" id="text-12-5">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orga7de049">
+<ul class="org-ul">
+<li>⏶ <i><code>SequenceVariables</code></i>
+<ul class="org-ul">
+<li>∘ <code>SequenceVariableSet</code></li>
+</ul></li>
+</ul>
+
+</div>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption class="t-above"><span class="table-number">Table 36:</span> Properties on class SequenceVariableSet</caption>
+<caption class="t-above"><span class="table-number">Table 47:</span> Properties on class SequenceVariableSet</caption>
 
 <colgroup>
 <col  class="org-left" />
@@ -2139,7 +4227,7 @@
 <th scope="col" class="org-left">Name</th>
 <th scope="col" class="org-left">Type</th>
 <th scope="col" class="org-left">Cardinality</th>
-<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -2154,14 +4242,520 @@
 </div>
 </div>
 
-<div id="outline-container-org652ef10" class="outline-3">
-<h3 id="org652ef10"><span class="section-number-3">10.6.</span> Abstract Class Term</h3>
+<div id="outline-container-orgcba61ed" class="outline-3">
+<h3 id="orgcba61ed"><span class="section-number-3">12.6.</span> Abstract Class Term</h3>
+<div class="outline-text-3" id="text-12-6">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org2411207">
+<ul class="org-ul">
+<li>∘ <i><code>Term</code></i>
+<ul class="org-ul">
+<li>⏷ <code>FunctionalTerm</code></li>
+<li>⏷ <code>Name</code></li>
+<li>⏷ <code>SequenceBuilder</code></li>
+<li>⏷ <code>Value</code></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge5f1aa3" class="outline-2">
+<h2 id="orge5f1aa3"><span class="section-number-2">13.</span> Package Constraint Environments</h2>
+<div class="outline-text-2" id="text-13">
+
+<div id="orgeba4978" class="figure">
+<p><img src="./metamodel-constraint-environments.svg" alt="metamodel-constraint-environments.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 17: </span>The Constraint Environments Package</p>
+</div>
+</div>
+
+<div id="outline-container-orgf5c7436" class="outline-3">
+<h3 id="orgf5c7436"><span class="section-number-3">13.1.</span> Abstract Class Constant</h3>
+<div class="outline-text-3" id="text-13-1">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org5f6c3f7">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i></li>
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>EnvironmentDefinition</code></i>
+<ul class="org-ul">
+<li>∘ <code>Constant</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3ac27bc" class="outline-3">
+<h3 id="org3ac27bc"><span class="section-number-3">13.2.</span> Abstract Class Environment Definition</h3>
+<div class="outline-text-3" id="text-13-2">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org84c76fc">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>∘ <i><code>EnvironmentDefinition</code></i>
+<ul class="org-ul">
+<li>⏷ <i><code>Constant</code></i>
+<ul class="org-ul">
+<li>⏷ <code>ConstantSentence</code></li>
+<li>⏷ <code>ConstantValue</code></li>
+</ul></li>
+<li>⏷ <code>Function</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3c5a04b" class="outline-3">
+<h3 id="org3c5a04b"><span class="section-number-3">13.3.</span> Class Function</h3>
+<div class="outline-text-3" id="text-13-3">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org12a0943">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>EnvironmentDefinition</code></i>
+<ul class="org-ul">
+<li>∘ <code>Function</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 48:</span> Properties on class Function</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-left">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+body</code></td>
+<td class="org-left"><code>Sentence</code></td>
+<td class="org-left">1</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>+parameters</code></td>
+<td class="org-left"><code>Parameter</code></td>
+<td class="org-left">0..*</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgadb099b" class="outline-3">
+<h3 id="orgadb099b"><span class="section-number-3">13.4.</span> Class Parameter</h3>
+<div class="outline-text-3" id="text-13-4">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org964810e">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i></li>
+<li>⏶ <i><code>Typed</code></i>
+<ul class="org-ul">
+<li>∘ <code>Parameter</code></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org77f0970" class="outline-2">
+<h2 id="org77f0970"><span class="section-number-2">14.</span> Package Type Classes</h2>
+<div class="outline-text-2" id="text-14">
+
+<div id="org87903d8" class="figure">
+<p><img src="./metamodel-type-classes.svg" alt="metamodel-type-classes.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 18: </span>The Type Classes Package</p>
+</div>
+</div>
+
+<div id="outline-container-org467fcd3" class="outline-3">
+<h3 id="org467fcd3"><span class="section-number-3">14.1.</span> Class Method</h3>
+<div class="outline-text-3" id="text-14-1">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org2a43cba">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i></li>
+<li>⏶ <i><code>Named</code></i></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>∘ <code>Method</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 49:</span> Properties on class Method</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-left">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+parameters</code></td>
+<td class="org-left"><code>Parameter</code></td>
+<td class="org-left">0..*</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>+body</code></td>
+<td class="org-left"><code>Sentence</code></td>
+<td class="org-left">0..1</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgeeaff81" class="outline-3">
+<h3 id="orgeeaff81"><span class="section-number-3">14.2.</span> Class Parameter</h3>
+<div class="outline-text-3" id="text-14-2">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgaa3e5f8">
+<ul class="org-ul">
+<li>⏶ <i><code>Typed</code></i></li>
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>∘ <code>Parameter</code></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org54c476b" class="outline-3">
+<h3 id="org54c476b"><span class="section-number-3">14.3.</span> Class Reference Argument</h3>
+<div class="outline-text-3" id="text-14-3">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org92d3b0a">
+<ul class="org-ul">
+<li>∘ <i><code>ReferenceArgument</code></i>
+<ul class="org-ul">
+<li>⏷ <code>ReferenceList</code></li>
+<li>⏷ <code>ReferenceWildcard</code></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9785c2a" class="outline-3">
+<h3 id="org9785c2a"><span class="section-number-3">14.4.</span> Class Reference List</h3>
+<div class="outline-text-3" id="text-14-4">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org6c20fb9">
+<ul class="org-ul">
+<li>⏶ <i><code>ReferenceArgument</code></i>
+<ul class="org-ul">
+<li>∘ <code>ReferenceList</code></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 50:</span> Properties on class Type Class Reference</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-left">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+classes</code></td>
+<td class="org-left"><code>TypeClassReference</code></td>
+<td class="org-left">1..*</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org5db6f3f" class="outline-3">
+<h3 id="org5db6f3f"><span class="section-number-3">14.5.</span> Class Reference Wildcard</h3>
+<div class="outline-text-3" id="text-14-5">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org9050bd6">
+<ul class="org-ul">
+<li>⏶ <i><code>ReferenceArgument</code></i>
+<ul class="org-ul">
+<li>∘ <code>ReferenceWildcard</code></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org75d91be" class="outline-3">
+<h3 id="org75d91be"><span class="section-number-3">14.6.</span> Class Type Class</h3>
+<div class="outline-text-3" id="text-14-6">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org63c0103">
+<ul class="org-ul">
+<li>⏶ <i><code>Namespace&lt;T=Method&gt;</code></i></li>
+<li>⏶ <i><code>Named</code></i></li>
+<li>⏶ <i><code>Annotated</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>Definition</code></i>
+<ul class="org-ul">
+<li>⏶ <i><code>ModuleDefinition</code></i>
+<ul class="org-ul">
+<li>∘ <code>TypeClass</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 51:</span> Properties on class Type Class</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-left">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+variables</code></td>
+<td class="org-left"><code>TypeVariable</code></td>
+<td class="org-left">0..*</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>+methods</code></td>
+<td class="org-left"><code>Method</code></td>
+<td class="org-left">0..*</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org712ce72" class="outline-3">
+<h3 id="org712ce72"><span class="section-number-3">14.7.</span> Class Type Variable</h3>
+<div class="outline-text-3" id="text-14-7">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="org631a80d">
+<ul class="org-ul">
+<li>⏶ <i><code>Named</code></i>
+<ul class="org-ul">
+<li>∘ <code>TypeVariable</code></li>
+</ul></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 52:</span> Properties on class Type Variable</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-left">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+restrictions</code></td>
+<td class="org-left"><code>TypeClassReference</code></td>
+<td class="org-left">0..*</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgc60e7a8" class="outline-3">
+<h3 id="orgc60e7a8"><span class="section-number-3">14.8.</span> Class Type Class Reference</h3>
+<div class="outline-text-3" id="text-14-8">
+<p>
+<b>Hierarchy</b>
+</p>
+
+<div class="HIERARCHY" id="orgeb7df71">
+<ul class="org-ul">
+<li>∘ <code>TypeClassReference</code></li>
+</ul>
+
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 53:</span> Properties on class Type Class Reference</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Type</th>
+<th scope="col" class="org-right">Cardinality</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>+class</code></td>
+<td class="org-left"><code>TypeClass</code></td>
+<td class="org-right">1</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>+arguments</code></td>
+<td class="org-left"><code>ReferenceArgument</code></td>
+<td class="org-right">1</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-11-24 Fri 12:53</p>
+<p class="date">Created: 2023-11-29 Wed 08:54</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

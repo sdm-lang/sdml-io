@@ -10,8 +10,19 @@
 #+OPTIONS: toc:3 ^:{}
 
 #+BEGIN_ABSTRACT
+This document is a non-normative addition to the documentation for The Simple Domain Modeling Language (SDML) and
+describes a UML meta-model for the SDML language.
 #+END_ABSTRACT
 
+* Introduction
+
+While the normative description of SDML exists in the main documentation at [[https://sdml.io]] as an EBNF grammar and
+RDF/OWL Ontology. However, for tool makers, an object model is often more easily consumed and useful for /tool-to-tool/
+integration. The presentation form uses UML (specifically the PlantUML tool) as it is a standard and only commonly used
+elements are used here.
+
+The model is organized into a set of separate packages and these are shown, with their dependencies in figure
+[[fig:metamodel-overview]].
 
 #+NAME: src:metamodel-overview
 #+BEGIN_SRC plantuml :file ./metamodel-overview.svg
@@ -24,18 +35,37 @@ package Foundation {}
 
 package Modules {}
 Modules ..> Foundation: <<import>>
-Modules ..> Annotations: <<import>>
 
 package Annotations {}
-Annotations ..> Datatypes: <<import>>
+Annotations ..> Foundation: <<import>>
 Annotations ..> Values: <<import>>
+
+package Constraints {
+    package Environments {
+    }
+    package Sentences {
+    }
+    package Terms {
+    }
+    Environments ..> Foundation: <<import>>
+    Environments ..> Values: <<import>>
+    Environments ..> Sentences: <<import>>
+    Sentences ..> Foundation: <<import>>
+    Sentences ..> Terms: <<import>>
+    Terms ..> Foundation: <<import>>
+    Terms ..> Values: <<import>>
+}
+Constraints ..> Annotations: <<import>>
+Constraints ..> Datatypes: <<import>>
 
 package Datatypes {}
 Datatypes ..> Foundation: <<import>>
+Datatypes ..> Values: <<import>>
 
-package Sequences {}
-Sequences ..> Foundation: <<import>>
-Sequences ..> Datatypes: <<import>>
+package SequenceTypes {}
+SequenceTypes ..> Foundation: <<import>>
+SequenceTypes ..> Modules: <<import>>
+SequenceTypes ..> Values: <<import>>
 
 package ProductTypes {}
 ProductTypes ..> Foundation: <<import>>
@@ -44,9 +74,13 @@ ProductTypes ..> Modules: <<import>>
 package SumTypes {}
 SumTypes ..> Foundation: <<import>>
 SumTypes ..> Modules: <<import>>
+SumTypes ..> Values: <<import>>
 
 package Values {}
+Values ..> Foundation: <<import>>
 Values ..> Datatypes: <<import>>
+Values ..> SequenceTypes: <<import>>
+Values ..> SumTypes: <<import>>
 
 @enduml
 #+END_SRC
@@ -57,6 +91,9 @@ Values ..> Datatypes: <<import>>
 [[file:./metamodel-overview.svg]]
 
 * Package Foundation
+
+This package contains the basic semantic components from which the rest of the language is built. Certain classes here
+are /paired/, so ~Type~ and ~Typed~, ~Name~ and ~Named~, and ~Named~ and ~Namespace~. 
 
 #+NAME: src:metamodel-foundation
 #+BEGIN_SRC plantuml :file ./metamodel-foundation.svg
@@ -74,13 +111,17 @@ package Foundation {
     class Name {}
     
     g_Namespace ..> Named
-    Named *---right---> "identity\l1" Name
+    Named *---right---> "identity\r1" Name
+
+    abstract class Definition {}
+    Definition -up-|> Named
+    Definition ---> "parent\r0..1" Definition
 
     abstract class Type {}
     abstract class Typed {}
 
     Type -up-|> Named
-    Typed "members\r0..*" ---left---> "type\l1..*" Type
+    Typed "members\r0..*" -up-> "type\l1..*" Type
 }
 @enduml
 #+END_SRC
@@ -90,39 +131,107 @@ package Foundation {
 #+RESULTS: src:metamodel-foundation
 [[file:./metamodel-foundation.svg]]
 
+** Abstract Class Definition
+
+Some element in the model that acts as a definition, i.e. a classifier.
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+- ⏶ /=Annotated=/
+  - ∘ /=Definition=/
+    - ⏷ /=ModuleDefinition=/
+#+END_HIERARCHY
+    
 ** Class Name
+
+The name of something in the model, names must be unique within any enclosing namespace.
+
+Syntax: ="/\p{Lu}\p{Ll}][\p{Lu}\p{Ll}\p{Nd}]*(_[\p{Lu}\p{Ll}\p{Nd}]+)*/"=
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ =String=
+  - ∘ =Name=
+#+END_HIERARCHY
 
 ** Abstract Class Named
 
+A base class for named model elements, often members of a namespace.
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ∘ /=Named=/
+  - ⏷ /=Definition=/
+  - ⏷ /=Type=/
+#+END_HIERARCHY
+
 #+CAPTION: Properties on class Named
-| Name     | Type | Cardinality | Default |
-|----------+------+-------------+---------|
-| =identity= | =Name= |           1 |         |
+| Name     | Type | Cardinality | Notes                   |
+|----------+------+-------------+-------------------------|
+| =identity= | =Name= |           1 | The type of a model element's name. |
 
 ** Abstract Class Namespace
+
+A base class for model elements that contain other, named, elements. This can be thought of as a hash map, or
+dictionary, where the name of the element becomes it's key.
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ∘ /=Namespace=/
+#+END_HIERARCHY
 
 *Generic Parameters:* =T extends Named=
 
 #+CAPTION: Properties on class Namespace
-| Name    | Type | Cardinality | Default |
-|---------+------+-------------+---------|
-| =members= | =T=    | 0..*        |         |
+| Name    | Type | Cardinality | Notes                                                |
+|---------+------+-------------+------------------------------------------------------|
+| =members= | =T=    | 0..*        | members must have unique names within the namespace. |
 
 ** Abstract Class Type
+
+The base class of all model elements that may be treated as types. All types are named.
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ∘ /=Type=/
+    - ⏷ /=Datatype=/
+    - ⏷ =Enum=
+    - ⏷ =MappingType=
+    - ⏷ =SequenceType=
+    - ⏷ =Structure=
+      - ⏷ =Entity=
+      - ⏷ =Event=
+    - ⏷ =Union=
+#+END_HIERARCHY
 
 *Super-Class:* =Named=
 
 #+CAPTION: Properties on class Type
-| Name    | Type  | Cardinality | Default |
-|---------+-------+-------------+---------|
-| =members= | =Typed= | 0..*        |         |
+| Name    | Type  | Cardinality | Notes                                       |
+|---------+-------+-------------+---------------------------------------------|
+| =members= | =Typed= | 0..*        | The model elements declared with this type. |
+|         |       |             |                                             |
 
 ** Abstract Class Typed
 
+A base class for model elements that are typed, and therefore have a association to a type.
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ∘ /=Typed=/
+#+END_HIERARCHY
+
 #+CAPTION: Properties on class Typed
-| Name | Type | Cardinality | Default |
+| Name | Type | Cardinality | Notes |
 |------+------+-------------+---------|
-| =type= | =Type= | 1..*        |         |
+| =type= | =Type= | 1..*        | The type, or types, of this model element. |
 
 * Package Modules
 
@@ -136,30 +245,32 @@ hide methods
 
 package Foundation {
     hide members
-    abstract class Named
-    abstract class "Namespace<T extends Named>" as g_Namespace {}
-}
-package Annotations {
-    hide members
-    class Annotated {}
+    abstract class Definition
+    abstract class "Namespace<T extends Named>" as g_Namespace
 }
 
 package Modules {
-    abstract class Definition {}
     class "Module<T=ModuleDefinition>" as g_Module {}
     abstract class ModuleDefinition {}
-    
-    Definition -up-|> Annotated
-    Definition -down-|> Named
-    
+        
     g_Module -up-|> Definition
     g_Module -down-|> g_Namespace
+    g_Module .down.> ModuleDefinition
 
     ModuleDefinition -up-|> Definition
+
+    abstract class Import
+    class ModuleImport
+    class ModuleDefinitionImport
+
+    g_Module -> "+imports\n0..*" Import
+    ModuleImport -up-|> Import
+    ModuleImport -> "+import" g_Module
+    ModuleDefinitionImport -up-|> Import
+    ModuleDefinitionImport -> "+import" ModuleDefinition
 }
 
 Modules .up.> Foundation: <<import>>
-Modules .down.> Annotations: <<import>>
 @enduml
 #+END_SRC
 
@@ -168,17 +279,91 @@ Modules .down.> Annotations: <<import>>
 #+RESULTS: src:metamodel-models
 [[file:./metamodel-models.svg]]
 
-** Abstract Class Definition
+** Abstract Class Import
 
-*Super-Class:* =Annotated=, =Named=
+A association from a module to another module, or module definition, to make it available for use.
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ∘ /=Import=/
+      - ⏷ =ModuleImport=
+      - ⏷ =ModuleDefinitionImport=
+#+END_HIERARCHY
 
 ** Class Module
 
-*Super-Class:* =Definition=, =Namespace<ModuleDefinition>=
+A named set of related definitions. The module is a namespace for top-level definitions that are therefore name-unique
+within the module.
+*Hierarchy*
 
-** Abstract Class ModuleDefinition
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+- ⏶ /=Namespace<T=ModuleDefinition>=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ∘ =Module=
+#+END_HIERARCHY
 
-*Super-Class:* =Definition=
+#+CAPTION: Properties on class Module
+| Name     | Type   | Cardinality | Notes |
+|----------+--------+-------------+-------|
+| =+imports= | =Import= | =0..*=      | The set of imported definitions. |
+
+** Abstract Class Module Definition
+
+A module-level, or top-level, definition is one that is directly a member of a module.
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ∘ /=ModuleDefinition=/
+      - ⏷ /=Datatype=/ ...
+      - ⏷ =Enum=
+      - ⏷ =MappingType=
+      - ⏷ =Property=
+      - ⏷ =SequenceType=
+      - ⏷ =Structure=
+        - ⏷ =Entity=
+        - ⏷ =Event=
+      - ⏷ =TypeClass=
+      - ⏷ =Union=
+#+END_HIERARCHY
+
+** Abstract Class Module Definition Import
+
+A association from a module to an external module definition to make it available for use.
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Import=/
+  - ∘ =ModuleDefinitionImport=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Module Definition Import
+| Name    | Type             | Cardinality | Notes                          |
+|---------+------------------+-------------+--------------------------------|
+| =+import= | =ModuleDefinition= | =1=           | An imported module definition. |
+
+** Abstract Class Module Import
+
+A association from a module to another module to make it's definitions available for use.
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Import=/
+  - ∘ =ModuleImport=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Module Import
+| Name    | Type   | Cardinality | Notes               |
+|---------+--------+-------------+---------------------|
+| =+import= | =Module= | =1=           | An imported module. |
 
 * Package Annotations
 
@@ -190,57 +375,43 @@ skinparam linetype polyline
 skinparam nodesep 50
 hide methods
 
-package Datatypes {
-    hide members
-    class String {}
-}
-
 package Foundation {
     hide members
-    class Named {}
+    abstract class Definition
+    abstract class Named
+    abstract class Typed
+}
+
+package Datatypes {
+    hide members
+    class Boolean
 }
 
 package Values {
     hide members
-    class Value {}
-}
-
-package Constraints {
-    package Values {
-        hide members
-        abstract class Sentence {}
-    }
+    class Valued
 }
 
 package Annotations {
-    abstract class Annotated {}
     abstract class Annotation {}
-    class AnnotationProperty {
-        +value: Value
-    }
-    
-    Annotated "subject\l1" *---right--> "annotations\r0..*" Annotation
-
     Annotation -up-|> Named
     
+    class AnnotationProperty {}
     AnnotationProperty -up-|> Annotation
+    AnnotationProperty -up-|> Valued
     
-    abstract class Constraint {}
-    class InformalConstraint {
-        +text: String
-    }
-    class FormalConstraint {
-        +sentence: Sentence
-    }
-    
+    abstract class Constraint
     Constraint -up-|> Annotation
-    InformalConstraint -up-|> Constraint
-    FormalConstraint -up-|> Constraint
+    Constraint -up-|> Typed
+    Constraint --> "{subsets type}" Boolean
+
+    abstract class Annotated {}
+    Annotated "subject\l1" *--right--> "\rannotations\r0..*" Annotation
+    Definition -up-|> Annotated
 }
 
-Annotations .down.> Datatypes: <<import>>
 Annotations .up.> Foundation: <<import>>
-Annotations .down.> Values: <<import>>
+Annotations .left.> Values: <<import>>
 @enduml
 #+END_SRC
 
@@ -251,50 +422,66 @@ Annotations .down.> Values: <<import>>
 
 ** Abstract Class Annotated
 
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ∘ /=Annotated=/
+  - ⏷ /=Definition=/
+#+END_HIERARCHY
+
 #+CAPTION: Properties on class Annotated
-| Name        | Type       | Cardinality | Default |
+| Name        | Type       | Cardinality | Notes |
 |-------------+------------+-------------+---------|
 | =annotations= | =Annotation= | 0..*        |         |
 
 ** Abstract Class Annotation
 
-*Super Class:* =Named=
+*Hierarchy*
 
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ∘ /=Annotation=/
+    - ⏷ /=AnnotationProperty=/
+    - ⏷ /=Constraint=/
+      - ⏷ =FormalConstraint=
+      - ⏷ =InformalControlledLanguageConstraint=
+      - ⏷ =InformalNaturalLanguageConstraint=
+#+END_HIERARCHY
+ 
 #+CAPTION: Properties on class Annotation
-| Name   | Type      | Cardinality | Default |
+| Name   | Type      | Cardinality | Notes |
 |--------+-----------+-------------+---------|
 | =subject= | =Annotated= |           1 |         |
 
-** Class AnnotationProperty
+** Class Annotation Property
 
-*Super Class:* =Annotation=
+*Hierarchy*
 
-#+CAPTION: Properties on class AnnotationProperty
-| Name  | Type  | Cardinality | Default |
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Annotation=/
+  - ⏶ /=Valued=/
+    - ∘ =AnnotationProperty=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Annotation Property
+| Name  | Type  | Cardinality | Notes |
 |-------+-------+-------------+---------|
 | =value= | =Value= |           1 |         |
 
 ** Abstract Class Constraint
 
-*Super Class:* =Annotation=
+*Hierarchy*
 
-** Class FormalConstraint
-
-*Super Class:* =Constraint=
-
-#+CAPTION: Properties on class FormalConstraint
-| Name       | Type | Cardinality | Default |
-|------------+------+-------------+---------|
-| =expression= |      |           1 |         |
-
-** Class InformalConstraint
-
-*Super Class:* =Constraint=
-
-#+CAPTION: Properties on class InformalConstraint
-| Name  | Type  | Cardinality | Default |
-|-------+-------+-------------+---------|
-| =text= | =String= |           1 |         |
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Annotation=/
+  - ⏶ /=Valued=/
+    - ∘ /=Constraint=/
+      - ⏷ =FormalConstraint=
+      - ⏷ =InformalControlledLanguageConstraint=
+      - ⏷ =InformalNaturalLanguageConstraint=
+#+END_HIERARCHY
 
 * Package Datatypes
 
@@ -308,6 +495,7 @@ hide methods
 
 package Foundation {
     hide members
+    class Name {}
     abstract class Type {}
 }
 
@@ -320,6 +508,8 @@ package Datatypes {
     abstract class Datatype {}
     Datatype -up-|> Type
     Datatype -up-|> ModuleDefinition
+
+    Datatype ---> "restricts\r0..1" Datatype
     
     class Binary {}
     Binary -up-|> Datatype
@@ -337,6 +527,13 @@ package Datatypes {
     Unsigned -up-|> Datatype
     class Uri{}
     Uri -up-|> Datatype
+
+    class LanguageTag {}
+    class LanguageTaggedString {}
+    LanguageTaggedString -up-|> String
+    LanguageTaggedString *---right---> "+tag\r1" LanguageTag
+
+    Name -up-|> String
 }
 
 Datatypes .up.> Foundation: <<import>>
@@ -348,41 +545,224 @@ Datatypes .up.> Modules: <<import>>
 #+RESULTS: src:metamodel-datatypes
 [[file:./metamodel-datatypes.svg]]
 
+#+NAME: src:metamodel-datatype-languages
+#+BEGIN_SRC plantuml :file ./metamodel-datatype-languages.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package iso_639 {
+    hide members
+    enum LanguageCodeTwoChar {}
+    enum LanguageCodeThreeChar {}
+    enum LanguageSubTagCode {}
+}
+
+package iso_15924 {
+    hide members
+    enum ScriptCode {}
+}
+
+package iso_3166 {
+    hide members
+    enum RegionCodeTwoCharacter {}
+}
+
+package un_m49 {
+    hide members
+    enum RegionNumericCode {}
+}
+
+package Datatypes {
+
+    enum LanguageCode {}
+    LanguageCodeTwoChar -up-|> LanguageCode
+    LanguageCodeThreeChar -up-|> LanguageCode
+
+    enum RegionCode {}
+    RegionCodeTwoCharacter -up-|> RegionCode
+    RegionNumericCode -up-|> RegionCode
+    LanguageSubTagCode -up-|> RegionCode
+    
+    class LanguageTag {}
+    LanguageTag *-> "+language\n" LanguageCode
+    LanguageTag *-> "+extended\r0..3\r" LanguageCodeThreeChar
+    LanguageTag *-> "\r+script\r0..1" ScriptCode
+    LanguageTag *-> "+region\r0..1\r" RegionNumericCode
+}
+
+Datatypes .down.> iso_639: <<import>>
+Datatypes .up.> iso_15924: <<import>>
+Datatypes .down.> iso_3166: <<import>>
+Datatypes .down.> un_m49: <<import>>
+@enduml
+#+END_SRC
+
+#+CAPTION: The Datatype Languages Tag Detail
+#+RESULTS: src:metamodel-datatype-languages
+[[file:./metamodel-datatype-languages.svg]]
+
 ** Class Datatype
 
-*Super Class:* =Type=
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ∘ /=Datatype=/
+#+END_HIERARCHY
 
 ** Class Binary
 
-*Super Class:* Datatype
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ⏶ /=Datatype=/
+        - ∘ =Binary=
+#+END_HIERARCHY
 
 ** Class Boolean
 
-*Super Class:* Datatype
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ⏶ /=Datatype=/
+        - ∘ =Boolean=
+#+END_HIERARCHY
 
 ** Class Decimal
 
-*Super Class:* Datatype
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ⏶ /=Datatype=/
+        - ∘ =Decimal=
+#+END_HIERARCHY
 
 ** Class Double
 
-*Super Class:* Datatype
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ⏶ /=Datatype=/
+        - ∘ =Double=
+#+END_HIERARCHY
 
 ** Class Integer
 
-*Super Class:* Datatype
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ⏶ /=Datatype=/
+        - ∘ =Integer=
+#+END_HIERARCHY
 
 ** Class String
 
-*Super Class:* Datatype
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ⏶ /=Datatype=/
+        - ∘ =String=
+          - ⏷ =Name=
+          - ⏷ =LanguageTaggedString=
+#+END_HIERARCHY
 
 ** Class Unsigned
 
-*Super Class:* Datatype
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ⏶ /=Datatype=/
+        - ∘ =Unsigned=
+#+END_HIERARCHY
 
 ** Class Uri
 
-*Super Class:* Datatype
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ⏶ /=Datatype=/
+        - ∘ =Uri=
+#+END_HIERARCHY
+
+** Class Language Tag
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ∘ =LanguageTag=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class LanguageTag
+| Name                  | Type   | Cardinality | Notes |
+|-----------------------+--------+-------------+---------|
+| =language= | =String=    |        1    |         |
+
+** Class Language Tagged String
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ⏶ /=Datatype=/
+        - ⏶ =String=
+          - ∘ =LanguageTaggedString=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class LanguageTaggedString
+| Name                  | Type   | Cardinality | Notes |
+|-----------------------+--------+-------------+---------|
+| =tag=   | =LanguageTag=          |        1    |         |
 
 * Package Sequence Types
 
@@ -449,6 +829,12 @@ SequenceTypes .down.> Values: <<import>>
 
 ** Class Cardinality
 
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ∘ =Cardinality=
+#+END_HIERARCHY
+
 #+CAPTION: Properties on class Cardinality
 | Name       | Type       | Cardinality | Default   |
 |------------+------------+-------------+-----------|
@@ -466,12 +852,21 @@ SequenceTypes .down.> Values: <<import>>
 
 ** Class SequenceType
 
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ∘ =SequenceType=
+#+END_HIERARCHY
+
 *Generic Parameters:* =T extends Type=
 
-*Super Class:* =Type=
-
 #+CAPTION: Properties on class SequenceType
-| Name        | Type        | Cardinality | Default |
+| Name        | Type        | Cardinality | Notes |
 |-------------+-------------+-------------+---------|
 | =cardinality= | =Cardinality= | 1           |         |
 | =values=      | =T=           | 0..*        |         |
@@ -495,27 +890,29 @@ hide methods
 
 package Foundation {
     hide members
-    abstract class Named {}
+    abstract class Definition
+    abstract class Named
     abstract class "Namespace<T extends Named>" as g_Namespace {}
-    abstract class Type {}
-    abstract class Typed {}
+    abstract class Type
+    abstract class Typed
 }
 
 package Modules {
     hide members
-    abstract class ModuleDefinition {}
+    abstract class ModuleDefinition
 }
 
 package ProductTypes {
-    class Entity {}
+    class Entity
     class Event {}
-    class "Structure<T=Member>" as g_Structure {}
-    class MemberGroup {}
-    abstract class Member {}
+    class "Structure<T=Member>" as g_Structure
+    abstract class Member
+    class MemberGroup
 
     g_Structure -up-|> Type
     g_Structure -up-|> ModuleDefinition
     g_Structure -up-|> g_Namespace
+    g_Structure ..> Member
     g_Structure "+owner\l1" *--> "+groups\r0..*" MemberGroup
     
     Entity -up-|> g_Structure
@@ -524,32 +921,30 @@ package ProductTypes {
     Event -up-|> g_Structure
     Event --> "+source\r1" Entity
 
+    Member -up-|> Named
     MemberGroup -up-|> Annotated
     MemberGroup o--> "+members\r1..*" Member
 
-    
-      class "Property<T=Role>" as g_Property {}
+    class MemberDefinition {}
+    MemberDefinition -up-|> Definition
+    MemberDefinition -up-|> Member
+    MemberDefinition -up-|> Typed
+
+    class "Property<T=Role>" as g_Property
     class Role {
-        +is_identity: boolean
+        +is_identity: boolean = false
     }
 
     g_Property -up-|> ModuleDefinition
     g_Property -up-|> g_Namespace
-    g_Property ---right--> "roles\r{unique}\r1..*" Role
-    Role -up-|> Annotated
+    g_Property ..> Role
+    Role -up-|> Definition
     Role -up-|> Typed
-
-    Member -up-|> Named
-
-    class MemberDefinition {}
-    MemberDefinition -up-|> Annotated
-    MemberDefinition -up-|> Member
-    MemberDefinition -up-|> Typed
-
+    
     class MemberReference {
         role: Role
     }
-    MemberReference-up-|> Member
+    MemberReference -up-|> Member
 
     ' TODO: Add features
 }
@@ -565,54 +960,144 @@ ProductTypes .up.> Modules: <<import>>
 
 ** Class Entity
 
-*Super Class:* =Structure=
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Namespace<T=Member>=/
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ⏶ =Structure=
+        - ∘ =Entity=
+#+END_HIERARCHY
 
 #+CAPTION: Properties on class Entity
-| Name     | Type     | Cardinality | Default |
+| Name     | Type     | Cardinality | Notes |
 |----------+----------+-------------+---------|
 | =identity= | =Member= |           1 |         |
 
 ** Class Event
 
-*Super Class:* =Structure=
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Namespace<T=Member>=/
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ⏶ =Structure=
+        - ∘ =Event=
+#+END_HIERARCHY
 
 #+CAPTION: Properties on class Event
-| Name   | Type  | Cardinality | Default |
+| Name   | Type  | Cardinality | Notes |
 |--------+-------+-------------+---------|
 | =source= | =Event= |           1 |         |
 
 ** Abstract Class Member
 
-*Super Class:* =Typed=
+*Hierarchy*
 
-** Class MemberDefinition
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ∘ =Member=
+#+END_HIERARCHY
 
-*Super Class:* =Annotated=, =Member=, =Typed=
+** Class Member Definition
 
-** Class MemberGroup
+*Hierarchy*
 
-*Super Class:* =Annotated=
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+- ⏶ /=Typed=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=Member=/
+      - ∘ =MemberDefinition=
+#+END_HIERARCHY
+
+** Class Member Group
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Annotated=/
+  - ∘ =MemberGroup=
+#+END_HIERARCHY
 
 #+CAPTION: Properties on class MemberGroup
-| Name   | Type  | Cardinality | Default |
+| Name   | Type  | Cardinality | Notes |
 |--------+-------+-------------+---------|
 | =members= | =Member= | unique 1..* |         |
 
-** Class MemberReference
+** Class Member Reference
 
-*Super Class:* =Member=
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Member=/
+    - ∘ =MemberReference=
+#+END_HIERARCHY
 
 #+CAPTION: Properties on class MemberReference
-| Name   | Type | Cardinality | Default |
+| Name   | Type | Cardinality | Notes |
 |--------+------+-------------+---------|
-| +role= | =Role= |           1 |         |
+| =+role= | =Role= |           1 |         |
+
+** Class Property
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Namespace<T=Role>=/
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ∘ =Property=
+#+END_HIERARCHY
+
+** Class Role
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Typed=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ∘ =Role=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Role
+| Name         | Type    | Cardinality | Notes |
+|--------------+---------+-------------+---------|
+| =+is_identity= | =boolean= |           1 | =false=   |
 
 ** Class Structure
 
-*Super Class:* =Type=, =ModuleDefinition=, =Namespace<Member>=
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Namespace<T=Member>=/
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ∘ =Structure=
+        - ⏷ =Entity=
+        - ⏷ =Event=
+#+END_HIERARCHY
 
 #+CAPTION: Properties on class Entity
-| Name   | Type  | Cardinality | Default |
+| Name   | Type  | Cardinality | Notes |
 |--------+-------+-------------+---------|
 | =+groups= | =MemberGroup= | unique 0..* |         |
 
@@ -647,9 +1132,6 @@ package Values {
 package SumTypes {
     class "Enum<T=ValueVariant>" as g_Enum {}
     class "Union<T=TypeVariant>" as g_Union {}
-    abstract class Variant {}
-    class TypeVariant {}
-    class ValueVariant {}
 
     g_Enum -up-|> Type
     g_Enum -up-|> ModuleDefinition
@@ -659,13 +1141,17 @@ package SumTypes {
     g_Union -up-|> ModuleDefinition
     g_Union -up-|> g_Namespace
 
+    abstract class Variant {}
+    class TypeVariant {}
+    class ValueVariant {}
+
     Variant -up-|> Named
     TypeVariant -up-|> Variant
     TypeVariant -up-|> Typed
     ValueVariant -up-|> Variant
     ValueVariant -up-|> Valued
 
-    class "MappingType<K extends Type,\nV extends Type>" as g_MappingType {
+    class "MappingType<K extends SimpleType,\nV extends Type>" as g_MappingType {
         key: K
         value: V
     }
@@ -684,35 +1170,79 @@ SumTypes .down.> Modules: <<import>>
 
 ** Class Enum
 
-*Super Class:* =Type=, =ModuleDefinition=, =Namespace<ValueVariant>=
+*Hierarchy*
 
-** Class MappingType
+#+BEGIN_HIERARCHY
+- ⏶ /=Namespace<T=TypeVariant>=/
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ∘ =Enum=
+#+END_HIERARCHY
 
-*Generic Parameters* =K extends Type=, =V extends Type=
+** Class Mapping Type
 
-*Super Class:* =Type=
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+    - ∘ =MappingType=
+#+END_HIERARCHY
+
+*Generic Parameters* =K extends SimpleType=, =V extends Type=
 
 #+CAPTION: Properties on class MappingType
-| Name  | Type | Cardinality | Default |
+| Name  | Type | Cardinality | Notes |
 |-------+------+-------------+---------|
 | =key=   | =K=    |           1 |         |
 | =value= | =V=    |           1 |         |
 
-** Class TypeVariant
+** Class Type Variant
 
-*Super Class:* =Variant=, =Typed=
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+- ⏶ /=Named=/
+  - ⏶ /=Variant=/
+    - ∘ /=TypeVariant=/
+#+END_HIERARCHY
 
 ** Class Union
 
-*Super Class:* =Type=, =ModuleDefinition=, =Namespace<TypeVariant>=
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Namespace<T=TypeVariant>=/
+- ⏶ /=Named=/
+  - ⏶ /=Type=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ∘ =Union=
+#+END_HIERARCHY
 
 ** Abstract Class Variant
 
-*Super Class:* =Named=
+*Hierarchy*
 
-** Class ValueVariant
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - /=Variant=/
+#+END_HIERARCHY
 
-*Super Class:* =Variant=
+** Class Value Variant
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Variant=/
+    - ∘ ValueVariant
+#+END_HIERARCHY
 
 * Package Values
 
@@ -726,6 +1256,7 @@ hide methods
 
 package Foundation {
     hide members
+    abstract class Type {}
     abstract class Typed {}
 }
 
@@ -737,6 +1268,7 @@ package Datatypes {
     class Double {}
     class Integer {}
     class String {}
+    class LanguageTaggedString {}
     class Unsigned {}
     class Uri {}
 }
@@ -756,55 +1288,64 @@ package Values {
     Value -up-|> Typed
 
     abstract class Valued {}
-    Valued ---right---> "+value\r1" Value
+    Valued ---left---> "+value\l1" Value
     
     abstract class SimpleValue {}
     SimpleValue -up-|> Value
     
     class BinaryValue {}
     BinaryValue -up-|> SimpleValue
-    BinaryValue --> "{subsets type}" Binary
+    BinaryValue --down--> "{subsets type}" Binary
     
     class BooleanValue {}
     BooleanValue -up-|> SimpleValue
-    BooleanValue --> "{subsets type}" Boolean
+    BooleanValue --down--> "{subsets type}" Boolean
     
     class DecimalValue {}
     DecimalValue -up-|> SimpleValue
-    DecimalValue --> "{subsets type}" Decimal
+    DecimalValue --down--> "{subsets type}" Decimal
     
     class DoubleValue {}
     DoubleValue -up-|> SimpleValue
-    DoubleValue --> "{subsets type}" Double
+    DoubleValue --down--> "{subsets type}" Double
     
     class IntegerValue {}
     IntegerValue -up-|> SimpleValue
-    IntegerValue --> "{subsets type}" Integer
+    IntegerValue --down--> "{subsets type}" Integer
     
     class StringValue {}
     StringValue -up-|> SimpleValue
-    StringValue --> "{subsets type}" String
+    StringValue --down--> "{subsets type}" String
+    
+    class LanguageTaggedStringValue {}
+    LanguageTaggedStringValue -up-|> StringValue
+    LanguageTaggedStringValue --down--> "{subsets type}" LanguageTaggedString
     
     class UnsignedValue {}
     UnsignedValue -|> SimpleValue
-    UnsignedValue --> "{subsets type}" Unsigned
+    UnsignedValue --down--> "{subsets type}" Unsigned
     
     class UriValue {}
     UriValue -|> SimpleValue
-    UriValue --> "{subsets type}" Uri
+    UriValue --down--> "{subsets type}" Uri
 
     class "MappingValue<Kv extends SimpleValue,\nVv extends Value>" as g_Mapping {
         +key: Kv
         +value: Vv
     }
     g_Mapping -up-|> Value
-    g_Mapping --> "{subsets type}" g_MappingType: "K=type(Kv),\nV=type(Vv)"
+    g_Mapping --up--> "{subsets type}" g_MappingType: "K=type(Kv),\nV=type(Vv)"
 
     class "SequenceValue<V extends Value>" as g_SequenceValue {
         +values: {0..*} V
     }
     g_SequenceValue -up-|> Value
-    g_SequenceValue --> "{subsets type}" g_Sequence: "T=type(V)"
+    g_SequenceValue --up--> "{subsets type}" g_Sequence: "T=type(V)"
+
+    class ValueConstructor
+    ValueConstructor -|> Value
+    ValueConstructor --> "+target_type\r1" Type
+    ValueConstructor --> "+source_value\r1" SimpleValue
 }
 
 Values .up.> Foundation: <<import>>
@@ -818,107 +1359,453 @@ Values .down.> SumTypes: <<import>>
 #+RESULTS: src:metamodel-values
 [[file:./metamodel-values.svg]]
 
-** Class BinaryValue
+** Class Binary Value
 
-*Super Class:* =SimpleValue=
+*Hierarchy*
 
-#+CAPTION: Properties on class BinaryValue
-| Name                | Type | Cardinality | Default |
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+  - ⏶ /=Value=/
+    - ⏶ /=SimpleValue=/
+      - ∘ =BinaryValue=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Binary Value
+| Name                | Type | Cardinality | Notes |
 |---------------------+------+-------------+---------|
 | ={subsets} +domain= | =Binary= |           1 |         |
 
-** Class BooleanValue
+** Class Boolean Value
 
-*Super Class:* =SimpleValue=
+*Hierarchy*
 
-#+CAPTION: Properties on class BooleanValue
-| Name                | Type | Cardinality | Default |
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+  - ⏶ /=Value=/
+    - ⏶ /=SimpleValue=/
+      - ∘ =BooleanValue=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Boolean Value
+| Name                | Type | Cardinality | Notes |
 |---------------------+------+-------------+---------|
 | ={subsets} +domain= | =Boolean=      |           1 |         |
 
-** Class DecimalValue
+** Class Decimal Value
 
-*Super Class:* =SimpleValue=
+*Hierarchy*
 
-#+CAPTION: Properties on class DecimalValue
-| Name                | Type | Cardinality | Default |
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+  - ⏶ /=Value=/
+    - ⏶ /=SimpleValue=/
+      - ∘ =DecimalValue=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Decimal alue
+| Name                | Type | Cardinality | Notes |
 |---------------------+------+-------------+---------|
 | ={subsets} +domain= | =Decimal=      |           1 |         |
 
-** Class DoubleValue
+** Class Double Value
 
-*Super Class:* =SimpleValue=
+*Hierarchy*
 
-#+CAPTION: Properties on class DoubleValue
-| Name                | Type | Cardinality | Default |
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+  - ⏶ /=Value=/
+    - ⏶ /=SimpleValue=/
+      - ∘ =Doublealue=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Double Value
+| Name                | Type | Cardinality | Notes |
 |---------------------+------+-------------+---------|
 | ={subsets} +domain= | =Double=      |           1 |         |
 
-** Class IntegerValue
+** Class Integer Value
 
-*Super Class:* =SimpleValue=
+*Hierarchy*
 
-#+CAPTION: Properties on class IntegerValue
-| Name                | Type | Cardinality | Default |
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+  - ⏶ /=Value=/
+    - ⏶ /=SimpleValue=/
+      - ∘ =IntegerValue=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Integer Value
+| Name                | Type | Cardinality | Notes |
 |---------------------+------+-------------+---------|
 | ={subsets} +domain= | =Integer=      |           1 |         |
 
-** Class MappingValue
+** Class Mapping Value
 
-*Super Class:* =SimpleValue=
+*Hierarchy*
 
-#+CAPTION: Properties on class MappingValue
-| Name                | Type | Cardinality | Default |
-|---------------------+------+-------------+---------|
-| ={subsets} +domain= | =MappingType=       |           1 |         |
-** Class SequenceValue
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+  - ⏶ /=Value=/
+    - ∘ =MappingValue=
+#+END_HIERARCHY
 
-*Super Class:* =SimpleValue=
+#+CAPTION: Properties on class Mapping Value
+| Name              | Type        | Cardinality | Notes |
+|-------------------+-------------+-------------+---------|
+| ={subsets} +domain= | =MappingType= |           1 |         |
 
-#+CAPTION: Properties on class SequenceValue
-| Name              | Type           | Cardinality | Default |
-|-------------------+----------------+-------------+---------|
+** Class Sequence Value
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+  - ⏶ /=Value=/
+    - ∘ =SequenceValue=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Sequence Value
+| Name              | Type         | Cardinality | Notes |
+|-------------------+--------------+-------------+---------|
 | ={subsets} +domain= | =SequenceType= |           1 |         |
-** Abstract Class SimpleValue
 
-*Super Class:* =Value=
-** Class StringValue
+** Abstract Class Simple Value
 
-*Super Class:* =SimpleValue=
+*Hierarchy*
 
-#+CAPTION: Properties on class StringValue
-| Name                | Type | Cardinality | Default |
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+  - ⏶ /=Value=/
+    - ∘ /SimpleValue=/
+#+END_HIERARCHY
+
+** Class String Value
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+  - ⏶ /=Value=/
+    - ⏶ /=SimpleValue=/
+      - ∘ =StringValue=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class String Value
+| Name                | Type | Cardinality | Notes |
 |---------------------+------+-------------+---------|
 | ={subsets} +domain= | =String=      |           1 |         |
 
-** Class UnsignedValue
+** Class Unsigned Value
 
-*Super Class:* =SimpleValue=
+*Hierarchy*
 
-#+CAPTION: Properties on class UnsignedValue
-| Name                | Type | Cardinality | Default |
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+  - ⏶ /=Value=/
+    - ⏶ /=SimpleValue=/
+      - ∘ =UnsignedValue=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Unsigned Value
+| Name                | Type | Cardinality | Notes |
 |---------------------+------+-------------+---------|
 | ={subsets} +domain= | =Unsigned= |           1 |         |
 
-** Class UriValue
+** Class Uri Value
 
-*Super Class:* =SimpleValue=
+*Hierarchy*
 
-#+CAPTION: Properties on class UriValue
-| Name                | Type | Cardinality | Default |
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+  - ⏶ /=Value=/
+    - ⏶ /=SimpleValue=/
+      - ∘ =UriValue=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Uri Value
+| Name                | Type | Cardinality | Notes |
 |---------------------+------+-------------+---------|
 | ={subsets} +domain= | =Uri=      |           1 |         |
 
 ** Abstract Class Value
 
-*Super Class:* =Typed=
+*Hierarchy*
 
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+  - ∘ /=Value=/
+#+END_HIERARCHY
 
+* Package Formal Constraints
+
+#+NAME: src:metamodel-constraints
+#+BEGIN_SRC plantuml :file ./metamodel-constraints.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+skinparam ranksep 50
+hide methods
+
+package Annotations {
+    hide members
+    abstract class Constraint {}
+}
+
+package Datatypes {
+    hide members
+    class LanguageTaggedString
+}
+
+package Constraints {
+    package Environments {
+        abstract class EnvironmentDefinition
+    }
+    package Sentences {
+        hide members
+        abstract class Sentence {}    
+    }
+    package Terms {
+        skinparam packageBackgroundColor transparent
+    }
+    
+    class InformalNaturalLanguageConstraint {}
+    InformalNaturalLanguageConstraint -up-|> Constraint
+    InformalNaturalLanguageConstraint *-up-> "\r+text" LanguageTaggedString
+
+    class ConstraintLanguageTag {
+        +natural_language: 0..1 String
+        +controlled_language: 0..1 String
+    }
+    class InformalControlledLanguageConstraint {
+        +text: String
+    }
+    InformalControlledLanguageConstraint -up-|> Constraint
+    InformalControlledLanguageConstraint *-down-> "+language" ConstraintLanguageTag
+
+    class FormalConstraint
+    FormalConstraint -up-|> Constraint
+    FormalConstraint "+in_constraint" *---> "+sentence\n\n" Sentence
+    FormalConstraint "+in_constraint" *---> "+environment\r*\r\r" EnvironmentDefinition
+}
+Constraints .up.> Annotations: "<<import>>"
+Constraints .up.> Datatypes: "<<import>>"
+@enduml
+#+END_SRC
+
+#+CAPTION: The Constraints Package
+#+RESULTS: src:metamodel-constraints
+[[file:./metamodel-constraints.svg]]
+
+** Class Constraint Language Tag
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ∘ =ConstraintLanguageTag=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Formal Constraint
+| Name                  | Type   | Cardinality | Notes |
+|-----------------------+--------+-------------+---------|
+| =natural_language=      | =String= |        0..1 |         |
+| =controlled_language= | =String= |        0..1 |         |
+
+** Class Formal Constraint
+
+This is a constraint described using a structured expression language based on ISO Common Logic.
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Annotation=/
+    - ⏶ /=Constraint=/
+      - ∘ =FormalConstraint=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Formal Constraint
+| Name     | Type       | Cardinality | Notes |
+|----------+------------+-------------+---------|
+| =sentence= | =Sentence= |           1 |         |
+
+** Class Informal Controlled Language Constraint
+
+This is a constraint described informally using a controlled natural language (CNL).
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Annotation=/
+    - ⏶ /=Constraint=/
+      - ∘ =InformalControlledLanguageConstraint=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Informal Controlled Language Constraint
+| Name  | Type  | Cardinality | Notes |
+|-------+-------+-------------+---------|
+| =text= | =String= |           1 |         |
+
+** Class Informal Natural Language Constraint
+
+This is a constraint described informally using plain language.
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=Annotation=/
+    - ⏶ /=Constraint=/
+      - ∘ =InformalNaturalLanguageConstraint=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Informal Natural Language Constraint
+| Name  | Type  | Cardinality | Notes |
+|-------+-------+-------------+---------|
+| =text= | =String= |           1 |         |
 
 * Package Constraint Sentences
 
-#+NAME: src:metamodel-constraint-sentences
-#+BEGIN_SRC plantuml :file ./metamodel-constraint-sentences.svg
+#+NAME: src:metamodel-constraint-sentences-overview
+#+BEGIN_SRC plantuml :file ./metamodel-constraint-sentences-overview.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide members
+
+abstract class Sentence {}
+
+abstract class Simple {}
+Simple -up-|> Sentence
+class Atomic {}
+Atomic -up-|> Simple
+abstract class Relational {}
+Relational -up-|> Simple
+
+abstract class Boolean {}
+Boolean -up-|> Sentence
+abstract class Unary {}
+Unary -up-|> Boolean
+abstract class Binary {}
+Binary -up-|> Boolean
+
+class Quantified {}
+Quantified -up-|> Sentence
+#+END_SRC
+
+#+CAPTION: The Constraint Sentences Package Overview
+#+RESULTS: src:metamodel-constraint-sentences-overview
+[[file:./metamodel-constraint-sentences-overview.svg]]
+
+#+NAME: src:metamodel-constraint-sentences-simple
+#+BEGIN_SRC plantuml :file ./metamodel-constraint-sentences-simple.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package Constraints {
+    package Terms {
+        hide members
+        abstract class Term {}
+    }
+    package Sentences {
+        abstract class Sentence {}
+        Sentence "+nested\n0..*" --> "+parent\n0..1" Sentence
+        
+        abstract class Simple {}
+        Simple -up-|> Sentence
+        
+        class Atomic {
+            +predicate: Term
+            +arguments: 0..* Term
+        }
+        Atomic -up-|> Simple
+
+        abstract class Relational {
+            +lhs: Term
+            +rhs: Term
+        }
+        Relational -up-|> Simple
+        
+        class Equation {}
+        class StrictInequation {}
+        class LessThan {}
+        class LessThanOrEqual {}
+        class GreaterThan {}
+        class GreaterThanOrEqual {}
+
+        Equation -up-|> Relational
+        StrictInequation -up-|> Relational
+        LessThan -up-|> Relational
+        LessThanOrEqual -up-|> Relational
+        GreaterThan -up-|> Relational
+        GreaterThanOrEqual -up-|> Relational
+    }
+    Sentences .up.> Term: "<<import>>"
+}
+@enduml
+#+END_SRC
+
+#+CAPTION: Constraint Simple Sentences
+#+RESULTS: src:metamodel-constraint-sentences-simple
+[[file:./metamodel-constraint-sentences-simple.svg]]
+
+#+NAME: src:metamodel-constraint-sentences-boolean
+#+BEGIN_SRC plantuml :file ./metamodel-constraint-sentences-boolean.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package Constraints {
+    package Sentences {
+        abstract class Sentence {}
+        Sentence "+nested\n0..*" --> "+parent\n0..1" Sentence
+        
+        abstract class Boolean {}
+        Boolean -up-|> Sentence
+        
+        abstract class Unary {
+            +rhs: Sentence {subsets nested}
+        }
+        Unary -up-|> Boolean
+
+        abstract class Binary {
+            +lhs: Sentence {subsets nested}
+            +rhs: Sentence {subsets nested}
+        }
+        Binary -up-|> Boolean
+
+        class Negation {}
+        Negation -up-|> Unary
+
+        class Conjunction {}
+        class Disjunction {}
+        class ExclusiveDisjunction {}
+        class Implication {}
+        class Biconditional {}
+
+        Conjunction -up-|> BinaryBoolean
+        Disjunction -up-|> BinaryBoolean
+        ExclusiveDisjunction -up-|> BinaryBoolean
+        Implication -up-|> BinaryBoolean
+        Biconditional -up-|> BinaryBoolean
+    }
+}
+@enduml
+#+END_SRC
+
+#+CAPTION: Constraint Boolean Sentences
+#+RESULTS: src:metamodel-constraint-sentences-boolean
+[[file:./metamodel-constraint-sentences-boolean.svg]]
+
+#+NAME: src:metamodel-constraint-sentences-quantified
+#+BEGIN_SRC plantuml :file ./metamodel-constraint-sentences-quantified.svg
 @startuml
 skinparam backgroundColor transparent
 skinparam linetype polyline
@@ -937,67 +1824,13 @@ package Constraints {
     }
     package Sentences {
         abstract class Sentence {}
-        abstract class SimpleSentence {}
-        abstract class BooleanSentence {}
-        class QuantifiedSentence {
-            +body: Sentence
-        }
-        QuantifiedSentence *--> "+binding" QuantifiedVariableBinding
-
-        SimpleSentence -up-|> Sentence
-        BooleanSentence -up-|> Sentence
-        QuantifiedSentence -up-|> Sentence
+        Sentence "+nested\n0..*" --> "+parent\n0..1" Sentence
         
-        class AtomicSentence {
-            +predicate: Term
-            +arguments: 0..* Term
+        class Quantified {
+            +body: Sentence {subsets nested}
         }
-        abstract class RelationalSentence {
-            +lhs: Term
-            +rhs: Term
-        }
-        
-        class Equation {}
-        class Inequation {}
-        class LessThan {}
-        class LessThanOrEqual {}
-        class GreaterThan {}
-        class GreaterThanOrEqual {}
-
-        AtomicSentence -up-|> SimpleSentence
-        RelationalSentence -up-|> SimpleSentence
-        Equation -up-|> RelationalSentence
-        Inequation -up-|> RelationalSentence
-        LessThan -up-|> RelationalSentence
-        LessThanOrEqual -up-|> RelationalSentence
-        GreaterThan -up-|> RelationalSentence
-        GreaterThanOrEqual -up-|> RelationalSentence
-        
-        abstract class UnaryBooleanSentence {
-            +rhs: Sentence
-        }
-        abstract class BinaryBooleanSentence {
-            +lhs: Sentence
-            +rhs: Sentence
-        }
-
-        UnaryBooleanSentence -up-|> BooleanSentence
-        BinaryBooleanSentence -up-|> BooleanSentence
-
-        class NegationSentence {}
-        NegationSentence -up-|> UnaryBooleanSentence
-
-        class ConjunctiveSentence {}
-        class DisjunctiveSentence {}
-        class ExclusiveDisjunctiveSentence {}
-        class ImplicationSentence {}
-        class BiconditionalSentence {}
-
-        ConjunctiveSentence -up-|> BinaryBooleanSentence
-        DisjunctiveSentence -up-|> BinaryBooleanSentence
-        ExclusiveDisjunctiveSentence -up-|> BinaryBooleanSentence
-        ImplicationSentence -up-|> BinaryBooleanSentence
-        BiconditionalSentence -up-|> BinaryBooleanSentence
+        Quantified -|> Sentence
+        Quantified "+sentence" *--> "+binding" QuantifiedVariableBinding
 
         enum Quantifier {
             Universal
@@ -1005,13 +1838,17 @@ package Constraints {
         }
 
         class QuantifiedVariable {
-            source: 1 Term
+            sequence: Term
         }
         QuantifiedVariable -up-|> Named
 
         class QuantifiedVariableBinding {}
         QuantifiedVariableBinding *--> "+quantifier\r1" Quantifier
-        QuantifiedVariableBinding *--> "+binding\r0..1" QuantifiedVariable
+        QuantifiedVariableBinding *--> "+variable\r0..1" QuantifiedVariable
+
+        note "<b>inv</b>:\nempty(variable) implies\n  self.sentence.in_constraint.subject" as qvb_self
+
+        qvb_self ..> QuantifiedVariableBinding
     }
     Sentences .up.> Foundation: "<<import>>"
     Sentences .up.> Term: "<<import>>"
@@ -1019,135 +1856,355 @@ package Constraints {
 @enduml
 #+END_SRC
 
-#+CAPTION: The Constraint Sentences Package
-#+RESULTS: src:metamodel-constraint-sentences
-[[file:./metamodel-constraint-sentences.svg]]
+#+CAPTION: Constraint Quantified Sentences
+#+RESULTS: src:metamodel-constraint-sentences-quantified
+[[file:./metamodel-constraint-sentences-quantified.svg]]
 
-** Class AtomicSentence
+** Class Atomic
 
-*Super Class:* =SimpleSentence=
+*Hierarchy*
 
-#+CAPTION: Properties on class AtomicSentence
-| Name      | Type | Cardinality  | Default |
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Simple=/
+    - ∘ =Atomic=
+#+END_HIERARCHY
+ 
+#+CAPTION: Properties on class Atomic
+| Name      | Type | Cardinality  | Notes |
 |-----------+------+--------------+---------|
 | =predicate= | =Term= | 1            |         |
 | =arguments= | =Term= | ordered 0..* |         |
 
-** Class BiconditionalSentence
+** Class Biconditional
 
-*Super Class:* =BinaryBooleanSentence=
+Corresponds the expression to =A <==> B=, or $A \iff B$.
 
-** Abstract Class BinaryBooleanSentence
+*Hierarchy*
 
-*Super Class:* =BooleanSentence=
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Boolean=/
+    - ⏶ /=Binary=/
+      - ∘ =Biconditional=
+#+END_HIERARCHY
 
-#+CAPTION: Properties on class RelationalSentence
-| Name | Type     | Cardinality | Default |
-|------+----------+-------------+---------|
-| =lhs=  | =Sentence= |           1 |         |
-| =rhs=  | =Sentence= |           1 |         |
+** Abstract Class Binary
 
+*Hierarchy*
 
-** Abstract Class BooleanSentence
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Boolean=/
+    - ∘ /=Binary=/
+      - ⏷ =Biconditional=
+      - ⏷ =Conjunction=
+      - ⏷ =Disjunction=
+      - ⏷ =ExclusiveDisjunction=
+      - ⏷ =Implication=
+#+END_HIERARCHY
 
-*Super Class:* =Sentence=
+#+CAPTION: Properties on class Binary
+| Name | Type     | Cardinality | Notes                           |
+|------+----------+-------------+---------------------------------|
+| =lhs=  | =Sentence= |           1 | Subsets the association =nested=. |
+| =rhs=  | =Sentence= |           1 | Subsets the association =nested=. |
 
+** Abstract Class Boolean
+*Hierarchy*
 
-*Super Class:* =Sentence=
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ∘ /=Boolean=/
+    - ⏷ /=Binary=/
+      - ⏷ =Biconditional=
+      - ⏷ =Conjunction=
+      - ⏷ =Disjunction=
+      - ⏷ =ExclusiveDisjunction=
+      - ⏷ =Implication=
+    - ⏷ /=Unary=/
+      - ⏷ /=Negation=/
+#+END_HIERARCHY
 
-** Class ConjunctiveSentence
+** Class Conjunction
 
-*Super Class:* =BinaryBooleanSentence=
+Corresponds the expression to =A and B=, or $A \land B$.
 
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Boolean=/
+    - ⏶ /=Binary=/
+      - ∘ =Conjunction=
+#+END_HIERARCHY
+ 
+** Class Disjunction
 
-*Super Class:* =BinaryBooleanSentence=
+Corresponds the expression to =A or B=, or $A \lor B$.
 
-** Class DisjunctiveSentence
-
-*Super Class:* =BinaryBooleanSentence=
-
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Boolean=/
+    - ⏶ /=Binary=/
+      - ∘ =Disjunction=
+#+END_HIERARCHY
+ 
 ** Class Equation
 
-*Super Class:* =RelationalSentence=
+Corresponds the expression to =A = B=, or $A = B$.
 
-** Class ExclusiveDisjunctiveSentence
+*Hierarchy*
 
-*Super Class:* =BinaryBooleanSentence=
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Simple=/
+    - ⏶ =Atomic=
+    - ⏶ /=Relational=/
+      - ∘ =Equation=
+#+END_HIERARCHY
 
-** Class GreaterThan
+** Class Exclusive Disjunction
 
-*Super Class:* =RelationalSentence=
+Corresponds the expression to =A xor B=, or $A \veebar B$.
 
-** Class GreaterThanOrEqual
+*Hierarchy*
 
-*Super Class:* =RelationalSentence=
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Boolean=/
+    - ⏶ /=Binary=/
+      - ∘ =ExclusiveDisjunction=
+#+END_HIERARCHY
 
-** Class ImplicationSentence
+** Class Greater Than
 
-*Super Class:* =BinaryBooleanSentence=
+Corresponds the expression to =A > B=, or $A \gt B$.
 
-** Class Inequation
+*Hierarchy*
 
-*Super Class:* =RelationalSentence=
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Simple=/
+    - ⏶ =Atomic=
+    - ⏶ /=Relational=/
+      - ∘ =GreaterThan=
+#+END_HIERARCHY
 
-** Class LessThan
+** Class Greater Than Or Equal
 
-*Super Class:* =RelationalSentence=
+Corresponds the expression to ~A >= B~, or $A \geq B$.
 
+*Hierarchy*
 
-*Super Class:* =RelationalSentence=
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Simple=/
+    - ⏶ =Atomic=
+    - ⏶ /=Relational=/
+      - ∘ =GreaterThanOrEqual=
+#+END_HIERARCHY
 
-** Class LessThanOrEqual
+** Class Implication
 
-*Super Class:* =RelationalSentence=
+Corresponds the expression to =A implies B=, or $A \implies B$.
 
-** Class NegationSentence
+*Hierarchy*
 
-*Super Class:* =UnaryBooleanSentence=
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Boolean=/
+    - ⏶ /=Binary=/
+      - ∘ =Implication=
+#+END_HIERARCHY
+
+** Class Less Than
+
+Corresponds the expression to ~A <= B~, or $A \lt B$.
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Simple=/
+    - ⏶ =Atomic=
+    - ⏶ /=Relational=/
+      - ∘ =LessThan=
+#+END_HIERARCHY
+
+** Class Less Than Or Equal
+
+Corresponds the expression to ~A <= B~, or $A \leq B$.
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Simple=/
+    - ⏶ =Atomic=
+    - ⏶ /=Relational=/
+      - ∘ =LessThanOrEqual=
+#+END_HIERARCHY
+
+** Class Negation
+
+Corresponds the expression to =not A=, or $\neg A$.
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Boolean=/
+    - ⏶ /=Unary=/
+      - ∘ /=Negation=/
+#+END_HIERARCHY
 
 ** Abstract Class Sentence
-** Class QuantifiedSentence
 
-*Super Class:* =Sentence=
+*Hierarchy*
 
-#+CAPTION: Properties on class QuantifiedSentence
-| Name    | Type                        | Cardinality | Default |
-|---------+-----------------------------+-------------+---------|
-| =binding= | =Sentence=                    |           1 |         |
-| =body=    | =QuantifiedVariableBinding= |           1 |         |
+#+BEGIN_HIERARCHY
+- ∘ /=Sentence=/
+  - ⏷ /=Boolean=/
+    - ⏷ /=Binary=/
+      - ⏷ =Biconditional=
+      - ⏷ =Conjunction=
+      - ⏷ =Disjunction=
+      - ⏷ =ExclusiveDisjunction=
+      - ⏷ =Implication=
+    - ⏷ /=Unary=/
+      - ⏷ /=Negation=/
+  - ⏷ =Quantified=
+  - ⏷ /=Simple=/
+    - ⏷ =Atomic=
+    - ⏷ /=Relational=/
+      - ⏷ =Equation=
+      - ⏷ =GreaterThan=
+      - ⏷ =GreaterThanOrEqual=
+      - ⏷ =LessThan=
+      - ⏷ =LessThanOrEqual=
+      - ⏷ =StrictInequation=
+#+END_HIERARCHY
 
-** Class QuanntifiedVariable
-** Class QuanntifiedVariableBinding
+#+CAPTION: Properties on class Sentence
+| Name    | Type     | Cardinality | Notes                                               |
+|---------+----------+-------------+-----------------------------------------------------|
+| =+nested= | =Sentence= | 0..*        | Any sentences that are nested within this sentence. |
+| =+parent= | =Sentence= | 0..1        | The parent of this sentence, if nested.             |
+
+** Class Quantified
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ∘ =Quantified=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Quantified
+| Name     | Type                      | Cardinality | Notes |
+|----------+---------------------------+-------------+-------|
+| =+binding= | =QuantifiedVariableBinding= | =1=           |       |
+| =+body=    | =Sentence=                  | =1=           |       |
+
+** Class Quantified Variable
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ∘ =QuantifiedVariable=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Quantified Variable
+| Name     | Type | Cardinality | Notes |
+|----------+------+-------------+-------|
+| =+sequence= | =Term= |           =1= | Identifies a term that yields a sequence to be iterated over. |
+
+** Class Quantified Variable Binding
+
+#+BEGIN_HIERARCHY
+- ∘ =QuantifiedVariableBinding=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Quantified Variable Binding
+| Name        | Type               | Cardinality | Notes |
+|-------------+--------------------+-------------+-------|
+| =+quantifier= | =Quantifier=         | =1=           |       |
+| =+variable=   | =QuantifiedVariable= | =1=         |       |
+
 ** Enum Quantifier
-** Abstract Class RelationalSentence
 
-*Super Class:* =SimpleSentence=
+- Universal :: Corresponds to the keyword ~forall~ or the operator ∀.
+- Existential ::  Corresponds to the keyword ~exists~ or the operator ∃
 
-#+CAPTION: Properties on class RelationalSentence
-| Name | Type | Cardinality | Default |
+** Abstract Class Relational
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Simple=/
+    - ⏶ =Atomic=
+    - ∘ /=Relational=/
+      - ⏷ =Equation=
+      - ⏷ =GreaterThan=
+      - ⏷ =GreaterThanOrEqual=
+      - ⏷ =LessThan=
+      - ⏷ =LessThanOrEqual=
+      - ⏷ =StrictInequation=
+#+END_HIERARCHY
+
+#+CAPTION: Properties on class Relational
+| Name | Type | Cardinality | Notes |
 |------+------+-------------+---------|
-| =lhs=  | =Term= |           1 |         |
-| =rhs=  | =Term= |           1 |         |
+| =lhs=  | =Term= |           1 |  Subsets the association =nested=.        |
+| =rhs=  | =Term= |           1 |   Subsets the association =nested=.       |
 
+** Abstract Class Simple
 
-** Abstract Class SimpleSentence
+*Hierarchy*
 
-*Super Class:* =Sentence=
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ∘ /=Simple=/
+    - ⏷ =Atomic=
+    - ⏷ /=Relational=/
+      - ⏷ =Equation=
+      - ⏷ =GreaterThan=
+      - ⏷ =GreaterThanOrEqual=
+      - ⏷ =LessThan=
+      - ⏷ =LessThanOrEqual=
+      - ⏷ =StrictInequation=
+#+END_HIERARCHY
 
+** Class Strict Inequation
 
-*Super Class:* =Sentence=
+Corresponds the expression to ~A /= B~, or $A \ne B$.
 
-** Abstract Class UnaryBooleanSentence
+*Hierarchy*
 
-*Super Class:* =BooleanSentence=
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Simple=/
+    - ⏶ =Atomic=
+    - ⏶ /=Relational=/
+      - ∘ =StrictInequation=
+#+END_HIERARCHY
 
-#+CAPTION: Properties on class RelationalSentence
-| Name | Type | Cardinality | Default |
-|------+------+-------------+---------|
-| =rhs=  | =Sentence= |           1 |         |
+** Abstract Class Unary
 
+*Hierarchy*
 
+#+BEGIN_HIERARCHY
+- ⏶ /=Sentence=/
+  - ⏶ /=Boolean=/
+    - ∘ /=Unary=/
+      - ⏷ =Negation=
+#+END_HIERARCHY
 
+#+CAPTION: Properties on class Unary
+| Name | Type     | Cardinality | Notes                           |
+|------+----------+-------------+---------------------------------|
+| =+rhs= | =Sentence= | =1=           | Subsets the association =nested=. |
 
 * Package Constraint Terms
 
@@ -1178,7 +2235,7 @@ package Constraints {
         Value -up-|> Term
 
         class FunctionalTerm {
-            +function: 1 Term
+            +function: Term
             +arguments: 0..* Term
         }
         FunctionalTerm -up-|> Term
@@ -1212,43 +2269,373 @@ package Constraints {
 
 ** Class FunctionalTerm
 
-*Super Class:* =Term=
+Corresponds to ~function(...arguments)~ or $f(a_0,\cdots, a_n)$
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Term=/
+  - ∘ =FunctionalTerm=
+#+END_HIERARCHY
 
 #+CAPTION: Properties on class FunctionalTerm
-| Name      | Type | Cardinality | Default |
+| Name      | Type | Cardinality | Notes |
 |-----------+------+-------------+---------|
 | =function=  | =Term= | 1           |         |
 | =arguments= | =Term= | 0..*        |         |
 
 ** Class MappingSequenceVariables
 
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=SequenceVariables=/
+  - ∘ =MappingSequenceVariables=
+#+END_HIERARCHY
+
 *Super Class:* =SequenceVariables=
 
 #+CAPTION: Properties on class MappingSequenceVariables
-| Name  | Type | Cardinality | Default |
+| Name  | Type | Cardinality | Notes |
 |-------+------+-------------+---------|
 | =key= | =Name= |           1 |         |
 | =value= | =Name= |           1 |         |
 
 ** Class SequenceBuilder
 
-*Super Class:* =Term=
+Corresponds to ~{a | forall a, id(a)}~
+or $\left\{ a | \forall a id(a) \right\}$
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Term=/
+  - ∘ =SequenceBuilder=
+#+END_HIERARCHY
 
 #+CAPTION: Properties on class SequenceBuilder
-| Name      | Type                 | Cardinality | Default |
+| Name      | Type                 | Cardinality | Notes |
 |-----------+----------------------+-------------+---------|
 | =variables= | =SequenceVariables=    |           1 |         |
 | =body=      | =QuantifiedSentence= |           1 |         |
 
 ** Abstract Class SequenceVariables
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ∘ /=SequenceVariables=/
+#+END_HIERARCHY
+
 ** Class SequenceVariableSet
 
-*Super Class:* =SequenceVariables=
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=SequenceVariables=/
+  - ∘ =SequenceVariableSet=
+#+END_HIERARCHY
 
 #+CAPTION: Properties on class SequenceVariableSet
-| Name  | Type   | Cardinality  | Default |
+| Name  | Type   | Cardinality  | Notes |
 |-------+--------+--------------+---------|
 | =names= | =Name= | unique  1..* |         |
 
 ** Abstract Class Term
 
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ∘ /=Term=/
+  - ⏷ =FunctionalTerm=
+  - ⏷ =Name=
+  - ⏷ =SequenceBuilder=
+  - ⏷ =Value=
+#+END_HIERARCHY
+
+* Package Constraint Environments
+
+#+NAME: src:metamodel-constraint-environments
+#+BEGIN_SRC plantuml :file ./metamodel-constraint-environments.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 60
+skinparam ranksep 60
+hide methods
+
+package Foundation {
+    hide members
+    abstract class Named
+    abstract class Typed
+}
+
+package Values {
+    hide members
+    abstract class Valued
+}
+
+package Constraints {
+    package Sentences {
+        hide members
+        abstract class Sentence {}
+    }
+    package Environments {
+        abstract class EnvironmentDefinition {}
+        EnvironmentDefinition -up-|> Named
+        
+        class Function {}
+        Function -up-|> EnvironmentDefinition
+        Function -up-|> Typed
+        Function *--> "+body\n\n" Sentence
+
+        class Parameter {}
+        Parameter -up-|> Named
+        Parameter -up-|> Typed
+        Function *--> "+parameters\r*" Parameter
+
+        class Constant {}
+        Constant -up-|> EnvironmentDefinition
+        Constant -up-|> Valued
+    }
+}
+Constraints .up.> Foundation: "<<import>>"
+Constraints .up.> Values: "<<import>>"
+@enduml
+#+END_SRC
+
+#+CAPTION: The Constraint Environments Package
+#+RESULTS: src:metamodel-constraint-environments
+[[file:./metamodel-constraint-environments.svg]]
+
+** Abstract Class Constant
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+- ⏶ /=Named=/
+  - ⏶ /=EnvironmentDefinition=/
+    - ∘ =Constant=
+#+END_HIERARCHY
+
+** Abstract Class Environment Definition
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ∘ /=EnvironmentDefinition=/
+    - ⏷ /=Constant=/
+      - ⏷ =ConstantSentence=
+      - ⏷ =ConstantValue=
+    - ⏷ =Function=
+#+END_HIERARCHY
+
+** Class Function
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ⏶ /=EnvironmentDefinition=/
+    - ∘ =Function=
+#+END_HIERARCHY
+ 
+#+CAPTION: Properties on class Function
+| Name        | Type      | Cardinality | Notes |
+|-------------+-----------+-------------+---------|
+| =+body=       | =Sentence=  | 1           |         |
+| =+parameters= | =Parameter= | 0..*        |         |
+
+** Class Parameter
+ 
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+- ⏶ /=Typed=/
+  - ∘ =Parameter=
+#+END_HIERARCHY
+
+* Package Type Classes
+
+#+NAME: src:metamodel-type-classes
+#+BEGIN_SRC plantuml :file ./metamodel-type-classes.svg
+@startuml
+skinparam backgroundColor transparent
+skinparam linetype polyline
+skinparam nodesep 50
+hide methods
+
+package Foundation {
+    hide members
+    abstract class Definition {}
+    abstract class Named {}
+    abstract class "Namespace<T extends Named>" as g_Namespace {}
+    abstract class Typed {}
+}
+
+package Modules {
+    hide members
+    abstract class ModuleDefinition {}
+}
+
+package Constraints {
+    package Sentences {
+        hide members
+        abstract class Sentence {}
+    }
+}
+
+package TypeClasses {
+    class "TypeClass<T=Method>" as TypeClass {}
+    class TypeVariable {}
+    class TypeClassReference {}
+    class ReferenceArgument {}
+    class ReferenceWildcard {}
+    class ReferenceList {}
+    class Method {}
+    class Parameter {}
+
+    TypeClass -up-|> g_Namespace
+    TypeClass ..> Method
+    TypeClass -up-|> ModuleDefinition
+    TypeClass *--left--> "+variables\l0..*" TypeVariable
+    TypeClass *-down-> "+methods\r0..*" Method
+    TypeVariable -up-|> Named
+    TypeVariable *--> "+restrictions\r0..*" TypeClassReference
+
+    TypeClassReference --> "+class" TypeClass
+    TypeClassReference --> "+arguments" ReferenceArgument
+
+    ReferenceWildcard -up-|> ReferenceArgument
+    ReferenceList -up-|> ReferenceArgument
+    ReferenceList --> "+classes\r1..*" TypeClassReference
+
+    Method -up-|> Definition
+    Method -up-|> Typed
+    Method *-right-> "+body\r0..1\r\r" Sentence
+
+    Parameter -up-|> Named
+    Parameter -up-|> Typed
+    Method *-down-> "+parameters\r0..*" Parameter
+}
+
+TypeClasses .up.> Foundation: <<import>>
+TypeClasses .up.> Modules: <<import>>
+TypeClasses .right.> Sentences: <<import>>
+@enduml
+#+END_SRC
+
+#+CAPTION: The Type Classes Package
+#+RESULTS: src:metamodel-type-classes
+[[file:./metamodel-type-classes.svg]]
+
+** Class Method
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+- ⏶ /=Named=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+      - ∘ =Method=
+#+END_HIERARCHY
+ 
+#+CAPTION: Properties on class Method
+| Name        | Type      | Cardinality | Notes |
+|-------------+-----------+-------------+---------|
+| =+parameters= | =Parameter= | 0..*        |         |
+| =+body=       | =Sentence=  | 0..1        |         |
+
+** Class Parameter
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Typed=/
+- ⏶ /=Named=/
+  - ∘ =Parameter=
+#+END_HIERARCHY
+
+** Class Reference Argument
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ∘ /=ReferenceArgument=/
+  - ⏷ =ReferenceList=
+  - ⏷ =ReferenceWildcard=
+#+END_HIERARCHY
+
+** Class Reference List
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=ReferenceArgument=/
+  - ∘ =ReferenceList=
+#+END_HIERARCHY
+ 
+#+CAPTION: Properties on class Type Class Reference
+| Name       | Type              | Cardinality | Notes |
+|------------+-------------------+-------------+---------|
+| =+classes=   | =TypeClassReference=         | 1..*      |         |
+
+** Class Reference Wildcard
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=ReferenceArgument=/
+  - ∘ =ReferenceWildcard=
+#+END_HIERARCHY
+
+** Class Type Class
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Namespace<T=Method>=/
+- ⏶ /=Named=/
+- ⏶ /=Annotated=/
+  - ⏶ /=Definition=/
+    - ⏶ /=ModuleDefinition=/
+      - ∘ =TypeClass=
+#+END_HIERARCHY
+ 
+#+CAPTION: Properties on class Type Class
+| Name       | Type         | Cardinality | Notes |
+|------------+--------------+-------------+---------|
+| =+variables= | =TypeVariable= | 0..*        |         |
+| =+methods=   | =Method=       | 0..*        |         |
+
+** Class Type Variable
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ⏶ /=Named=/
+  - ∘ =TypeVariable=
+#+END_HIERARCHY
+ 
+#+CAPTION: Properties on class Type Variable
+| Name          | Type               | Cardinality | Notes |
+|---------------+--------------------+-------------+---------|
+| =+restrictions= | =TypeClassReference= | 0..*        |         |
+
+** Class Type Class Reference
+
+*Hierarchy*
+
+#+BEGIN_HIERARCHY
+- ∘ =TypeClassReference=
+#+END_HIERARCHY
+ 
+#+CAPTION: Properties on class Type Class Reference
+| Name       | Type              | Cardinality | Notes |
+|------------+-------------------+-------------+---------|
+| =+class=     | =TypeClass=         |           1 |         |
+| =+arguments= | =ReferenceArgument= |           1 |         |
