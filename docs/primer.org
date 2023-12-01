@@ -412,12 +412,12 @@ A structure will look very much like an entity in that it has a name and a set o
 identity member. As this means we cannot include them in an entity by reference to an identifier all structures are
 included /within/ any enclosing structure or entity.
 
-An enumeration is a list of unique variants that represent unique options.
+An enumeration is a list of unique variants that represent distinct options.
 
 *** Retail Example
 
-In listing [[src:initial-retail-entities]] we have added a common ~Address~ structure that is used by both the customer and
-store entities. This example does not introduce an enumeration directly; however, the imported type
+In listing [[src:initial-retail-entities]] we have added a common ~Address~ structure that is used by the customer,
+manufacturer, and store entities. This example does not introduce an enumeration directly; however, the imported type
 ~AlphaTwoCountryCode~ is an enumeration (described in listing [[src:iso_3166_1]] below).
 
 #+NAME: src:initial-retail-entities
@@ -559,6 +559,9 @@ Table [[tbl:datatype-comparisons]] lists the annotation properties that can you 
 
 *** Hospitality Example
 
+Listing [[src:initial-hospitality-structures]] adds 2 datatype definitions, 1 enum definition, and 7 structure definitions.
+We have also made the previous entity ~Room~ a structure as it is dependent wholly on the valid entity ~Property~.
+
 #+NAME: src:initial-hospitality-structures
 #+CAPTION: Initial Hospitality Structures
 #+BEGIN_SRC sdml :exports code :noeval
@@ -567,16 +570,6 @@ module hospitality is
   import xsd
 
   entity Customer
-
-  datatype Currency <- decimal is
-    @xsd:totalDigits = 9
-    @xsd:fractionDigits = 3
-  end
-
-  datatype RatePercentage <- decimal is
-    @xsd:totalDigits = 5
-    @xsd:fractionDigits = 3
-  end
 
   entity Booking is
     identity booking_code -> string
@@ -615,6 +608,35 @@ module hospitality is
     discount_percent -> RatePercentage
   end
 
+  datatype Currency <- decimal is
+    @xsd:totalDigits = 9
+    @xsd:fractionDigits = 3
+  end
+
+  datatype RatePercentage <- decimal is
+    @xsd:totalDigits = 5
+    @xsd:fractionDigits = 3
+  end
+
+  enum RoomFeature of
+    View
+    NonSmoking
+    Smoking
+    Accessible
+    OneSingleBed
+    OneDoubleBed
+    OneQueenBed
+    OneKingBed
+    TwoSingleBeds
+    TwoDoubleBeds
+    TwoQueenBeds
+    TwoKingBeds
+    Suite
+    Fridge
+    Kitchen
+    Balcony
+  end
+
   structure DateRange is
     starts -> xsd:date
     ends -> xsd:date
@@ -635,25 +657,6 @@ module hospitality is
   structure RoomStyle is
     name -> string
     features -> {unique 1..*} RoomFeature
-  end
-
-  enum RoomFeature of
-    View
-    NonSmoking
-    Smoking
-    Accessible
-    OneSingleBed
-    OneDoubleBed
-    OneQueenBed
-    OneKingBed
-    TwoSingleBeds
-    TwoDoubleBeds
-    TwoQueenBeds
-    TwoKingBeds
-    Suite
-    Fridge
-    Kitchen
-    Balcony
   end
 
   structure Charge is
@@ -679,10 +682,10 @@ end
 #+END_SRC
 
 #+BEGIN_ADVNOTE
-Use Constraints to capture conditions that cannot be expressed by the model's structure alone. For example, in listing
-[[src:hospitality-daterange]] we have a simple structure that contains a start date and an end date. They are correctly
-typed so we know they have to be dates, but what if we were to set the start date to be after the end date, how do we
-validate that? Can we?
+You can add a specific type of annotation, a constraint, to capture conditions that cannot be expressed by the model's
+structure alone. For example, in listing [[src:hospitality-daterange]] we have a simple structure that contains a start date
+and an end date. They are correctly typed so we know they have to be dates, but what if we were to set the start date to
+be after the end date, how do we validate that? Can we?
 
 #+NAME: src:hospitality-daterange
 #+CAPTION: Hospitality Entities
@@ -713,7 +716,7 @@ end
 #+BEGIN_SRC sdml :exports code :noeval
 module logistics is
 
-  import [ dc skos uuid ]
+  import [ dc owl rdf skos uuid ]
   import [ gs1 ]
 
   @skos:prefLabel = "Logistics"@en
@@ -723,6 +726,7 @@ module logistics is
   entity Location is
     identity gln -> gs1:GlobalLocationNumber
     kind -> LocationKind
+    within -> {0..1} Location
   end
 
   enum LocationKind of
@@ -756,16 +760,63 @@ module logistics is
 
     from -> Location
     to -> Location
-  end
 
-  enum TransferKind of
-    Pickup
-    Dropoff
+    units -> {1..} LogisticsUnit
   end
 
   structure LogisticsUnit is
     sscc -> gs1:SerialShippingContainerCode
+    kind -> LogisticsUnitKind
     asset -> {1..} LogisticsAsset
+    dimension -> Dimensions
+    weight -> decimal
+    hazmat_classification -> {unique 0..9} DotHazardClassification
+    includes -> {0..} LogisticsUnit
+  end
+
+  enum LogisticsUnitKind of
+    Box,
+    Pallet,
+    PalletStack,
+    Container,
+    RailCar,
+  end
+
+  enum DotHazardClassification of
+    @owl:equivalentClass = unsigned
+    Explosives is
+      @rdf:value = 1
+    end
+    Gasses is
+      @rdf:value = 2
+    end
+    FlammableLiquids is
+      @rdf:value = 3
+    end
+    FlammableSolids is
+      @rdf:value = 4
+    end
+    OxodizingSubstances is
+      @rdf:value = 5
+    end
+    ToxicSubstances is
+      @rdf:value = 6
+    end
+    RadioactiveMaterials is
+      @rdf:value = 7
+    end
+    CorrosiveSubstances is
+      @rdf:value = 8
+    end
+    MiscellaneousDangerousMaterials is
+      @rdf:value = 9
+    end
+  end
+
+  structure Dimensions is
+    height -> decimal
+    width -> decimal
+    depth -> decimal
   end
 
   structure LogisticsAsset is
@@ -775,13 +826,23 @@ module logistics is
 
   enum LogisticsAssetKind of
     Pallet,
-    PalletStack,
     Container,
     RailCar,
   end
 
 end
 #+END_SRC
+
+#+BEGIN_ADVNOTE
+The enumeration ~DotHazardClassification~ in listing [[src:initial-logistics-structures]] shows the assignment of
+predetermined values to the variants of the enumeration.
+
+~rdf:value~, ...
+
+~owl:equivalentClass~, ...
+
+Also, the cardinality expression on member ~hazmat_classification~ is ~{unique 1..9}~, ...
+#+END_ADVNOTE
 
 ** Describe Events emitted by Entities
 
@@ -891,6 +952,11 @@ module logistics is
   event TransferRequest source Shipment
   event TransferConfirmation source Shipment
 
+  enum TransferKind of
+    Pickup
+    Dropoff
+  end
+
 end
 #+END_SRC
 
@@ -905,12 +971,12 @@ module hospitality is
 
   import pii
 
-  union PaymentInstrument of
-    assert only_one = "one, and only one of upc, ean, or isbn may be present"
-    Currency as Cash
-    Currency as CreditBalance
-    unsigned as Points
-    pii:CardToken as Card
+  structure PaymentInstrument is
+    assert only_one = "one, and only one, of cash, credit_balance, points, or card may be present"
+    cash -> Currency
+    credit_balance -> Currency
+    points -> unsigned
+    card -> pii:CardToken
   end
 
 end
@@ -942,16 +1008,20 @@ module gs1 is
 
   import [ xsd ]
 
-  datatype Upc <- string
-  datatype Ean <- string
-  datatype Isbn <- string
+  datatype UniversalProductCode <- string
+  datatype EuropeanArticleNumber <- string
+  datatype InternationalStandardBookNumber <- string
+  datatype InternationalStandardMusicNumber <- string
+  datatype InternationalStandardSerialNumber <- string
 
   union GlobalTradeIdentificationNumber of
     @skos:prefLabel = "Global Trade Identification Number"@en
     @skos:altLabel = "GTIN"@en
-    Upc
-    Ean
-    Isbn
+    UniversalProductCode
+    EuropeanArticleNumber
+    InternationalStandardBookNumber
+    InternationalStandardMusicNumber
+    InternationalStandardSerialNumber
   end
 
 end
@@ -988,7 +1058,6 @@ TBD
 - [[https://olegchursin.medium.com/a-brief-introduction-to-domain-modeling-862a30b38353][A Brief Introduction to Domain Modeling]], Oleg Chursin.
 - [[https://simplea.com/Articles/domain-model][What is a Domain Model?]], [A].
 - [[https://en.wikipedia.org/wiki/Domain_model][Domain Model]], Wikipedia.
-
 
 * A Brief Glossary
 :PROPERTIES:
