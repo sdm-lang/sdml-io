@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-01 Fri 10:16 -->
+<!-- 2023-12-01 Fri 13:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Simple Domain Modeling Language</title>
@@ -34,52 +34,52 @@
 </li>
 <li><a href="#what-is-sdml">2. What is SDML?</a>
 <ul>
-<li><a href="#org52ce220">2.1. What it isn't</a></li>
+<li><a href="#orgd959d06">2.1. What it isn't</a></li>
 </ul>
 </li>
 <li><a href="#what-can-it-do">3. What can I do with it?</a>
 <ul>
-<li><a href="#orgdd92e97">3.1. Capture Entities</a>
+<li><a href="#capture-entities">3.1. Capture Entities</a>
 <ul>
-<li><a href="#org384723a">3.1.1. Retail Example</a></li>
-<li><a href="#orgef540a2">3.1.2. Hospitality Example</a></li>
-<li><a href="#orgb9bacbc">3.1.3. Logistics Example</a></li>
+<li><a href="#org6634617">3.1.1. Retail Example</a></li>
+<li><a href="#orgee673eb">3.1.2. Hospitality Example</a></li>
+<li><a href="#org943d6cb">3.1.3. Logistics Example</a></li>
 </ul>
 </li>
-<li><a href="#org721b64b">3.2. Add details with Structures and Enums</a>
+<li><a href="#add-structures-and-enums">3.2. Add details with Structures and Enums</a>
 <ul>
-<li><a href="#org61c2d5a">3.2.1. Retail Example</a></li>
-<li><a href="#orgd68e28b">3.2.2. Hospitality Example</a></li>
-<li><a href="#org7f9558b">3.2.3. Logistics Example</a></li>
+<li><a href="#org8a9255a">3.2.1. Retail Example</a></li>
+<li><a href="#org4de86a2">3.2.2. Hospitality Example</a></li>
+<li><a href="#orgeade610">3.2.3. Logistics Example</a></li>
 </ul>
 </li>
-<li><a href="#org887c009">3.3. Describe Events emitted by Entities</a>
+<li><a href="#add-events">3.3. Describe Events emitted by Entities</a>
 <ul>
-<li><a href="#org28af43a">3.3.1. Retail Example</a></li>
-<li><a href="#orga022689">3.3.2. Hospitality Example</a></li>
-<li><a href="#orgeddba17">3.3.3. Logistics Example</a></li>
+<li><a href="#orgdc37753">3.3.1. Retail Example</a></li>
+<li><a href="#org0b121ba">3.3.2. Hospitality Example</a></li>
+<li><a href="#orged8903a">3.3.3. Logistics Example</a></li>
 </ul>
 </li>
-<li><a href="#orgede8e80">3.4. Describe "This or That" with Unions</a>
+<li><a href="#add-unions">3.4. Describe "This or That" with Unions</a>
 <ul>
-<li><a href="#org8e45dab">3.4.1. Hospitality Example</a></li>
-<li><a href="#org4fc9f74">3.4.2. Logistics Example</a></li>
+<li><a href="#org73b0aef">3.4.1. Hospitality Example</a></li>
+<li><a href="#org8eb2443">3.4.2. Logistics Example</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a href="#how-to-use">4. How do I use it?</a>
 <ul>
-<li><a href="#org1bbeffc">4.1. Editing SDML Source</a></li>
-<li><a href="#org5ad8785">4.2. Drawing Diagrams</a></li>
-<li><a href="#org2616034">4.3. Document Modules</a></li>
+<li><a href="#org88eb520">4.1. Editing SDML Source</a></li>
+<li><a href="#org0bbf7b7">4.2. Drawing Diagrams</a></li>
+<li><a href="#org9fff490">4.3. Document Modules</a></li>
 </ul>
 </li>
 <li><a href="#what-next">5. What do I do next?</a>
 <ul>
-<li><a href="#org156f05f">5.1. For Authors</a></li>
-<li><a href="#org40635b7">5.2. For Tool Builders</a></li>
-<li><a href="#org1e33b8f">5.3. More Reading</a></li>
+<li><a href="#org6f370d9">5.1. For Authors</a></li>
+<li><a href="#orgc69bf83">5.2. For Tool Builders</a></li>
+<li><a href="#org336d657">5.3. More Reading</a></li>
 </ul>
 </li>
 <li><a href="#glossary">6. A Brief Glossary</a></li>
@@ -87,7 +87,7 @@
 </div>
 </div>
 
-<div id="orgc6d1768" class="figure">
+<div id="orgf63f1a0" class="figure">
 <p><img src="./logo/svg/square-dark.svg" alt="square-dark.svg" class="org-svg" width="75%" height="75%" />
 </p>
 </div>
@@ -230,11 +230,11 @@ SDML is a textual language that allows you to describe a domain model in a <i>re
 relatively because the language allows you to build models iteratively, capturing the essentials first and elaborating
 on them over time. It is common for domain models to be the output of workshop sessions and so the ability to capture a
 valid model in real-time even if it lacks detail is a useful feature. With this in mind we will elaborate on the module
-<i>definition</i> in listing <a href="#org993429f">1</a> during this primer.
+<i>definition</i> in listing <a href="#org0186e6f">1</a> during this primer.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>An empty module</label><pre class="src src-sdml" id="org993429f"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>An empty module</label><pre class="src src-sdml" id="org0186e6f"><span class="linenr">1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
 </pre>
 </div>
 
@@ -255,9 +255,9 @@ representation, the surface syntax (it actually has two, more on that in a momen
 being able to read and write that syntax.
 </p>
 
-<div class="ADVNOTE" id="orge5458ab">
+<div class="ADVNOTE" id="org7425e50">
 <p>
-What is the other representation? The textual language, shown in listing <a href="#org993429f">1</a> has a direct mapping to, and
+What is the other representation? The textual language, shown in listing <a href="#org0186e6f">1</a> has a direct mapping to, and
 can be considered an alternate syntax for, a particular <a href="https://www.w3.org/TR/rdf12-concepts">RDF</a>/<a href="https://www.w3.org/OWL/">OWL</a> ontology <b>[need link]</b>. This means that the <i>semantics</i> of
 SDML are then described by the OWL ontology, then OWL, and then RDF. Understanding this is not necessary to using or
 understanding the SDML syntax.
@@ -271,8 +271,8 @@ for drawing and documentation. It also produces this primer and the main documen
 </p>
 </div>
 
-<div id="outline-container-org52ce220" class="outline-3">
-<h3 id="org52ce220"><span class="section-number-3">2.1.</span> What it isn't</h3>
+<div id="outline-container-orgd959d06" class="outline-3">
+<h3 id="orgd959d06"><span class="section-number-3">2.1.</span> What it isn't</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>SDML is not, as we said above, a graphical language. It relies on a defined mapping to the UML language that allows
@@ -302,9 +302,9 @@ Hospitality, and Logistics.
 </p>
 </div>
 
-<div id="outline-container-orgdd92e97" class="outline-3">
-<h3 id="orgdd92e97"><span class="section-number-3">3.1.</span> Capture Entities</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-capture-entities" class="outline-3">
+<h3 id="capture-entities"><span class="section-number-3">3.1.</span> Capture Entities</h3>
+<div class="outline-text-3" id="text-capture-entities">
 <p>
 Let's add the entities from the previous natural language description to our module. In each of the following sections
 we will repeat the descriptive text and follow it with an initial model. Note that all we need to do at this stage is
@@ -312,10 +312,10 @@ list the entities we have identified so far using the rather obvious keyword <co
 </p>
 </div>
 
-<div id="outline-container-org384723a" class="outline-4">
-<h4 id="org384723a"><span class="section-number-4">3.1.1.</span> Retail Example</h4>
+<div id="outline-container-org6634617" class="outline-4">
+<h4 id="org6634617"><span class="section-number-4">3.1.1.</span> Retail Example</h4>
 <div class="outline-text-4" id="text-3-1-1">
-<div class="INDENTED" id="org3f66ac2">
+<div class="INDENTED" id="org13ee349">
 <p>
 <b>Customers</b> go to a <b>store</b> to <b>purchase</b> <b>items</b>, they may have a specific item in mind or expect to find <i>choices they can
 choose between</i>. Depending on the <i>kind of item</i> this choice may be <i>variations (in size or color for example)</i> of the same
@@ -331,19 +331,19 @@ section <a href="#where-to-start">Where do I start?</a>, except <code>Manufactur
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Initial Retail Entities</label><pre class="src src-sdml" id="orgb939d46"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Store</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Purchase</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Item</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Manufacturer</span>
-
-<span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Initial Retail Entities</label><pre class="src src-sdml" id="org9edd934"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Store</span>
+<span class="linenr"> 6: </span>
+<span class="linenr"> 7: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Purchase</span>
+<span class="linenr"> 8: </span>
+<span class="linenr"> 9: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Item</span>
+<span class="linenr">10: </span>
+<span class="linenr">11: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Manufacturer</span>
+<span class="linenr">12: </span>
+<span class="linenr">13: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 
@@ -357,10 +357,10 @@ customer as the primary subject as it means you end up with fewer internal names
 </div>
 </div>
 
-<div id="outline-container-orgef540a2" class="outline-4">
-<h4 id="orgef540a2"><span class="section-number-4">3.1.2.</span> Hospitality Example</h4>
+<div id="outline-container-orgee673eb" class="outline-4">
+<h4 id="orgee673eb"><span class="section-number-4">3.1.2.</span> Hospitality Example</h4>
 <div class="outline-text-4" id="text-3-1-2">
-<div class="INDENTED" id="org0962979">
+<div class="INDENTED" id="org0637b0e">
 <p>
 A <b>customer</b> <b>books</b> a <b>room</b> according to their choice of <i>size, bed type, or other criteria</i>, for <i>specific dates</i> at a
 particular <b>property</b>. A customer may make <i>certain kinds</i> of <b>purchases</b> against their room which are then added to the
@@ -377,52 +377,48 @@ customer left early for example.
 </p>
 
 <p>
-In listing <a href="#org1ec2741">3</a> we will fill in some details, just to see how it's done. Specifically note
+In listing <a href="#org362de8b">3</a> we will fill in some details, just to see how it's done. Specifically note
 the use of the arrow operator <code>-&gt;</code> or <code>→</code> that denotes the type (right-hand side) of a member (left-hand side). Also, if you
 remember that a part of the definition of an entity is that it has strong identity, so as we are adding details to
 entities we <b>must</b> provide an <code>identity</code> member.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Initial Hospitality Entities</label><pre class="src src-sdml" id="org1ec2741"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
-
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> booking_code <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-
-    customer <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Customer</span>
-    property <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Property</span>
-    room_type <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span> <span style="color: #93a1a1; font-style: italic;">;; don't know what this is yet.</span>
-
-    start_date <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
-    end_date <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
-    number_of_adults <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">integer</span>
-    number_of_children <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">integer</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Room</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Property</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Purchase</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Bill</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> transaction_id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
-
-    for_stay <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Stay</span>
-    charges <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Purchase</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Stay</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
-  
-    from_booking <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Booking</span>
-  <span style="color: #859900;">end</span>
-
-<span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Initial Hospitality Entities</label><pre class="src src-sdml" id="org362de8b"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
+<span class="linenr"> 6: </span>
+<span class="linenr"> 7: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 8: </span>    <span style="color: #859900;">identity</span> booking_code <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr"> 9: </span>    customer <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Customer</span>
+<span class="linenr">10: </span>    property <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Property</span>
+<span class="linenr">11: </span>    room_type <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span> <span style="color: #93a1a1; font-style: italic;">;; don't know what this is yet.</span>
+<span class="linenr">12: </span>    start_date <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+<span class="linenr">13: </span>    end_date <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+<span class="linenr">14: </span>    number_of_adults <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">integer</span>
+<span class="linenr">15: </span>    number_of_children <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">integer</span>
+<span class="linenr">16: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">17: </span>
+<span class="linenr">18: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Room</span>
+<span class="linenr">19: </span>
+<span class="linenr">20: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Property</span>
+<span class="linenr">21: </span>
+<span class="linenr">22: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Purchase</span>
+<span class="linenr">23: </span>
+<span class="linenr">24: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Bill</span> <span style="color: #859900;">is</span>
+<span class="linenr">25: </span>    <span style="color: #859900;">identity</span> transaction_id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
+<span class="linenr">26: </span>    for_stay <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Stay</span>
+<span class="linenr">27: </span>    charges <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Purchase</span>
+<span class="linenr">28: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">29: </span>
+<span class="linenr">30: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Stay</span> <span style="color: #859900;">is</span>
+<span class="linenr">31: </span>    <span style="color: #859900;">identity</span> id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
+<span class="linenr">32: </span>    from_booking <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Booking</span>
+<span class="linenr">33: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">34: </span>
+<span class="linenr">35: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 
@@ -431,30 +427,30 @@ The following are useful pointers to features of the entity definition.
 </p>
 
 <ol class="org-ol">
-<li>The members named <code>customer</code> and <code>property</code> reference other entities in the same module <i>even though</i> neither of those
+<li>Lines 9-10: the members named <code>customer</code> and <code>property</code> reference other entities in the same module <i>even though</i> neither of those
 entities are complete.</li>
-<li>The member named <code>room_type</code> has the type <code>*unknown*</code> which is an explicit signal that this model is incomplete as the
+<li>Line 11: the member named <code>room_type</code> has the type <code>*unknown*</code> which is an explicit signal that this model is incomplete as the
 type has not yet been decided.</li>
-<li>The semi-colon introduces a line comment, so we added a little note to ourselves about the unknown type for this
+<li>Line 11: the semi-colon introduces a line comment, so we added a little note to ourselves about the unknown type for this
 member. The use of two semi-colons is a style preference as it makes the comment easier to find.</li>
-<li>The type names <code>string</code> and <code>integer</code> (and <code>unknown</code>) are builtin, the type <code>xsd:date</code> is not, it has been imported from
+<li>Lines 8,11-15: the type names <code>string</code> and <code>integer</code> (and <code>unknown</code>) are builtin, the type <code>xsd:date</code> is not, it has been imported from
 another module named <code>xsd</code>. The name <code>xsd:date</code> is a <i>qualified name</i> which uses the colon character to combine module and
 definition name.</li>
-<li>The member named in <code>charges</code> in <code>Bill</code> is a <i>sequence type</i>, which means it can have a varying number of values. The
+<li>Line 27: the member named in <code>charges</code> in <code>Bill</code> is a <i>sequence type</i>, which means it can have a varying number of values. The
 specification for upper and lower bounds on a sequence type are it's cardinality, the lack of a upper bound means
 that the range is <i>unbounded</i>. The default cardinality being <code>1</code>.</li>
-<li>The member named <code>from_booking</code> in <code>Stay</code> is another sequence type, although with the cardinality of <code>0..1</code> may be seen as
+<li>Line 32: the member named <code>from_booking</code> in <code>Stay</code> is another sequence type, although with the cardinality of <code>0..1</code> may be seen as
 <i>optional</i>.</li>
 </ol>
 
 <p>
 The builtin datatypes in SDML are derived from those in the XML Schema, Part 2 specification, the same datatypes used in
-RDF. The major datatypes are listed in table <a href="#org836a1c6">1</a> and compared to corresponding datatypes in SQL,
+RDF. The major datatypes are listed in table <a href="#org76577d0">1</a> and compared to corresponding datatypes in SQL,
 Java and Rust. SQL's Data Definition Language (DDL) is a useful comparison given that it may be familiar to less
 technical stakeholders.
 </p>
 
-<table id="org836a1c6" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org76577d0" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption class="t-above"><span class="table-number">Table 1:</span> Datatype Comparisons</caption>
 
 <colgroup>
@@ -563,10 +559,10 @@ technical stakeholders.
 </div>
 </div>
 
-<div id="outline-container-orgb9bacbc" class="outline-4">
-<h4 id="orgb9bacbc"><span class="section-number-4">3.1.3.</span> Logistics Example</h4>
+<div id="outline-container-org943d6cb" class="outline-4">
+<h4 id="org943d6cb"><span class="section-number-4">3.1.3.</span> Logistics Example</h4>
 <div class="outline-text-4" id="text-3-1-3">
-<div class="INDENTED" id="org9e07d74">
+<div class="INDENTED" id="org24a16a9">
 <p>
 The business comprises <i>matching</i> available transportation <b>capacity</b> on one or more <b>routes</b> to <i>deliver</i> a <b>customer</b>'s load
 from <i>source to destination</i> within some <i>time constraint</i>. A load may be one or more <b>standard palettes</b>, or one or more
@@ -582,71 +578,71 @@ the original
 
 <p>
 You can use Annotation Properties to attach documentation properties to your model. In the following example we have
-added a <i>preferred label</i> "Logistics", an <i>alternate label</i> "Shipping", and a <i>description</i> annotation to the module itself.
-Don't worry about the syntax of these for now, that's covered in an advanced topic later. We have added some to the
-logistics example in listing <a href="#org0eb330d">4</a>. 
+added a <i>preferred label</i> "Logistics" (line 6), an <i>alternate label</i> "Shipping" (line 7), and a <i>description</i> (line 8)
+annotation to the module itself. Don't worry about the syntax of these for now, that's covered in an advanced topic
+later. We have added some to the logistics example in listing <a href="#orge93534e">4</a>.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 4: </span>Initial Logistics Entities</label><pre class="src src-sdml" id="org0eb330d"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
-
-  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
-  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
-
-  <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Logistics"</span><span style="color: #268bd2; font-style: italic;">@en</span>
-  <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Shipping"</span><span style="color: #268bd2; font-style: italic;">@en</span>
-  <span style="color: #d33682;">@dc:description</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"A domain model for long-haul logistics."</span><span style="color: #268bd2; font-style: italic;">@en</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Location</span>
-  <span style="color: #93a1a1; font-style: italic;">; Global Location Number GLN</span>
-
-  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LocationKind</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignor</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">GlobalLocationNumber</span>
-    lei <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">gs1:LegalEntityIdentifier</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignment</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> ginc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalIdentificationNumberForConsignment</span>
-    consignor <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Consignor</span>
-    shipments <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Shipment</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #859900;">is</span>
-
-    <span style="color: #d33682;">@editorialNote</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"need to add logistic units -- are these entities?"</span>
-
-    <span style="color: #859900;">identity</span> gsin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalShipmentIdentificationNumber</span>
-
-    from <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
-    to <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
-  <span style="color: #859900;">end</span>
-
-<span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>Initial Logistics Entities</label><pre class="src src-sdml" id="orge93534e"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+<span class="linenr"> 4: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+<span class="linenr"> 5: </span>
+<span class="linenr"> 6: </span>  <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Logistics"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+<span class="linenr"> 7: </span>  <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Shipping"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+<span class="linenr"> 8: </span>  <span style="color: #d33682;">@dc:description</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"A domain model for long-haul logistics."</span><span style="color: #268bd2; font-style: italic;">@en</span>
+<span class="linenr"> 9: </span>
+<span class="linenr">10: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Location</span>
+<span class="linenr">11: </span>  <span style="color: #93a1a1; font-style: italic;">; Global Location Number GLN</span>
+<span class="linenr">12: </span>
+<span class="linenr">13: </span>  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LocationKind</span>
+<span class="linenr">14: </span>
+<span class="linenr">15: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignor</span> <span style="color: #859900;">is</span>
+<span class="linenr">16: </span>    <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">GlobalLocationNumber</span>
+<span class="linenr">17: </span>    lei <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">gs1:LegalEntityIdentifier</span>
+<span class="linenr">18: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">19: </span>
+<span class="linenr">20: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignment</span> <span style="color: #859900;">is</span>
+<span class="linenr">21: </span>    <span style="color: #859900;">identity</span> ginc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalIdentificationNumberForConsignment</span>
+<span class="linenr">22: </span>    consignor <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Consignor</span>
+<span class="linenr">23: </span>    shipments <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Shipment</span>
+<span class="linenr">24: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">25: </span>
+<span class="linenr">26: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #859900;">is</span>
+<span class="linenr">27: </span>
+<span class="linenr">28: </span>    <span style="color: #d33682;">@editorialNote</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"need to add logistic units -- are these entities?"</span>
+<span class="linenr">29: </span>
+<span class="linenr">30: </span>    <span style="color: #859900;">identity</span> gsin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalShipmentIdentificationNumber</span>
+<span class="linenr">31: </span>    from <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+<span class="linenr">32: </span>    to <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+<span class="linenr">33: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">34: </span>
+<span class="linenr">35: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 
-
 <p>
-It is also time to deal with the <code>import</code> statement that we have already seen in a number of examples. An import statement
+It is also time to deal with the <code>import</code> statement (lines 3,4) that we have already seen in a number of examples. An import statement
 is used to make definitions in other modules available to us in the current module. Import statements are simpler than a
 lot of programming languages in that you can import <i>either</i> a module by name <i>or</i> individual definitions within a module.
 In either case SDML requires you to use the qualified name of any imported definition. A qualified name is simply the
-name of the module followed by a colon and then the name of the definition. In listing <a href="#org0eb330d">4</a> we
+name of the module followed by a colon and then the name of the definition. In listing <a href="#orge93534e">4</a> we
 see a single import statement with a list of module names, <code>dc</code> and <code>skos</code>. These modules allow us to reference the
 annotation properties <code>dc:description</code>, <code>skos:altLabel</code>, <code>skos:definition</code>, and <code>skos:prefLabel</code>.
 </p>
 
-<div class="ADVNOTE" id="org99e9c46">
+<div class="ADVNOTE" id="orgdd5e20e">
 <p>
 Annotation properties are like constants in programming, they become attached to their enclosing definition and are
 immutable. A property is introduced by the initial <code>@</code> character and the property name follows. This property is then
-assigned a value, using the datatypes in table <a href="#org836a1c6">1</a>.
+assigned a value, using the datatypes in table <a href="#org76577d0">1</a>. Some annotations, such as those in listing
+<a href="#orge93534e">4</a> above, are purely descriptive while others actually affect the semantics of the model
+element they are attached to.
 </p>
 
 <p>
-Strings, as you can see in listing <a href="#org0eb330d">4</a> may be followed by another <code>@</code> character which
+Strings, as you can see in listing <a href="#orge93534e">4</a> may be followed by another <code>@</code> character which
 introduces a language tag that identifies the natural language used in the string constant.
 </p>
 
@@ -655,9 +651,9 @@ introduces a language tag that identifies the natural language used in the strin
 </div>
 </div>
 
-<div id="outline-container-org721b64b" class="outline-3">
-<h3 id="org721b64b"><span class="section-number-3">3.2.</span> Add details with Structures and Enums</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-add-structures-and-enums" class="outline-3">
+<h3 id="add-structures-and-enums"><span class="section-number-3">3.2.</span> Add details with Structures and Enums</h3>
+<div class="outline-text-3" id="text-add-structures-and-enums">
 <p>
 Now that you have the key elements of your domain model in place, you can start to see how this becomes the core
 vocabulary shared between customers, business, and technical stakeholders. However, a Store, Property, or Shipment are
@@ -678,98 +674,97 @@ An enumeration is a list of unique variants that represent distinct options.
 </p>
 </div>
 
-<div id="outline-container-org61c2d5a" class="outline-4">
-<h4 id="org61c2d5a"><span class="section-number-4">3.2.1.</span> Retail Example</h4>
+<div id="outline-container-org8a9255a" class="outline-4">
+<h4 id="org8a9255a"><span class="section-number-4">3.2.1.</span> Retail Example</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
-In listing <a href="#orgb939d46">2</a> we have added a common <code>Address</code> structure that is used by the customer,
-manufacturer, and store entities. This example does not introduce an enumeration directly; however, the imported type
-<code>AlphaTwoCountryCode</code> is an enumeration (described in listing <a href="#org840cbfc">6</a> below).
+In listing <a href="#orgb8a7f43">5</a> we have added a common <code>Address</code> structure (line 13) that is used by the
+customer, manufacturer, and store entities. This example does not introduce an enumeration directly; however, the
+imported type <code>AlphaTwoCountryCode</code> is an enumeration (described in listing <a href="#org38e4d5e">6</a> below). Additionally, the
+cardinality expression on line 25 introduces a new keyword <code>ordered</code> that is a constraint over the sequence that it's
+members <b>must</b> maintain their order, thus the sequence acts as an array or vector. In this example we assume that the 7
+elements of the sequence represent the days of the week so ordering would be important (although is the first element
+Sunday or Monday?).
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 5: </span>Initial Retail Entities</label><pre class="src src-sdml" id="orgf965592"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
-
-  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">gs1</span>
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">iso_17442</span>
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">iso_3166_1</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> customer_id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
-
-    address <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Address</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Address</span> <span style="color: #859900;">is</span>
-    street <span style="color: #657b83;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #268bd2;">2</span><span style="color: #657b83;">}</span> <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-    apartment <span style="color: #657b83;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83;">}</span> <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-    city <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-    state_or_district <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-    postal_code <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-    country <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">iso_3166_1:AlphaTwoCountryCode</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Store</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> location_number <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalLocationNumber</span>
-
-    address <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Address</span>
-    open_hours <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #859900;">ordered</span> <span style="color: #268bd2;">7</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Hours</span>
-    has_pickup <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">boolean</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Hours</span> <span style="color: #859900;">is</span>
-    open <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:time</span>
-    close <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:time</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Purchase</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Item</span> <span style="color: #859900;">is</span>
-    <span style="color: #d33682;">@skos:note</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"See following advanced topic."</span>
-
-    <span style="color: #859900;">identity</span> gtin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalTradeItemNumber</span>
-
-    description <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-    manufacturer <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Manufacturer</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Manufacturer</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> manufacturer_id <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">iso_17442:LegalEntityId</span>
-
-    address <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Address</span>
-  <span style="color: #859900;">end</span>
-
-<span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Retail Structures and Enumerations</label><pre class="src src-sdml" id="orgb8a7f43"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+<span class="linenr"> 4: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">gs1</span>
+<span class="linenr"> 5: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">iso_17442</span>
+<span class="linenr"> 6: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">iso_3166_1</span>
+<span class="linenr"> 7: </span>
+<span class="linenr"> 8: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 9: </span>    <span style="color: #859900;">identity</span> customer_id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
+<span class="linenr">10: </span>    address <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Address</span>
+<span class="linenr">11: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">12: </span>
+<span class="linenr">13: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Address</span> <span style="color: #859900;">is</span>
+<span class="linenr">14: </span>    street <span style="color: #657b83;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #268bd2;">2</span><span style="color: #657b83;">}</span> <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr">15: </span>    apartment <span style="color: #657b83;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83;">}</span> <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr">16: </span>    city <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr">17: </span>    state_or_district <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr">18: </span>    postal_code <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr">19: </span>    country <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">iso_3166_1:AlphaTwoCountryCode</span>
+<span class="linenr">20: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">21: </span>
+<span class="linenr">22: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Store</span> <span style="color: #859900;">is</span>
+<span class="linenr">23: </span>    <span style="color: #859900;">identity</span> location_number <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalLocationNumber</span>
+<span class="linenr">24: </span>    address <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Address</span>
+<span class="linenr">25: </span>    open_hours <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #859900;">ordered</span> <span style="color: #268bd2;">7</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Hours</span>
+<span class="linenr">26: </span>    has_pickup <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">boolean</span>
+<span class="linenr">27: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">28: </span>
+<span class="linenr">29: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Hours</span> <span style="color: #859900;">is</span>
+<span class="linenr">30: </span>    open <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:time</span>
+<span class="linenr">31: </span>    close <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:time</span>
+<span class="linenr">32: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">33: </span>
+<span class="linenr">34: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Purchase</span>
+<span class="linenr">35: </span>
+<span class="linenr">36: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Item</span> <span style="color: #859900;">is</span>
+<span class="linenr">37: </span>    <span style="color: #d33682;">@skos:note</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"See following advanced topic."</span>
+<span class="linenr">38: </span>    <span style="color: #859900;">identity</span> gtin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalTradeItemNumber</span>
+<span class="linenr">39: </span>    description <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr">40: </span>    manufacturer <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Manufacturer</span>
+<span class="linenr">41: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">42: </span>
+<span class="linenr">43: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Manufacturer</span> <span style="color: #859900;">is</span>
+<span class="linenr">44: </span>    <span style="color: #859900;">identity</span> manufacturer_id <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">iso_17442:LegalEntityId</span>
+<span class="linenr">45: </span>    address <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Address</span>
+<span class="linenr">46: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">47: </span>
+<span class="linenr">48: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 
 <p>
 The following listing shows the definition of the enumeration <code>AlphaTwoCountryCode</code>. The whitespace in this example should
-be ignored, it is just useful to aout a grid of 26 rows of 26 columns for all the possible combination of two ASCII
+be ignored, it is just useful to layout a grid of 26 rows of 26 columns for all the possible combination of two ASCII
 upper case letters.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 6: </span>ISO Country Code enum</label><pre class="src src-sdml" id="org840cbfc"><span style="color: #859900;">module</span> <span style="color: #268bd2;">iso_3166_1</span> <span style="color: #859900;">is</span>
-
-  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">AlphaTwoCountryCode</span> <span style="color: #859900;">of</span>
-             <span style="color: #268bd2;">AD</span> <span style="color: #268bd2;">AE</span> <span style="color: #268bd2;">AF</span> <span style="color: #268bd2;">AG</span>    <span style="color: #268bd2;">AI</span>       <span style="color: #268bd2;">AL</span> <span style="color: #268bd2;">AM</span>    <span style="color: #268bd2;">AO</span>    <span style="color: #268bd2;">AQ</span> <span style="color: #268bd2;">AR</span> <span style="color: #268bd2;">AS</span> <span style="color: #268bd2;">AT</span> <span style="color: #268bd2;">AU</span>    <span style="color: #268bd2;">AW</span> <span style="color: #268bd2;">AX</span>    <span style="color: #268bd2;">AZ</span>
-    <span style="color: #268bd2;">BA</span> <span style="color: #268bd2;">BB</span>    <span style="color: #268bd2;">BD</span> <span style="color: #268bd2;">BE</span> <span style="color: #268bd2;">BF</span> <span style="color: #268bd2;">BG</span> <span style="color: #268bd2;">BH</span> <span style="color: #268bd2;">BI</span> <span style="color: #268bd2;">BJ</span>    <span style="color: #268bd2;">BL</span> <span style="color: #268bd2;">BM</span> <span style="color: #268bd2;">BN</span> <span style="color: #268bd2;">BO</span>    <span style="color: #268bd2;">BQ</span> <span style="color: #268bd2;">BR</span> <span style="color: #268bd2;">BS</span> <span style="color: #268bd2;">BT</span>    <span style="color: #268bd2;">BV</span> <span style="color: #268bd2;">BW</span>    <span style="color: #268bd2;">BY</span> <span style="color: #268bd2;">BZ</span>
-    <span style="color: #268bd2;">CA</span>    <span style="color: #268bd2;">CC</span> <span style="color: #268bd2;">CD</span>    <span style="color: #268bd2;">CF</span> <span style="color: #268bd2;">CG</span> <span style="color: #268bd2;">CH</span> <span style="color: #268bd2;">CI</span>    <span style="color: #268bd2;">CK</span> <span style="color: #268bd2;">CL</span> <span style="color: #268bd2;">CM</span> <span style="color: #268bd2;">CN</span> <span style="color: #268bd2;">CO</span>       <span style="color: #268bd2;">CR</span>       <span style="color: #268bd2;">CU</span> <span style="color: #268bd2;">CV</span> <span style="color: #268bd2;">CW</span> <span style="color: #268bd2;">CX</span> <span style="color: #268bd2;">CY</span> <span style="color: #268bd2;">CZ</span>
-                <span style="color: #268bd2;">DE</span>             <span style="color: #268bd2;">DJ</span> <span style="color: #268bd2;">DK</span>    <span style="color: #268bd2;">DM</span>    <span style="color: #268bd2;">DO</span>                               <span style="color: #268bd2;">DZ</span>
-          <span style="color: #268bd2;">EC</span>    <span style="color: #268bd2;">EE</span>    <span style="color: #268bd2;">EG</span> <span style="color: #268bd2;">EH</span>                            <span style="color: #268bd2;">ER</span> <span style="color: #268bd2;">ES</span> <span style="color: #268bd2;">ET</span> 
-                            <span style="color: #268bd2;">FI</span> <span style="color: #268bd2;">FJ</span> <span style="color: #268bd2;">FK</span>    <span style="color: #268bd2;">FM</span>    <span style="color: #268bd2;">FO</span>       <span style="color: #268bd2;">FR</span>
-    <span style="color: #93a1a1; font-style: italic;">;; ...</span>
-    <span style="color: #93a1a1; font-style: italic;">;; ...</span>
-    <span style="color: #93a1a1; font-style: italic;">;; ...</span>
-    <span style="color: #268bd2;">VA</span>    <span style="color: #268bd2;">VC</span>    <span style="color: #268bd2;">VE</span>    <span style="color: #268bd2;">VG</span>    <span style="color: #268bd2;">VI</span>             <span style="color: #268bd2;">VN</span>                   <span style="color: #268bd2;">VU</span>
-                   <span style="color: #268bd2;">WF</span>                                     <span style="color: #268bd2;">WS</span>
-                <span style="color: #268bd2;">YE</span>                                           <span style="color: #268bd2;">YT</span>
-    <span style="color: #268bd2;">ZA</span>                                  <span style="color: #268bd2;">ZM</span>                            <span style="color: #268bd2;">ZW</span>
-  <span style="color: #859900;">end</span>
-
-<span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>ISO Country Code enum</label><pre class="src src-sdml" id="org38e4d5e"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">iso_3166_1</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">AlphaTwoCountryCode</span> <span style="color: #859900;">of</span>
+<span class="linenr"> 4: </span>             <span style="color: #268bd2;">AD</span> <span style="color: #268bd2;">AE</span> <span style="color: #268bd2;">AF</span> <span style="color: #268bd2;">AG</span>    <span style="color: #268bd2;">AI</span>       <span style="color: #268bd2;">AL</span> <span style="color: #268bd2;">AM</span>    <span style="color: #268bd2;">AO</span>    <span style="color: #268bd2;">AQ</span> <span style="color: #268bd2;">AR</span> <span style="color: #268bd2;">AS</span> <span style="color: #268bd2;">AT</span> <span style="color: #268bd2;">AU</span>    <span style="color: #268bd2;">AW</span> <span style="color: #268bd2;">AX</span>    <span style="color: #268bd2;">AZ</span>
+<span class="linenr"> 5: </span>    <span style="color: #268bd2;">BA</span> <span style="color: #268bd2;">BB</span>    <span style="color: #268bd2;">BD</span> <span style="color: #268bd2;">BE</span> <span style="color: #268bd2;">BF</span> <span style="color: #268bd2;">BG</span> <span style="color: #268bd2;">BH</span> <span style="color: #268bd2;">BI</span> <span style="color: #268bd2;">BJ</span>    <span style="color: #268bd2;">BL</span> <span style="color: #268bd2;">BM</span> <span style="color: #268bd2;">BN</span> <span style="color: #268bd2;">BO</span>    <span style="color: #268bd2;">BQ</span> <span style="color: #268bd2;">BR</span> <span style="color: #268bd2;">BS</span> <span style="color: #268bd2;">BT</span>    <span style="color: #268bd2;">BV</span> <span style="color: #268bd2;">BW</span>    <span style="color: #268bd2;">BY</span> <span style="color: #268bd2;">BZ</span>
+<span class="linenr"> 6: </span>    <span style="color: #268bd2;">CA</span>    <span style="color: #268bd2;">CC</span> <span style="color: #268bd2;">CD</span>    <span style="color: #268bd2;">CF</span> <span style="color: #268bd2;">CG</span> <span style="color: #268bd2;">CH</span> <span style="color: #268bd2;">CI</span>    <span style="color: #268bd2;">CK</span> <span style="color: #268bd2;">CL</span> <span style="color: #268bd2;">CM</span> <span style="color: #268bd2;">CN</span> <span style="color: #268bd2;">CO</span>       <span style="color: #268bd2;">CR</span>       <span style="color: #268bd2;">CU</span> <span style="color: #268bd2;">CV</span> <span style="color: #268bd2;">CW</span> <span style="color: #268bd2;">CX</span> <span style="color: #268bd2;">CY</span> <span style="color: #268bd2;">CZ</span>
+<span class="linenr"> 7: </span>                <span style="color: #268bd2;">DE</span>             <span style="color: #268bd2;">DJ</span> <span style="color: #268bd2;">DK</span>    <span style="color: #268bd2;">DM</span>    <span style="color: #268bd2;">DO</span>                               <span style="color: #268bd2;">DZ</span>
+<span class="linenr"> 8: </span>          <span style="color: #268bd2;">EC</span>    <span style="color: #268bd2;">EE</span>    <span style="color: #268bd2;">EG</span> <span style="color: #268bd2;">EH</span>                            <span style="color: #268bd2;">ER</span> <span style="color: #268bd2;">ES</span> <span style="color: #268bd2;">ET</span> 
+<span class="linenr"> 9: </span>                            <span style="color: #268bd2;">FI</span> <span style="color: #268bd2;">FJ</span> <span style="color: #268bd2;">FK</span>    <span style="color: #268bd2;">FM</span>    <span style="color: #268bd2;">FO</span>       <span style="color: #268bd2;">FR</span>
+<span class="linenr">10: </span>    <span style="color: #93a1a1; font-style: italic;">;; ...</span>
+<span class="linenr">11: </span>    <span style="color: #93a1a1; font-style: italic;">;; ...</span>
+<span class="linenr">12: </span>    <span style="color: #93a1a1; font-style: italic;">;; ...</span>
+<span class="linenr">13: </span>    <span style="color: #268bd2;">VA</span>    <span style="color: #268bd2;">VC</span>    <span style="color: #268bd2;">VE</span>    <span style="color: #268bd2;">VG</span>    <span style="color: #268bd2;">VI</span>             <span style="color: #268bd2;">VN</span>                   <span style="color: #268bd2;">VU</span>
+<span class="linenr">14: </span>                   <span style="color: #268bd2;">WF</span>                                     <span style="color: #268bd2;">WS</span>
+<span class="linenr">15: </span>                <span style="color: #268bd2;">YE</span>                                           <span style="color: #268bd2;">YT</span>
+<span class="linenr">16: </span>    <span style="color: #268bd2;">ZA</span>                                  <span style="color: #268bd2;">ZM</span>                            <span style="color: #268bd2;">ZW</span>
+<span class="linenr">17: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">18: </span>
+<span class="linenr">19: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 
@@ -780,37 +775,38 @@ logical hierarchy in definitions. So we have all ISO standards start with <code>
 then in this case the part number <code>_1</code>.
 </p>
 
-<div class="ADVNOTE" id="org41cec8d">
+<div class="ADVNOTE" id="org328c6ad">
 <p>
-Consider using custom datatypes to constrain basic types to avoid errors. For example, in listing <a href="#orgaf2646a">7</a> the
-identifier for an <code>Item</code> is a GTIN or Global Trade Item Number. This standardized identifier has a number of specific
+Consider using custom datatypes to constrain basic types to avoid errors. For example, in listing <a href="#orgb8a7f43">5</a> the
+identifier for an <code>Item</code> (line 36) is a GTIN or Global Trade Item Number. This standardized identifier has a number of specific
 formats but the shortest of those is 8 characters and the longest is 13 characters. So, we create a new datatype which
-<i>restricts</i> the basic string to between 8 and 13 characters only using a regex pattern using an annotation property.
+<i>restricts</i> the basic string to between 8 and 13 characters only using a regex pattern using an annotation property. This
+datatype and another standard from GS1 is shown in listing <a href="#orgeab9a20">7</a>.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 7: </span>GS1 Standard Datatypes</label><pre class="src src-sdml" id="orgaf2646a"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs1</span> <span style="color: #859900;">is</span>
-
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
-
-  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">GlobalLocationNumber</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span> <span style="color: #859900;">is</span>
-    <span style="color: #d33682;">@xsd:pattern</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"^[0-9]{13}$"</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">GlobalTradeItemNumber</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span> <span style="color: #859900;">is</span>
-    <span style="color: #d33682;">@xsd:pattern</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"(^[0-9]{8}$)|(^[0-9]{13}$)|(^[0-9]{14}$)"</span>
-  <span style="color: #859900;">end</span>
-
-<span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 7: </span>GS1 Standard Datatypes</label><pre class="src src-sdml" id="orgeab9a20"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs1</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">GlobalLocationNumber</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 6: </span>    <span style="color: #d33682;">@xsd:pattern</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"^[0-9]{13}$"</span>
+<span class="linenr"> 7: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 8: </span>
+<span class="linenr"> 9: </span>  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">GlobalTradeItemNumber</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span> <span style="color: #859900;">is</span>
+<span class="linenr">10: </span>    <span style="color: #d33682;">@xsd:pattern</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"(^[0-9]{8}$)|(^[0-9]{13}$)|(^[0-9]{14}$)"</span>
+<span class="linenr">11: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">12: </span>
+<span class="linenr">13: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 
 <p>
-Table <a href="#org836a1c6">1</a> lists the annotation properties that can you can use to restrict existing datatypes. All
+Table <a href="#org76577d0">1</a> lists the annotation properties that can you can use to restrict existing datatypes. All
 <i>scalar</i> types have the following additional constraints; <code>maxInclusive</code>, <code>maxExclusive</code>, <code>minInclusive</code>, and <code>minExclusive</code>.
 </p>
 
-<table id="org9601685" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="orgb36bdc5" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption class="t-above"><span class="table-number">Table 2:</span> Datatype Constraints</caption>
 
 <colgroup>
@@ -896,157 +892,158 @@ Table <a href="#org836a1c6">1</a> lists the annotation properties that can you c
 </div>
 </div>
 
-<div id="outline-container-orgd68e28b" class="outline-4">
-<h4 id="orgd68e28b"><span class="section-number-4">3.2.2.</span> Hospitality Example</h4>
+<div id="outline-container-org4de86a2" class="outline-4">
+<h4 id="org4de86a2"><span class="section-number-4">3.2.2.</span> Hospitality Example</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
-Listing <a href="#org6f8ab8e">8</a> adds 2 datatype definitions, 1 enum definition, and 7 structure definitions.
-We have also made the previous entity <code>Room</code> a structure as it is dependent wholly on the valid entity <code>Property</code>.
+Listing <a href="#orgc1a2728">8</a> adds 2 datatype definitions, 1 enum definition, and 7 structure definitions.
+We have also made the previous entity <code>Room</code> a structure as it is dependent wholly on the valid entity <code>Property</code>. Lines 79
+and 85 introduce a new sequence constraint with the keyword <code>unique</code> that requires members of the sequence to be unique,
+effectively defining the sequence as a set.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 8: </span>Initial Hospitality Structures</label><pre class="src src-sdml" id="org6f8ab8e"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
-
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> booking_code <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-
-    customer <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Customer</span>
-    property <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Property</span>
-    room_type <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RoomStyle</span>
-    room_rate <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Currency</span>
-    dates <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">DateRange</span>
-    number_of_adults <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">integer</span>
-    number_of_children <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">integer</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Property</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> property_id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unsigned</span>
-    name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-    styles <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">RoomStyle</span>
-    rooms <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Room</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Bill</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> transaction_id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
-
-    for_stay <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Stay</span>
-    charges <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Purchase</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Stay</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
-  
-    booking <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Booking</span>
-    room_rate <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Currency</span> <span style="color: #93a1a1; font-style: italic;">;; if different from booking</span>
-    room_number <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unsigned</span>
-    dates <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">DateRange</span>
-    tax_percent <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RatePercentage</span>
-    discount_percent <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RatePercentage</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">Currency</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">decimal</span> <span style="color: #859900;">is</span>
-    <span style="color: #d33682;">@xsd:totalDigits</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">9</span>
-    <span style="color: #d33682;">@xsd:fractionDigits</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">3</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">RatePercentage</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">decimal</span> <span style="color: #859900;">is</span>
-    <span style="color: #d33682;">@xsd:totalDigits</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">5</span>
-    <span style="color: #d33682;">@xsd:fractionDigits</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">3</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">RoomFeature</span> <span style="color: #859900;">of</span>
-    <span style="color: #268bd2;">View</span>
-    <span style="color: #268bd2;">NonSmoking</span>
-    <span style="color: #268bd2;">Smoking</span>
-    <span style="color: #268bd2;">Accessible</span>
-    <span style="color: #268bd2;">OneSingleBed</span>
-    <span style="color: #268bd2;">OneDoubleBed</span>
-    <span style="color: #268bd2;">OneQueenBed</span>
-    <span style="color: #268bd2;">OneKingBed</span>
-    <span style="color: #268bd2;">TwoSingleBeds</span>
-    <span style="color: #268bd2;">TwoDoubleBeds</span>
-    <span style="color: #268bd2;">TwoQueenBeds</span>
-    <span style="color: #268bd2;">TwoKingBeds</span>
-    <span style="color: #268bd2;">Suite</span>
-    <span style="color: #268bd2;">Fridge</span>
-    <span style="color: #268bd2;">Kitchen</span>
-    <span style="color: #268bd2;">Balcony</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">DateRange</span> <span style="color: #859900;">is</span>
-    starts <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
-    ends <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Room</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">group</span>
-      number <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unsigned</span>
-      floor <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unsigned</span>
-    <span style="color: #859900;">end</span>
-    <span style="color: #859900;">group</span>
-      style <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RoomStyle</span>
-      additional_features <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #859900;">unique</span> <span style="color: #268bd2;">0</span><span style="color: #859900;">..</span>*<span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">RoomFeature</span>
-    <span style="color: #859900;">end</span>
-    rate <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Currency</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">RoomStyle</span> <span style="color: #859900;">is</span>
-    name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-    features <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #859900;">unique</span> <span style="color: #268bd2;">1</span><span style="color: #859900;">..</span>*<span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">RoomFeature</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Charge</span> <span style="color: #859900;">is</span>
-    item <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-    provider <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-    charge <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">decimal</span>
-    tax_percent <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RatePercentage</span>
-    discount_percent <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RatePercentage</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Purchase</span> <span style="color: #859900;">is</span>
-    stay <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Stay</span>
-    charges <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Charge</span>
-    payment <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Payment</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Payment</span> <span style="color: #859900;">is</span>
-    amount <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Currency</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">PaymentInstrument</span>
-<span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 8: </span>Hospitality Structures and Enumerations</label><pre class="src src-sdml" id="orgc1a2728"><span class="linenr">  1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+<span class="linenr">  2: </span>
+<span class="linenr">  3: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
+<span class="linenr">  4: </span>
+<span class="linenr">  5: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
+<span class="linenr">  6: </span>
+<span class="linenr">  7: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span> <span style="color: #859900;">is</span>
+<span class="linenr">  8: </span>    <span style="color: #859900;">identity</span> booking_code <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr">  9: </span>    customer <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Customer</span>
+<span class="linenr"> 10: </span>    property <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Property</span>
+<span class="linenr"> 11: </span>    room_style <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RoomStyle</span>
+<span class="linenr"> 12: </span>    room_rate <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Currency</span>
+<span class="linenr"> 13: </span>    dates <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">DateRange</span>
+<span class="linenr"> 14: </span>    number_of_adults <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">integer</span>
+<span class="linenr"> 15: </span>    number_of_children <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">integer</span>
+<span class="linenr"> 16: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 17: </span>
+<span class="linenr"> 18: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Property</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 19: </span>    <span style="color: #859900;">identity</span> property_id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unsigned</span>
+<span class="linenr"> 20: </span>    name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr"> 21: </span>    styles <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">RoomStyle</span>
+<span class="linenr"> 22: </span>    rooms <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Room</span>
+<span class="linenr"> 23: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 24: </span>
+<span class="linenr"> 25: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Bill</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 26: </span>    <span style="color: #859900;">identity</span> transaction_id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
+<span class="linenr"> 27: </span>    for_stay <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Stay</span>
+<span class="linenr"> 28: </span>    charges <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Purchase</span>
+<span class="linenr"> 29: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 30: </span>
+<span class="linenr"> 31: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Stay</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 32: </span>    <span style="color: #859900;">identity</span> id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
+<span class="linenr"> 33: </span>    booking <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Booking</span>
+<span class="linenr"> 34: </span>    room_number <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unsigned</span>
+<span class="linenr"> 35: </span>    room_rate <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Currency</span> <span style="color: #93a1a1; font-style: italic;">;; if different from booking</span>
+<span class="linenr"> 36: </span>    dates <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">DateRange</span>
+<span class="linenr"> 37: </span>    tax_percent <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RatePercentage</span>
+<span class="linenr"> 38: </span>    discount_percent <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RatePercentage</span>
+<span class="linenr"> 39: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 40: </span>
+<span class="linenr"> 41: </span>  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">Currency</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">decimal</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 42: </span>    <span style="color: #d33682;">@xsd:totalDigits</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">9</span>
+<span class="linenr"> 43: </span>    <span style="color: #d33682;">@xsd:fractionDigits</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">3</span>
+<span class="linenr"> 44: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 45: </span>
+<span class="linenr"> 46: </span>  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">RatePercentage</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">decimal</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 47: </span>    <span style="color: #d33682;">@xsd:totalDigits</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">5</span>
+<span class="linenr"> 48: </span>    <span style="color: #d33682;">@xsd:fractionDigits</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">3</span>
+<span class="linenr"> 49: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 50: </span>
+<span class="linenr"> 51: </span>  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">RoomFeature</span> <span style="color: #859900;">of</span>
+<span class="linenr"> 52: </span>    <span style="color: #268bd2;">View</span>
+<span class="linenr"> 53: </span>    <span style="color: #268bd2;">NonSmoking</span>
+<span class="linenr"> 54: </span>    <span style="color: #268bd2;">Smoking</span>
+<span class="linenr"> 55: </span>    <span style="color: #268bd2;">Accessible</span>
+<span class="linenr"> 56: </span>    <span style="color: #268bd2;">OneSingleBed</span>
+<span class="linenr"> 57: </span>    <span style="color: #268bd2;">OneDoubleBed</span>
+<span class="linenr"> 58: </span>    <span style="color: #268bd2;">OneQueenBed</span>
+<span class="linenr"> 59: </span>    <span style="color: #268bd2;">OneKingBed</span>
+<span class="linenr"> 60: </span>    <span style="color: #268bd2;">TwoSingleBeds</span>
+<span class="linenr"> 61: </span>    <span style="color: #268bd2;">TwoDoubleBeds</span>
+<span class="linenr"> 62: </span>    <span style="color: #268bd2;">TwoQueenBeds</span>
+<span class="linenr"> 63: </span>    <span style="color: #268bd2;">TwoKingBeds</span>
+<span class="linenr"> 64: </span>    <span style="color: #268bd2;">Suite</span>
+<span class="linenr"> 65: </span>    <span style="color: #268bd2;">Fridge</span>
+<span class="linenr"> 66: </span>    <span style="color: #268bd2;">Kitchen</span>
+<span class="linenr"> 67: </span>    <span style="color: #268bd2;">Balcony</span>
+<span class="linenr"> 68: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 69: </span>
+<span class="linenr"> 70: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">DateRange</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 71: </span>    starts <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+<span class="linenr"> 72: </span>    ends <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+<span class="linenr"> 73: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 74: </span>
+<span class="linenr"> 75: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Room</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 76: </span>    number <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unsigned</span>
+<span class="linenr"> 77: </span>    floor <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unsigned</span>
+<span class="linenr"> 78: </span>    style <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RoomStyle</span>
+<span class="linenr"> 79: </span>    additional_features <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #859900;">unique</span> <span style="color: #268bd2;">0</span><span style="color: #859900;">..</span>*<span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">RoomFeature</span>
+<span class="linenr"> 80: </span>    rate <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Currency</span>
+<span class="linenr"> 81: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 82: </span>
+<span class="linenr"> 83: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">RoomStyle</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 84: </span>    name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr"> 85: </span>    features <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #859900;">unique</span> <span style="color: #268bd2;">1</span><span style="color: #859900;">..</span>*<span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">RoomFeature</span>
+<span class="linenr"> 86: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 87: </span>
+<span class="linenr"> 88: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Charge</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 89: </span>    item <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr"> 90: </span>    provider <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr"> 91: </span>    charge <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">decimal</span>
+<span class="linenr"> 92: </span>    tax_percent <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RatePercentage</span>
+<span class="linenr"> 93: </span>    discount_percent <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RatePercentage</span>
+<span class="linenr"> 94: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 95: </span>
+<span class="linenr"> 96: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Purchase</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 97: </span>    stay <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Stay</span>
+<span class="linenr"> 98: </span>    charges <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Charge</span>
+<span class="linenr"> 99: </span>    payment <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Payment</span>
+<span class="linenr">100: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">101: </span>
+<span class="linenr">102: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Payment</span> <span style="color: #859900;">is</span>
+<span class="linenr">103: </span>    amount <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Currency</span>
+<span class="linenr">104: </span>    instrument <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">PaymentInstrument</span>
+<span class="linenr">105: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">106: </span>
+<span class="linenr">107: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">PaymentInstrument</span>
+<span class="linenr">108: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 
-<div class="ADVNOTE" id="org2c92248">
+<p>
+While this module has added a lot of detail, one structure at the end, <code>PaymentInstrument</code> is not yet complete. Be
+patient, we will come back to that in the section <a href="#add-unions">3.4</a> later.
+</p>
+
+<div class="ADVNOTE" id="org7473b75">
 <p>
 You can add a specific type of annotation, a constraint, to capture conditions that cannot be expressed by the model's
-structure alone. For example, in listing <a href="#org5b6e85f">9</a> we have a simple structure that contains a start date
+structure alone. For example, in listing <a href="#orgb9d6abf">9</a> we have a simple structure that contains a start date
 and an end date. They are correctly typed so we know they have to be dates, but what if we were to set the start date to
 be after the end date, how do we validate that? Can we?
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 9: </span>Hospitality Entities</label><pre class="src src-sdml" id="org5b6e85f"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
-
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">DateRange</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">assert</span> <span style="color: #d33682;">valid_range</span> <span style="color: #859900;">=</span> <span style="color: #657b83; background-color: #fdf6e3;">"range starts before it ends"</span>
-
-    <span style="color: #859900;">assert</span> <span style="color: #d33682;">formal_range</span> <span style="color: #859900;">is</span>
-      <span style="color: #859900;">forall</span> <span style="color: #6c71c4;">self</span>, <span style="color: #6c71c4;">self</span><span style="color: #657b83; background-color: #fdf6e3;">.</span><span style="color: #b58900;">starts</span> &lt;= <span style="color: #6c71c4;">self</span><span style="color: #657b83; background-color: #fdf6e3;">.</span><span style="color: #b58900;">ends</span>
-    <span style="color: #859900;">end</span>
-
-    starts <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
-    ends <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
-  <span style="color: #859900;">end</span>
-
-<span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 9: </span>Hospitality Entities</label><pre class="src src-sdml" id="orgb9d6abf"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">DateRange</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 6: </span>    <span style="color: #859900;">assert</span> <span style="color: #d33682;">valid_range</span> <span style="color: #859900;">=</span> <span style="color: #657b83; background-color: #fdf6e3;">"range starts before it ends"</span>
+<span class="linenr"> 7: </span>
+<span class="linenr"> 8: </span>    <span style="color: #859900;">assert</span> <span style="color: #d33682;">formal_range</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 9: </span>      <span style="color: #859900;">forall</span> <span style="color: #6c71c4;">self</span>, <span style="color: #6c71c4;">self</span><span style="color: #657b83; background-color: #fdf6e3;">.</span><span style="color: #b58900;">starts</span> &lt;= <span style="color: #6c71c4;">self</span><span style="color: #657b83; background-color: #fdf6e3;">.</span><span style="color: #b58900;">ends</span>
+<span class="linenr">10: </span>    <span style="color: #859900;">end</span>
+<span class="linenr">11: </span>
+<span class="linenr">12: </span>    starts <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+<span class="linenr">13: </span>    ends <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+<span class="linenr">14: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">15: </span>
+<span class="linenr">16: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 
@@ -1054,146 +1051,165 @@ be after the end date, how do we validate that? Can we?
 </div>
 </div>
 
-<div id="outline-container-org7f9558b" class="outline-4">
-<h4 id="org7f9558b"><span class="section-number-4">3.2.3.</span> Logistics Example</h4>
+<div id="outline-container-orgeade610" class="outline-4">
+<h4 id="orgeade610"><span class="section-number-4">3.2.3.</span> Logistics Example</h4>
 <div class="outline-text-4" id="text-3-2-3">
+<p>
+The detail added to the logistics example is extensive, but some highlights are the use of "kind" enumerations for
+<code>Location</code> (line 10), <code>LogisticsUnit</code> (line 48), and <code>LogisticsAsset</code> (line 103). We have also added a constraint to the
+logistics unit structure which enforces a rule that a box may not include other units. The more astute reader will note
+that this is woefully insufficient as it does not stop us defining a unit of kind palette which includes a unit of kind
+rail car &#x2013; that's some big palette.
+</p>
+
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 10: </span>Logistics Structures</label><pre class="src src-sdml" id="orge74c0a3"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
-
-  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">owl</span> <span style="color: #268bd2;">rdf</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
-  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
-
-  <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Logistics"</span><span style="color: #268bd2; font-style: italic;">@en</span>
-  <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Shipping"</span><span style="color: #268bd2; font-style: italic;">@en</span>
-  <span style="color: #d33682;">@dc:description</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"A domain model for long-haul logistics."</span><span style="color: #268bd2; font-style: italic;">@en</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Location</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalLocationNumber</span>
-    kind <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">LocationKind</span>
-    within <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Location</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LocationKind</span> <span style="color: #859900;">of</span>
-    <span style="color: #268bd2;">Office</span>
-    <span style="color: #268bd2;">Warehouse</span>
-    <span style="color: #268bd2;">WarehouseYard</span>
-    <span style="color: #268bd2;">WarehouseDock</span>
-    <span style="color: #268bd2;">RailDepot</span>
-    <span style="color: #268bd2;">RailYard</span>
-    <span style="color: #268bd2;">Port</span>
-    <span style="color: #268bd2;">PortLoading</span>
-    <span style="color: #268bd2;">Airport</span>
-    <span style="color: #268bd2;">AirportTransfer</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignor</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalLocationNumber</span>
-    lei <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">gs1:LegalEntityIdentifier</span>
-    name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignment</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> ginc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalIdentificationNumberForConsignment</span>
-
-    consignor <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Consignor</span>
-    shipments <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Shipment</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> gsin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalShipmentIdentificationNumber</span>
-
-    from <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
-    to <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
-
-    units <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">LogisticsUnit</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">LogisticsUnit</span> <span style="color: #859900;">is</span>
-    sscc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:SerialShippingContainerCode</span>
-    kind <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">LogisticsUnitKind</span>
-    asset <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">LogisticsAsset</span>
-    dimension <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Dimensions</span>
-    weight <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">decimal</span>
-    hazmat_classification <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #859900;">unique</span> <span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">9</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">DotHazardClassification</span>
-    includes <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">LogisticsUnit</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LogisticsUnitKind</span> <span style="color: #859900;">of</span>
-    <span style="color: #268bd2;">Box</span>,
-    <span style="color: #268bd2;">Pallet</span>,
-    <span style="color: #268bd2;">PalletStack</span>,
-    <span style="color: #268bd2;">Container</span>,
-    <span style="color: #268bd2;">RailCar</span>,
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">DotHazardClassification</span> <span style="color: #859900;">of</span>
-    <span style="color: #d33682;">@owl:equivalentClass</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">unsigned</span>
-    <span style="color: #268bd2;">Explosives</span> <span style="color: #859900;">is</span>
-      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">1</span>
-    <span style="color: #859900;">end</span>
-    <span style="color: #268bd2;">Gasses</span> <span style="color: #859900;">is</span>
-      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">2</span>
-    <span style="color: #859900;">end</span>
-    <span style="color: #268bd2;">FlammableLiquids</span> <span style="color: #859900;">is</span>
-      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">3</span>
-    <span style="color: #859900;">end</span>
-    <span style="color: #268bd2;">FlammableSolids</span> <span style="color: #859900;">is</span>
-      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">4</span>
-    <span style="color: #859900;">end</span>
-    <span style="color: #268bd2;">OxodizingSubstances</span> <span style="color: #859900;">is</span>
-      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">5</span>
-    <span style="color: #859900;">end</span>
-    <span style="color: #268bd2;">ToxicSubstances</span> <span style="color: #859900;">is</span>
-      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">6</span>
-    <span style="color: #859900;">end</span>
-    <span style="color: #268bd2;">RadioactiveMaterials</span> <span style="color: #859900;">is</span>
-      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">7</span>
-    <span style="color: #859900;">end</span>
-    <span style="color: #268bd2;">CorrosiveSubstances</span> <span style="color: #859900;">is</span>
-      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">8</span>
-    <span style="color: #859900;">end</span>
-    <span style="color: #268bd2;">MiscellaneousDangerousMaterials</span> <span style="color: #859900;">is</span>
-      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">9</span>
-    <span style="color: #859900;">end</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Dimensions</span> <span style="color: #859900;">is</span>
-    height <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">decimal</span>
-    width <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">decimal</span>
-    depth <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">decimal</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">LogisticsAsset</span> <span style="color: #859900;">is</span>
-    grai <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalReturnableAssetIdentifier</span>
-    kind <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">LogisticsAssetKind</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LogisticsAssetKind</span> <span style="color: #859900;">of</span>
-    <span style="color: #268bd2;">Pallet</span>,
-    <span style="color: #268bd2;">Container</span>,
-    <span style="color: #268bd2;">RailCar</span>,
-  <span style="color: #859900;">end</span>
-
-<span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 10: </span>Logistics Structures and Enumerations</label><pre class="src src-sdml" id="org249bf66"><span class="linenr">  1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
+<span class="linenr">  2: </span>
+<span class="linenr">  3: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">owl</span> <span style="color: #268bd2;">rdf</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+<span class="linenr">  4: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+<span class="linenr">  5: </span>
+<span class="linenr">  6: </span>  <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Logistics"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+<span class="linenr">  7: </span>  <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Shipping"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+<span class="linenr">  8: </span>  <span style="color: #d33682;">@dc:description</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"A domain model for long-haul logistics."</span><span style="color: #268bd2; font-style: italic;">@en</span>
+<span class="linenr">  9: </span>
+<span class="linenr"> 10: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Location</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 11: </span>    <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalLocationNumber</span>
+<span class="linenr"> 12: </span>    kind <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">LocationKind</span>
+<span class="linenr"> 13: </span>    within <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Location</span>
+<span class="linenr"> 14: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 15: </span>
+<span class="linenr"> 16: </span>  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LocationKind</span> <span style="color: #859900;">of</span>
+<span class="linenr"> 17: </span>    <span style="color: #268bd2;">Office</span>
+<span class="linenr"> 18: </span>    <span style="color: #268bd2;">Warehouse</span>
+<span class="linenr"> 19: </span>    <span style="color: #268bd2;">WarehouseYard</span>
+<span class="linenr"> 20: </span>    <span style="color: #268bd2;">WarehouseDock</span>
+<span class="linenr"> 21: </span>    <span style="color: #268bd2;">RailDepot</span>
+<span class="linenr"> 22: </span>    <span style="color: #268bd2;">RailYard</span>
+<span class="linenr"> 23: </span>    <span style="color: #268bd2;">Port</span>
+<span class="linenr"> 24: </span>    <span style="color: #268bd2;">PortLoading</span>
+<span class="linenr"> 25: </span>    <span style="color: #268bd2;">Airport</span>
+<span class="linenr"> 26: </span>    <span style="color: #268bd2;">AirportTransfer</span>
+<span class="linenr"> 27: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 28: </span>
+<span class="linenr"> 29: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignor</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 30: </span>    <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalLocationNumber</span>
+<span class="linenr"> 31: </span>    lei <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">gs1:LegalEntityIdentifier</span>
+<span class="linenr"> 32: </span>    name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr"> 33: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 34: </span>
+<span class="linenr"> 35: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignment</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 36: </span>    <span style="color: #859900;">identity</span> ginc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalIdentificationNumberForConsignment</span>
+<span class="linenr"> 37: </span>    consignor <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Consignor</span>
+<span class="linenr"> 38: </span>    shipments <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Shipment</span>
+<span class="linenr"> 39: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 40: </span>
+<span class="linenr"> 41: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 42: </span>    <span style="color: #859900;">identity</span> gsin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalShipmentIdentificationNumber</span>
+<span class="linenr"> 43: </span>    from <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+<span class="linenr"> 44: </span>    to <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+<span class="linenr"> 45: </span>    units <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">LogisticsUnit</span>
+<span class="linenr"> 46: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 47: </span>
+<span class="linenr"> 48: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">LogisticsUnit</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 49: </span>    <span style="color: #859900;">assert</span> <span style="color: #d33682;">can_include_others</span> <span style="color: #859900;">=</span> <span style="color: #657b83; background-color: #fdf6e3;">"not empty(includes) implies not kind = Box"</span>
+<span class="linenr"> 50: </span>    sscc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:SerialShippingContainerCode</span>
+<span class="linenr"> 51: </span>    kind <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">LogisticsUnitKind</span>
+<span class="linenr"> 52: </span>    asset <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">LogisticsAsset</span>
+<span class="linenr"> 53: </span>    dimension <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Dimensions</span>
+<span class="linenr"> 54: </span>    weight <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">decimal</span>
+<span class="linenr"> 55: </span>    hazmat_classification <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #859900;">unique</span> <span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">9</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">DotHazardClassification</span>
+<span class="linenr"> 56: </span>    includes <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">LogisticsUnit</span>
+<span class="linenr"> 57: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 58: </span>
+<span class="linenr"> 59: </span>  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LogisticsUnitKind</span> <span style="color: #859900;">of</span>
+<span class="linenr"> 60: </span>    <span style="color: #268bd2;">Box</span>
+<span class="linenr"> 61: </span>    <span style="color: #268bd2;">Pallet</span>
+<span class="linenr"> 62: </span>    <span style="color: #268bd2;">PalletStack</span>
+<span class="linenr"> 63: </span>    <span style="color: #268bd2;">Container</span>
+<span class="linenr"> 64: </span>    <span style="color: #268bd2;">RailCar</span>
+<span class="linenr"> 65: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 66: </span>
+<span class="linenr"> 67: </span>  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">DotHazardClassification</span> <span style="color: #859900;">of</span>
+<span class="linenr"> 68: </span>    <span style="color: #d33682;">@owl:equivalentClass</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">unsigned</span>
+<span class="linenr"> 69: </span>    <span style="color: #268bd2;">Explosives</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 70: </span>      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">1</span>
+<span class="linenr"> 71: </span>    <span style="color: #859900;">end</span>
+<span class="linenr"> 72: </span>    <span style="color: #268bd2;">Gasses</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 73: </span>      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">2</span>
+<span class="linenr"> 74: </span>    <span style="color: #859900;">end</span>
+<span class="linenr"> 75: </span>    <span style="color: #268bd2;">FlammableLiquids</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 76: </span>      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">3</span>
+<span class="linenr"> 77: </span>    <span style="color: #859900;">end</span>
+<span class="linenr"> 78: </span>    <span style="color: #268bd2;">FlammableSolids</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 79: </span>      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">4</span>
+<span class="linenr"> 80: </span>    <span style="color: #859900;">end</span>
+<span class="linenr"> 81: </span>    <span style="color: #268bd2;">OxodizingSubstances</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 82: </span>      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">5</span>
+<span class="linenr"> 83: </span>    <span style="color: #859900;">end</span>
+<span class="linenr"> 84: </span>    <span style="color: #268bd2;">ToxicSubstances</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 85: </span>      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">6</span>
+<span class="linenr"> 86: </span>    <span style="color: #859900;">end</span>
+<span class="linenr"> 87: </span>    <span style="color: #268bd2;">RadioactiveMaterials</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 88: </span>      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">7</span>
+<span class="linenr"> 89: </span>    <span style="color: #859900;">end</span>
+<span class="linenr"> 90: </span>    <span style="color: #268bd2;">CorrosiveSubstances</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 91: </span>      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">8</span>
+<span class="linenr"> 92: </span>    <span style="color: #859900;">end</span>
+<span class="linenr"> 93: </span>    <span style="color: #268bd2;">MiscellaneousDangerousMaterials</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 94: </span>      <span style="color: #d33682;">@rdf:value</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">9</span>
+<span class="linenr"> 95: </span>    <span style="color: #859900;">end</span>
+<span class="linenr"> 96: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 97: </span>
+<span class="linenr"> 98: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Dimensions</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 99: </span>    height <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">decimal</span>
+<span class="linenr">100: </span>    width <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">decimal</span>
+<span class="linenr">101: </span>    depth <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">decimal</span>
+<span class="linenr">102: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">103: </span>
+<span class="linenr">104: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">LogisticsAsset</span> <span style="color: #859900;">is</span>
+<span class="linenr">105: </span>    grai <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalReturnableAssetIdentifier</span>
+<span class="linenr">106: </span>    kind <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">LogisticsAssetKind</span>
+<span class="linenr">107: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">108: </span>
+<span class="linenr">109: </span>  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LogisticsAssetKind</span> <span style="color: #859900;">of</span>
+<span class="linenr">110: </span>    <span style="color: #268bd2;">Pallet</span>
+<span class="linenr">111: </span>    <span style="color: #268bd2;">Container</span>
+<span class="linenr">112: </span>    <span style="color: #268bd2;">RailCar</span>
+<span class="linenr">113: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">114: </span>
+<span class="linenr">115: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 
-<div class="ADVNOTE" id="orgbf00bb9">
 <p>
-The enumeration <code>DotHazardClassification</code> in listing <a href="#orge74c0a3">10</a> shows the assignment of
-predetermined values to the variants of the enumeration.
+You will probably be thinking that all this detail is making the module quite large and possibly cumbersome. In the
+following section (<a href="#add-events">3.3</a>) we will discuss approaches to organizing modules to allow not only ease of navigation
+but also parallel editing.
+</p>
+
+<div class="ADVNOTE" id="org77714f1">
+<p>
+The enumeration <code>DotHazardClassification</code> in listing <a href="#org249bf66">10</a> above probably looks
+intimidating compared to the previous examples, and that's OK. This enumeration represents the U.S. Department of
+Transportation's Federal Motor Carrier Safety Administration's  "Nine Classes of Hazardous Material" classification. As
+such the values one through nine are defined by government and so we want to be able to associate those values with the
+variants of the enum.
 </p>
 
 <p>
-<code>rdf:value</code>, &#x2026;
+We use two key annotation properties that affect the semantics of the enum.
 </p>
 
-<p>
-<code>owl:equivalentClass</code>, &#x2026;
-</p>
+<dl class="org-dl">
+<dt><code>rdf:value</code></dt><dd>this denotes the relationship between the variant and a specific value. It is not important that the
+values are numbers, only that they are of the same type and unique.</dd>
+<dt><code>owl:equivalentClass</code></dt><dd>this denotes that the enumeration may be <i>considered equivalent</i> to the some type. It is
+important that all values attached to variants are valid for the type attached to the enum.</dd>
+</dl>
 
 <p>
-Also, the cardinality expression on member <code>hazmat_classification</code> is <code>{unique 1..9}</code>, &#x2026;
+Also, the cardinality expression on member <code>hazmat_classification</code> is <code>{unique 1..9}</code>, to denote that while a unit may
+contain a combination of coded materials each code appears only once.
 </p>
 
 </div>
@@ -1201,142 +1217,224 @@ Also, the cardinality expression on member <code>hazmat_classification</code> is
 </div>
 </div>
 
-<div id="outline-container-org887c009" class="outline-3">
-<h3 id="org887c009"><span class="section-number-3">3.3.</span> Describe Events emitted by Entities</h3>
-<div class="outline-text-3" id="text-3-3">
+<div id="outline-container-add-events" class="outline-3">
+<h3 id="add-events"><span class="section-number-3">3.3.</span> Describe Events emitted by Entities</h3>
+<div class="outline-text-3" id="text-add-events">
 <p>
 TBD
 </p>
+
+<p>
+An event looks very much like a structure, but is has a <code>source</code> keyword followed by the name of the entity which emits
+this event. In fact the similarity between an event and a structure is not accidental as it's possible to see an event
+definition as some additional syntax for a structure which, and this is the important part, contains a reference to an
+instance of the entity type. In listing <a href="#org06f5b10">11</a> we have a simple entity (line 5) and a simple event
+(line 10) emitted by the entity. If we were to create an equivalent structure it might look like that defined on line
+13, which in turn is equivalent to the second structure on line 18.  
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 11: </span>Event De-Sugaring</label><pre class="src src-sdml" id="org06f5b10"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">uuid</span>
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Example</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 6: </span>    <span style="color: #859900;">identity</span> id <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">uuid:Uuid</span>
+<span class="linenr"> 7: </span>    some_other_thing <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">integer</span>
+<span class="linenr"> 8: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 9: </span>
+<span class="linenr">10: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">ExampleCreated</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Example</span>
+<span class="linenr">11: </span>
+<span class="linenr">12: </span>  <span style="color: #93a1a1; font-style: italic;">;; the above event is "equivalent" to the structure below</span>
+<span class="linenr">13: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">ExampleCreatedStructure</span> <span style="color: #859900;">is</span>
+<span class="linenr">14: </span>    source_entity <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Example</span>
+<span class="linenr">15: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">16: </span>
+<span class="linenr">17: </span>  <span style="color: #93a1a1; font-style: italic;">;; the above is also "equivalent" to the structure below</span>
+<span class="linenr">18: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">ExampleCreatedStructure2</span> <span style="color: #859900;">is</span>
+<span class="linenr">19: </span>    source_entity_id <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">uuid:Uuid</span>
+<span class="linenr">20: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">21: </span>
+<span class="linenr">22: </span><span style="color: #859900;">end</span>
+</pre>
 </div>
 
-<div id="outline-container-org28af43a" class="outline-4">
-<h4 id="org28af43a"><span class="section-number-4">3.3.1.</span> Retail Example</h4>
+<p>
+One specific different between a structure definition and an event definition is that the former without an explicit
+body (between <code>is</code> and <code>end</code>) is incomplete, an event does not need a body as it does already have a single member, the
+source entity. In many cases events need only be a distinct type with a reference to the particular entity and no other
+information.
+</p>
+</div>
+
+<div id="outline-container-orgdc37753" class="outline-4">
+<h4 id="orgdc37753"><span class="section-number-4">3.3.1.</span> Retail Example</h4>
 <div class="outline-text-4" id="text-3-3-1">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 11: </span>Initial Retail Events</label><pre class="src src-sdml" id="orgaa6f0a5"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 12: </span>Events for Retail Customers</label><pre class="src src-sdml" id="org092dd34"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail_customers</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Purchase</span>
+<span class="linenr"> 6: </span>
+<span class="linenr"> 7: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">ItemQuantity</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 8: </span>    item <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Item</span>
+<span class="linenr"> 9: </span>    quantity <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">integer</span>
+<span class="linenr">10: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">11: </span>
+<span class="linenr">12: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">InventoryAdjustment</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Purchase</span> <span style="color: #859900;">is</span>
+<span class="linenr">13: </span>    adjustments <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">ItemQuantity</span>
+<span class="linenr">14: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">15: </span>
+<span class="linenr">16: </span><span style="color: #859900;">end</span>
+</pre>
+</div>
 
-  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">gs_one</span>
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">iso_17442</span>
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">iso_3166_1</span>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 13: </span>Events for Retail Stores</label><pre class="src src-sdml" id="org00e94f3"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Store</span>
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">StoreNowOpen</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Store</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 6: </span>    at <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:dateTime</span>
+<span class="linenr"> 7: </span>  <span style="color: #859900;">end</span>
+<span class="linenr"> 8: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">StoreNowClosed</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Store</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 9: </span>    at <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:dateTime</span>
+<span class="linenr">10: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">11: </span>
+<span class="linenr">12: </span><span style="color: #859900;">end</span>
+</pre>
+</div>
 
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Store</span>
-
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">StoreNowOpen</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Store</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">StoreNowClosed</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Store</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Purchase</span>
-
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">InventoryAdjustment</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Purchase</span> 
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Item</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Manufacturer</span>
-
-<span style="color: #859900;">end</span>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 14: </span>Events for Retail Items</label><pre class="src src-sdml" id="org0e262b0"><span class="linenr">1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<span class="linenr">2: </span>
+<span class="linenr">3: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Item</span>
+<span class="linenr">4: </span>
+<span class="linenr">5: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Manufacturer</span>
+<span class="linenr">6: </span>
+<span class="linenr">7: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orga022689" class="outline-4">
-<h4 id="orga022689"><span class="section-number-4">3.3.2.</span> Hospitality Example</h4>
+<div id="outline-container-org0b121ba" class="outline-4">
+<h4 id="org0b121ba"><span class="section-number-4">3.3.2.</span> Hospitality Example</h4>
 <div class="outline-text-4" id="text-3-3-2">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 12: </span>Initial Hospitality Events</label><pre class="src src-sdml" id="orgace021a"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 15: </span>Events for Hospitality Customers</label><pre class="src src-sdml" id="orgeeea37d"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality_customers</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span>
+<span class="linenr"> 6: </span>
+<span class="linenr"> 7: </span>  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">BookingChange</span> <span style="color: #859900;">of</span>
+<span class="linenr"> 8: </span>    <span style="color: #268bd2;">RoomStyle</span>
+<span class="linenr"> 9: </span>    <span style="color: #268bd2;">Dates</span>
+<span class="linenr">10: </span>    <span style="color: #268bd2;">Occupancy</span>
+<span class="linenr">11: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">12: </span>
+<span class="linenr">13: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BookingCreated</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Booking</span>
+<span class="linenr">14: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BookingUpdated</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Booking</span> <span style="color: #859900;">is</span>
+<span class="linenr">15: </span>    what_changed <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">BookingChange</span>
+<span class="linenr">16: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">17: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BookingCanceled</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Booking</span> <span style="color: #859900;">is</span>
+<span class="linenr">18: </span>    reason <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr">19: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">20: </span>
+<span class="linenr">21: </span><span style="color: #859900;">end</span>
+</pre>
+</div>
 
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span>
-
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BookingCreated</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Booking</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BookingUpdated</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Booking</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BookingCanceled</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Booking</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Property</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Stay</span>
-
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CheckedIn</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Stay</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CheckedOut</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Stay</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">RoomCharged</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Stay</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Bill</span>
-
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BillReady</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Bill</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">PaymentMade</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Bill</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">Settled</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Bill</span>
-
-<span style="color: #859900;">end</span>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 16: </span>Events for Hospitality Properties</label><pre class="src src-sdml" id="orgdbb68ef"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality_properties</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Property</span>
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Stay</span>
+<span class="linenr"> 6: </span>
+<span class="linenr"> 7: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CheckedIn</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Stay</span>
+<span class="linenr"> 8: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CheckedOut</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Stay</span>
+<span class="linenr"> 9: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">RoomCharged</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Stay</span> <span style="color: #859900;">is</span>
+<span class="linenr">10: </span>    charge <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Charge</span>
+<span class="linenr">11: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">12: </span>
+<span class="linenr">13: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Bill</span>
+<span class="linenr">14: </span>
+<span class="linenr">15: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BillReady</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Bill</span>
+<span class="linenr">16: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">PaymentMade</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Bill</span> <span style="color: #859900;">is</span>
+<span class="linenr">17: </span>    payment <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Payment</span>
+<span class="linenr">18: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">19: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">Settled</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Bill</span>
+<span class="linenr">20: </span>
+<span class="linenr">21: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgeddba17" class="outline-4">
-<h4 id="orgeddba17"><span class="section-number-4">3.3.3.</span> Logistics Example</h4>
+<div id="outline-container-orged8903a" class="outline-4">
+<h4 id="orged8903a"><span class="section-number-4">3.3.3.</span> Logistics Example</h4>
 <div class="outline-text-4" id="text-3-3-3">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 13: </span>Logistics Events</label><pre class="src src-sdml" id="org27dd67f"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
-
-  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
-  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
-
-  <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Logistics"</span><span style="color: #268bd2; font-style: italic;">@en</span>
-  <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Shipping"</span><span style="color: #268bd2; font-style: italic;">@en</span>
-  <span style="color: #d33682;">@dc:description</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"A domain model for long-haul logistics."</span><span style="color: #268bd2; font-style: italic;">@en</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignor</span>
-
-  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 204</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CarrierLoadTender</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignor</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Carrier</span>
-
-  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 990</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CarrierLoadTenderResponse</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Carrier</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignment</span>
-
-  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 211</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BillOfLading</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignment</span>
-  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI   X.12 210</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">FreightDetailsAndInvoice</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignment</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span>
-
-  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 856</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">AdvanceShippingNotice</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
-  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 214</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">TransportStatusNotification</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">TransferRequest</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">TransferConfirmation</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
-
-  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">TransferKind</span> <span style="color: #859900;">of</span>
-    <span style="color: #268bd2;">Pickup</span>
-    <span style="color: #268bd2;">Dropoff</span>
-  <span style="color: #859900;">end</span>
-
-<span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 17: </span>Logistics Events</label><pre class="src src-sdml" id="org7503115"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+<span class="linenr"> 4: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+<span class="linenr"> 5: </span>
+<span class="linenr"> 6: </span>  <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Logistics"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+<span class="linenr"> 7: </span>  <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Shipping"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+<span class="linenr"> 8: </span>  <span style="color: #d33682;">@dc:description</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"A domain model for long-haul logistics."</span><span style="color: #268bd2; font-style: italic;">@en</span>
+<span class="linenr"> 9: </span>
+<span class="linenr">10: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignor</span>
+<span class="linenr">11: </span>
+<span class="linenr">12: </span>  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 204</span>
+<span class="linenr">13: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CarrierLoadTender</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignor</span>
+<span class="linenr">14: </span>
+<span class="linenr">15: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Carrier</span>
+<span class="linenr">16: </span>
+<span class="linenr">17: </span>  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 990</span>
+<span class="linenr">18: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CarrierLoadTenderResponse</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Carrier</span>
+<span class="linenr">19: </span>
+<span class="linenr">20: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignment</span>
+<span class="linenr">21: </span>
+<span class="linenr">22: </span>  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 211</span>
+<span class="linenr">23: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BillOfLading</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignment</span>
+<span class="linenr">24: </span>  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI   X.12 210</span>
+<span class="linenr">25: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">FreightDetailsAndInvoice</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignment</span>
+<span class="linenr">26: </span>
+<span class="linenr">27: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span>
+<span class="linenr">28: </span>
+<span class="linenr">29: </span>  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 856</span>
+<span class="linenr">30: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">AdvanceShippingNotice</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
+<span class="linenr">31: </span>  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 214</span>
+<span class="linenr">32: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">TransportStatusNotification</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
+<span class="linenr">33: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">TransferRequest</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
+<span class="linenr">34: </span>  <span style="color: #859900;">event</span> <span style="color: #268bd2;">TransferConfirmation</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
+<span class="linenr">35: </span>
+<span class="linenr">36: </span>  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">TransferKind</span> <span style="color: #859900;">of</span>
+<span class="linenr">37: </span>    <span style="color: #268bd2;">Pickup</span>
+<span class="linenr">38: </span>    <span style="color: #268bd2;">Dropoff</span>
+<span class="linenr">39: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">40: </span>
+<span class="linenr">41: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgede8e80" class="outline-3">
-<h3 id="orgede8e80"><span class="section-number-3">3.4.</span> Describe "This or That" with Unions</h3>
-<div class="outline-text-3" id="text-3-4">
+<div id="outline-container-add-unions" class="outline-3">
+<h3 id="add-unions"><span class="section-number-3">3.4.</span> Describe "This or That" with Unions</h3>
+<div class="outline-text-3" id="text-add-unions">
 </div>
-<div id="outline-container-org8e45dab" class="outline-4">
-<h4 id="org8e45dab"><span class="section-number-4">3.4.1.</span> Hospitality Example</h4>
+
+<div id="outline-container-org73b0aef" class="outline-4">
+<h4 id="org73b0aef"><span class="section-number-4">3.4.1.</span> Hospitality Example</h4>
 <div class="outline-text-4" id="text-3-4-1">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 14: </span>Using a Structure for PaymentInstrument</label><pre class="src src-sdml" id="orgda5538b"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 18: </span>Using a Structure for PaymentInstrument</label><pre class="src src-sdml" id="orgbd9a3e4"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality_properties</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">pii</span>
 
@@ -1353,7 +1451,7 @@ TBD
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 15: </span>Using a Union for PaymentInstrument</label><pre class="src src-sdml" id="org9c8a2bd"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 19: </span>Using a Union for PaymentInstrument</label><pre class="src src-sdml" id="org0b12db1"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality_properties</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">pii</span>
 
@@ -1370,11 +1468,11 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-org4fc9f74" class="outline-4">
-<h4 id="org4fc9f74"><span class="section-number-4">3.4.2.</span> Logistics Example</h4>
+<div id="outline-container-org8eb2443" class="outline-4">
+<h4 id="org8eb2443"><span class="section-number-4">3.4.2.</span> Logistics Example</h4>
 <div class="outline-text-4" id="text-3-4-2">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 16: </span>Using a Union for GTIN</label><pre class="src src-sdml" id="org4ac7883"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs1</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 20: </span>Using a Union for GTIN</label><pre class="src src-sdml" id="orgb6115b5"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs1</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
 
@@ -1410,16 +1508,30 @@ DDD
 </p>
 </div>
 
-<div id="outline-container-org1bbeffc" class="outline-3">
-<h3 id="org1bbeffc"><span class="section-number-3">4.1.</span> Editing SDML Source</h3>
+<div id="outline-container-org88eb520" class="outline-3">
+<h3 id="org88eb520"><span class="section-number-3">4.1.</span> Editing SDML Source</h3>
+</div>
+<div id="outline-container-org0bbf7b7" class="outline-3">
+<h3 id="org0bbf7b7"><span class="section-number-3">4.2.</span> Drawing Diagrams</h3>
+<div class="outline-text-3" id="text-4-2">
+
+<div id="org1391fd3" class="figure">
+<p><img src="./images/primer-hospitality-concepts.svg" alt="primer-hospitality-concepts.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Hospitality Concepts (Entities)</p>
 </div>
 
-<div id="outline-container-org5ad8785" class="outline-3">
-<h3 id="org5ad8785"><span class="section-number-3">4.2.</span> Drawing Diagrams</h3>
+
+<div id="orgfa2d70a" class="figure">
+<p><img src="./images/primer-hospitality-uml.svg" alt="primer-hospitality-uml.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Hospitality UML</p>
+</div>
+</div>
 </div>
 
-<div id="outline-container-org2616034" class="outline-3">
-<h3 id="org2616034"><span class="section-number-3">4.3.</span> Document Modules</h3>
+<div id="outline-container-org9fff490" class="outline-3">
+<h3 id="org9fff490"><span class="section-number-3">4.3.</span> Document Modules</h3>
 </div>
 </div>
 
@@ -1431,16 +1543,16 @@ TBD
 </p>
 </div>
 
-<div id="outline-container-org156f05f" class="outline-3">
-<h3 id="org156f05f"><span class="section-number-3">5.1.</span> For Authors</h3>
+<div id="outline-container-org6f370d9" class="outline-3">
+<h3 id="org6f370d9"><span class="section-number-3">5.1.</span> For Authors</h3>
 </div>
 
-<div id="outline-container-org40635b7" class="outline-3">
-<h3 id="org40635b7"><span class="section-number-3">5.2.</span> For Tool Builders</h3>
+<div id="outline-container-orgc69bf83" class="outline-3">
+<h3 id="orgc69bf83"><span class="section-number-3">5.2.</span> For Tool Builders</h3>
 </div>
 
-<div id="outline-container-org1e33b8f" class="outline-3">
-<h3 id="org1e33b8f"><span class="section-number-3">5.3.</span> More Reading</h3>
+<div id="outline-container-org336d657" class="outline-3">
+<h3 id="org336d657"><span class="section-number-3">5.3.</span> More Reading</h3>
 <div class="outline-text-3" id="text-5-3">
 <ul class="org-ul">
 <li><a href="https://sdml.io#intro-what-is-domain-modeling">What is Domain Modeling?</a> in the SDML documentation.</li>
@@ -1520,7 +1632,7 @@ be a reference to a property <i>role</i>.</dd>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-12-01 Fri 10:16</p>
+<p class="date">Created: 2023-12-01 Fri 13:55</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
