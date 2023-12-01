@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-11-29 Wed 11:17 -->
+<!-- 2023-12-01 Fri 09:05 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Simple Domain Modeling Language</title>
@@ -34,47 +34,52 @@
 </li>
 <li><a href="#what-is-sdml">2. What is SDML?</a>
 <ul>
-<li><a href="#org0f0e96d">2.1. What it isn't</a></li>
+<li><a href="#org5b3ed2d">2.1. What it isn't</a></li>
 </ul>
 </li>
 <li><a href="#what-can-it-do">3. What can I do with it?</a>
 <ul>
-<li><a href="#orgf0a270e">3.1. Capture Entities</a>
+<li><a href="#orgd2e104a">3.1. Capture Entities</a>
 <ul>
-<li><a href="#org5d17911">3.1.1. Retail Example</a></li>
-<li><a href="#orgf5907e3">3.1.2. Hospitality Example</a></li>
-<li><a href="#org831339b">3.1.3. Logistics Example</a></li>
+<li><a href="#org7d1282d">3.1.1. Retail Example</a></li>
+<li><a href="#org53ca7ac">3.1.2. Hospitality Example</a></li>
+<li><a href="#org4aea986">3.1.3. Logistics Example</a></li>
 </ul>
 </li>
-<li><a href="#org7f4b62e">3.2. Add details with Structures and Enums</a>
+<li><a href="#org8521d73">3.2. Add details with Structures and Enums</a>
 <ul>
-<li><a href="#orgd40d2fa">3.2.1. Retail Example</a></li>
-<li><a href="#orga48540b">3.2.2. Hospitality Example</a></li>
-<li><a href="#org51c8ccb">3.2.3. Logistics Example</a></li>
+<li><a href="#org1f857b7">3.2.1. Retail Example</a></li>
+<li><a href="#org4d11586">3.2.2. Hospitality Example</a></li>
+<li><a href="#org61bb07b">3.2.3. Logistics Example</a></li>
 </ul>
 </li>
-<li><a href="#orgc2e0483">3.3. Describe Events emitted by Entities</a>
+<li><a href="#orgfab6056">3.3. Describe Events emitted by Entities</a>
 <ul>
-<li><a href="#org84f26e1">3.3.1. Retail Example</a></li>
-<li><a href="#org7d7114b">3.3.2. Hospitality Example</a></li>
-<li><a href="#orgf680919">3.3.3. Logistics Example</a></li>
+<li><a href="#org33e7d50">3.3.1. Retail Example</a></li>
+<li><a href="#org62153fd">3.3.2. Hospitality Example</a></li>
+<li><a href="#orgfa7d30c">3.3.3. Logistics Example</a></li>
 </ul>
 </li>
-<li><a href="#orge0296f8">3.4. Describe polymorphism with Unions</a></li>
+<li><a href="#orgec5a0a8">3.4. Describe "This or That" with Unions</a>
+<ul>
+<li><a href="#orgf129326">3.4.1. Hospitality Example</a></li>
+<li><a href="#orgba7cc7c">3.4.2. Logistics Example</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#how-to-use">4. How do I use it?</a>
 <ul>
-<li><a href="#org2bc2708">4.1. Editing SDML Source</a></li>
-<li><a href="#orgcdc723f">4.2. Drawing Diagrams</a></li>
-<li><a href="#org9a44bce">4.3. Document Modules</a></li>
+<li><a href="#org7181ddc">4.1. Editing SDML Source</a></li>
+<li><a href="#org1911317">4.2. Drawing Diagrams</a></li>
+<li><a href="#org61345fd">4.3. Document Modules</a></li>
 </ul>
 </li>
 <li><a href="#what-next">5. What do I do next?</a>
 <ul>
-<li><a href="#org64c520b">5.1. For Authors</a></li>
-<li><a href="#orgcf89405">5.2. For Tool Builders</a></li>
-<li><a href="#org7d1e018">5.3. More Reading</a></li>
+<li><a href="#orgcfa4b01">5.1. For Authors</a></li>
+<li><a href="#org18ff0de">5.2. For Tool Builders</a></li>
+<li><a href="#orge570964">5.3. More Reading</a></li>
 </ul>
 </li>
 <li><a href="#glossary">6. A Brief Glossary</a></li>
@@ -82,7 +87,7 @@
 </div>
 </div>
 
-<div id="org23e63aa" class="figure">
+<div id="orgba2f5e4" class="figure">
 <p><img src="./logo/svg/square-dark.svg" alt="square-dark.svg" class="org-svg" width="75%" height="75%" />
 </p>
 </div>
@@ -225,11 +230,11 @@ SDML is a textual language that allows you to describe a domain model in a <i>re
 relatively because the language allows you to build models iteratively, capturing the essentials first and elaborating
 on them over time. It is common for domain models to be the output of workshop sessions and so the ability to capture a
 valid model in real-time even if it lacks detail is a useful feature. With this in mind we will elaborate on the module
-<i>definition</i> in listing <a href="#org572b10f">1</a> during this primer.
+<i>definition</i> in listing <a href="#org1668c01">1</a> during this primer.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>An empty module</label><pre class="src src-sdml" id="org572b10f"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>An empty module</label><pre class="src src-sdml" id="org1668c01"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
 </pre>
 </div>
 
@@ -250,9 +255,9 @@ representation, the surface syntax (it actually has two, more on that in a momen
 being able to read and write that syntax.
 </p>
 
-<div class="ADVNOTE" id="orga6f0cb9">
+<div class="ADVNOTE" id="org4024b71">
 <p>
-What is the other representation? The textual language, shown in listing <a href="#org572b10f">1</a> has a direct mapping to, and
+What is the other representation? The textual language, shown in listing <a href="#org1668c01">1</a> has a direct mapping to, and
 can be considered an alternate syntax for, a particular <a href="https://www.w3.org/TR/rdf12-concepts">RDF</a>/<a href="https://www.w3.org/OWL/">OWL</a> ontology <b>[need link]</b>. This means that the <i>semantics</i> of
 SDML are then described by the OWL ontology, then OWL, and then RDF. Understanding this is not necessary to using or
 understanding the SDML syntax.
@@ -266,8 +271,8 @@ for drawing and documentation. It also produces this primer and the main documen
 </p>
 </div>
 
-<div id="outline-container-org0f0e96d" class="outline-3">
-<h3 id="org0f0e96d"><span class="section-number-3">2.1.</span> What it isn't</h3>
+<div id="outline-container-org5b3ed2d" class="outline-3">
+<h3 id="org5b3ed2d"><span class="section-number-3">2.1.</span> What it isn't</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>SDML is not, as we said above, a graphical language. It relies on a defined mapping to the UML language that allows
@@ -297,8 +302,8 @@ Hospitality, and Logistics.
 </p>
 </div>
 
-<div id="outline-container-orgf0a270e" class="outline-3">
-<h3 id="orgf0a270e"><span class="section-number-3">3.1.</span> Capture Entities</h3>
+<div id="outline-container-orgd2e104a" class="outline-3">
+<h3 id="orgd2e104a"><span class="section-number-3">3.1.</span> Capture Entities</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Let's add the entities from the previous natural language description to our module. In each of the following sections
@@ -307,10 +312,10 @@ list the entities we have identified so far using the rather obvious keyword <co
 </p>
 </div>
 
-<div id="outline-container-org5d17911" class="outline-4">
-<h4 id="org5d17911"><span class="section-number-4">3.1.1.</span> Retail Example</h4>
+<div id="outline-container-org7d1282d" class="outline-4">
+<h4 id="org7d1282d"><span class="section-number-4">3.1.1.</span> Retail Example</h4>
 <div class="outline-text-4" id="text-3-1-1">
-<div class="INDENTED" id="org0d5ade5">
+<div class="INDENTED" id="orgb85b053">
 <p>
 <b>Customers</b> go to a <b>store</b> to <b>purchase</b> <b>items</b>, they may have a specific item in mind or expect to find <i>choices they can
 choose between</i>. Depending on the <i>kind of item</i> this choice may be <i>variations (in size or color for example)</i> of the same
@@ -326,7 +331,7 @@ section <a href="#where-to-start">Where do I start?</a>, except <code>Manufactur
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Initial Retail Entities</label><pre class="src src-sdml" id="org3c724b1"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Initial Retail Entities</label><pre class="src src-sdml" id="org74eaa74"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
 
@@ -352,10 +357,10 @@ customer as the primary subject as it means you end up with fewer internal names
 </div>
 </div>
 
-<div id="outline-container-orgf5907e3" class="outline-4">
-<h4 id="orgf5907e3"><span class="section-number-4">3.1.2.</span> Hospitality Example</h4>
+<div id="outline-container-org53ca7ac" class="outline-4">
+<h4 id="org53ca7ac"><span class="section-number-4">3.1.2.</span> Hospitality Example</h4>
 <div class="outline-text-4" id="text-3-1-2">
-<div class="INDENTED" id="org7857c48">
+<div class="INDENTED" id="orgc2a0a19">
 <p>
 A <b>customer</b> <b>books</b> a <b>room</b> according to their choice of <i>size, bed type, or other criteria</i>, for <i>specific dates</i> at a
 particular <b>property</b>. A customer may make <i>certain kinds</i> of <b>purchases</b> against their room which are then added to the
@@ -372,14 +377,14 @@ customer left early for example.
 </p>
 
 <p>
-In listing <a href="#org605fc5d">3</a> we will fill in some details, just to see how it's done. Specifically note
+In listing <a href="#orgcd4f257">3</a> we will fill in some details, just to see how it's done. Specifically note
 the use of the arrow operator <code>-&gt;</code> or <code>→</code> that denotes the type (right-hand side) of a member (left-hand side). Also, if you
 remember that a part of the definition of an entity is that it has strong identity, so as we are adding details to
 entities we <b>must</b> provide an <code>identity</code> member.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Initial Hospitality Entities</label><pre class="src src-sdml" id="org605fc5d"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Initial Hospitality Entities</label><pre class="src src-sdml" id="orgcd4f257"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
 
@@ -444,12 +449,12 @@ that the range is <i>unbounded</i>. The default cardinality being <code>1</code>
 
 <p>
 The builtin datatypes in SDML are derived from those in the XML Schema, Part 2 specification, the same datatypes used in
-RDF. The major datatypes are listed in table <a href="#org9c10c91">1</a> and compared to corresponding datatypes in SQL,
+RDF. The major datatypes are listed in table <a href="#org2a27883">1</a> and compared to corresponding datatypes in SQL,
 Java and Rust. SQL's Data Definition Language (DDL) is a useful comparison given that it may be familiar to less
 technical stakeholders.
 </p>
 
-<table id="org9c10c91" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org2a27883" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption class="t-above"><span class="table-number">Table 1:</span> Datatype Comparisons</caption>
 
 <colgroup>
@@ -558,10 +563,10 @@ technical stakeholders.
 </div>
 </div>
 
-<div id="outline-container-org831339b" class="outline-4">
-<h4 id="org831339b"><span class="section-number-4">3.1.3.</span> Logistics Example</h4>
+<div id="outline-container-org4aea986" class="outline-4">
+<h4 id="org4aea986"><span class="section-number-4">3.1.3.</span> Logistics Example</h4>
 <div class="outline-text-4" id="text-3-1-3">
-<div class="INDENTED" id="org6aae73e">
+<div class="INDENTED" id="org09a3165">
 <p>
 The business comprises <i>matching</i> available transportation <b>capacity</b> on one or more <b>routes</b> to <i>deliver</i> a <b>customer</b>'s load
 from <i>source to destination</i> within some <i>time constraint</i>. A load may be one or more <b>standard palettes</b>, or one or more
@@ -579,11 +584,11 @@ the original
 You can use Annotation Properties to attach documentation properties to your model. In the following example we have
 added a <i>preferred label</i> "Logistics", an <i>alternate label</i> "Shipping", and a <i>description</i> annotation to the module itself.
 Don't worry about the syntax of these for now, that's covered in an advanced topic later. We have added some to the
-logistics example in listing <a href="#orgecff634">4</a>. 
+logistics example in listing <a href="#org330dcfa">4</a>. 
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 4: </span>Initial Logistics Entities</label><pre class="src src-sdml" id="orgecff634"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>Initial Logistics Entities</label><pre class="src src-sdml" id="org330dcfa"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
@@ -600,23 +605,22 @@ logistics example in listing <a href="#orgecff634">4</a>.
   <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignor</span> <span style="color: #859900;">is</span>
     <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">GlobalLocationNumber</span>
     lei <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">gs1:LegalEntityIdentifier</span>
-    name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
   <span style="color: #859900;">end</span>
 
   <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignment</span> <span style="color: #859900;">is</span>
     <span style="color: #859900;">identity</span> ginc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalIdentificationNumberForConsignment</span>
-
     consignor <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Consignor</span>
     shipments <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Shipment</span>
   <span style="color: #859900;">end</span>
 
   <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #859900;">is</span>
+
+    <span style="color: #d33682;">@editorialNote</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"need to add logistic units -- are these entities?"</span>
+
     <span style="color: #859900;">identity</span> gsin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalShipmentIdentificationNumber</span>
 
     from <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
     to <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
-
-    <span style="color: #93a1a1; font-style: italic;">;; need logistic units, are these entities?</span>
   <span style="color: #859900;">end</span>
 
 <span style="color: #859900;">end</span>
@@ -629,20 +633,20 @@ It is also time to deal with the <code>import</code> statement that we have alre
 is used to make definitions in other modules available to us in the current module. Import statements are simpler than a
 lot of programming languages in that you can import <i>either</i> a module by name <i>or</i> individual definitions within a module.
 In either case SDML requires you to use the qualified name of any imported definition. A qualified name is simply the
-name of the module followed by a colon and then the name of the definition. In listing <a href="#orgecff634">4</a> we
+name of the module followed by a colon and then the name of the definition. In listing <a href="#org330dcfa">4</a> we
 see a single import statement with a list of module names, <code>dc</code> and <code>skos</code>. These modules allow us to reference the
 annotation properties <code>dc:description</code>, <code>skos:altLabel</code>, <code>skos:definition</code>, and <code>skos:prefLabel</code>.
 </p>
 
-<div class="ADVNOTE" id="org6e3dd88">
+<div class="ADVNOTE" id="orgf386020">
 <p>
 Annotation properties are like constants in programming, they become attached to their enclosing definition and are
 immutable. A property is introduced by the initial <code>@</code> character and the property name follows. This property is then
-assigned a value, using the datatypes in table <a href="#org9c10c91">1</a>.
+assigned a value, using the datatypes in table <a href="#org2a27883">1</a>.
 </p>
 
 <p>
-Strings, as you can see in listing <a href="#orgecff634">4</a> may be followed by another <code>@</code> character which
+Strings, as you can see in listing <a href="#org330dcfa">4</a> may be followed by another <code>@</code> character which
 introduces a language tag that identifies the natural language used in the string constant.
 </p>
 
@@ -651,18 +655,43 @@ introduces a language tag that identifies the natural language used in the strin
 </div>
 </div>
 
-<div id="outline-container-org7f4b62e" class="outline-3">
-<h3 id="org7f4b62e"><span class="section-number-3">3.2.</span> Add details with Structures and Enums</h3>
+<div id="outline-container-org8521d73" class="outline-3">
+<h3 id="org8521d73"><span class="section-number-3">3.2.</span> Add details with Structures and Enums</h3>
 <div class="outline-text-3" id="text-3-2">
+<p>
+Now that you have the key elements of your domain model in place, you can start to see how this becomes the core
+vocabulary shared between customers, business, and technical stakeholders. However, a Store, Property, or Shipment are
+really not interesting as entities without some more detail. While we did add some of the inter-entity relationships in
+the previous section the only entity we added any additional members to was Booking. In the following sections we will
+use two more definition types, <i>structures</i> and <i>enumerations</i> to add clarity and structure to the models we have developed
+so far.
+</p>
+
+<p>
+A structure will look very much like an entity in that it has a name and a set of members, however it does not have an
+identity member. As this means we cannot include them in an entity by reference to an identifier all structures are
+included <i>within</i> any enclosing structure or entity.
+</p>
+
+<p>
+An enumeration is a list of unique variants that represent unique options.
+</p>
 </div>
-<div id="outline-container-orgd40d2fa" class="outline-4">
-<h4 id="orgd40d2fa"><span class="section-number-4">3.2.1.</span> Retail Example</h4>
+
+<div id="outline-container-org1f857b7" class="outline-4">
+<h4 id="org1f857b7"><span class="section-number-4">3.2.1.</span> Retail Example</h4>
 <div class="outline-text-4" id="text-3-2-1">
+<p>
+In listing <a href="#org74eaa74">2</a> we have added a common <code>Address</code> structure that is used by both the customer and
+store entities. This example does not introduce an enumeration directly; however, the imported type
+<code>AlphaTwoCountryCode</code> is an enumeration (described in listing <a href="#orgb253783">6</a> below).
+</p>
+
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 5: </span>Initial Retail Entities</label><pre class="src src-sdml" id="orgdea46b6"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Initial Retail Entities</label><pre class="src src-sdml" id="orgb7947c5"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">gs_one</span>
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">gs1</span>
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">iso_17442</span>
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">iso_3166_1</span>
 
@@ -678,11 +707,11 @@ introduces a language tag that identifies the natural language used in the strin
     city <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
     state_or_district <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
     postal_code <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-    country <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">iso_3166_1:CountryCode</span>
+    country <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">iso_3166_1:AlphaTwoCountryCode</span>
   <span style="color: #859900;">end</span>
 
   <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Store</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> location_number <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs_one:GlobalLocationNumber</span>
+    <span style="color: #859900;">identity</span> location_number <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalLocationNumber</span>
 
     address <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Address</span>
     open_hours <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #859900;">ordered</span> <span style="color: #268bd2;">7</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Hours</span>
@@ -699,7 +728,7 @@ introduces a language tag that identifies the natural language used in the strin
   <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Item</span> <span style="color: #859900;">is</span>
     <span style="color: #d33682;">@skos:note</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"See following advanced topic."</span>
 
-    <span style="color: #859900;">identity</span> gtin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs_one:GlobalTradeItemNumber</span>
+    <span style="color: #859900;">identity</span> gtin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalTradeItemNumber</span>
 
     description <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
     manufacturer <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Manufacturer</span>
@@ -715,16 +744,52 @@ introduces a language tag that identifies the natural language used in the strin
 </pre>
 </div>
 
-<div class="ADVNOTE" id="org38a8729">
 <p>
-Consider using custom datatypes to constrain basic types to avoid errors. For example, in listing <a href="#orgc5b1d91">6</a> the
-identifier for an <code>Item</code> is a GTIN or Global Trade Item Number. This standardized identifier has a number of specific
-formats but the shortest of those is 8 characters and the longest is 13 characters. So, we create a new datatype which
-<i>restricts</i> the basic string to between 8 and 13 characters only using a regex pattern.
+The following listing shows the definition of the enumeration <code>AlphaTwoCountryCode</code>. The whitespace in this example should
+be ignored, it is just useful to aout a grid of 26 rows of 26 columns for all the possible combination of two ASCII
+upper case letters.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 6: </span>GS1 Standard Datatypes</label><pre class="src src-sdml" id="orgc5b1d91"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs_one</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>ISO Country Code enum</label><pre class="src src-sdml" id="orgb253783"><span style="color: #859900;">module</span> <span style="color: #268bd2;">iso_3166_1</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">AlphaTwoCountryCode</span> <span style="color: #859900;">of</span>
+             <span style="color: #268bd2;">AD</span> <span style="color: #268bd2;">AE</span> <span style="color: #268bd2;">AF</span> <span style="color: #268bd2;">AG</span>    <span style="color: #268bd2;">AI</span>       <span style="color: #268bd2;">AL</span> <span style="color: #268bd2;">AM</span>    <span style="color: #268bd2;">AO</span>    <span style="color: #268bd2;">AQ</span> <span style="color: #268bd2;">AR</span> <span style="color: #268bd2;">AS</span> <span style="color: #268bd2;">AT</span> <span style="color: #268bd2;">AU</span>    <span style="color: #268bd2;">AW</span> <span style="color: #268bd2;">AX</span>    <span style="color: #268bd2;">AZ</span>
+    <span style="color: #268bd2;">BA</span> <span style="color: #268bd2;">BB</span>    <span style="color: #268bd2;">BD</span> <span style="color: #268bd2;">BE</span> <span style="color: #268bd2;">BF</span> <span style="color: #268bd2;">BG</span> <span style="color: #268bd2;">BH</span> <span style="color: #268bd2;">BI</span> <span style="color: #268bd2;">BJ</span>    <span style="color: #268bd2;">BL</span> <span style="color: #268bd2;">BM</span> <span style="color: #268bd2;">BN</span> <span style="color: #268bd2;">BO</span>    <span style="color: #268bd2;">BQ</span> <span style="color: #268bd2;">BR</span> <span style="color: #268bd2;">BS</span> <span style="color: #268bd2;">BT</span>    <span style="color: #268bd2;">BV</span> <span style="color: #268bd2;">BW</span>    <span style="color: #268bd2;">BY</span> <span style="color: #268bd2;">BZ</span>
+    <span style="color: #268bd2;">CA</span>    <span style="color: #268bd2;">CC</span> <span style="color: #268bd2;">CD</span>    <span style="color: #268bd2;">CF</span> <span style="color: #268bd2;">CG</span> <span style="color: #268bd2;">CH</span> <span style="color: #268bd2;">CI</span>    <span style="color: #268bd2;">CK</span> <span style="color: #268bd2;">CL</span> <span style="color: #268bd2;">CM</span> <span style="color: #268bd2;">CN</span> <span style="color: #268bd2;">CO</span>       <span style="color: #268bd2;">CR</span>       <span style="color: #268bd2;">CU</span> <span style="color: #268bd2;">CV</span> <span style="color: #268bd2;">CW</span> <span style="color: #268bd2;">CX</span> <span style="color: #268bd2;">CY</span> <span style="color: #268bd2;">CZ</span>
+                <span style="color: #268bd2;">DE</span>             <span style="color: #268bd2;">DJ</span> <span style="color: #268bd2;">DK</span>    <span style="color: #268bd2;">DM</span>    <span style="color: #268bd2;">DO</span>                               <span style="color: #268bd2;">DZ</span>
+          <span style="color: #268bd2;">EC</span>    <span style="color: #268bd2;">EE</span>    <span style="color: #268bd2;">EG</span> <span style="color: #268bd2;">EH</span>                            <span style="color: #268bd2;">ER</span> <span style="color: #268bd2;">ES</span> <span style="color: #268bd2;">ET</span> 
+                            <span style="color: #268bd2;">FI</span> <span style="color: #268bd2;">FJ</span> <span style="color: #268bd2;">FK</span>    <span style="color: #268bd2;">FM</span>    <span style="color: #268bd2;">FO</span>       <span style="color: #268bd2;">FR</span>
+    <span style="color: #93a1a1; font-style: italic;">;; ...</span>
+    <span style="color: #93a1a1; font-style: italic;">;; ...</span>
+    <span style="color: #93a1a1; font-style: italic;">;; ...</span>
+    <span style="color: #268bd2;">VA</span>    <span style="color: #268bd2;">VC</span>    <span style="color: #268bd2;">VE</span>    <span style="color: #268bd2;">VG</span>    <span style="color: #268bd2;">VI</span>             <span style="color: #268bd2;">VN</span>                   <span style="color: #268bd2;">VU</span>
+                   <span style="color: #268bd2;">WF</span>                                     <span style="color: #268bd2;">WS</span>
+                <span style="color: #268bd2;">YE</span>                                           <span style="color: #268bd2;">YT</span>
+    <span style="color: #268bd2;">ZA</span>                                  <span style="color: #268bd2;">ZM</span>                            <span style="color: #268bd2;">ZW</span>
+  <span style="color: #859900;">end</span>
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<p>
+Given this module name, <code>iso_3166_1</code>, we should explain the use of underscores in module names. While any name in SDML <i>may</i>
+include underscores, typically as a word separator, the convention in module names is to use the underscore to note any
+logical hierarchy in definitions. So we have all ISO standards start with <code>iso_</code> followed by the standard number <code>3166</code> and
+then in this case the part number <code>_1</code>.
+</p>
+
+<div class="ADVNOTE" id="org05044b5">
+<p>
+Consider using custom datatypes to constrain basic types to avoid errors. For example, in listing <a href="#org3582593">7</a> the
+identifier for an <code>Item</code> is a GTIN or Global Trade Item Number. This standardized identifier has a number of specific
+formats but the shortest of those is 8 characters and the longest is 13 characters. So, we create a new datatype which
+<i>restricts</i> the basic string to between 8 and 13 characters only using a regex pattern using an annotation property.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 7: </span>GS1 Standard Datatypes</label><pre class="src src-sdml" id="org3582593"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs1</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
 
@@ -741,11 +806,11 @@ formats but the shortest of those is 8 characters and the longest is 13 characte
 </div>
 
 <p>
-Table <a href="#org9c10c91">1</a> lists the constraints that can you can use to restrict existing types. All <i>scalar</i> types
-have the following additional constraints; <code>maxInclusive</code>, <code>maxExclusive</code>, <code>minInclusive</code>, and <code>minExclusive</code>.
+Table <a href="#org2a27883">1</a> lists the annotation properties that can you can use to restrict existing datatypes. All
+<i>scalar</i> types have the following additional constraints; <code>maxInclusive</code>, <code>maxExclusive</code>, <code>minInclusive</code>, and <code>minExclusive</code>.
 </p>
 
-<table id="org7db01b5" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="org06297e0" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption class="t-above"><span class="table-number">Table 2:</span> Datatype Constraints</caption>
 
 <colgroup>
@@ -777,12 +842,12 @@ have the following additional constraints; <code>maxInclusive</code>, <code>maxE
 
 <tr>
 <td class="org-left"><code>double</code></td>
-<td class="org-left"><code>pattern</code>, scalar/</td>
+<td class="org-left"><code>pattern</code>, and <i>scalar</i></td>
 </tr>
 
 <tr>
 <td class="org-left"><code>integer</code></td>
-<td class="org-left"><code>pattern</code>, scalar/</td>
+<td class="org-left"><code>pattern</code>, and <i>scalar</i></td>
 </tr>
 
 <tr>
@@ -792,7 +857,7 @@ have the following additional constraints; <code>maxInclusive</code>, <code>maxE
 
 <tr>
 <td class="org-left"><code>unsigned</code></td>
-<td class="org-left"><code>pattern</code>, <i>scalar</i></td>
+<td class="org-left"><code>pattern</code>, and <i>scalar</i></td>
 </tr>
 
 <tr>
@@ -831,19 +896,137 @@ have the following additional constraints; <code>maxInclusive</code>, <code>maxE
 </div>
 </div>
 
-<div id="outline-container-orga48540b" class="outline-4">
-<h4 id="orga48540b"><span class="section-number-4">3.2.2.</span> Hospitality Example</h4>
+<div id="outline-container-org4d11586" class="outline-4">
+<h4 id="org4d11586"><span class="section-number-4">3.2.2.</span> Hospitality Example</h4>
 <div class="outline-text-4" id="text-3-2-2">
-<div class="ADVNOTE" id="org1998396">
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 8: </span>Initial Hospitality Structures</label><pre class="src src-sdml" id="org875e325"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
+
+  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">Currency</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">decimal</span> <span style="color: #859900;">is</span>
+    <span style="color: #d33682;">@xsd:totalDigits</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">9</span>
+    <span style="color: #d33682;">@xsd:fractionDigits</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">3</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">RatePercentage</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">decimal</span> <span style="color: #859900;">is</span>
+    <span style="color: #d33682;">@xsd:totalDigits</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">5</span>
+    <span style="color: #d33682;">@xsd:fractionDigits</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">3</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> booking_code <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+
+    customer <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Customer</span>
+    property <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Property</span>
+    room_type <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RoomStyle</span>
+    room_rate <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Currency</span>
+    dates <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">DateRange</span>
+    number_of_adults <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">integer</span>
+    number_of_children <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">integer</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Property</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> property_id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unsigned</span>
+    name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+    styles <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">RoomStyle</span>
+    rooms <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Room</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Bill</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> transaction_id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
+
+    for_stay <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Stay</span>
+    charges <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Purchase</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Stay</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unknown</span>
+  
+    booking <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Booking</span>
+    room_rate <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Currency</span> <span style="color: #93a1a1; font-style: italic;">;; if different from booking</span>
+    room_number <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unsigned</span>
+    dates <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">DateRange</span>
+    tax_percent <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RatePercentage</span>
+    discount_percent <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RatePercentage</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">DateRange</span> <span style="color: #859900;">is</span>
+    starts <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+    ends <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">xsd:date</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Room</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">group</span>
+      number <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unsigned</span>
+      floor <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unsigned</span>
+    <span style="color: #859900;">end</span>
+    <span style="color: #859900;">group</span>
+      style <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RoomStyle</span>
+      additional_features <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #859900;">unique</span> <span style="color: #268bd2;">0</span><span style="color: #859900;">..</span>*<span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">RoomFeature</span>
+    <span style="color: #859900;">end</span>
+    rate <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Currency</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">RoomStyle</span> <span style="color: #859900;">is</span>
+    name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+    features <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #859900;">unique</span> <span style="color: #268bd2;">1</span><span style="color: #859900;">..</span>*<span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">RoomFeature</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">RoomFeature</span> <span style="color: #859900;">of</span>
+    <span style="color: #268bd2;">View</span>
+    <span style="color: #268bd2;">NonSmoking</span>
+    <span style="color: #268bd2;">Smoking</span>
+    <span style="color: #268bd2;">Accessible</span>
+    <span style="color: #268bd2;">OneSingleBed</span>
+    <span style="color: #268bd2;">OneDoubleBed</span>
+    <span style="color: #268bd2;">OneQueenBed</span>
+    <span style="color: #268bd2;">OneKingBed</span>
+    <span style="color: #268bd2;">TwoSingleBeds</span>
+    <span style="color: #268bd2;">TwoDoubleBeds</span>
+    <span style="color: #268bd2;">TwoQueenBeds</span>
+    <span style="color: #268bd2;">TwoKingBeds</span>
+    <span style="color: #268bd2;">Suite</span>
+    <span style="color: #268bd2;">Fridge</span>
+    <span style="color: #268bd2;">Kitchen</span>
+    <span style="color: #268bd2;">Balcony</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Charge</span> <span style="color: #859900;">is</span>
+    item <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+    provider <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+    charge <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">decimal</span>
+    tax_percent <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RatePercentage</span>
+    discount_percent <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">RatePercentage</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Purchase</span> <span style="color: #859900;">is</span>
+    stay <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Stay</span>
+    charges <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Charge</span>
+    payment <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Payment</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Payment</span> <span style="color: #859900;">is</span>
+    amount <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Currency</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">PaymentInstrument</span>
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<div class="ADVNOTE" id="org071b614">
 <p>
 Use Constraints to capture conditions that cannot be expressed by the model's structure alone. For example, in listing
-<a href="#org41d1893">7</a> we have a simple structure that contains a start date and an end date. They are correctly
+<a href="#orga00d323">9</a> we have a simple structure that contains a start date and an end date. They are correctly
 typed so we know they have to be dates, but what if we were to set the start date to be after the end date, how do we
 validate that? Can we?
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 7: </span>Hospitality Entities</label><pre class="src src-sdml" id="org41d1893"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 9: </span>Hospitality Entities</label><pre class="src src-sdml" id="orga00d323"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
 
@@ -866,11 +1049,11 @@ validate that? Can we?
 </div>
 </div>
 
-<div id="outline-container-org51c8ccb" class="outline-4">
-<h4 id="org51c8ccb"><span class="section-number-4">3.2.3.</span> Logistics Example</h4>
+<div id="outline-container-org61bb07b" class="outline-4">
+<h4 id="org61bb07b"><span class="section-number-4">3.2.3.</span> Logistics Example</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 8: </span>Logistics Structures</label><pre class="src src-sdml" id="orgfa95a40"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 10: </span>Logistics Structures</label><pre class="src src-sdml" id="org2636b52"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
@@ -946,25 +1129,87 @@ validate that? Can we?
 </div>
 </div>
 
-<div id="outline-container-orgc2e0483" class="outline-3">
-<h3 id="orgc2e0483"><span class="section-number-3">3.3.</span> Describe Events emitted by Entities</h3>
+<div id="outline-container-orgfab6056" class="outline-3">
+<h3 id="orgfab6056"><span class="section-number-3">3.3.</span> Describe Events emitted by Entities</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 TBD
 </p>
 </div>
 
-<div id="outline-container-org84f26e1" class="outline-4">
-<h4 id="org84f26e1"><span class="section-number-4">3.3.1.</span> Retail Example</h4>
+<div id="outline-container-org33e7d50" class="outline-4">
+<h4 id="org33e7d50"><span class="section-number-4">3.3.1.</span> Retail Example</h4>
+<div class="outline-text-4" id="text-3-3-1">
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 11: </span>Initial Retail Events</label><pre class="src src-sdml" id="org05bc767"><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">gs_one</span>
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">iso_17442</span>
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">iso_3166_1</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Store</span>
+
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">StoreNowOpen</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Store</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">StoreNowClosed</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Store</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Purchase</span>
+
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">InventoryAdjustment</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Purchase</span> 
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Item</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Manufacturer</span>
+
+<span style="color: #859900;">end</span>
+</pre>
 </div>
-<div id="outline-container-org7d7114b" class="outline-4">
-<h4 id="org7d7114b"><span class="section-number-4">3.3.2.</span> Hospitality Example</h4>
 </div>
-<div id="outline-container-orgf680919" class="outline-4">
-<h4 id="orgf680919"><span class="section-number-4">3.3.3.</span> Logistics Example</h4>
+</div>
+
+<div id="outline-container-org62153fd" class="outline-4">
+<h4 id="org62153fd"><span class="section-number-4">3.3.2.</span> Hospitality Example</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 12: </span>Initial Hospitality Events</label><pre class="src src-sdml" id="orge3616f7"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span>
+
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BookingCreated</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Booking</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BookingUpdated</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Booking</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BookingCanceled</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Booking</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Property</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Stay</span>
+
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CheckedIn</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Stay</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CheckedOut</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Stay</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">RoomCharged</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Stay</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Bill</span>
+
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BillReady</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Bill</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">PaymentMade</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Bill</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">Settled</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Bill</span>
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfa7d30c" class="outline-4">
+<h4 id="orgfa7d30c"><span class="section-number-4">3.3.3.</span> Logistics Example</h4>
 <div class="outline-text-4" id="text-3-3-3">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 9: </span>Logistics Structures</label><pre class="src src-sdml" id="org8eb234d"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 13: </span>Logistics Events</label><pre class="src src-sdml" id="org7b81ac1"><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
@@ -973,81 +1218,31 @@ TBD
   <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Shipping"</span><span style="color: #268bd2; font-style: italic;">@en</span>
   <span style="color: #d33682;">@dc:description</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"A domain model for long-haul logistics."</span><span style="color: #268bd2; font-style: italic;">@en</span>
 
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Location</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalLocationNumber</span>
-    kind <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">LocationKind</span>
-  <span style="color: #859900;">end</span>
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignor</span>
 
-  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LocationKind</span> <span style="color: #859900;">of</span>
-    <span style="color: #268bd2;">Office</span>
-    <span style="color: #268bd2;">Warehouse</span>
-    <span style="color: #268bd2;">WarehouseYard</span>
-    <span style="color: #268bd2;">WarehouseDock</span>
-    <span style="color: #268bd2;">RailDepot</span>
-    <span style="color: #268bd2;">RailYard</span>
-    <span style="color: #268bd2;">Port</span>
-    <span style="color: #268bd2;">PortLoading</span>
-    <span style="color: #268bd2;">Airport</span>
-    <span style="color: #268bd2;">AirportTransfer</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignor</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> gln <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalLocationNumber</span>
-    lei <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">gs1:LegalEntityIdentifier</span>
-    name <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CarrierLoadTender</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignor</span> <span style="color: #93a1a1; font-style: italic;">;; X.12 204</span>
+  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 204</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CarrierLoadTender</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignor</span>
 
   <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Carrier</span>
 
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CarrierLoadTenderResponse</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Carrier</span> <span style="color: #93a1a1; font-style: italic;">;; X.12 990</span>
-  <span style="color: #93a1a1; font-style: italic;">;; PickUpManifest X.12 5</span>
+  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 990</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">CarrierLoadTenderResponse</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Carrier</span>
 
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignment</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> ginc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalIdentificationNumberForConsignment</span>
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Consignment</span>
 
-    consignor <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Consignor</span>
-    shipments <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Shipment</span>
-  <span style="color: #859900;">end</span>
+  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 211</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BillOfLading</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignment</span>
+  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI   X.12 210</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">FreightDetailsAndInvoice</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignment</span>
 
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">BillOfLading</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignment</span> X.12 <span style="color: #268bd2;">211</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">FreightDetailsAndInvoice</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Consignment</span> <span style="color: #93a1a1; font-style: italic;">;; X.12 210</span>
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span>
 
-  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">identity</span> gsin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalShipmentIdentificationNumber</span>
-
-    from <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
-    to <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">AdvanceShippingNotice</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #93a1a1; font-style: italic;">;; X.12 856</span>
-<span style="color: #93a1a1; font-style: italic;">;; ShippingSchedule X.12 862</span>
-  <span style="color: #859900;">event</span> <span style="color: #268bd2;">TransportStatusNotification</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #93a1a1; font-style: italic;">;; X.12 214</span>
+  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 856</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">AdvanceShippingNotice</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
+  <span style="color: #93a1a1; font-style: italic;">;; based uopn ANSI X.12 214</span>
+  <span style="color: #859900;">event</span> <span style="color: #268bd2;">TransportStatusNotification</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
   <span style="color: #859900;">event</span> <span style="color: #268bd2;">TransferRequest</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
   <span style="color: #859900;">event</span> <span style="color: #268bd2;">TransferConfirmation</span> <span style="color: #859900;">source</span> <span style="color: #268bd2;">Shipment</span>
-
-  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">TransferKind</span> <span style="color: #859900;">of</span>
-    <span style="color: #268bd2;">Pickup</span>
-    <span style="color: #268bd2;">Dropoff</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">LogisticsUnit</span> <span style="color: #859900;">is</span>
-    sscc <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:SerialShippingContainerCode</span>
-    asset <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">1</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">LogisticsAsset</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">LogisticsAsset</span> <span style="color: #859900;">is</span>
-    grai <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalReturnableAssetIdentifier</span>
-    kind <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">LogisticsAssetKind</span>
-  <span style="color: #859900;">end</span>
-
-  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">LogisticsAssetKind</span> <span style="color: #859900;">of</span>
-    <span style="color: #268bd2;">Pallet</span>,
-    <span style="color: #268bd2;">PalletStack</span>,
-    <span style="color: #268bd2;">Container</span>,
-    <span style="color: #268bd2;">RailCar</span>,
-  <span style="color: #859900;">end</span>
 
 <span style="color: #859900;">end</span>
 </pre>
@@ -1056,22 +1251,63 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-orge0296f8" class="outline-3">
-<h3 id="orge0296f8"><span class="section-number-3">3.4.</span> Describe polymorphism with Unions</h3>
+<div id="outline-container-orgec5a0a8" class="outline-3">
+<h3 id="orgec5a0a8"><span class="section-number-3">3.4.</span> Describe "This or That" with Unions</h3>
 <div class="outline-text-3" id="text-3-4">
+</div>
+<div id="outline-container-orgf129326" class="outline-4">
+<h4 id="orgf129326"><span class="section-number-4">3.4.1.</span> Hospitality Example</h4>
+<div class="outline-text-4" id="text-3-4-1">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 10: </span>Types of GTIN</label><pre class="src src-sdml" id="org20a0100"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gtin</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 14: </span>Using a Structure for PaymentInstrument</label><pre class="src src-sdml" id="orgcd9b13d"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">pii</span>
+
+  <span style="color: #859900;">union</span> <span style="color: #268bd2;">PaymentInstrument</span> <span style="color: #859900;">of</span>
+    <span style="color: #859900;">assert</span> <span style="color: #d33682;">only_one</span> <span style="color: #859900;">=</span> <span style="color: #657b83; background-color: #fdf6e3;">"one, and only one of upc, ean, or isbn may be present"</span>
+    <span style="color: #268bd2;">Currency</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">Cash</span>
+    <span style="color: #268bd2;">Currency</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">CreditBalance</span>
+    <span style="color: #268bd2;">unsigned</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">Points</span>
+    <span style="color: #268bd2;">pii:CardToken</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">Card</span>
+  <span style="color: #859900;">end</span>
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 15: </span>Using a Union for PaymentInstrument</label><pre class="src src-sdml" id="org4e058a5"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">pii</span>
+
+  <span style="color: #859900;">union</span> <span style="color: #268bd2;">PaymentInstrument</span> <span style="color: #859900;">of</span>
+    <span style="color: #268bd2;">Currency</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">Cash</span>
+    <span style="color: #268bd2;">Currency</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">CreditBalance</span>
+    <span style="color: #268bd2;">unsigned</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">Points</span>
+    <span style="color: #268bd2;">pii:CardToken</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">Card</span>
+  <span style="color: #859900;">end</span>
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgba7cc7c" class="outline-4">
+<h4 id="orgba7cc7c"><span class="section-number-4">3.4.2.</span> Logistics Example</h4>
+<div class="outline-text-4" id="text-3-4-2">
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 16: </span>Using a Union for GTIN</label><pre class="src src-sdml" id="org6700394"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs1</span> <span style="color: #859900;">is</span>
 
   <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
 
   <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">Upc</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span>
-
   <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">Ean</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span>
-
   <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">Isbn</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span>
 
-  <span style="color: #859900;">union</span> <span style="color: #268bd2;">Gtin</span> <span style="color: #859900;">of</span>
-    <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"GTIN"</span>
+  <span style="color: #859900;">union</span> <span style="color: #268bd2;">GlobalTradeIdentificationNumber</span> <span style="color: #859900;">of</span>
+    <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Global Trade Identification Number"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+    <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"GTIN"</span><span style="color: #268bd2; font-style: italic;">@en</span>
     <span style="color: #268bd2;">Upc</span>
     <span style="color: #268bd2;">Ean</span>
     <span style="color: #268bd2;">Isbn</span>
@@ -1080,12 +1316,6 @@ TBD
 <span style="color: #859900;">end</span>
 </pre>
 </div>
-
-<div class="ADVNOTE" id="org2ef7b72">
-<p>
-Use Unions to model Features
-</p>
-
 </div>
 </div>
 </div>
@@ -1099,16 +1329,16 @@ DDD
 </p>
 </div>
 
-<div id="outline-container-org2bc2708" class="outline-3">
-<h3 id="org2bc2708"><span class="section-number-3">4.1.</span> Editing SDML Source</h3>
+<div id="outline-container-org7181ddc" class="outline-3">
+<h3 id="org7181ddc"><span class="section-number-3">4.1.</span> Editing SDML Source</h3>
 </div>
 
-<div id="outline-container-orgcdc723f" class="outline-3">
-<h3 id="orgcdc723f"><span class="section-number-3">4.2.</span> Drawing Diagrams</h3>
+<div id="outline-container-org1911317" class="outline-3">
+<h3 id="org1911317"><span class="section-number-3">4.2.</span> Drawing Diagrams</h3>
 </div>
 
-<div id="outline-container-org9a44bce" class="outline-3">
-<h3 id="org9a44bce"><span class="section-number-3">4.3.</span> Document Modules</h3>
+<div id="outline-container-org61345fd" class="outline-3">
+<h3 id="org61345fd"><span class="section-number-3">4.3.</span> Document Modules</h3>
 </div>
 </div>
 
@@ -1120,16 +1350,16 @@ TBD
 </p>
 </div>
 
-<div id="outline-container-org64c520b" class="outline-3">
-<h3 id="org64c520b"><span class="section-number-3">5.1.</span> For Authors</h3>
+<div id="outline-container-orgcfa4b01" class="outline-3">
+<h3 id="orgcfa4b01"><span class="section-number-3">5.1.</span> For Authors</h3>
 </div>
 
-<div id="outline-container-orgcf89405" class="outline-3">
-<h3 id="orgcf89405"><span class="section-number-3">5.2.</span> For Tool Builders</h3>
+<div id="outline-container-org18ff0de" class="outline-3">
+<h3 id="org18ff0de"><span class="section-number-3">5.2.</span> For Tool Builders</h3>
 </div>
 
-<div id="outline-container-org7d1e018" class="outline-3">
-<h3 id="org7d1e018"><span class="section-number-3">5.3.</span> More Reading</h3>
+<div id="outline-container-orge570964" class="outline-3">
+<h3 id="orge570964"><span class="section-number-3">5.3.</span> More Reading</h3>
 <div class="outline-text-3" id="text-5-3">
 <ul class="org-ul">
 <li><a href="https://sdml.io#intro-what-is-domain-modeling">What is Domain Modeling?</a> in the SDML documentation.</li>
@@ -1210,7 +1440,7 @@ be a reference to a property <i>role</i>.</dd>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-11-29 Wed 11:17</p>
+<p class="date">Created: 2023-12-01 Fri 09:05</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

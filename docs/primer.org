@@ -360,12 +360,10 @@ module logistics is
   entity Consignor is
     identity gln -> GlobalLocationNumber
     lei -> {0..1} gs1:LegalEntityIdentifier
-    name -> string
   end
 
   entity Consignment is
     identity ginc -> gs1:GlobalIdentificationNumberForConsignment
-
     consignor -> Consignor
     shipments -> {1..} Shipment
   end
@@ -403,7 +401,24 @@ introduces a language tag that identifies the natural language used in the strin
 
 ** Add details with Structures and Enums
 
+Now that you have the key elements of your domain model in place, you can start to see how this becomes the core
+vocabulary shared between customers, business, and technical stakeholders. However, a Store, Property, or Shipment are
+really not interesting as entities without some more detail. While we did add some of the inter-entity relationships in
+the previous section the only entity we added any additional members to was Booking. In the following sections we will
+use two more definition types, /structures/ and /enumerations/ to add clarity and structure to the models we have developed
+so far.
+
+A structure will look very much like an entity in that it has a name and a set of members, however it does not have an
+identity member. As this means we cannot include them in an entity by reference to an identifier all structures are
+included /within/ any enclosing structure or entity.
+
+An enumeration is a list of unique variants that represent unique options.
+
 *** Retail Example
+
+In listing [[src:initial-retail-entities]] we have added a common ~Address~ structure that is used by both the customer and
+store entities. This example does not introduce an enumeration directly; however, the imported type
+~AlphaTwoCountryCode~ is an enumeration (described in listing [[src:iso_3166_1]] below).
 
 #+NAME: src:initial-retail-entities
 #+CAPTION: Initial Retail Entities
@@ -411,7 +426,7 @@ introduces a language tag that identifies the natural language used in the strin
 module retail is
 
   import [ skos xsd ]
-  import gs_one
+  import gs1
   import iso_17442
   import iso_3166_1
 
@@ -427,11 +442,11 @@ module retail is
     city -> string
     state_or_district -> string
     postal_code -> string
-    country -> iso_3166_1:CountryCode
+    country -> iso_3166_1:AlphaTwoCountryCode
   end
 
   entity Store is
-    identity location_number -> gs_one:GlobalLocationNumber
+    identity location_number -> gs1:GlobalLocationNumber
 
     address -> Address
     open_hours -> {ordered 7} Hours
@@ -448,7 +463,7 @@ module retail is
   entity Item is
     @skos:note = "See following advanced topic."
 
-    identity gtin -> gs_one:GlobalTradeItemNumber
+    identity gtin -> gs1:GlobalTradeItemNumber
 
     description -> string
     manufacturer -> Manufacturer
@@ -463,16 +478,49 @@ module retail is
 end
 #+END_SRC
 
+The following listing shows the definition of the enumeration ~AlphaTwoCountryCode~. The whitespace in this example should
+be ignored, it is just useful to aout a grid of 26 rows of 26 columns for all the possible combination of two ASCII
+upper case letters.
+
+#+NAME: src:iso_3166_1
+#+CAPTION: ISO Country Code enum
+#+BEGIN_SRC sdml :exports code :noeval
+module iso_3166_1 is
+
+  enum AlphaTwoCountryCode of
+             AD AE AF AG    AI       AL AM    AO    AQ AR AS AT AU    AW AX    AZ
+    BA BB    BD BE BF BG BH BI BJ    BL BM BN BO    BQ BR BS BT    BV BW    BY BZ
+    CA    CC CD    CF CG CH CI    CK CL CM CN CO       CR       CU CV CW CX CY CZ
+                DE             DJ DK    DM    DO                               DZ
+          EC    EE    EG EH                            ER ES ET 
+                            FI FJ FK    FM    FO       FR
+    ;; ...
+    ;; ...
+    ;; ...
+    VA    VC    VE    VG    VI             VN                   VU
+                   WF                                     WS
+                YE                                           YT
+    ZA                                  ZM                            ZW
+  end
+
+end
+#+END_SRC
+
+Given this module name, ~iso_3166_1~, we should explain the use of underscores in module names. While any name in SDML /may/
+include underscores, typically as a word separator, the convention in module names is to use the underscore to note any
+logical hierarchy in definitions. So we have all ISO standards start with ~iso_~ followed by the standard number ~3166~ and
+then in this case the part number ~_1~.
+
 #+BEGIN_ADVNOTE
 Consider using custom datatypes to constrain basic types to avoid errors. For example, in listing [[src:gs1-datatypes]] the
 identifier for an ~Item~ is a GTIN or Global Trade Item Number. This standardized identifier has a number of specific
 formats but the shortest of those is 8 characters and the longest is 13 characters. So, we create a new datatype which
-/restricts/ the basic string to between 8 and 13 characters only using a regex pattern.
+/restricts/ the basic string to between 8 and 13 characters only using a regex pattern using an annotation property.
 
 #+NAME: src:gs1-datatypes
 #+CAPTION: GS1 Standard Datatypes
 #+BEGIN_SRC sdml :exports code :noeval
-module gs_one is
+module gs1 is
 
   import xsd
 
@@ -487,8 +535,8 @@ module gs_one is
 end
 #+END_SRC
 
-Table [[tbl:datatype-comparisons]] lists the constraints that can you can use to restrict existing types. All /scalar/ types
-have the following additional constraints; ~maxInclusive~, ~maxExclusive~, ~minInclusive~, and ~minExclusive~.
+Table [[tbl:datatype-comparisons]] lists the annotation properties that can you can use to restrict existing datatypes. All
+/scalar/ types have the following additional constraints; ~maxInclusive~, ~maxExclusive~, ~minInclusive~, and ~minExclusive~.
 
 #+NAME: tbl:datatype-comparisons
 #+CAPTION: Datatype Constraints
@@ -497,10 +545,10 @@ have the following additional constraints; ~maxInclusive~, ~maxExclusive~, ~minI
 | ~binary~         | ~minLength~, ~maxLength~, and ~length~                     |
 | ~boolean~        |                                                      |
 | ~decimal~        | ~pattern~, ~totalDigits~, ~fractionDigits~, and /scalar/     |
-| ~double~         | ~pattern~, scalar/                                     |
-| ~integer~        | ~pattern~, scalar/                                     |
+| ~double~         | ~pattern~, and /scalar/                                  |
+| ~integer~        | ~pattern~, and /scalar/                                  |
 | ~string~         | ~pattern~, ~minLength~, ~maxLength~, ~length~, and ~langRange~ |
-| ~unsigned~       | ~pattern~, /scalar/                                      |
+| ~unsigned~       | ~pattern~, and /scalar/                                  |
 | ~uri~            | ~pattern~, ~minLength~, ~maxLength~, and ~length~            |
 | ~xsd:date~       | ~pattern~, ~explicitTimezone~ and /scalar/                 |
 | ~xsd:time~       | ~pattern~, ~explicitTimezone~ and /scalar/                 |
@@ -511,6 +559,124 @@ have the following additional constraints; ~maxInclusive~, ~maxExclusive~, ~minI
 
 *** Hospitality Example
 
+#+NAME: src:initial-hospitality-structures
+#+CAPTION: Initial Hospitality Structures
+#+BEGIN_SRC sdml :exports code :noeval
+module hospitality is
+
+  import xsd
+
+  entity Customer
+
+  datatype Currency <- decimal is
+    @xsd:totalDigits = 9
+    @xsd:fractionDigits = 3
+  end
+
+  datatype RatePercentage <- decimal is
+    @xsd:totalDigits = 5
+    @xsd:fractionDigits = 3
+  end
+
+  entity Booking is
+    identity booking_code -> string
+
+    customer -> Customer
+    property -> Property
+    room_type -> RoomStyle
+    room_rate -> Currency
+    dates -> DateRange
+    number_of_adults -> integer
+    number_of_children -> integer
+  end
+
+  entity Property is
+    identity property_id -> unsigned
+    name -> string
+    styles -> {1..} RoomStyle
+    rooms -> {1..} Room
+  end
+
+  entity Bill is
+    identity transaction_id -> unknown
+
+    for_stay -> Stay
+    charges -> {0..} Purchase
+  end
+
+  entity Stay is
+    identity id -> unknown
+  
+    booking -> {0..1} Booking
+    room_rate -> {0..1} Currency ;; if different from booking
+    room_number -> unsigned
+    dates -> DateRange
+    tax_percent -> RatePercentage
+    discount_percent -> RatePercentage
+  end
+
+  structure DateRange is
+    starts -> xsd:date
+    ends -> xsd:date
+  end
+
+  structure Room is
+    group
+      number -> unsigned
+      floor -> unsigned
+    end
+    group
+      style -> RoomStyle
+      additional_features -> {unique 0..*} RoomFeature
+    end
+    rate -> Currency
+  end
+
+  structure RoomStyle is
+    name -> string
+    features -> {unique 1..*} RoomFeature
+  end
+
+  enum RoomFeature of
+    View
+    NonSmoking
+    Smoking
+    Accessible
+    OneSingleBed
+    OneDoubleBed
+    OneQueenBed
+    OneKingBed
+    TwoSingleBeds
+    TwoDoubleBeds
+    TwoQueenBeds
+    TwoKingBeds
+    Suite
+    Fridge
+    Kitchen
+    Balcony
+  end
+
+  structure Charge is
+    item -> string
+    provider -> string
+    charge -> decimal
+    tax_percent -> RatePercentage
+    discount_percent -> RatePercentage
+  end
+
+  structure Purchase is
+    stay -> Stay
+    charges -> {0..} Charge
+    payment -> Payment
+  end
+
+  structure Payment is
+    amount -> Currency
+  end
+
+  structure PaymentInstrument
+end
+#+END_SRC
 
 #+BEGIN_ADVNOTE
 Use Constraints to capture conditions that cannot be expressed by the model's structure alone. For example, in listing
@@ -622,11 +788,73 @@ end
 TBD
 
 *** Retail Example
+
+#+NAME: src:initial-retail-events
+#+CAPTION: Initial Retail Events
+#+BEGIN_SRC sdml :exports code :noeval
+module retail is
+
+  import [ skos xsd ]
+  import gs_one
+  import iso_17442
+  import iso_3166_1
+
+  entity Customer
+
+  entity Store
+
+  event StoreNowOpen source Store
+  event StoreNowClosed source Store
+
+  entity Purchase
+
+  event InventoryAdjustment source Purchase 
+
+  entity Item
+
+  entity Manufacturer
+
+end
+#+END_SRC
+
 *** Hospitality Example
+
+#+NAME: src:initial-hospitality-events
+#+CAPTION: Initial Hospitality Events
+#+BEGIN_SRC sdml :exports code :noeval
+module hospitality is
+
+  import xsd
+
+  entity Customer
+
+  entity Booking
+
+  event BookingCreated source Booking
+  event BookingUpdated source Booking
+  event BookingCanceled source Booking
+
+  entity Property
+
+  entity Stay
+
+  event CheckedIn source Stay
+  event CheckedOut source Stay
+  event RoomCharged source Stay
+
+  entity Bill
+
+  event BillReady source Bill
+  event PaymentMade source Bill
+  event Settled source Bill
+
+end
+#+END_SRC
+
 *** Logistics Example
 
-#+NAME: src:initial-logistics-structures
-#+CAPTION: Logistics Structures
+#+NAME: src:initial-logistics-events
+#+CAPTION: Logistics Events
 #+BEGIN_SRC sdml :exports code :noeval
 module logistics is
 
@@ -637,103 +865,90 @@ module logistics is
   @skos:altLabel = "Shipping"@en
   @dc:description = "A domain model for long-haul logistics."@en
 
-  entity Location is
-    identity gln -> gs1:GlobalLocationNumber
-    kind -> LocationKind
-  end
+  entity Consignor
 
-  enum LocationKind of
-    Office
-    Warehouse
-    WarehouseYard
-    WarehouseDock
-    RailDepot
-    RailYard
-    Port
-    PortLoading
-    Airport
-    AirportTransfer
-  end
-
-  entity Consignor is
-    identity gln -> gs1:GlobalLocationNumber
-    lei -> {0..1} gs1:LegalEntityIdentifier
-    name -> string
-  end
-
-  event CarrierLoadTender source Consignor ;; X.12 204
+  ;; based uopn ANSI X.12 204
+  event CarrierLoadTender source Consignor
 
   entity Carrier
 
-  event CarrierLoadTenderResponse source Carrier ;; X.12 990
-  ;; PickUpManifest X.12 5
+  ;; based uopn ANSI X.12 990
+  event CarrierLoadTenderResponse source Carrier
 
-  entity Consignment is
-    identity ginc -> gs1:GlobalIdentificationNumberForConsignment
+  entity Consignment
 
-    consignor -> Consignor
-    shipments -> {1..} Shipment
-  end
+  ;; based uopn ANSI X.12 211
+  event BillOfLading source Consignment
+  ;; based uopn ANSI   X.12 210
+  event FreightDetailsAndInvoice source Consignment
 
-  event BillOfLading source Consignment X.12 211
-  event FreightDetailsAndInvoice source Consignment ;; X.12 210
+  entity Shipment
 
-  entity Shipment is
-    identity gsin -> gs1:GlobalShipmentIdentificationNumber
-
-    from -> Location
-    to -> Location
-  end
-
-  event AdvanceShippingNotice source Shipment ;; X.12 856
-;; ShippingSchedule X.12 862
-  event TransportStatusNotification source Shipment ;; X.12 214
+  ;; based uopn ANSI X.12 856
+  event AdvanceShippingNotice source Shipment
+  ;; based uopn ANSI X.12 214
+  event TransportStatusNotification source Shipment
   event TransferRequest source Shipment
   event TransferConfirmation source Shipment
 
-  enum TransferKind of
-    Pickup
-    Dropoff
-  end
+end
+#+END_SRC
 
-  structure LogisticsUnit is
-    sscc -> gs1:SerialShippingContainerCode
-    asset -> {1..} LogisticsAsset
-  end
+** Describe "This or That" with Unions
 
-  structure LogisticsAsset is
-    grai -> gs1:GlobalReturnableAssetIdentifier
-    kind -> LogisticsAssetKind
-  end
+*** Hospitality Example
 
-  enum LogisticsAssetKind of
-    Pallet,
-    PalletStack,
-    Container,
-    RailCar,
+#+NAME: src:initial-hospitality-structure
+#+CAPTION: Using a Structure for PaymentInstrument
+#+BEGIN_SRC sdml :exports code :noeval
+module hospitality is
+
+  import pii
+
+  union PaymentInstrument of
+    assert only_one = "one, and only one of upc, ean, or isbn may be present"
+    Currency as Cash
+    Currency as CreditBalance
+    unsigned as Points
+    pii:CardToken as Card
   end
 
 end
 #+END_SRC
 
-** Describe polymorphism with Unions
-
-
-#+NAME: src:gtin-types
-#+CAPTION: Types of GTIN
+#+NAME: src:initial-hospitality-union
+#+CAPTION: Using a Union for PaymentInstrument
 #+BEGIN_SRC sdml :exports code :noeval
-module gtin is
+module hospitality is
+
+  import pii
+
+  union PaymentInstrument of
+    Currency as Cash
+    Currency as CreditBalance
+    unsigned as Points
+    pii:CardToken as Card
+  end
+
+end
+#+END_SRC
+
+*** Logistics Example
+
+#+NAME: src:gtin-union
+#+CAPTION: Using a Union for GTIN
+#+BEGIN_SRC sdml :exports code :noeval
+module gs1 is
 
   import [ xsd ]
 
   datatype Upc <- string
-
   datatype Ean <- string
-
   datatype Isbn <- string
 
-  union Gtin of
-    @skos:prefLabel = "GTIN"
+  union GlobalTradeIdentificationNumber of
+    @skos:prefLabel = "Global Trade Identification Number"@en
+    @skos:altLabel = "GTIN"@en
     Upc
     Ean
     Isbn
@@ -741,10 +956,6 @@ module gtin is
 
 end
 #+END_SRC
-
-#+BEGIN_ADVNOTE
-Use Unions to model Features
-#+END_ADVNOTE
 
 * How do I use it?
 :PROPERTIES:
