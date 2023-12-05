@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-01 Fri 13:55 -->
+<!-- 2023-12-05 Tue 09:07 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Simple Domain Modeling Language</title>
@@ -34,52 +34,52 @@
 </li>
 <li><a href="#what-is-sdml">2. What is SDML?</a>
 <ul>
-<li><a href="#orgd959d06">2.1. What it isn't</a></li>
+<li><a href="#orgb5b9ad3">2.1. What it isn&rsquo;t</a></li>
 </ul>
 </li>
 <li><a href="#what-can-it-do">3. What can I do with it?</a>
 <ul>
 <li><a href="#capture-entities">3.1. Capture Entities</a>
 <ul>
-<li><a href="#org6634617">3.1.1. Retail Example</a></li>
-<li><a href="#orgee673eb">3.1.2. Hospitality Example</a></li>
-<li><a href="#org943d6cb">3.1.3. Logistics Example</a></li>
+<li><a href="#org8fa03f4">3.1.1. Retail Example</a></li>
+<li><a href="#orgfc61d20">3.1.2. Hospitality Example</a></li>
+<li><a href="#orgcb194cf">3.1.3. Logistics Example</a></li>
 </ul>
 </li>
 <li><a href="#add-structures-and-enums">3.2. Add details with Structures and Enums</a>
 <ul>
-<li><a href="#org8a9255a">3.2.1. Retail Example</a></li>
-<li><a href="#org4de86a2">3.2.2. Hospitality Example</a></li>
-<li><a href="#orgeade610">3.2.3. Logistics Example</a></li>
+<li><a href="#org2f0e3d0">3.2.1. Retail Example</a></li>
+<li><a href="#orgba0c3d7">3.2.2. Hospitality Example</a></li>
+<li><a href="#org360d7f0">3.2.3. Logistics Example</a></li>
 </ul>
 </li>
 <li><a href="#add-events">3.3. Describe Events emitted by Entities</a>
 <ul>
-<li><a href="#orgdc37753">3.3.1. Retail Example</a></li>
-<li><a href="#org0b121ba">3.3.2. Hospitality Example</a></li>
-<li><a href="#orged8903a">3.3.3. Logistics Example</a></li>
+<li><a href="#org00d19c3">3.3.1. Retail Example</a></li>
+<li><a href="#org13182cc">3.3.2. Hospitality Example</a></li>
+<li><a href="#org15443c4">3.3.3. Logistics Example</a></li>
 </ul>
 </li>
-<li><a href="#add-unions">3.4. Describe "This or That" with Unions</a>
+<li><a href="#add-unions">3.4. Describe &ldquo;This or That&rdquo; with Unions</a>
 <ul>
-<li><a href="#org73b0aef">3.4.1. Hospitality Example</a></li>
-<li><a href="#org8eb2443">3.4.2. Logistics Example</a></li>
+<li><a href="#orge16f32d">3.4.1. Hospitality Example</a></li>
+<li><a href="#org141ae76">3.4.2. Logistics Example</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a href="#how-to-use">4. How do I use it?</a>
 <ul>
-<li><a href="#org88eb520">4.1. Editing SDML Source</a></li>
-<li><a href="#org0bbf7b7">4.2. Drawing Diagrams</a></li>
-<li><a href="#org9fff490">4.3. Document Modules</a></li>
+<li><a href="#org8e14de6">4.1. Editing SDML Source</a></li>
+<li><a href="#org2cf47fa">4.2. Drawing Diagrams</a></li>
+<li><a href="#org2154436">4.3. Document Modules</a></li>
 </ul>
 </li>
 <li><a href="#what-next">5. What do I do next?</a>
 <ul>
-<li><a href="#org6f370d9">5.1. For Authors</a></li>
-<li><a href="#orgc69bf83">5.2. For Tool Builders</a></li>
-<li><a href="#org336d657">5.3. More Reading</a></li>
+<li><a href="#org8dcd0f4">5.1. For Authors</a></li>
+<li><a href="#orgb458a81">5.2. For Tool Builders</a></li>
+<li><a href="#org04075d6">5.3. More Reading</a></li>
 </ul>
 </li>
 <li><a href="#glossary">6. A Brief Glossary</a></li>
@@ -87,14 +87,14 @@
 </div>
 </div>
 
-<div id="orgf63f1a0" class="figure">
+<div id="orgb6bf5a5" class="figure">
 <p><img src="./logo/svg/square-dark.svg" alt="square-dark.svg" class="org-svg" width="75%" height="75%" />
 </p>
 </div>
 
 <p>
 This short primer introduces the Simple Domain Modeling Language (SDML) and how you can apply it to model your business
-domain. This is not a replacement for the main SDML <a href="https://sdml.io">documentation</a> but instead a quick tour of the language, it's
+domain. This is not a replacement for the main SDML <a href="https://sdml.io">documentation</a> but instead a quick tour of the language, it&rsquo;s
 features and application. This introduction will focus only on the SDML <i>surface syntax</i>, the textual representation that
 most people will interact with directly, whereas the main documentation also covers the semantics of the language and
 mappings between SDML and other key models. The primer also covers the core concepts that almost everyone will need to
@@ -102,7 +102,7 @@ know, with pointers to the more advanced topics in the main documentation (notes
 </p>
 
 <p>
-So, let's start&#x2026;
+So, let&rsquo;s start&#x2026;
 </p>
 
 <div id="outline-container-why-domain-model" class="outline-2">
@@ -111,15 +111,15 @@ So, let's start&#x2026;
 <p>
 Modeling in software development has had a difficult history, in some technical domains it is considered an essential
 tool. However, in many others, and especially with the emergence of agile development practices, it is considered an
-unnecessary overhead. George Box (statistician) famously wrote, "<i>All models are wrong, some are useful.</i>", and later
+unnecessary overhead. George Box (statistician) famously wrote, &ldquo;<i>All models are wrong, some are useful.</i>&rdquo;, and later
 expanded it to
 </p>
 
 <blockquote>
 <p>
 All models are approximations. Assumptions, whether implied or clearly stated, are never exactly true. All models are
-wrong, but some models are useful. So the question you need to ask is not "Is the model true?" (it never is) but "Is the
-model good enough for this particular application?" &#x2014; George E. P. Box, 1976.
+wrong, but some models are useful. So the question you need to ask is not &ldquo;Is the model true?&rdquo; (it never is) but &ldquo;Is the
+model good enough for this particular application?&rdquo; &#x2014; George E. P. Box, 1976.
 </p>
 </blockquote>
 
@@ -149,7 +149,7 @@ genericity or abstraction but because that is the term that the rental car indus
 
 <p>
 As such, a domain model is an essential communication tool, not only between the business and technology sides of an
-organization but also between the business and it's customers and partners. Some industry standards for example use a
+organization but also between the business and it&rsquo;s customers and partners. Some industry standards for example use a
 common domain model to help facilitate the understanding of the standards themselves and how they apply between parties. 
 </p>
 </div>
@@ -167,15 +167,15 @@ because that simple test helps to identify the truly essential elements.
 
 <p>
 Include stakeholders across your business <i>and</i> with different roles and perspectives. This is not a time to be parochial,
-to codify existing organizational structures or silos. Ask yourself, "<i>If we were to fundamentally reorganize our
-internal structure, would these entities have to change?</i>" and if the answer is <i>yes</i> you almost certainly have something
-wrong. The danger is that your modeling effort falls foul of Conway's law:
+to codify existing organizational structures or silos. Ask yourself, &ldquo;<i>If we were to fundamentally reorganize our
+internal structure, would these entities have to change?</i>&rdquo; and if the answer is <i>yes</i> you almost certainly have something
+wrong. The danger is that your modeling effort falls foul of Conway&rsquo;s law:
 </p>
 
 <blockquote>
 <p>
 Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the
-organization's communication structure. &#x2014; Melvin E. Conway, 1967.
+organization&rsquo;s communication structure. &#x2014; Melvin E. Conway, 1967.
 </p>
 </blockquote>
 
@@ -192,13 +192,13 @@ the same item or the same kind of item from <i>different manufacturers</i>.</li>
 particular <b>property</b>. A customer may make <i>certain kinds</i> of <b>purchase</b> against their room which are then added to the
 final <b>bill</b> on <i>completion of their stay</i>.</li>
 <li>Long-Haul Logistics: The business comprises <i>matching</i> available transportation <b>capacity</b> on one or more <b>routes</b> to
-<i>deliver</i> a <b>customer</b>'s load from <i>source to destination</i> within some <i>time constraint</i>. A load may be one or more <b>standard
+<i>deliver</i> a <b>customer</b>&rsquo;s load from <i>source to destination</i> within some <i>time constraint</i>. A load may be one or more <b>standard
 palettes</b>, or one or more <b>standard containers</b>. This results in one or more <b>delivery contracts</b>.</li>
 </ul>
 
 <p>
-The next step may be to ask questions such as "<i>does the (candidate) entity <b>X</b> have a natural and unique identifier?</i>",
-"<i>what properties does the (candidate) entity <b>X</b> have?</i>", or "<i>if we don't think <b>X</b> is an entity, what is it?</i>". All of these
+The next step may be to ask questions such as &ldquo;<i>does the (candidate) entity <b>X</b> have a natural and unique identifier?</i>&rdquo;,
+&ldquo;<i>what properties does the (candidate) entity <b>X</b> have?</i>&rdquo;, or &ldquo;<i>if we don&rsquo;t think <b>X</b> is an entity, what is it?</i>&rdquo;. All of these
 help to elaborate an initial framework that you can hang more detail on as you spend more time with more stakeholders.
 Whether you capture this in a structured form such as SDML, a graphical form such as a Visio diagram or data model
 diagram, or even natural language notes, you now have a domain model.
@@ -230,24 +230,24 @@ SDML is a textual language that allows you to describe a domain model in a <i>re
 relatively because the language allows you to build models iteratively, capturing the essentials first and elaborating
 on them over time. It is common for domain models to be the output of workshop sessions and so the ability to capture a
 valid model in real-time even if it lacks detail is a useful feature. With this in mind we will elaborate on the module
-<i>definition</i> in listing <a href="#org0186e6f">1</a> during this primer.
+<i>definition</i> in listing <a href="#org4dd7eec">1</a> during this primer.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>An empty module</label><pre class="src src-sdml" id="org0186e6f"><span class="linenr">1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>An empty module</label><pre class="src src-sdml" id="org4dd7eec"><span class="linenr">1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
 </pre>
 </div>
 
 <p>
 This is, obviously, not a very informative definition of the retail domain; however, it is a valid model and a good
-enough place to start. But, as you've been tasked with being the scribe at a workshop outlining the domain model for a
-retail business you're on track so far. We will see more features in the following sections.
+enough place to start. But, as you&rsquo;ve been tasked with being the scribe at a workshop outlining the domain model for a
+retail business you&rsquo;re on track so far. We will see more features in the following sections.
 </p>
 
 <p>
 One question you may have, why a textual language, why not a fancy graphical one, or an even fancier web-based graphical
 one? The reasons are purely pragmatic; <b>1.</b> simpler to build, <b>2.</b> now you have a persistent format, <b>3.</b> easier to agree
-details, <b>4.</b> not everyone is a visual thinker, and <b>5.</b> it's usually easier to define a visual representation of textual
+details, <b>4.</b> not everyone is a visual thinker, and <b>5.</b> it&rsquo;s usually easier to define a visual representation of textual
 form than a textual representation of a visual one. One (and not necessarily the most urgent) of the problems that has
 hampered the adoption of the UML language for example is that there is no standard representation and so all tools have
 to write import/export capabilities to share models leading to errors or inconsistencies. SDML has a native
@@ -255,9 +255,9 @@ representation, the surface syntax (it actually has two, more on that in a momen
 being able to read and write that syntax.
 </p>
 
-<div class="ADVNOTE" id="org7425e50">
+<div class="ADVNOTE" id="orgd6a83e5">
 <p>
-What is the other representation? The textual language, shown in listing <a href="#org0186e6f">1</a> has a direct mapping to, and
+What is the other representation? The textual language, shown in listing <a href="#org4dd7eec">1</a> has a direct mapping to, and
 can be considered an alternate syntax for, a particular <a href="https://www.w3.org/TR/rdf12-concepts">RDF</a>/<a href="https://www.w3.org/OWL/">OWL</a> ontology <b>[need link]</b>. This means that the <i>semantics</i> of
 SDML are then described by the OWL ontology, then OWL, and then RDF. Understanding this is not necessary to using or
 understanding the SDML syntax.
@@ -271,14 +271,14 @@ for drawing and documentation. It also produces this primer and the main documen
 </p>
 </div>
 
-<div id="outline-container-orgd959d06" class="outline-3">
-<h3 id="orgd959d06"><span class="section-number-3">2.1.</span> What it isn't</h3>
+<div id="outline-container-orgb5b9ad3" class="outline-3">
+<h3 id="orgb5b9ad3"><span class="section-number-3">2.1.</span> What it isn&rsquo;t</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>SDML is not, as we said above, a graphical language. It relies on a defined mapping to the UML language that allows
 the core elements of the textual language to be represented visually in UML.</li>
-<li>SDML is not a product, it's freely available and open source.</li>
-<li>SDML is not a standard, there's no committee managing changes. Feel free to file an enhancement request, or if you
+<li>SDML is not a product, it&rsquo;s freely available and open source.</li>
+<li>SDML is not a standard, there&rsquo;s no committee managing changes. Feel free to file an enhancement request, or if you
 have a change a pull request, because&#x2026;</li>
 <li>SDML is not done, we expect evolution as we see interesting opportunities to help you, and you see things we missed.</li>
 </ul>
@@ -306,16 +306,16 @@ Hospitality, and Logistics.
 <h3 id="capture-entities"><span class="section-number-3">3.1.</span> Capture Entities</h3>
 <div class="outline-text-3" id="text-capture-entities">
 <p>
-Let's add the entities from the previous natural language description to our module. In each of the following sections
+Let&rsquo;s add the entities from the previous natural language description to our module. In each of the following sections
 we will repeat the descriptive text and follow it with an initial model. Note that all we need to do at this stage is
 list the entities we have identified so far using the rather obvious keyword <code>entity</code>. 
 </p>
 </div>
 
-<div id="outline-container-org6634617" class="outline-4">
-<h4 id="org6634617"><span class="section-number-4">3.1.1.</span> Retail Example</h4>
+<div id="outline-container-org8fa03f4" class="outline-4">
+<h4 id="org8fa03f4"><span class="section-number-4">3.1.1.</span> Retail Example</h4>
 <div class="outline-text-4" id="text-3-1-1">
-<div class="INDENTED" id="org13ee349">
+<div class="INDENTED" id="org91e19c2">
 <p>
 <b>Customers</b> go to a <b>store</b> to <b>purchase</b> <b>items</b>, they may have a specific item in mind or expect to find <i>choices they can
 choose between</i>. Depending on the <i>kind of item</i> this choice may be <i>variations (in size or color for example)</i> of the same
@@ -331,7 +331,7 @@ section <a href="#where-to-start">Where do I start?</a>, except <code>Manufactur
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Initial Retail Entities</label><pre class="src src-sdml" id="org9edd934"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Initial Retail Entities</label><pre class="src src-sdml" id="orga3acfdb"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
 <span class="linenr"> 2: </span>
 <span class="linenr"> 3: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
 <span class="linenr"> 4: </span>
@@ -349,7 +349,7 @@ section <a href="#where-to-start">Where do I start?</a>, except <code>Manufactur
 
 <p>
 Note that, depending on how you state the initial part of the description above you may end up with a different name for
-the entity <code>Purchase</code>; "A store sells items to customers" for example will result in essentially the same entity but with
+the entity <code>Purchase</code>; &ldquo;A store sells items to customers&rdquo; for example will result in essentially the same entity but with
 the name <code>Sale</code> only because the subject of the sentence has changed. Beware of this, try and always pick a subject to use
 for all descriptions to avoid models that include both purchase and sale! In general, we recommend that you pick the
 customer as the primary subject as it means you end up with fewer internal names or jargon names for things.
@@ -357,10 +357,10 @@ customer as the primary subject as it means you end up with fewer internal names
 </div>
 </div>
 
-<div id="outline-container-orgee673eb" class="outline-4">
-<h4 id="orgee673eb"><span class="section-number-4">3.1.2.</span> Hospitality Example</h4>
+<div id="outline-container-orgfc61d20" class="outline-4">
+<h4 id="orgfc61d20"><span class="section-number-4">3.1.2.</span> Hospitality Example</h4>
 <div class="outline-text-4" id="text-3-1-2">
-<div class="INDENTED" id="org0637b0e">
+<div class="INDENTED" id="orge3ad6e4">
 <p>
 A <b>customer</b> <b>books</b> a <b>room</b> according to their choice of <i>size, bed type, or other criteria</i>, for <i>specific dates</i> at a
 particular <b>property</b>. A customer may make <i>certain kinds</i> of <b>purchases</b> against their room which are then added to the
@@ -377,14 +377,14 @@ customer left early for example.
 </p>
 
 <p>
-In listing <a href="#org362de8b">3</a> we will fill in some details, just to see how it's done. Specifically note
+In listing <a href="#orgbe47a00">3</a> we will fill in some details, just to see how it&rsquo;s done. Specifically note
 the use of the arrow operator <code>-&gt;</code> or <code>→</code> that denotes the type (right-hand side) of a member (left-hand side). Also, if you
 remember that a part of the definition of an entity is that it has strong identity, so as we are adding details to
 entities we <b>must</b> provide an <code>identity</code> member.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Initial Hospitality Entities</label><pre class="src src-sdml" id="org362de8b"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Initial Hospitality Entities</label><pre class="src src-sdml" id="orgbe47a00"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
 <span class="linenr"> 2: </span>
 <span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
 <span class="linenr"> 4: </span>
@@ -437,7 +437,7 @@ member. The use of two semi-colons is a style preference as it makes the comment
 another module named <code>xsd</code>. The name <code>xsd:date</code> is a <i>qualified name</i> which uses the colon character to combine module and
 definition name.</li>
 <li>Line 27: the member named in <code>charges</code> in <code>Bill</code> is a <i>sequence type</i>, which means it can have a varying number of values. The
-specification for upper and lower bounds on a sequence type are it's cardinality, the lack of a upper bound means
+specification for upper and lower bounds on a sequence type are it&rsquo;s cardinality, the lack of a upper bound means
 that the range is <i>unbounded</i>. The default cardinality being <code>1</code>.</li>
 <li>Line 32: the member named <code>from_booking</code> in <code>Stay</code> is another sequence type, although with the cardinality of <code>0..1</code> may be seen as
 <i>optional</i>.</li>
@@ -445,12 +445,12 @@ that the range is <i>unbounded</i>. The default cardinality being <code>1</code>
 
 <p>
 The builtin datatypes in SDML are derived from those in the XML Schema, Part 2 specification, the same datatypes used in
-RDF. The major datatypes are listed in table <a href="#org76577d0">1</a> and compared to corresponding datatypes in SQL,
-Java and Rust. SQL's Data Definition Language (DDL) is a useful comparison given that it may be familiar to less
+RDF. The major datatypes are listed in table <a href="#orgf81a993">1</a> and compared to corresponding datatypes in SQL,
+Java and Rust. SQL&rsquo;s Data Definition Language (DDL) is a useful comparison given that it may be familiar to less
 technical stakeholders.
 </p>
 
-<table id="org76577d0" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="orgf81a993" border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 1:</span> Datatype Comparisons</caption>
 
 <colgroup>
@@ -559,12 +559,12 @@ technical stakeholders.
 </div>
 </div>
 
-<div id="outline-container-org943d6cb" class="outline-4">
-<h4 id="org943d6cb"><span class="section-number-4">3.1.3.</span> Logistics Example</h4>
+<div id="outline-container-orgcb194cf" class="outline-4">
+<h4 id="orgcb194cf"><span class="section-number-4">3.1.3.</span> Logistics Example</h4>
 <div class="outline-text-4" id="text-3-1-3">
-<div class="INDENTED" id="org24a16a9">
+<div class="INDENTED" id="org4ee6630">
 <p>
-The business comprises <i>matching</i> available transportation <b>capacity</b> on one or more <b>routes</b> to <i>deliver</i> a <b>customer</b>'s load
+The business comprises <i>matching</i> available transportation <b>capacity</b> on one or more <b>routes</b> to <i>deliver</i> a <b>customer</b>&rsquo;s load
 from <i>source to destination</i> within some <i>time constraint</i>. A load may be one or more <b>standard palettes</b>, or one or more
 <b>standard containers</b>. This results in one or more <b>delivery contracts</b>.
 </p>
@@ -578,13 +578,13 @@ the original
 
 <p>
 You can use Annotation Properties to attach documentation properties to your model. In the following example we have
-added a <i>preferred label</i> "Logistics" (line 6), an <i>alternate label</i> "Shipping" (line 7), and a <i>description</i> (line 8)
-annotation to the module itself. Don't worry about the syntax of these for now, that's covered in an advanced topic
-later. We have added some to the logistics example in listing <a href="#orge93534e">4</a>.
+added a <i>preferred label</i> &ldquo;Logistics&rdquo; (line 6), an <i>alternate label</i> &ldquo;Shipping&rdquo; (line 7), and a <i>description</i> (line 8)
+annotation to the module itself. Don&rsquo;t worry about the syntax of these for now, that&rsquo;s covered in an advanced topic
+later. We have added some to the logistics example in listing <a href="#org3f7c8aa">4</a>.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 4: </span>Initial Logistics Entities</label><pre class="src src-sdml" id="orge93534e"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>Initial Logistics Entities</label><pre class="src src-sdml" id="org3f7c8aa"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
 <span class="linenr"> 2: </span>
 <span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
 <span class="linenr"> 4: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
@@ -611,14 +611,15 @@ later. We have added some to the logistics example in listing <a href="#orge9353
 <span class="linenr">25: </span>
 <span class="linenr">26: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #859900;">is</span>
 <span class="linenr">27: </span>
-<span class="linenr">28: </span>    <span style="color: #d33682;">@editorialNote</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"need to add logistic units -- are these entities?"</span>
-<span class="linenr">29: </span>
-<span class="linenr">30: </span>    <span style="color: #859900;">identity</span> gsin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalShipmentIdentificationNumber</span>
-<span class="linenr">31: </span>    from <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
-<span class="linenr">32: </span>    to <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
-<span class="linenr">33: </span>  <span style="color: #859900;">end</span>
-<span class="linenr">34: </span>
-<span class="linenr">35: </span><span style="color: #859900;">end</span>
+<span class="linenr">28: </span>    <span style="color: #d33682;">@editorialNote</span> <span style="color: #859900;">=</span>
+<span class="linenr">29: </span>      <span style="color: #2aa198;">"need to add logistic units -- are these entities?"</span>
+<span class="linenr">30: </span>
+<span class="linenr">31: </span>    <span style="color: #859900;">identity</span> gsin <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:GlobalShipmentIdentificationNumber</span>
+<span class="linenr">32: </span>    from <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+<span class="linenr">33: </span>    to <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Location</span>
+<span class="linenr">34: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">35: </span>
+<span class="linenr">36: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 
@@ -627,22 +628,22 @@ It is also time to deal with the <code>import</code> statement (lines 3,4) that 
 is used to make definitions in other modules available to us in the current module. Import statements are simpler than a
 lot of programming languages in that you can import <i>either</i> a module by name <i>or</i> individual definitions within a module.
 In either case SDML requires you to use the qualified name of any imported definition. A qualified name is simply the
-name of the module followed by a colon and then the name of the definition. In listing <a href="#orge93534e">4</a> we
+name of the module followed by a colon and then the name of the definition. In listing <a href="#org3f7c8aa">4</a> we
 see a single import statement with a list of module names, <code>dc</code> and <code>skos</code>. These modules allow us to reference the
 annotation properties <code>dc:description</code>, <code>skos:altLabel</code>, <code>skos:definition</code>, and <code>skos:prefLabel</code>.
 </p>
 
-<div class="ADVNOTE" id="orgdd5e20e">
+<div class="ADVNOTE" id="orgce21830">
 <p>
 Annotation properties are like constants in programming, they become attached to their enclosing definition and are
 immutable. A property is introduced by the initial <code>@</code> character and the property name follows. This property is then
-assigned a value, using the datatypes in table <a href="#org76577d0">1</a>. Some annotations, such as those in listing
-<a href="#orge93534e">4</a> above, are purely descriptive while others actually affect the semantics of the model
+assigned a value, using the datatypes in table <a href="#orgf81a993">1</a>. Some annotations, such as those in listing
+<a href="#org3f7c8aa">4</a> above, are purely descriptive while others actually affect the semantics of the model
 element they are attached to.
 </p>
 
 <p>
-Strings, as you can see in listing <a href="#orge93534e">4</a> may be followed by another <code>@</code> character which
+Strings, as you can see in listing <a href="#org3f7c8aa">4</a> may be followed by another <code>@</code> character which
 introduces a language tag that identifies the natural language used in the string constant.
 </p>
 
@@ -670,25 +671,25 @@ included <i>within</i> any enclosing structure or entity.
 </p>
 
 <p>
-An enumeration is a list of unique variants that represent distinct options.
+An enumeration is a list of unique <i>variants</i> that represent distinct options.
 </p>
 </div>
 
-<div id="outline-container-org8a9255a" class="outline-4">
-<h4 id="org8a9255a"><span class="section-number-4">3.2.1.</span> Retail Example</h4>
+<div id="outline-container-org2f0e3d0" class="outline-4">
+<h4 id="org2f0e3d0"><span class="section-number-4">3.2.1.</span> Retail Example</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
-In listing <a href="#orgb8a7f43">5</a> we have added a common <code>Address</code> structure (line 13) that is used by the
+In listing <a href="#org1043898">5</a> we have added a common <code>Address</code> structure (line 13) that is used by the
 customer, manufacturer, and store entities. This example does not introduce an enumeration directly; however, the
-imported type <code>AlphaTwoCountryCode</code> is an enumeration (described in listing <a href="#org38e4d5e">6</a> below). Additionally, the
-cardinality expression on line 25 introduces a new keyword <code>ordered</code> that is a constraint over the sequence that it's
+imported type <code>AlphaTwoCountryCode</code> is an enumeration (described in listing <a href="#org8cc4eb3">6</a> below). Additionally, the
+cardinality expression on line 25 introduces a new keyword <code>ordered</code> that is a constraint over the sequence that it&rsquo;s
 members <b>must</b> maintain their order, thus the sequence acts as an array or vector. In this example we assume that the 7
 elements of the sequence represent the days of the week so ordering would be important (although is the first element
 Sunday or Monday?).
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 5: </span>Retail Structures and Enumerations</label><pre class="src src-sdml" id="orgb8a7f43"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Retail Structures and Enumerations</label><pre class="src src-sdml" id="org1043898"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
 <span class="linenr"> 2: </span>
 <span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
 <span class="linenr"> 4: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">gs1</span>
@@ -746,7 +747,7 @@ upper case letters.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 6: </span>ISO Country Code enum</label><pre class="src src-sdml" id="org38e4d5e"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">iso_3166_1</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>ISO Country Code enum</label><pre class="src src-sdml" id="org8cc4eb3"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">iso_3166_1</span> <span style="color: #859900;">is</span>
 <span class="linenr"> 2: </span>
 <span class="linenr"> 3: </span>  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">AlphaTwoCountryCode</span> <span style="color: #859900;">of</span>
 <span class="linenr"> 4: </span>             <span style="color: #268bd2;">AD</span> <span style="color: #268bd2;">AE</span> <span style="color: #268bd2;">AF</span> <span style="color: #268bd2;">AG</span>    <span style="color: #268bd2;">AI</span>       <span style="color: #268bd2;">AL</span> <span style="color: #268bd2;">AM</span>    <span style="color: #268bd2;">AO</span>    <span style="color: #268bd2;">AQ</span> <span style="color: #268bd2;">AR</span> <span style="color: #268bd2;">AS</span> <span style="color: #268bd2;">AT</span> <span style="color: #268bd2;">AU</span>    <span style="color: #268bd2;">AW</span> <span style="color: #268bd2;">AX</span>    <span style="color: #268bd2;">AZ</span>
@@ -775,17 +776,17 @@ logical hierarchy in definitions. So we have all ISO standards start with <code>
 then in this case the part number <code>_1</code>.
 </p>
 
-<div class="ADVNOTE" id="org328c6ad">
+<div class="ADVNOTE" id="orge9961f3">
 <p>
-Consider using custom datatypes to constrain basic types to avoid errors. For example, in listing <a href="#orgb8a7f43">5</a> the
+Consider using custom datatypes to constrain basic types to avoid errors. For example, in listing <a href="#org1043898">5</a> the
 identifier for an <code>Item</code> (line 36) is a GTIN or Global Trade Item Number. This standardized identifier has a number of specific
 formats but the shortest of those is 8 characters and the longest is 13 characters. So, we create a new datatype which
 <i>restricts</i> the basic string to between 8 and 13 characters only using a regex pattern using an annotation property. This
-datatype and another standard from GS1 is shown in listing <a href="#orgeab9a20">7</a>.
+datatype and another standard from GS1 is shown in listing <a href="#orga90731a">7</a>.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 7: </span>GS1 Standard Datatypes</label><pre class="src src-sdml" id="orgeab9a20"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs1</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 7: </span>GS1 Standard Datatypes</label><pre class="src src-sdml" id="orga90731a"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs1</span> <span style="color: #859900;">is</span>
 <span class="linenr"> 2: </span>
 <span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
 <span class="linenr"> 4: </span>
@@ -802,11 +803,11 @@ datatype and another standard from GS1 is shown in listing <a href="#orgeab9a20"
 </div>
 
 <p>
-Table <a href="#org76577d0">1</a> lists the annotation properties that can you can use to restrict existing datatypes. All
+Table <a href="#orgf81a993">1</a> lists the annotation properties that can you can use to restrict existing datatypes. All
 <i>scalar</i> types have the following additional constraints; <code>maxInclusive</code>, <code>maxExclusive</code>, <code>minInclusive</code>, and <code>minExclusive</code>.
 </p>
 
-<table id="orgb36bdc5" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="orgfe3ab59" border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 2:</span> Datatype Constraints</caption>
 
 <colgroup>
@@ -892,18 +893,18 @@ Table <a href="#org76577d0">1</a> lists the annotation properties that can you c
 </div>
 </div>
 
-<div id="outline-container-org4de86a2" class="outline-4">
-<h4 id="org4de86a2"><span class="section-number-4">3.2.2.</span> Hospitality Example</h4>
+<div id="outline-container-orgba0c3d7" class="outline-4">
+<h4 id="orgba0c3d7"><span class="section-number-4">3.2.2.</span> Hospitality Example</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
-Listing <a href="#orgc1a2728">8</a> adds 2 datatype definitions, 1 enum definition, and 7 structure definitions.
+Listing <a href="#org8fb22a9">8</a> adds 2 datatype definitions, 1 enum definition, and 7 structure definitions.
 We have also made the previous entity <code>Room</code> a structure as it is dependent wholly on the valid entity <code>Property</code>. Lines 79
 and 85 introduce a new sequence constraint with the keyword <code>unique</code> that requires members of the sequence to be unique,
 effectively defining the sequence as a set.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 8: </span>Hospitality Structures and Enumerations</label><pre class="src src-sdml" id="orgc1a2728"><span class="linenr">  1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 8: </span>Hospitality Structures and Enumerations</label><pre class="src src-sdml" id="org8fb22a9"><span class="linenr">  1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
 <span class="linenr">  2: </span>
 <span class="linenr">  3: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
 <span class="linenr">  4: </span>
@@ -1019,16 +1020,16 @@ While this module has added a lot of detail, one structure at the end, <code>Pay
 patient, we will come back to that in the section <a href="#add-unions">3.4</a> later.
 </p>
 
-<div class="ADVNOTE" id="org7473b75">
+<div class="ADVNOTE" id="org94d90ee">
 <p>
-You can add a specific type of annotation, a constraint, to capture conditions that cannot be expressed by the model's
-structure alone. For example, in listing <a href="#orgb9d6abf">9</a> we have a simple structure that contains a start date
+You can add a specific type of annotation, a constraint, to capture conditions that cannot be expressed by the model&rsquo;s
+structure alone. For example, in listing <a href="#org992b926">9</a> we have a simple structure that contains a start date
 and an end date. They are correctly typed so we know they have to be dates, but what if we were to set the start date to
 be after the end date, how do we validate that? Can we?
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 9: </span>Hospitality Entities</label><pre class="src src-sdml" id="orgb9d6abf"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 9: </span>Hospitality Entities</label><pre class="src src-sdml" id="org992b926"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality</span> <span style="color: #859900;">is</span>
 <span class="linenr"> 2: </span>
 <span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">xsd</span>
 <span class="linenr"> 4: </span>
@@ -1051,19 +1052,19 @@ be after the end date, how do we validate that? Can we?
 </div>
 </div>
 
-<div id="outline-container-orgeade610" class="outline-4">
-<h4 id="orgeade610"><span class="section-number-4">3.2.3.</span> Logistics Example</h4>
+<div id="outline-container-org360d7f0" class="outline-4">
+<h4 id="org360d7f0"><span class="section-number-4">3.2.3.</span> Logistics Example</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <p>
-The detail added to the logistics example is extensive, but some highlights are the use of "kind" enumerations for
+The detail added to the logistics example is extensive, but some highlights are the use of &ldquo;kind&rdquo; enumerations for
 <code>Location</code> (line 10), <code>LogisticsUnit</code> (line 48), and <code>LogisticsAsset</code> (line 103). We have also added a constraint to the
 logistics unit structure which enforces a rule that a box may not include other units. The more astute reader will note
 that this is woefully insufficient as it does not stop us defining a unit of kind palette which includes a unit of kind
-rail car &#x2013; that's some big palette.
+rail car &#x2013; that&rsquo;s some big palette.
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 10: </span>Logistics Structures and Enumerations</label><pre class="src src-sdml" id="org249bf66"><span class="linenr">  1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 10: </span>Logistics Structures and Enumerations</label><pre class="src src-sdml" id="org14df560"><span class="linenr">  1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
 <span class="linenr">  2: </span>
 <span class="linenr">  3: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">owl</span> <span style="color: #268bd2;">rdf</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
 <span class="linenr">  4: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
@@ -1187,11 +1188,11 @@ following section (<a href="#add-events">3.3</a>) we will discuss approaches to 
 but also parallel editing.
 </p>
 
-<div class="ADVNOTE" id="org77714f1">
+<div class="ADVNOTE" id="org7a6dc3e">
 <p>
-The enumeration <code>DotHazardClassification</code> in listing <a href="#org249bf66">10</a> above probably looks
-intimidating compared to the previous examples, and that's OK. This enumeration represents the U.S. Department of
-Transportation's Federal Motor Carrier Safety Administration's  "Nine Classes of Hazardous Material" classification. As
+The enumeration <code>DotHazardClassification</code> in listing <a href="#org14df560">10</a> above probably looks
+intimidating compared to the previous examples, and that&rsquo;s OK. This enumeration represents the U.S. Department of
+Transportation&rsquo;s Federal Motor Carrier Safety Administration&rsquo;s  &ldquo;Nine Classes of Hazardous Material&rdquo; classification. As
 such the values one through nine are defined by government and so we want to be able to associate those values with the
 variants of the enum.
 </p>
@@ -1221,20 +1222,25 @@ contain a combination of coded materials each code appears only once.
 <h3 id="add-events"><span class="section-number-3">3.3.</span> Describe Events emitted by Entities</h3>
 <div class="outline-text-3" id="text-add-events">
 <p>
-TBD
+SDML does not have a language for describing behavior, so no sequence, activity, state machine, or other diagrams. Given
+that the domain model should describe the <i>what</i> of a domain, not the <i>how</i> it is too tempting to start to describe the
+behavior inside the domain, it&rsquo;s operating rules. Additionally, when describing a domain model it is often the case that
+the language used by stakeholders to describe any functional aspect of the model tends to be asynchronous and loosely
+coupled. To support this SDML provides the <code>event</code> definition, a way to describe events emitted by entities on state
+changes or other internal rules, but importantly these are part of the natural description/vocabulary of the domain.
 </p>
 
 <p>
 An event looks very much like a structure, but is has a <code>source</code> keyword followed by the name of the entity which emits
-this event. In fact the similarity between an event and a structure is not accidental as it's possible to see an event
+this event. In fact the similarity between an event and a structure is not accidental as it&rsquo;s possible to see an event
 definition as some additional syntax for a structure which, and this is the important part, contains a reference to an
-instance of the entity type. In listing <a href="#org06f5b10">11</a> we have a simple entity (line 5) and a simple event
+instance of the entity type. In listing <a href="#orgd575108">11</a> we have a simple entity (line 5) and a simple event
 (line 10) emitted by the entity. If we were to create an equivalent structure it might look like that defined on line
 13, which in turn is equivalent to the second structure on line 18.  
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 11: </span>Event De-Sugaring</label><pre class="src src-sdml" id="org06f5b10"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 11: </span>Event De-Sugaring</label><pre class="src src-sdml" id="orgd575108"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #859900;">is</span>
 <span class="linenr"> 2: </span>
 <span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">uuid</span>
 <span class="linenr"> 4: </span>
@@ -1267,11 +1273,11 @@ information.
 </p>
 </div>
 
-<div id="outline-container-orgdc37753" class="outline-4">
-<h4 id="orgdc37753"><span class="section-number-4">3.3.1.</span> Retail Example</h4>
+<div id="outline-container-org00d19c3" class="outline-4">
+<h4 id="org00d19c3"><span class="section-number-4">3.3.1.</span> Retail Example</h4>
 <div class="outline-text-4" id="text-3-3-1">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 12: </span>Events for Retail Customers</label><pre class="src src-sdml" id="org092dd34"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail_customers</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 12: </span>Events for Retail Customers</label><pre class="src src-sdml" id="orgc9a8730"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail_customers</span> <span style="color: #859900;">is</span>
 <span class="linenr"> 2: </span>
 <span class="linenr"> 3: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
 <span class="linenr"> 4: </span>
@@ -1291,7 +1297,7 @@ information.
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 13: </span>Events for Retail Stores</label><pre class="src src-sdml" id="org00e94f3"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 13: </span>Events for Retail Stores</label><pre class="src src-sdml" id="orgbb2d774"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
 <span class="linenr"> 2: </span>
 <span class="linenr"> 3: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Store</span>
 <span class="linenr"> 4: </span>
@@ -1307,7 +1313,7 @@ information.
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 14: </span>Events for Retail Items</label><pre class="src src-sdml" id="org0e262b0"><span class="linenr">1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 14: </span>Events for Retail Items</label><pre class="src src-sdml" id="org070882b"><span class="linenr">1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">retail</span> <span style="color: #859900;">is</span>
 <span class="linenr">2: </span>
 <span class="linenr">3: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Item</span>
 <span class="linenr">4: </span>
@@ -1319,11 +1325,11 @@ information.
 </div>
 </div>
 
-<div id="outline-container-org0b121ba" class="outline-4">
-<h4 id="org0b121ba"><span class="section-number-4">3.3.2.</span> Hospitality Example</h4>
+<div id="outline-container-org13182cc" class="outline-4">
+<h4 id="org13182cc"><span class="section-number-4">3.3.2.</span> Hospitality Example</h4>
 <div class="outline-text-4" id="text-3-3-2">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 15: </span>Events for Hospitality Customers</label><pre class="src src-sdml" id="orgeeea37d"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality_customers</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 15: </span>Events for Hospitality Customers</label><pre class="src src-sdml" id="org06dab8b"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality_customers</span> <span style="color: #859900;">is</span>
 <span class="linenr"> 2: </span>
 <span class="linenr"> 3: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Customer</span>
 <span class="linenr"> 4: </span>
@@ -1348,7 +1354,7 @@ information.
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 16: </span>Events for Hospitality Properties</label><pre class="src src-sdml" id="orgdbb68ef"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality_properties</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 16: </span>Events for Hospitality Properties</label><pre class="src src-sdml" id="org4f3901d"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality_properties</span> <span style="color: #859900;">is</span>
 <span class="linenr"> 2: </span>
 <span class="linenr"> 3: </span>  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Property</span>
 <span class="linenr"> 4: </span>
@@ -1374,11 +1380,11 @@ information.
 </div>
 </div>
 
-<div id="outline-container-orged8903a" class="outline-4">
-<h4 id="orged8903a"><span class="section-number-4">3.3.3.</span> Logistics Example</h4>
+<div id="outline-container-org15443c4" class="outline-4">
+<h4 id="org15443c4"><span class="section-number-4">3.3.3.</span> Logistics Example</h4>
 <div class="outline-text-4" id="text-3-3-3">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 17: </span>Logistics Events</label><pre class="src src-sdml" id="org7503115"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
+<label class="org-src-name"><span class="listing-number">Listing 17: </span>Logistics Events</label><pre class="src src-sdml" id="org7868ce7"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">logistics</span> <span style="color: #859900;">is</span>
 <span class="linenr"> 2: </span>
 <span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">dc</span> <span style="color: #268bd2;">skos</span> <span style="color: #268bd2;">uuid</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
 <span class="linenr"> 4: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">gs1</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
@@ -1426,73 +1432,77 @@ information.
 </div>
 
 <div id="outline-container-add-unions" class="outline-3">
-<h3 id="add-unions"><span class="section-number-3">3.4.</span> Describe "This or That" with Unions</h3>
+<h3 id="add-unions"><span class="section-number-3">3.4.</span> Describe &ldquo;This or That&rdquo; with Unions</h3>
 <div class="outline-text-3" id="text-add-unions">
+<p>
+So far we have ween entities, structures, events, and enumerations.
+</p>
 </div>
 
-<div id="outline-container-org73b0aef" class="outline-4">
-<h4 id="org73b0aef"><span class="section-number-4">3.4.1.</span> Hospitality Example</h4>
+<div id="outline-container-orge16f32d" class="outline-4">
+<h4 id="orge16f32d"><span class="section-number-4">3.4.1.</span> Hospitality Example</h4>
 <div class="outline-text-4" id="text-3-4-1">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 18: </span>Using a Structure for PaymentInstrument</label><pre class="src src-sdml" id="orgbd9a3e4"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality_properties</span> <span style="color: #859900;">is</span>
-
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">pii</span>
-
-  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">PaymentInstrument</span> <span style="color: #859900;">is</span>
-    <span style="color: #859900;">assert</span> <span style="color: #d33682;">only_one</span> <span style="color: #859900;">=</span> <span style="color: #657b83; background-color: #fdf6e3;">"one, and only one, of cash, credit_balance, points, or card may be present"</span>
-    cash <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Currency</span>
-    credit_balance <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Currency</span>
-    points <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">unsigned</span>
-    card <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">pii:CardToken</span>
-  <span style="color: #859900;">end</span>
-
-<span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 18: </span>Using a Structure for PaymentInstrument</label><pre class="src src-sdml" id="orgca845ad"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality_properties</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">pii</span>
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>  <span style="color: #859900;">structure</span> <span style="color: #268bd2;">PaymentInstrument</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 6: </span>    <span style="color: #859900;">assert</span> <span style="color: #d33682;">only_one</span> <span style="color: #859900;">=</span>
+<span class="linenr"> 7: </span>      <span style="color: #657b83; background-color: #fdf6e3;">"one, and only one, member may be present"</span>
+<span class="linenr"> 8: </span>    cash <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Currency</span>
+<span class="linenr"> 9: </span>    credit_balance <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">Currency</span>
+<span class="linenr">10: </span>    points <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #6c71c4;">unsigned</span>
+<span class="linenr">11: </span>    card <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">pii:CardToken</span>
+<span class="linenr">12: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">13: </span>
+<span class="linenr">14: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 19: </span>Using a Union for PaymentInstrument</label><pre class="src src-sdml" id="org0b12db1"><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality_properties</span> <span style="color: #859900;">is</span>
-
-  <span style="color: #859900;">import</span> <span style="color: #268bd2;">pii</span>
-
-  <span style="color: #859900;">union</span> <span style="color: #268bd2;">PaymentInstrument</span> <span style="color: #859900;">of</span>
-    <span style="color: #268bd2;">Currency</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">Cash</span>
-    <span style="color: #268bd2;">Currency</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">CreditBalance</span>
-    <span style="color: #268bd2;">unsigned</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">Points</span>
-    <span style="color: #268bd2;">pii:CardToken</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">Card</span>
-  <span style="color: #859900;">end</span>
-
-<span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 19: </span>Using a Union for PaymentInstrument</label><pre class="src src-sdml" id="org41aa326"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">hospitality_properties</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #268bd2;">pii</span>
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>  <span style="color: #859900;">union</span> <span style="color: #268bd2;">PaymentInstrument</span> <span style="color: #859900;">of</span>
+<span class="linenr"> 6: </span>    <span style="color: #268bd2;">Currency</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">Cash</span>
+<span class="linenr"> 7: </span>    <span style="color: #268bd2;">Currency</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">CreditBalance</span>
+<span class="linenr"> 8: </span>    <span style="color: #268bd2;">unsigned</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">Points</span>
+<span class="linenr"> 9: </span>    <span style="color: #268bd2;">pii:CardToken</span> <span style="color: #859900;">as</span> <span style="color: #268bd2;">Card</span>
+<span class="linenr">10: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">11: </span>
+<span class="linenr">12: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org8eb2443" class="outline-4">
-<h4 id="org8eb2443"><span class="section-number-4">3.4.2.</span> Logistics Example</h4>
+<div id="outline-container-org141ae76" class="outline-4">
+<h4 id="org141ae76"><span class="section-number-4">3.4.2.</span> Logistics Example</h4>
 <div class="outline-text-4" id="text-3-4-2">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 20: </span>Using a Union for GTIN</label><pre class="src src-sdml" id="orgb6115b5"><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs1</span> <span style="color: #859900;">is</span>
-
-  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
-
-  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">UniversalProductCode</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span>
-  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">EuropeanArticleNumber</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span>
-  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">InternationalStandardBookNumber</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span>
-  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">InternationalStandardMusicNumber</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span>
-  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">InternationalStandardSerialNumber</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span>
-
-  <span style="color: #859900;">union</span> <span style="color: #268bd2;">GlobalTradeIdentificationNumber</span> <span style="color: #859900;">of</span>
-    <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Global Trade Identification Number"</span><span style="color: #268bd2; font-style: italic;">@en</span>
-    <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"GTIN"</span><span style="color: #268bd2; font-style: italic;">@en</span>
-    <span style="color: #268bd2;">UniversalProductCode</span>
-    <span style="color: #268bd2;">EuropeanArticleNumber</span>
-    <span style="color: #268bd2;">InternationalStandardBookNumber</span>
-    <span style="color: #268bd2;">InternationalStandardMusicNumber</span>
-    <span style="color: #268bd2;">InternationalStandardSerialNumber</span>
-  <span style="color: #859900;">end</span>
-
-<span style="color: #859900;">end</span>
+<label class="org-src-name"><span class="listing-number">Listing 20: </span>Using a Union for GTIN</label><pre class="src src-sdml" id="org9971993"><span class="linenr"> 1: </span><span style="color: #859900;">module</span> <span style="color: #268bd2;">gs1</span> <span style="color: #859900;">is</span>
+<span class="linenr"> 2: </span>
+<span class="linenr"> 3: </span>  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">xsd</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+<span class="linenr"> 4: </span>
+<span class="linenr"> 5: </span>  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">UniversalProductCode</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr"> 6: </span>  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">EuropeanArticleNumber</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr"> 7: </span>  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">InternationalStandardBookNumber</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr"> 8: </span>  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">InternationalStandardMusicNumber</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr"> 9: </span>  <span style="color: #859900;">datatype</span> <span style="color: #268bd2;">InternationalStandardSerialNumber</span> <span style="color: #859900;">&lt;-</span> <span style="color: #6c71c4;">string</span>
+<span class="linenr">10: </span>
+<span class="linenr">11: </span>  <span style="color: #859900;">union</span> <span style="color: #268bd2;">GlobalTradeIdentificationNumber</span> <span style="color: #859900;">of</span>
+<span class="linenr">12: </span>    <span style="color: #d33682;">@skos:prefLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"Global Trade Identification Number"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+<span class="linenr">13: </span>    <span style="color: #d33682;">@skos:altLabel</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"GTIN"</span><span style="color: #268bd2; font-style: italic;">@en</span>
+<span class="linenr">14: </span>    <span style="color: #268bd2;">UniversalProductCode</span>
+<span class="linenr">15: </span>    <span style="color: #268bd2;">EuropeanArticleNumber</span>
+<span class="linenr">16: </span>    <span style="color: #268bd2;">InternationalStandardBookNumber</span>
+<span class="linenr">17: </span>    <span style="color: #268bd2;">InternationalStandardMusicNumber</span>
+<span class="linenr">18: </span>    <span style="color: #268bd2;">InternationalStandardSerialNumber</span>
+<span class="linenr">19: </span>  <span style="color: #859900;">end</span>
+<span class="linenr">20: </span>
+<span class="linenr">21: </span><span style="color: #859900;">end</span>
 </pre>
 </div>
 </div>
@@ -1508,21 +1518,21 @@ DDD
 </p>
 </div>
 
-<div id="outline-container-org88eb520" class="outline-3">
-<h3 id="org88eb520"><span class="section-number-3">4.1.</span> Editing SDML Source</h3>
+<div id="outline-container-org8e14de6" class="outline-3">
+<h3 id="org8e14de6"><span class="section-number-3">4.1.</span> Editing SDML Source</h3>
 </div>
-<div id="outline-container-org0bbf7b7" class="outline-3">
-<h3 id="org0bbf7b7"><span class="section-number-3">4.2.</span> Drawing Diagrams</h3>
+<div id="outline-container-org2cf47fa" class="outline-3">
+<h3 id="org2cf47fa"><span class="section-number-3">4.2.</span> Drawing Diagrams</h3>
 <div class="outline-text-3" id="text-4-2">
 
-<div id="org1391fd3" class="figure">
+<div id="org4d7afab" class="figure">
 <p><img src="./images/primer-hospitality-concepts.svg" alt="primer-hospitality-concepts.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Hospitality Concepts (Entities)</p>
 </div>
 
 
-<div id="orgfa2d70a" class="figure">
+<div id="org79fdee1" class="figure">
 <p><img src="./images/primer-hospitality-uml.svg" alt="primer-hospitality-uml.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Hospitality UML</p>
@@ -1530,8 +1540,8 @@ DDD
 </div>
 </div>
 
-<div id="outline-container-org9fff490" class="outline-3">
-<h3 id="org9fff490"><span class="section-number-3">4.3.</span> Document Modules</h3>
+<div id="outline-container-org2154436" class="outline-3">
+<h3 id="org2154436"><span class="section-number-3">4.3.</span> Document Modules</h3>
 </div>
 </div>
 
@@ -1543,16 +1553,16 @@ TBD
 </p>
 </div>
 
-<div id="outline-container-org6f370d9" class="outline-3">
-<h3 id="org6f370d9"><span class="section-number-3">5.1.</span> For Authors</h3>
+<div id="outline-container-org8dcd0f4" class="outline-3">
+<h3 id="org8dcd0f4"><span class="section-number-3">5.1.</span> For Authors</h3>
 </div>
 
-<div id="outline-container-orgc69bf83" class="outline-3">
-<h3 id="orgc69bf83"><span class="section-number-3">5.2.</span> For Tool Builders</h3>
+<div id="outline-container-orgb458a81" class="outline-3">
+<h3 id="orgb458a81"><span class="section-number-3">5.2.</span> For Tool Builders</h3>
 </div>
 
-<div id="outline-container-org336d657" class="outline-3">
-<h3 id="org336d657"><span class="section-number-3">5.3.</span> More Reading</h3>
+<div id="outline-container-org04075d6" class="outline-3">
+<h3 id="org04075d6"><span class="section-number-3">5.3.</span> More Reading</h3>
 <div class="outline-text-3" id="text-5-3">
 <ul class="org-ul">
 <li><a href="https://sdml.io#intro-what-is-domain-modeling">What is Domain Modeling?</a> in the SDML documentation.</li>
@@ -1578,7 +1588,7 @@ those rules that may be hard or impossible to capture in the SDML syntax itself.
 datatype more specific such as saying a string has 4-10 characters only, or a quantity is 1-100 only, documents more
 information than string/number alone.</dd>
 <dt>Definition</dt><dd>In SDML all elements in a model such as modules, entities, structures, fields in a structure, or variants
-of an enumeration, are definitions. Definitions all have an identity which is unique within it's parent <i>namespace</i>.</dd>
+of an enumeration, are definitions. Definitions all have an identity which is unique within it&rsquo;s parent <i>namespace</i>.</dd>
 <dt>Domain</dt><dd></dd>
 
 <dt>Domain Model</dt><dd></dd>
@@ -1632,8 +1642,7 @@ be a reference to a property <i>role</i>.</dd>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-12-01 Fri 13:55</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2023-12-05 Tue 09:07</p>
 </div>
 </body>
 </html>

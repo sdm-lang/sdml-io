@@ -369,7 +369,8 @@ module logistics is
 
   entity Shipment is
 
-    @editorialNote = "need to add logistic units -- are these entities?"
+    @editorialNote =
+      "need to add logistic units -- are these entities?"
 
     identity gsin -> gs1:GlobalShipmentIdentificationNumber
     from -> Location
@@ -414,7 +415,7 @@ A structure will look very much like an entity in that it has a name and a set o
 identity member. As this means we cannot include them in an entity by reference to an identifier all structures are
 included /within/ any enclosing structure or entity.
 
-An enumeration is a list of unique variants that represent distinct options.
+An enumeration is a list of unique /variants/ that represent distinct options.
 
 *** Retail Example
 
@@ -865,7 +866,12 @@ contain a combination of coded materials each code appears only once.
 :CUSTOM_ID: add-events
 :END:
 
-TBD
+SDML does not have a language for describing behavior, so no sequence, activity, state machine, or other diagrams. Given
+that the domain model should describe the /what/ of a domain, not the /how/ it is too tempting to start to describe the
+behavior inside the domain, it's operating rules. Additionally, when describing a domain model it is often the case that
+the language used by stakeholders to describe any functional aspect of the model tends to be asynchronous and loosely
+coupled. To support this SDML provides the ~event~ definition, a way to describe events emitted by entities on state
+changes or other internal rules, but importantly these are part of the natural description/vocabulary of the domain.
 
 An event looks very much like a structure, but is has a ~source~ keyword followed by the name of the entity which emits
 this event. In fact the similarity between an event and a structure is not accidental as it's possible to see an event
@@ -907,6 +913,8 @@ source entity. In many cases events need only be a distinct type with a referenc
 information.
 
 *** Retail Example
+
+
 
 #+NAME: src:initial-retail-events-customer
 #+CAPTION: Events for Retail Customers
@@ -1065,21 +1073,24 @@ end
 :CUSTOM_ID: add-unions
 :END:
 
+So far we have ween entities, structures, events, and enumerations.
+
 *** Hospitality Example
 
 #+NAME: src:initial-hospitality-structure
 #+CAPTION: Using a Structure for PaymentInstrument
-#+BEGIN_SRC sdml :exports code :noeval
+#+BEGIN_SRC sdml -n :exports code :noeval
 module hospitality_properties is
 
   import pii
 
   structure PaymentInstrument is
-    assert only_one = "one, and only one, of cash, credit_balance, points, or card may be present"
-    cash -> Currency
-    credit_balance -> Currency
-    points -> unsigned
-    card -> pii:CardToken
+    assert only_one =
+      "one, and only one, member may be present"
+    cash -> {0..1} Currency
+    credit_balance -> {0..1} Currency
+    points -> {0..1} unsigned
+    card -> {0..1} pii:CardToken
   end
 
 end
@@ -1087,7 +1098,7 @@ end
 
 #+NAME: src:initial-hospitality-union
 #+CAPTION: Using a Union for PaymentInstrument
-#+BEGIN_SRC sdml :exports code :noeval
+#+BEGIN_SRC sdml -n :exports code :noeval
 module hospitality_properties is
 
   import pii
@@ -1106,7 +1117,7 @@ end
 
 #+NAME: src:gtin-union
 #+CAPTION: Using a Union for GTIN
-#+BEGIN_SRC sdml :exports code :noeval
+#+BEGIN_SRC sdml -n :exports code :noeval
 module gs1 is
 
   import [ xsd ]
