@@ -1262,7 +1262,7 @@ module example is
 
     group
       @skos:prefLabel = "Customer Information"
-      ref customer -> {1..1} Customer
+      customer -> {1..1} Customer
     end
   
   end
@@ -1314,9 +1314,7 @@ end
 #+END_SRC
 
 The ~identity~ member is a required part of the entity definition, it not only tells us what type represents the unique
-identifier for this entity but is also used in ~ref~ members and event sources (see section [[sec:entity-events]]). In the
-case of a ~ref~ member the target entity, in our example =Person= is not included in the entity's structure, it's identifier
-type, =PersonId= is instead.
+identifier for this entity but is also used in event sources (see section [[sec:entity-events]]).
 
 #+NAME: lst:sdml-ex-entity-ref-member
 #+CAPTION: Entity with Reference Member

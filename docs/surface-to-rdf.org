@@ -291,7 +291,7 @@ module example is
   entity Person is
     identity id -> PersonId
 
-    ref contact {0..} -> {0..2} Person is
+    contact {0..} -> {0..2} Person is
       @dc:description = "Emergency contact person"
     end
   end
@@ -583,7 +583,7 @@ module example is
   
     group
       @skos:prefLabel = "Customer Information"@en
-      ref customer -> {1..1} Customer
+      customer -> {1..1} Customer
     end
   
   end

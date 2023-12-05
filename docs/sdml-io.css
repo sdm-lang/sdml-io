@@ -209,18 +209,6 @@ div.HIERARCHY ul > li {
     margin-left: 1em;
 }
 
-/* MathJax */
-
-mjx-container[jax="CHTML"] {
-    font-size: 1.0em !important;
-}
-
-mjx-container[jax="CHTML"]:has(mjx-assistive-mml[display="block"])::after {
-    counter-increment: formula;
-    content: "(" counter(formula) ")";
-    float: right;
-}
-
 /* TOC */
 
 div#list-of-tables > h2 {

@@ -5,32 +5,32 @@
  -->
 <!-- Title: G Pages: 1 -->
 <svg width="312pt" height="44pt"
- viewBox="0.00 0.00 312.31 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ viewBox="0.00 0.00 311.76 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
 <title>G</title>
-<!-- Customer -->
+<!-- Vehicle -->
 <g id="node1" class="node">
-<title>Customer</title>
-<ellipse fill="none" stroke="black" cx="34.76" cy="-18" rx="34.76" ry="18"/>
-<text text-anchor="middle" x="34.76" y="-14.12" font-family="Helvetica,Arial,sans-serif" font-size="10.00">Customer</text>
+<title>Vehicle</title>
+<ellipse fill="none" stroke="black" cx="28.55" cy="-18" rx="28.55" ry="18"/>
+<text text-anchor="middle" x="28.55" y="-14.12" font-family="Helvetica,Arial,sans-serif" font-size="10.00">Vehicle</text>
 </g>
 <!-- Booking -->
 <g id="node2" class="node">
 <title>Booking</title>
-<ellipse fill="none" stroke="black" cx="117.76" cy="-18" rx="30.32" ry="18"/>
-<text text-anchor="middle" x="117.76" y="-14.12" font-family="Helvetica,Arial,sans-serif" font-size="10.00">Booking</text>
+<ellipse fill="none" stroke="black" cx="105.55" cy="-18" rx="30.32" ry="18"/>
+<text text-anchor="middle" x="105.55" y="-14.12" font-family="Helvetica,Arial,sans-serif" font-size="10.00">Booking</text>
+</g>
+<!-- Customer -->
+<g id="node3" class="node">
+<title>Customer</title>
+<ellipse fill="none" stroke="black" cx="188.55" cy="-18" rx="34.76" ry="18"/>
+<text text-anchor="middle" x="188.55" y="-14.12" font-family="Helvetica,Arial,sans-serif" font-size="10.00">Customer</text>
 </g>
 <!-- Location -->
-<g id="node3" class="node">
-<title>Location</title>
-<ellipse fill="none" stroke="black" cx="197.76" cy="-18" rx="31.21" ry="18"/>
-<text text-anchor="middle" x="197.76" y="-14.12" font-family="Helvetica,Arial,sans-serif" font-size="10.00">Location</text>
-</g>
-<!-- Vehicle -->
 <g id="node4" class="node">
-<title>Vehicle</title>
-<ellipse fill="none" stroke="black" cx="275.76" cy="-18" rx="28.55" ry="18"/>
-<text text-anchor="middle" x="275.76" y="-14.12" font-family="Helvetica,Arial,sans-serif" font-size="10.00">Vehicle</text>
+<title>Location</title>
+<ellipse fill="none" stroke="black" cx="272.55" cy="-18" rx="31.21" ry="18"/>
+<text text-anchor="middle" x="272.55" y="-14.12" font-family="Helvetica,Arial,sans-serif" font-size="10.00">Location</text>
 </g>
 </g>
 </svg>

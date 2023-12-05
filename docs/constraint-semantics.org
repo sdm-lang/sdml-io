@@ -20,7 +20,8 @@ corresponds to a Common Logic /sentence/ which may be one of the following forms
   - A function of arity 0 is called a constant.
   - Sometimes we use superscripts to indicate the arity of a symbol, e.g., we may write $f^2$ for a binary function.
   - Predicates are functions over a domain of /relations/ and have a range of /boolean/ values.
-  - We use the letters $x, y, z, \cdots$ to denote (individual) /variable/ in $\mathcal{X}$s, ranging over values in $\mathcal{V}$.
+  - We use the letters $x, y, z, \cdots$ to denote (individual) /variable/ in the set $\mathcal{X}$ of all variables, ranging
+    over values in $\mathcal{V}$.
 
 #+BEGIN_COMMENT
 This is easier to explain without the following.
@@ -30,14 +31,22 @@ This is easier to explain without the following.
   - For each /n/-ary predicate symbol $P \in \mathcal{P}$ there exists an /n/-ary predicate in $\mathcal{D}$; $P^\mathcal{D}: ⊆ \mathcal{V}^n$.
 #+END_COMMENT
 
-$$\mathcal{D} = \left\{\mathcal{F}, \mathcal{P}, \mathcal{V}\right\}$$
+\begin{equation}
+\mathcal{D} = \left\{\mathcal{F}, \mathcal{P}, \mathcal{V}\right\}
+\label{eq:einstein}
+\end{equation}
 
-$$\forall \tau \in \mathcal{T} \left( \tau \in \mathcal{V}\right)$$
+\begin{equation}
+\forall \tau \in \mathcal{T} \left( \tau \in \mathcal{V}\right)
+\end{equation}
 
-$$\forall f \in \mathcal{F} \left( f: \delta \mapsto \rho \implies \delta \in \mathcal{T} \land \rho \in \mathcal{T}\right)$$
+\begin{equation}
+\forall f \in \mathcal{F} \left( f: \delta \mapsto \rho \implies \delta \in \mathcal{T} \land \rho \in \mathcal{T}\right)
+\end{equation}
 
-$$\forall P \in \mathcal{P} \left( P: \delta \mapsto \rho \implies |P| \geq 2 \land \delta \in \mathcal{T} \land \rho \in \left\{⊤, ⊥\right\}\right)$$
-
+\begin{equation}
+\forall P \in \mathcal{P} \left( P: \delta \mapsto \rho \implies |P| \geq 2 \land \delta \in \mathcal{T} \land \rho \in \left\{⊤, ⊥\right\}\right)
+\end{equation}
 
 *General Semantics*
 
@@ -143,7 +152,9 @@ lhs <==> rhs
 lhs  ⇔   rhs
 #+END_EXAMPLE
 
-$$L \iff R \equiv (L \implies R) \land (R \implies L)$$
+\begin{equation}
+L \iff R \equiv (L \implies R) \land (R \implies L)
+\end{equation}
     
 ** Quantified Sentences
 
@@ -177,15 +188,19 @@ exists e in Sequence s
 The value of a sequence builder of the form $t ≔ \bigl\{ x, y \mid \ldots\}$ provides a relation for each variable of
 the form $x(\tau_t) → \tau_x$ and $y(\tau_t) \rightarrow \tau_y$. This can be expressed in the following:
 
-$$t ≔ \bigl\{ x_1, \cdots, x_n \mid \ldots \bigr\} \implies \forall x \in x_1, \cdots, x_n, \exists f \in \mathcal{F} \bigl(|f| = 1 \land \mathcal{d}_f =
-\tau_t \land \mathcal{r}_f = \tau_x\bigr)$$
+\begin{equation}
+t ≔ \bigl\{ x_1, \cdots, x_n \mid \ldots \bigr\} \implies \forall x \in x_1, \cdots, x_n, \exists f \in \mathcal{F} \bigl(|f| = 1 \land \mathcal{d}_f =
+\tau_t \land \mathcal{r}_f = \tau_x\bigr)
+\end{equation}
 
 #+BEGIN_COMMENT
 The expression from section [[sec:sequence-builders]] does not provide a domain for the variable $x$ and so will take on all
 values from the domain of discourse, $\mathcal{D}$. We may then define a transform in the following manner.
 #+END_COMMENT
 
-$$\bigl\{ x \mid P(x)\bigr\} \equiv \bigl\{ x \mid x \in \mathcal{D} \land P(x)\bigr\}$$
+\begin{equation}
+\bigl\{ x \mid P(x)\bigr\} \equiv \bigl\{ x \mid x \in \mathcal{D} \land P(x)\bigr\}
+\end{equation}
 
 In natural language this transformed expression read as follows "construct a sequence of values of $x$ *such that* $x$ is
 in the sequence $\mathcal{D}$ *and* the predicate $P$ holds true for $x$".
@@ -209,7 +224,9 @@ It can be shown that this is a universal quantification, /all/ values from the t
 $\mathbb{S}$ will be considered. A variable can be identified as existentially quantified by prefacing it's definition
 with either the keyword ~exists~ or the operator ~∃~.
 
-$$\bigl\{ x \mid x \in self.tags \land ∃ y \in self.container.tags \land x = y\bigr\}$$
+\begin{equation}
+\bigl\{ x \mid x \in self.tags \land ∃ y \in self.container.tags \land x = y\bigr\}
+\end{equation}
 
 The following definitions are taken from the standard library and act as filters over a sequence of ~Annotation~ union
 values to provide sequences which only contain one or other of the types in the union.
@@ -242,7 +259,9 @@ not is_empty({ e | e in Sequence s})
 
 More formally, the following equivalence holds true.
 
-$$∃ e \in \mathbb{S} \bigl(P\left(e\right)\bigr) ≡ ¬\bigl\{e \mid e \in \mathbb{S} ∧ P\left(e\right)\bigr\}=∅$$
+\begin{equation}
+∃ e \in \mathbb{S} \bigl(P\left(e\right)\bigr) ≡ ¬\bigl\{e \mid e \in \mathbb{S} ∧ P\left(e\right)\bigr\}=∅
+\end{equation}
 
 We can also show that the following are equivalent for universal quantification.
 
@@ -251,7 +270,9 @@ forall e in Sequence s
 is_empty({ e | e in Sequence not s}
 #+END_EXAMPLE
 
-$$∀ e \in \mathbb{S} \bigl(P\left(e\right)\bigr) ≡ \bigl\{e \mid e \in \mathbb{S} ∧ ¬P(e)\bigr\}=∅$$
+\begin{equation}
+∀ e \in \mathbb{S} \bigl(P\left(e\right)\bigr) ≡ \bigl\{e \mid e \in \mathbb{S} ∧ ¬P(e)\bigr\}=∅
+\end{equation}
 
 In this manner we can treat the quantified sentences as syntactic sugar over specific forms of sequence comprehensions.
 

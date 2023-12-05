@@ -36,7 +36,6 @@ package sdml <<profile>> {
   class role <<stereotype>> {}
   class source <<stereotype>> {}
   class identity <<stereotype>> {}
-  class ref <<stereotype>> {}
 }
 
 sdml ..> uml: <<references>>
@@ -440,47 +439,6 @@ end note
 
 !!!
 
-#+NAME: src:uml-profile-ref-members
-#+BEGIN_SRC plantuml :file uml-profile-ref-members.svg
-skinparam backgroundColor transparent
-skinparam style strictuml
-skinparam linetype polyline
-skinparam nodesep 200
-
-hide circle
-hide members
-
-class entity <<stereotype>> {}
-class Property <<Metaclass>> #white {}
-
-class ref <<stereotype>> {}
-ref -up-> Property: <<extension>>
-ref "+refMember\l{subsets ownedAttribute}" --right--> "+owningEntity\r{renames class}" entity
-
-note left of ref
-**context** ref **inv**:
-    **let** t = self.type **in**
-        isDatatypeDef(t) **or**
-        isEntityDef(t) **or**
-        isEnumerationDef(t) **or**
-        isStructureDef(t) **or**
-        isUnionDef(t)
-end note
-
-note bottom of ref
-,**context** ref **inv**:
-    ,**let** c = self.class **in**
-        isEntityDef(c) **or** isPropertyDef(c)
-end note
-#+END_SRC
-
-#+NAME: fig:uml-profile-ref-members
-#+CAPTION: The and «ref» Stereotypes
-#+RESULTS: src:uml-profile-ref-members
-[[file:uml-profile-ref-members.svg]]
-
-For details on by-value members and groups see section [[sec:uml-structures]] below.
-
 *Constraints*
 
 1. The =«identity»= stereotype renames the meta-association =class= to =owningEntity=, with type =«entity»= and multiplicity
@@ -503,7 +461,7 @@ module rentals is
 
   entity Booking is
     identity id -> uuid::Uuid
-    ref vehicle -> {0..1} Vehicle
+    vehicle -> {0..1} Vehicle
   end
 
 end

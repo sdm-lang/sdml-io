@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-10-06 Fri 12:59 -->
+<!-- 2023-12-05 Tue 10:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -194,36 +194,18 @@
   .org-svg { }
 </style>
 <script>
-  window.MathJax = {
-    tex: {
-      ams: {
-        multlineWidth: '85%'
-      },
-      tags: 'ams',
-      tagSide: 'right',
-      tagIndent: '.8em'
+MathJax = {
+  tex: {
+    ams: {
+      multlineWidth: '85%',
+      multlineIndent: '1em'
     },
-    chtml: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    svg: {
-      scale: 1.0,
-      displayAlign: 'center',
-      displayIndent: '0em'
-    },
-    output: {
-      font: 'mathjax-modern',
-      displayOverflow: 'overflow'
-    }
-  };
+    tags: 'ams'
+  }
+};
 </script>
-
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
 </script>
 </head>
 <body>
@@ -232,22 +214,22 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2f38b8f">1. Appendix: Constraint Semantics</a>
+<li><a href="#org881d5f3">1. Appendix: Constraint Semantics</a>
 <ul>
-<li><a href="#org32deb2e">1.1. Simple Sentences</a></li>
-<li><a href="#org78e0f71">1.2. Boolean Sentences</a></li>
-<li><a href="#org50fecdc">1.3. Quantified Sentences</a></li>
-<li><a href="#org84cb276">1.4. Sequence Builders</a></li>
-<li><a href="#org14ca3aa">1.5. Quantified Sentences as Sequence Builders</a></li>
-<li><a href="#orgc41bd94">1.6. Constraints to ISO/IEC Common Logic</a></li>
+<li><a href="#org87cd579">1.1. Simple Sentences</a></li>
+<li><a href="#orgc3837eb">1.2. Boolean Sentences</a></li>
+<li><a href="#org737743b">1.3. Quantified Sentences</a></li>
+<li><a href="#org9d96b64">1.4. Sequence Builders</a></li>
+<li><a href="#org64855ff">1.5. Quantified Sentences as Sequence Builders</a></li>
+<li><a href="#org97abd3f">1.6. Constraints to ISO/IEC Common Logic</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org2f38b8f" class="outline-2">
-<h2 id="org2f38b8f"><span class="section-number-2">1.</span> <a id="org4f3250c"></a>Appendix: Constraint Semantics</h2>
+<div id="outline-container-org881d5f3" class="outline-2">
+<h2 id="org881d5f3"><span class="section-number-2">1.</span> <a id="org182f4b8"></a>Appendix: Constraint Semantics</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 The embedded constraint language is purely functional and constraint assertions MUST return a single boolean value
@@ -272,26 +254,27 @@ number of arguments a function or predicate takes.
 <li>A function of arity 0 is called a constant.</li>
 <li>Sometimes we use superscripts to indicate the arity of a symbol, e.g., we may write \(f^2\) for a binary function.</li>
 <li>Predicates are functions over a domain of <i>relations</i> and have a range of <i>boolean</i> values.</li>
-<li>We use the letters \(x, y, z, \cdots\) to denote (individual) <i>variable</i> in $\mathcal{X}$s, ranging over values in \(\mathcal{V}\).</li>
+<li>We use the letters \(x, y, z, \cdots\) to denote (individual) <i>variable</i> in the set \(\mathcal{X}\) of all variables, ranging
+over values in \(\mathcal{V}\).</li>
 </ul></li>
 </ul>
 
-<p>
-\[\mathcal{D} = \left\{\mathcal{F}, \mathcal{P}, \mathcal{V}\right\}\]
-</p>
+\begin{equation}
+\mathcal{D} = \left\{\mathcal{F}, \mathcal{P}, \mathcal{V}\right\}
+\label{eq:einstein}
+\end{equation}
 
-<p>
-\[\forall \tau \in \mathcal{T} \left( \tau \in \mathcal{V}\right)\]
-</p>
+\begin{equation}
+\forall \tau \in \mathcal{T} \left( \tau \in \mathcal{V}\right)
+\end{equation}
 
-<p>
-\[\forall f \in \mathcal{F} \left( f: \delta \mapsto \rho \implies \delta \in \mathcal{T} \land \rho \in \mathcal{T}\right)\]
-</p>
+\begin{equation}
+\forall f \in \mathcal{F} \left( f: \delta \mapsto \rho \implies \delta \in \mathcal{T} \land \rho \in \mathcal{T}\right)
+\end{equation}
 
-<p>
-\[\forall P \in \mathcal{P} \left( P: \delta \mapsto \rho \implies |P| \geq 2 \land \delta \in \mathcal{T} \land \rho \in \left\{⊤, ⊥\right\}\right)\]
-</p>
-
+\begin{equation}
+\forall P \in \mathcal{P} \left( P: \delta \mapsto \rho \implies |P| \geq 2 \land \delta \in \mathcal{T} \land \rho \in \left\{⊤, ⊥\right\}\right)
+\end{equation}
 
 <p>
 <b>General Semantics</b>
@@ -328,14 +311,14 @@ occurrences of variables depends on the assignment of values to these variables.
 </p>
 </div>
 
-<div id="outline-container-org32deb2e" class="outline-3">
-<h3 id="org32deb2e"><span class="section-number-3">1.1.</span> Simple Sentences</h3>
+<div id="outline-container-org87cd579" class="outline-3">
+<h3 id="org87cd579"><span class="section-number-3">1.1.</span> Simple Sentences</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 An <i>atomic sentence</i> takes the form of a predicate with a set of zero or more arguments.
 </p>
 
-<pre class="example" id="orga0c0578">
+<pre class="example" id="org9452003">
 predicate(a1, ..., an)
 </pre>
 
@@ -343,7 +326,7 @@ predicate(a1, ..., an)
 An <i>equation</i> sentence asserts the equality of two terms.
 </p>
 
-<pre class="example" id="org8fa9ed6">
+<pre class="example" id="orgb4b7c00">
 rhs = rhs
 </pre>
 
@@ -351,7 +334,7 @@ rhs = rhs
 An <i>inequation</i> sentence asserts an inequality relation between two terms.
 </p>
 
-<pre class="example" id="org544f231">
+<pre class="example" id="org1d016b6">
 lhs /= rhs
 lhs ≠ rhs
 lhs &lt; rhs
@@ -364,14 +347,14 @@ lhs ≥ rhs
 </div>
 </div>
 
-<div id="outline-container-org78e0f71" class="outline-3">
-<h3 id="org78e0f71"><span class="section-number-3">1.2.</span> Boolean Sentences</h3>
+<div id="outline-container-orgc3837eb" class="outline-3">
+<h3 id="orgc3837eb"><span class="section-number-3">1.2.</span> Boolean Sentences</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 The <i>negation</i> of a sentence takes the form of a preceding logical <i>not</i> operator.
 </p>
 
-<pre class="example" id="org012f002">
+<pre class="example" id="orgee06723">
 not rhs
 ¬rhs
 </pre>
@@ -380,7 +363,7 @@ not rhs
 The <i>conjunction</i> of two sentences takes the form of the application of the logical <i>and</i> operator.
 </p>
 
-<pre class="example" id="org7418db1">
+<pre class="example" id="orgfb4c3eb">
 lhs and rhs
 lhs  ∧  rhs
 </pre>
@@ -389,7 +372,7 @@ lhs  ∧  rhs
 The <i>disjunction</i> of two sentences takes the form of the application of the logical <i>or</i> operator.
 </p>
 
-<pre class="example" id="org85df74d">
+<pre class="example" id="org02f9957">
 lhs or rhs
 lhs ∧  rhs
 </pre>
@@ -398,15 +381,15 @@ lhs ∧  rhs
 The <i>exclusive disjunction</i> of two sentences takes the form of the application of the logical <i>xor</i> operator.
 </p>
 
-<pre class="example" id="orgd07416a">
+<pre class="example" id="org8a06068">
 lhs xor rhs
 lhs  ⊻  rhs
 </pre>
 
 <p>
 An <i>implication</i> relation between two sentences holds true when the right-hand proposition is a logical
-consequence of the left-hand. In effect it says that "if the left-hand side is true, then the right-hand side is also
-true"; however, it does not say what one can deduce if the left-hand side is not true, or under what other conditions
+consequence of the left-hand. In effect it says that &ldquo;if the left-hand side is true, then the right-hand side is also
+true&rdquo;; however, it does not say what one can deduce if the left-hand side is not true, or under what other conditions
 the right-hand side may be true.
 </p>
 
@@ -415,56 +398,56 @@ Note that the left-hand side is often named the <i>antecedent</i> and the right-
 expression is often termed a <i>conditional</i>.
 </p>
 
-<pre class="example" id="org49d82ac">
+<pre class="example" id="orgf960c0c">
 lhs implies rhs
 lhs   ==&gt;   rhs
 lhs    ⇒    rhs
 </pre>
 
 <p>
-A <i>biconditional</i> relation between two sentences holds true when the both sides are either true or false. In effect, "the
-left-hand side implies the right-hand side and the right-hand side implies the left-hand-side".
+A <i>biconditional</i> relation between two sentences holds true when the both sides are either true or false. In effect, &ldquo;the
+left-hand side implies the right-hand side and the right-hand side implies the left-hand-side&rdquo;.
 </p>
 
-<pre class="example" id="org724f74c">
+<pre class="example" id="org1d54c47">
 lhs iff  rhs
 lhs &lt;==&gt; rhs
 lhs  ⇔   rhs
 </pre>
 
-<p>
-\[L \iff R \equiv (L \implies R) \land (R \implies L)\]
-</p>
+\begin{equation}
+L \iff R \equiv (L \implies R) \land (R \implies L)
+\end{equation}
 </div>
 </div>
 
-<div id="outline-container-org50fecdc" class="outline-3">
-<h3 id="org50fecdc"><span class="section-number-3">1.3.</span> Quantified Sentences</h3>
+<div id="outline-container-org737743b" class="outline-3">
+<h3 id="org737743b"><span class="section-number-3">1.3.</span> Quantified Sentences</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
-The <i>universal quantification</i> over a sequence says that "for all elements \(e\) in the sequence \(S\) the sentence \(s\) must hold
-true".
+The <i>universal quantification</i> over a sequence says that &ldquo;for all elements \(e\) in the sequence \(S\) the sentence \(s\) must hold
+true&rdquo;.
 </p>
 
-<pre class="example" id="org8e63b0c">
+<pre class="example" id="org9901efd">
 forall e in Sequence s
      ∀ e ∈  Sequence s
 </pre>
 
 <p>
-The <i>existential quantification</i> over a sequence says that "there exists an element \(e\) in the sequence \(S\) where the sentence
-\(s\) holds true".
+The <i>existential quantification</i> over a sequence says that &ldquo;there exists an element \(e\) in the sequence \(S\) where the sentence
+\(s\) holds true&rdquo;.
 </p>
 
-<pre class="example" id="org2319751">
+<pre class="example" id="org8a025b1">
 exists e in Sequence s
      ∃ e ∈  Sequence s
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org84cb276" class="outline-3">
-<h3 id="org84cb276"><span class="section-number-3">1.4.</span> Sequence Builders</h3>
+<div id="outline-container-org9d96b64" class="outline-3">
+<h3 id="org9d96b64"><span class="section-number-3">1.4.</span> Sequence Builders</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 <b>Notation</b>
@@ -472,8 +455,8 @@ exists e in Sequence s
 
 <ul class="org-ul">
 <li>We use the symbol \(\mathbb{S}\) to denote an arbitrary sequence of values such that \(\mathbb{S} ⊆ \mathcal{V}\).</li>
-<li>We use \(\tau(_x)\) to denote the type \(\tau \in \mathcal{T}\) of a value \(x \in \mathcal{X}§\). Given that a function or predicate with an
-arity of \(0\) is a constant value:
+<li>We use \(\tau(x)\) to denote the type a variable \(x\).</li>
+<li>Given that a function or predicate with an arity of \(0\) is a constant value:
 <ul class="org-ul">
 <li>for functions the following equivalence holds \(\forall f \in \mathcal{F} \left(|f| = 0 \implies \mathcal{r}_f =
     \tau_f\right)\), and</li>
@@ -486,18 +469,18 @@ The value of a sequence builder of the form \(t ≔ \bigl\{ x, y \mid \ldots\}\)
 the form \(x(\tau_t) → \tau_x\) and \(y(\tau_t) \rightarrow \tau_y\). This can be expressed in the following:
 </p>
 
-<p>
-\[t ≔ \bigl\{ x_1, \cdots, x_n \mid \ldots \bigr\} \implies \forall x \in x_1, \cdots, x_n, \exists f \in \mathcal{F} \bigl(|f| = 1 \land \mathcal{d}_f =
-\tau_t \land \mathcal{r}_f = \tau_x\bigr)\]
-</p>
+\begin{equation}
+t ≔ \bigl\{ x_1, \cdots, x_n \mid \ldots \bigr\} \implies \forall x \in x_1, \cdots, x_n, \exists f \in \mathcal{F} \bigl(|f| = 1 \land \mathcal{d}_f =
+\tau_t \land \mathcal{r}_f = \tau_x\bigr)
+\end{equation}
+
+\begin{equation}
+\bigl\{ x \mid P(x)\bigr\} \equiv \bigl\{ x \mid x \in \mathcal{D} \land P(x)\bigr\}
+\end{equation}
 
 <p>
-\[\bigl\{ x \mid P(x)\bigr\} \equiv \bigl\{ x \mid x \in \mathcal{D} \land P(x)\bigr\}\]
-</p>
-
-<p>
-In natural language this transformed expression read as follows "construct a sequence of values of \(x\) <b>such that</b> \(x\) is
-in the sequence \(\mathcal{D}\) <b>and</b> the predicate \(P\) holds true for \(x\)".
+In natural language this transformed expression read as follows &ldquo;construct a sequence of values of \(x\) <b>such that</b> \(x\) is
+in the sequence \(\mathcal{D}\) <b>and</b> the predicate \(P\) holds true for \(x\)&rdquo;.
 </p>
 
 <p>
@@ -527,20 +510,20 @@ predicate \(P\) holds (evaluates to <code>true</code>).
 
 <p>
 It can be shown that this is a universal quantification, <i>all</i> values from the type \(\mathbb{T}\) or sequence
-\(\mathbb{S}\) will be considered. A variable can be identified as existentially quantified by prefacing it's definition
+\(\mathbb{S}\) will be considered. A variable can be identified as existentially quantified by prefacing it&rsquo;s definition
 with either the keyword <code>exists</code> or the operator <code>∃</code>.
 </p>
 
-<p>
-\[\bigl\{ x \mid x \in self.tags \land ∃ y \in self.container.tags \land x = y\bigr\}\]
-</p>
+\begin{equation}
+\bigl\{ x \mid x \in self.tags \land ∃ y \in self.container.tags \land x = y\bigr\}
+\end{equation}
 
 <p>
 The following definitions are taken from the standard library and act as filters over a sequence of <code>Annotation</code> union
 values to provide sequences which only contain one or other of the types in the union.
 </p>
 
-<pre class="example" id="org6854292">
+<pre class="example" id="org1856118">
 def annotation_properties(anns -&gt; {} Annotation) -&gt; {} AnnotationProperty
     ≔ {a | a ∈ anns is_annotation_property(a)}
 
@@ -550,8 +533,8 @@ def constraints(anns - &gt; {}  Annotation) -&gt; {} Constraint
 </div>
 </div>
 
-<div id="outline-container-org14ca3aa" class="outline-3">
-<h3 id="org14ca3aa"><span class="section-number-3">1.5.</span> Quantified Sentences as Sequence Builders</h3>
+<div id="outline-container-org64855ff" class="outline-3">
+<h3 id="org64855ff"><span class="section-number-3">1.5.</span> Quantified Sentences as Sequence Builders</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 The existential qualifier specifically determines that there is <i>at least one</i> element in the type or sequence where the
@@ -559,7 +542,7 @@ sentence provided holds true. If you need to ensure a specific cardinality, for 
 type or sequence are selected, use a sequence comprehension.
 </p>
 
-<pre class="example" id="orgdea58e9">
+<pre class="example" id="orgb28380e">
 count({ e | e in Sequence s}) = 3
 </pre>
 
@@ -567,7 +550,7 @@ count({ e | e in Sequence s}) = 3
 By this definition we can show that the following are equivalent.
 </p>
 
-<pre class="example" id="org854df78">
+<pre class="example" id="org8198885">
 exists e in Sequence s
 not is_empty({ e | e in Sequence s})
 </pre>
@@ -576,22 +559,22 @@ not is_empty({ e | e in Sequence s})
 More formally, the following equivalence holds true.
 </p>
 
-<p>
-\[∃ e \in \mathbb{S} \bigl(P\left(e\right)\bigr) ≡ ¬\bigl\{e \mid e \in \mathbb{S} ∧ P\left(e\right)\bigr\}=∅\]
-</p>
+\begin{equation}
+∃ e \in \mathbb{S} \bigl(P\left(e\right)\bigr) ≡ ¬\bigl\{e \mid e \in \mathbb{S} ∧ P\left(e\right)\bigr\}=∅
+\end{equation}
 
 <p>
 We can also show that the following are equivalent for universal quantification.
 </p>
 
-<pre class="example" id="org47edeba">
+<pre class="example" id="org25dd785">
 forall e in Sequence s
 is_empty({ e | e in Sequence not s}
 </pre>
 
-<p>
-\[∀ e \in \mathbb{S} \bigl(P\left(e\right)\bigr) ≡ \bigl\{e \mid e \in \mathbb{S} ∧ ¬P(e)\bigr\}=∅\]
-</p>
+\begin{equation}
+∀ e \in \mathbb{S} \bigl(P\left(e\right)\bigr) ≡ \bigl\{e \mid e \in \mathbb{S} ∧ ¬P(e)\bigr\}=∅
+\end{equation}
 
 <p>
 In this manner we can treat the quantified sentences as syntactic sugar over specific forms of sequence comprehensions.
@@ -599,8 +582,8 @@ In this manner we can treat the quantified sentences as syntactic sugar over spe
 </div>
 </div>
 
-<div id="outline-container-orgc41bd94" class="outline-3">
-<h3 id="orgc41bd94"><span class="section-number-3">1.6.</span> <a id="orgb9beed9"></a>Constraints to ISO/IEC Common Logic</h3>
+<div id="outline-container-org97abd3f" class="outline-3">
+<h3 id="org97abd3f"><span class="section-number-3">1.6.</span> <a id="org2e6bf07"></a>Constraints to ISO/IEC Common Logic</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
 This appendix describes the <b>normative</b> mapping from SDML/Constraints to the ISO/IEC Common Logic standard.
@@ -615,8 +598,7 @@ TBD
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-10-06 Fri 12:59</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2023-12-05 Tue 10:43</p>
 </div>
 </body>
 </html>
