@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-12-20 Wed 12:04 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SDML RFC Process</title>
+<meta name="author" content="Simon Johnston" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="./rfcs.css"/>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="./index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">SDML RFC Process</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org5e290fe">1. RFC Document States</a></li>
+<li><a href="#orga7c9424">2. RFC Index File</a></li>
+<li><a href="#orga978b15">3. RFC File Template</a></li>
+</ul>
+</div>
+</div>
+<p>
+Given an RFC titled &ldquo;Example New RFC&rdquo;;
+</p>
+
+<ol class="org-ol">
+<li>Determine the next RFC number (3 digits, 0 padded,as <code>nnn</code>) from the <a href="./index.html">index.org</a> file.</li>
+<li>Create a new document <code>nnn-example-new-rfc.org</code> using the <a href="#org9e77d19">template</a> at the end of this document.</li>
+<li>Add a new section to the <code>index.org</code> file with the <a href="#org3ab4086">block of code</a> below.</li>
+<li>Create a new pull request with these changes and label as &ldquo;RFC&rdquo;.</li>
+</ol>
+
+<div id="outline-container-org5e290fe" class="outline-2">
+<h2 id="org5e290fe"><span class="section-number-2">1.</span> RFC Document States</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+An RFC document goes through a number of different lifecycle states from Draft to Approved, Rejected, or Withdrawn. Each
+of these states is the name of an org-mode TODO state in the index file and as such appears in all upper-case as the
+first word of the section title.
+</p>
+
+
+<div id="org1b8438d" class="figure">
+<p><img src="sdml-rfc-states.svg" alt="sdml-rfc-states.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 1: </span>RFC State Machines</p>
+</div>
+
+<dl class="org-dl">
+<dt>Draft</dt><dd>All documents are created in a Draft status, this allows for a round of informal comments before it is <i>proposed</i>.
+Draft documents may move to:
+<ul class="org-ul">
+<li><i>proposed</i> for formal comments,</li>
+<li><i>rejected</i> if it is determined that it is invalid in some way, or</li>
+<li><i>withdrawn</i> if the author chooses to not move it forward.</li>
+</ul></dd>
+<dt>Proposed</dt><dd>This document has been formally proposed and comments are solicited until it appears that some consensus
+has been reached. The document may then move to:
+<ul class="org-ul">
+<li><i>proposed</i> if comments require some immediate edits,</li>
+<li><i>testing</i> if the comments require some more tests to show how the proposal works,</li>
+<li><i>approved</i> if all comments have been satisfied,</li>
+<li><i>rejected</i> if enough comments suggest the proposal is not valid or useful,</li>
+<li><i>withdrawn</i> if the author chooses to not move it forward.</li>
+</ul></dd>
+<dt>Testing</dt><dd>Additional tests (by which we may mean actual test case text, code, or canvassing users) are being
+performed to provide more data to the document. The document may then move to:
+<ul class="org-ul">
+<li><i>proposed</i> if testing is complete and the updated document goes back for comments,</li>
+<li><i>withdrawn</i> if the author chooses to not move it forward.</li>
+</ul></dd>
+<dt>Updating</dt><dd>A previously approved document is undergoing revision (a new version perhaps) and this is used to show
+that while an existing approved version exists it will be replaced at some point. The document may then move to:
+<ul class="org-ul">
+<li><i>proposed</i> if the update is expected to replace the existing approved version, this opens comments on the revised document,</li>
+<li><i>accepts</i> if the update is canceled; withdrawal of an update returns the document to its previous accepted state.</li>
+</ul></dd>
+<dt>Approved</dt><dd>The RFC has been approved and any proposed changes have been accepted into the repository. The document may then move to:
+<ul class="org-ul">
+<li><i>updating</i> if the current approved document requires an update,</li>
+<li><i>withdrawn</i> if the author chooses to deprecate the existing approved document.</li>
+</ul></dd>
+<dt>Rejected</dt><dd>The RFC was rejected and no further action will be taken.</dd>
+<dt>Withdrawn</dt><dd>The document is archived and no further action will be taken.</dd>
+</dl>
+</div>
+
+<div id="outline-container-org590068e" class="outline-3">
+<h3 id="org590068e"><span class="section-number-3">1.1.</span> Impact Tags</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The index also uses org-mode tags to identify the impact of an RFC. While a single tag is preferred multiple may be
+specified if it makes sense. The current tags are <code>grammar</code>, <code>binding</code>, <code>test</code>, <code>query</code>, <code>example</code>, and <code>doc</code>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga7c9424" class="outline-2">
+<h2 id="orga7c9424"><span class="section-number-2">2.</span> <a id="org3ab4086"></a>RFC Index File</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Copy this block to the index file and edit as appropriate.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #268bd2;">*</span><span style="color: #268bd2;"> DRAFT Example New RFC                                             </span><span style="color: #268bd2; font-weight: bold;">:grammar:</span>
+<span style="color: #0000ff;">:PROPERTIES:</span>
+<span style="color: #b58900;">:NUMBER:</span> nnn
+<span style="color: #b58900;">:AUTHOR:</span> Primary Author
+<span style="color: #b58900;">:CREATED:</span> <span style="color: #268bd2; text-decoration: underline;">&lt;2023-12-07 Thu&gt;</span>
+<span style="color: #0000ff;">:END:</span>
+<span style="color: #0000ff;">:LOGBOOK:</span>
+<span style="color: #0000ff;">:END:</span>
+
+Current <span style="color: #268bd2; text-decoration: underline;"><a href="./nnn-example-new-rfc.org">RFC Document</a></span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga978b15" class="outline-2">
+<h2 id="orga978b15"><span class="section-number-2">3.</span> <a id="org9e77d19"></a>RFC File Template</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+The linked file (<code>template.org</code>) is a good base for a new RFC. Note that the italic text in green below is placeholder
+text and should all be replaced with your content.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #859900;">#+TITLE:</span> <span style="color: #b58900; font-size: 144%; font-weight: bold;">RFCnnn: Title of Document</span>
+<span style="color: #859900;">#+AUTHOR:</span> <span style="color: #2aa198;">Primary Author</span>
+<span style="color: #859900;">#+EMAIL:</span> <span style="color: #2aa198;">primary@example.com</span>
+<span style="color: #93a1a1; font-style: italic;">#+LANGUAGE: en</span>
+<span style="color: #93a1a1; font-style: italic;">#+OPTIONS: toc:1</span>
+<span style="color: #93a1a1; font-style: italic;">#+HTML_HEAD: &lt;link rel="stylesheet" type="text/css" href="./rfcs.css"/&gt;</span>
+<span style="color: #93a1a1; font-style: italic;">#+HTML_LINK_HOME: ./index.html</span>
+<span style="color: #93a1a1; font-style: italic;">#+HTML_LINK_UP: ./index.html</span>
+
+<span style="color: #268bd2;">*</span><span style="color: #268bd2;"> Introduction</span>
+
+<span style="color: #3cb371; font-style: italic;">Brief, 2-3 sentence, description of this RFC.</span>
+
+<span style="font-weight: bold;">Contributors</span>
+
+<span style="color: #3cb371; font-style: italic;">This section is optional, but must exist if there is more than one</span>
+<span style="color: #3cb371; font-style: italic;">author/contributor.</span>
+
+<span style="font-weight: bold;">Document Status History</span>
+
+<span style="color: #6c71c4;">| Date         | Status | Comment | Grammar Version |</span>
+<span style="color: #6c71c4;">|--------------+--------+---------+-----------------|</span>
+<span style="color: #6c71c4;">| </span><span style="color: #268bd2; text-decoration: underline;">[2023-12-07]</span><span style="color: #6c71c4;"> | Draft  |         | </span><span style="color: #93a1a1;">0.2.6</span><span style="color: #cb4b16;">           </span><span style="color: #6c71c4;">|</span>
+
+<span style="color: #3cb371; font-style: italic;">In the table above, the date should be the date of the pull request that</span>
+<span style="color: #3cb371; font-style: italic;">publishes the initial draft.</span> <span style="color: #3cb371; font-style: italic;">The Grammar version is the version that this</span>
+<span style="color: #3cb371; font-style: italic;">document used as a basis for any changes or references.</span>
+
+<span style="color: #268bd2;">*</span><span style="color: #268bd2;"> Motivation</span>
+
+<span style="color: #3cb371; font-style: italic;">Why is there a problem, or a potential opportunity. Please include examples.</span>
+
+<span style="color: #268bd2;">*</span><span style="color: #268bd2;"> Alternatives Considered</span>
+
+<span style="color: #3cb371; font-style: italic;">This is a good way to describe the thinking behind the proposed change or</span>
+<span style="color: #3cb371; font-style: italic;">changes.</span>
+
+<span style="color: #268bd2;">*</span><span style="color: #268bd2;"> Proposed Change</span>
+
+The following changes <span style="color: #dc322f; background-color: #fffacd; font-weight: bold;">are required</span>:
+
+<span style="color: #3cb371; font-style: italic;">What are you proposing to change?</span>
+
+<span style="color: #fdf6e3;">*</span><span style="color: #6c71c4;">*</span><span style="color: #6c71c4;"> Test cases</span>
+
+<span style="color: #3cb371; font-style: italic;">What test cases do you intend to include.</span>
+
+<span style="color: #fdf6e3;">*</span><span style="color: #6c71c4;">*</span><span style="color: #6c71c4;"> Impact</span>
+
+<span style="color: #3cb371; font-style: italic;">What is the scope of the impact, this should relate to any tags you</span>
+<span style="color: #3cb371; font-style: italic;">added to the section in the index file.</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Simon Johnston</p>
+<p class="date">Created: 2023-12-20 Wed 12:04</p>
+</div>
+</body>
+</html>

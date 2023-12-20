@@ -1,0 +1,7 @@
+#+TITLE: Sitemap for project rfcs
+
+- [[file:001-versioned-modules.org][RFC001: Support versioning of modules]]
+- [[file:002-event-accepts.org][RFC002: Event Accepts]]
+- [[file:003-remove-group.org][RFC003: Remove groups from product types]]
+- [[file:process.org][SDML RFC Process]]
+- [[file:index.org][SDML RFCs]]

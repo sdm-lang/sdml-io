@@ -1,0 +1,51 @@
+#+TITLE: RFCnnn: Title of Document
+#+AUTHOR: Primary Author
+#+EMAIL: primary@example.com
+#+LANGUAGE: en
+#+OPTIONS: toc:1
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./rfcs.css"/>
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./index.html
+
+* Introduction
+
+/Brief, 2-3 sentence, description of this RFC./
+
+*Contributors*
+
+/This section is optional, but must exist if there is more than one
+author/contributor./
+
+*Document Status History*
+
+| Date         | Status | Comment | Grammar Version |
+|--------------+--------+---------+-----------------|
+| [2023-12-07] | Draft  |         | =0.2.6=           |
+
+/In the table above, the date should be the date of the pull request that
+publishes the initial draft./ /The Grammar version is the version that this
+document used as a basis for any changes or references./
+
+* Motivation
+
+/Why is there a problem, or a potential opportunity. Please include examples./
+
+* Alternatives Considered
+
+/This is a good way to describe the thinking behind the proposed change or
+changes./
+
+* Proposed Change
+
+The following changes are required:
+
+/What are you proposing to change?/
+
+** Test cases
+
+/What test cases do you intend to include./
+
+** Impact
+
+/What is the scope of the impact, this should relate to any tags you
+added to the section in the index file./

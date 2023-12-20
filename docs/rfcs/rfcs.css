@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=Fira+Sans:ital,wght@0,100;0,200;0,400;0,600;0,700;1,100;1,200;1,400;1,600;1,700&display=swap');
+
+@media print {
+    div#org-div-home-and-up {
+        display: none;
+    }
+    h1.title {
+        margin-top: 3em;
+        margin-bottom: 1em;
+    }
+    h1.title span.subtitle {
+        display: inline-block;
+        margin-top: 1em;
+    }
+    body {
+        font-size: 14px;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    @page :first {
+        margin-left: 2.5cm;
+        margin-right: 2.5cm;
+    }
+    @page :left {
+        margin-left: 2cm;
+        margin-right: 3cm;
+        @bottom-left {
+            content: counter(page);
+        }
+        @top-left {
+            content: string(doctitle);
+        }
+    }
+    @page :right {
+        margin-left: 3cm;
+        margin-right: 2cm;
+        @bottom-right {
+             content: counter(page);
+        }
+        @top-right {
+            content: string(doctitle);
+        }
+    }
+}
+
+@media screen {
+    h1.title {
+        margin-top: 1em;
+        margin-bottom: 1.6em;
+    }
+    body {
+        font-size: 16px;
+    }
+    img {
+        max-width: 900px;
+        height: auto;
+    }
+}
+
+body {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 200;
+    line-height: 1.6em;
+    color: #3c484e;
+}
+
+
+/* Main Body Text */
+
+p, li, dd {
+    text-align: justify;
+}
+
+b {
+    font-weight: 600;
+}
+
+div.abstract, div.ABSTRACT {
+    margin-top: 3em;
+    margin-left: 6em;
+    margin-right: 6em;
+    margin-bottom: 2em;
+}
+
+div.abstract > p::before, div.ABSTRACT > p::before {
+    content: "Abstract: ";
+    font-weight: 400;
+}
+
+/* Headings */
+
+h1.title {
+    font-weight: 400;
+    font-size: 2.5em;
+    color: #365F91;
+}
+
+h1 > span.subtitle {
+    font-weight: 400;
+    font-size: 0.5em;
+    color: #808080;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 400;
+    color: #4F81BD;
+}
+
+/* Code */
+
+pre, code {
+    font-family: "Fira Code",monospace;
+    font-weight: 300;
+    font-size: 0.8em;
+    line-height: 1.4em;
+}
+
+/* Other Blocks */
+
+div.NOTE {
+    margin: 1rem;
+    padding: 1rem;
+    border: 2px solid #4F81BD;
+    border-radius: 0.25rem;
+}
+
+div.NOTE p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+div.NOTE p::before {
+    content: "Note: ";
+    font-weight: bold;
+}
+
+/* Figures/Images */
+
+/* Caption */
+
+div.figure :nth-child(2) {
+    font-weight: 100;
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+label.org-src-name {
+    font-weight: 100;
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+table caption {
+    font-weight: 100;
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+/* Tables */
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 50%;
+}
+
+table thead {
+    line-height: 1.4em;
+}
+
+table thead {
+    line-height: 1.2em;
+}
+
+table tbody {
+    font-size: 0.8em;
+}
+
+/* Footnotes/References */
+
+div#footnotes {
+    border-top: 1px solid #A0A0A0;
+    font-size: 0.8em;
+}
+
+/* Clean-up for work docs */
+
+div#postamble {
+    margin-top: 2em;
+    border-top: 1px solid #A0A0A0;
+    font-weight: 100;
+}
+
+div#postamble p.validation {
+    display: none;
+    font-size: 0.8em;
+}

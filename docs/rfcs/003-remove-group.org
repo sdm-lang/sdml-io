@@ -1,0 +1,118 @@
+#+TITLE: RFC003: Remove groups from product types
+#+AUTHOR: Simon Johnston
+#+EMAIL: johnstonskj@gmail.com
+#+LANGUAGE: en
+#+OPTIONS: toc:1
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./rfcs.css"/>
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./index.html
+
+* Introduction
+
+The grammar production ~member_group~ seems to provide little value, any example using it seems better off with another
+structure. While writing the primer it became clear that no good example could be described that motivated the group
+production in a definitive way.
+
+*Document Status History*
+
+| Date         | Status   | Comment               | Grammar Version |
+|--------------+----------+-----------------------+-----------------|
+| [2023-12-07] | Draft    |                       | =0.2.6=           |
+| [2023-12-07] | Proposed |                       | =0.2.6=           |
+| [2023-12-20] | Approved | Removed and [[https://github.com/sdm-lang/tree-sitter-sdml/releases/v0.2.7][released]]. | =0.2.7=           |
+
+* Motivation
+
+The current implementation allows for a grouping of fields in a structure such that annotations are attached to the
+group not to individual members.
+
+#+BEGIN_SRC ebnf :exports code :noeval
+StructureDef
+    ::= "structure" Identifier StructuredBody?
+
+StructuredBody
+    ::= "is" Annotation* StructuredBodyInner "end"
+
+StructuredBodyInner
+    ::= ( MemberGroup | Member )+
+
+MemberGroup
+    ::= "group" Annotation* Member+ "end"
+#+END_SRC
+
+For example, this is an excerpt from the file =examples/simple.sdm= which grouped three fields in the invoice and labeled
+the group as rates applied. However, it's not clear what we do with this when we transform the model; does the group
+represent a type? do attributes get copied to each field? is the group (and annotations) simply get discarded?
+
+#+BEGIN_SRC sdml :exports code :noeval
+module invoice is
+  entity Invoice is
+    identity id -> integer
+    customer -> customers:Customer
+    vehicle -> vehicles:Vehicle
+    rental_dates -> DateRange
+    mileage -> OdometerRange
+
+    group
+      @dc:description = "Rates applied to the rental."@en
+      day_rate -> finance:CurrencyRate
+      mile_rate -> finance:CurrencyRate
+      discount -> finance:DiscountPercentage
+    end
+
+  end
+end
+#+END_SRC
+
+It is also hard to come up with examples for the documentation where a group of this kind is preferred to a new
+structure, as in the following. This would suggest that the group notion is not required as a core component of the language.
+
+#+BEGIN_SRC sdml :exports code :noeval
+module invoice is
+  entity Invoice is
+    identity id -> integer
+    customer -> customers:Customer
+    vehicle -> vehicles:Vehicle
+    rental_dates -> DateRange
+    mileage -> OdometerRange
+
+    rates -> RentalRates
+  end
+
+  structure RentalRates is
+    @dc:description = "Rates applied to the rental."@en
+    day_rate -> finance:CurrencyRate
+    mile_rate -> finance:CurrencyRate
+    discount -> finance:DiscountPercentage
+  end
+  
+end
+#+END_SRC
+
+In the case where the grouping of fields was not intended to imply a nested structure it would be possible to add an
+annotation property that would affect code generation to /flatten/ a structure into its parent.
+
+#+BEGIN_SRC sdml :exports code :noeval
+module invoice is
+  entity Invoice is
+    identity id -> integer
+    // ...
+
+    rates -> RentalRates is
+      @generator:flattened = true
+    end
+  end  
+end
+#+END_SRC
+
+* Proposed Change
+
+The following changes are required:
+
+1. Remove the production ~member_group~ from the grammar.
+2. Remove the production ~_structured_body_inner~ from the grammar.
+3. Update ~structure_body~ and ~entity_body~ to include ~repeat1(member)~ and ~repeat(member)~ respectively.
+4. Update queries for highlights, indents, and folds to remove ~member_group~ references.
+5. Remove test case =entity_with_groups.sdm=.
+6. Update test case =entity_with_unknowns.sdm= to remove group.
+7. Update example =simple.sdm= to remove group.

@@ -1,0 +1,54 @@
+#+TITLE: SDML RFCs
+#+AUTHOR: Simon Johnston
+#+EMAIL: johnstonskj@gmail.com
+#+LANGUAGE: en
+#+STARTUP: overview hidestars inlineimages entitiespretty
+#+OPTIONS: toc:1
+#+TODO: DRAFT PROPOSED TESTING UPDATING | APPROVED REJECTED WITHDRAWN
+#+TAGS: grammar binding test query example doc
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./rfcs.css"/>
+
+[[./process.org][Process Documentation]]
+
+*Current RFC Status*
+
+#+BEGIN: columnview :indent t :id global :format "%4NUMBER(RFC) %45ITEM(Title) %10TODO(State) %20AUTHOR(Author) %20TAGS(Impacts) %23DEADLINE(Deadline) %1BLOCKED(B)"
+| RFC | Title                            | State    | Author         | Impacts   | Deadline | B |
+|-----+----------------------------------+----------+----------------+-----------+----------+---|
+| 001 | Support versioning of modules    | DRAFT    | Simon Johnston |           |          |   |
+| 002 | Event Accepts                    | DRAFT    | Simon Johnston |           |          |   |
+| 003 | Remove groups from product types | APPROVED | Simon Johnston | :grammar: |          |   |
+#+END:
+
+* DRAFT Support versioning of modules
+:PROPERTIES:
+:NUMBER: 001
+:AUTHOR: Simon Johnston
+:CREATED: <2023-12-07 Thu>
+:END:
+
+Current [[./001-versioned-modules.org][RFC Document]]
+
+* DRAFT Event Accepts
+:PROPERTIES:
+:NUMBER: 002
+:AUTHOR: Simon Johnston
+:CREATED: <2023-12-07 Thu>
+:END:
+
+Current [[./002-event-accepts.org][RFC Document]]
+
+* APPROVED Remove groups from product types               :grammar:
+:PROPERTIES:
+:NUMBER: 003
+:AUTHOR: Simon Johnston
+:CREATED: <2023-12-07 Thu>
+:END:
+:LOGBOOK:
+- Note taken on [2023-12-20 Wed 09:01] \\
+  Moved to approved ahead of release.
+- Note taken on [2023-12-07 Thu 11:22] \\
+  Proposed on Amazon #sdml-users
+:END:
+
+Current [[./003-remove-group.org][RFC Document]]
