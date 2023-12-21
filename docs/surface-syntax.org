@@ -1200,9 +1200,7 @@ structure, between ~is~ and ~end~, makes it complete even if it has no actual me
 
 #+BEGIN_SRC ebnf
 StructuredBody
-    ::= "is" Annotation* StructuredBodyInner "end"
-StructuredBodyInner
-    ::= ( MemberGroup | Member )+
+    ::= "is" Annotation* Member+ "end"
 #+END_SRC
 
 [[./ebnf-diagram/StructuredBody.svg]]
@@ -1236,40 +1234,6 @@ module example is
 end
 #+END_SRC
 
-In listing [[lst:sdml-ex-member-group]] we see a more complex structure with both members and groups.
-
-#+BEGIN_SRC ebnf
-MemberGroup
-    ::= "group" Annotation* Member+ "end"
-#+END_SRC
-
-[[./ebnf-diagram/MemberGroup.svg]]
-
-#+NAME: lst:sdml-ex-member-group
-#+CAPTION: Example: Structure Members and Groups
-#+BEGIN_SRC sdml :exports code :noeval
-module example is
-
-  structure Account is
-  
-    @skos:prefLabel = "Customer Account"@en
-
-    group
-      @skos:prefLabel = "Metadata"
-      created -> xsd:dateTime
-      lastModified -> xsd:dateTime
-    end
-
-    group
-      @skos:prefLabel = "Customer Information"
-      customer -> {1..1} Customer
-    end
-  
-  end
-
-end
-#+END_SRC
-
 *** Entities
 
 #+BEGIN_SRC ebnf
@@ -1295,7 +1259,7 @@ The entity ~Person~ in listing [[lst:sdml-ex-empty-entity]] is /valid/ but /inco
 #+BEGIN_SRC ebnf
 EntityBody
     ::= "is"
-        Annotation* EntityIdentity StructuredBodyInner
+        Annotation* EntityIdentity Member*
         "end"
 #+END_SRC
 

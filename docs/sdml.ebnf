@@ -55,7 +55,7 @@ EntityDef
 
 EntityBody
     ::= "is"
-        Annotation* EntityIdentity StructuredBodyInner
+        Annotation* EntityIdentity Member*
         "end"
 
 EnumDef
@@ -76,13 +76,7 @@ StructureDef
     ::= "structure" Identifier StructuredBody?
 
 StructuredBody
-    ::= "is" Annotation* StructuredBodyInner "end"
-
-StructuredBodyInner
-    ::= ( MemberGroup | Member )+
-
-MemberGroup
-    ::= "group" Annotation* Member+ "end"
+    ::= "is" Annotation* Member+ "end"
 
 UnionDef
     ::= "union" Identifier UnionBody?
