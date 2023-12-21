@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-20 Wed 11:47 -->
+<!-- 2023-12-21 Thu 10:00 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RFC003: Remove groups from product types</title>
@@ -201,21 +201,24 @@
  |
  <a accesskey="H" href="./index.html"> HOME </a>
 </div><div id="content" class="content">
-<h1 class="title">RFC003: Remove groups from product types</h1>
+<h1 class="title">RFC003: Remove groups from product types
+<br />
+<span class="subtitle">Status: Approved</span>
+</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org137ff34">1. Introduction</a></li>
-<li><a href="#org1dd788b">2. Motivation</a></li>
-<li><a href="#org4264220">3. Proposed Change</a></li>
+<li><a href="#orgd3241d4">Introduction</a></li>
+<li><a href="#org4b8616e">Motivation</a></li>
+<li><a href="#org7e63f71">Proposed Change</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org137ff34" class="outline-2">
-<h2 id="org137ff34"><span class="section-number-2">1.</span> Introduction</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-orgd3241d4" class="outline-2">
+<h2 id="orgd3241d4">Introduction</h2>
+<div class="outline-text-2" id="text-orgd3241d4">
 <p>
 The grammar production <code>member_group</code> seems to provide little value, any example using it seems better off with another
 structure. While writing the primer it became clear that no good example could be described that motivated the group
@@ -272,9 +275,9 @@ production in a definitive way.
 </div>
 </div>
 
-<div id="outline-container-org1dd788b" class="outline-2">
-<h2 id="org1dd788b"><span class="section-number-2">2.</span> Motivation</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org4b8616e" class="outline-2">
+<h2 id="org4b8616e">Motivation</h2>
+<div class="outline-text-2" id="text-org4b8616e">
 <p>
 The current implementation allows for a grouping of fields in a structure such that annotations are attached to the
 group not to individual members.
@@ -371,9 +374,9 @@ annotation property that would affect code generation to <i>flatten</i> a struct
 </div>
 </div>
 
-<div id="outline-container-org4264220" class="outline-2">
-<h2 id="org4264220"><span class="section-number-2">3.</span> Proposed Change</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org7e63f71" class="outline-2">
+<h2 id="org7e63f71">Proposed Change</h2>
+<div class="outline-text-2" id="text-org7e63f71">
 <p>
 The following changes are required:
 </p>
@@ -392,7 +395,7 @@ The following changes are required:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-12-20 Wed 11:47</p>
+<p class="date">Created: 2023-12-21 Thu 10:00</p>
 </div>
 </body>
 </html>

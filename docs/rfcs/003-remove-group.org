@@ -1,4 +1,5 @@
 #+TITLE: RFC003: Remove groups from product types
+#+SUBTITLE: Status: Approved
 #+AUTHOR: Simon Johnston
 #+EMAIL: johnstonskj@gmail.com
 #+LANGUAGE: en

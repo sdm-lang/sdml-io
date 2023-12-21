@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-20 Wed 15:31 -->
+<!-- 2023-12-21 Thu 10:00 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RFC001: Support versioning of modules</title>
@@ -201,22 +201,25 @@
  |
  <a accesskey="H" href="./index.html"> HOME </a>
 </div><div id="content" class="content">
-<h1 class="title">RFC001: Support versioning of modules</h1>
+<h1 class="title">RFC001: Support versioning of modules
+<br />
+<span class="subtitle">Status: Draft</span>
+</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb39ef57">1. Introduction</a></li>
-<li><a href="#org80c98b3">2. Motivation</a></li>
-<li><a href="#org275c7be">3. Alternatives Considered</a></li>
-<li><a href="#orgb849297">4. Proposed Change</a></li>
+<li><a href="#org14a9140">Introduction</a></li>
+<li><a href="#orgbf494ff">Motivation</a></li>
+<li><a href="#org81d92bd">Alternatives Considered</a></li>
+<li><a href="#orgb35c241">Proposed Change</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgb39ef57" class="outline-2">
-<h2 id="orgb39ef57"><span class="section-number-2">1.</span> Introduction</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-org14a9140" class="outline-2">
+<h2 id="org14a9140">Introduction</h2>
+<div class="outline-text-2" id="text-org14a9140">
 <p>
 TBD
 </p>
@@ -257,9 +260,9 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-org80c98b3" class="outline-2">
-<h2 id="org80c98b3"><span class="section-number-2">2.</span> Motivation</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgbf494ff" class="outline-2">
+<h2 id="orgbf494ff">Motivation</h2>
+<div class="outline-text-2" id="text-orgbf494ff">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
 </pre>
@@ -288,13 +291,13 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-orgdcba202" class="outline-3">
-<h3 id="orgdcba202"><span class="section-number-3">2.1.</span> Constructing an Ontology</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-org25a9510" class="outline-3">
+<h3 id="org25a9510">Constructing an Ontology</h3>
+<div class="outline-text-3" id="text-org25a9510">
 </div>
-<div id="outline-container-org3549825" class="outline-4">
-<h4 id="org3549825"><span class="section-number-4">2.1.1.</span> Without a base</h4>
-<div class="outline-text-4" id="text-2-1-1">
+<div id="outline-container-orgf6dea3f" class="outline-4">
+<h4 id="orgf6dea3f">Without a base</h4>
+<div class="outline-text-4" id="text-orgf6dea3f">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
 </pre>
@@ -430,9 +433,9 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-orgbd807e5" class="outline-4">
-<h4 id="orgbd807e5"><span class="section-number-4">2.1.2.</span> With a base</h4>
-<div class="outline-text-4" id="text-2-1-2">
+<div id="outline-container-orgc793b80" class="outline-4">
+<h4 id="orgc793b80">With a base</h4>
+<div class="outline-text-4" id="text-orgc793b80">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span> <span style="color: #859900;">base</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.org/projects/provider#">&lt;https://example.org/projects/provider#&gt;</a></span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
 </pre>
@@ -568,9 +571,9 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-org8955499" class="outline-4">
-<h4 id="org8955499"><span class="section-number-4">2.1.3.</span> With an Owl version info</h4>
-<div class="outline-text-4" id="text-2-1-3">
+<div id="outline-container-org23459b5" class="outline-4">
+<h4 id="org23459b5">With an Owl version info</h4>
+<div class="outline-text-4" id="text-org23459b5">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span> <span style="color: #859900;">base</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.org/projects/provider#">&lt;https://example.org/projects/provider#&gt;</a></span> <span style="color: #859900;">is</span>
   @owl:versionInfo "v0.3.2"
@@ -709,9 +712,9 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-org9c316ef" class="outline-4">
-<h4 id="org9c316ef"><span class="section-number-4">2.1.4.</span> With an Owl version IRI</h4>
-<div class="outline-text-4" id="text-2-1-4">
+<div id="outline-container-org328c943" class="outline-4">
+<h4 id="org328c943">With an Owl version IRI</h4>
+<div class="outline-text-4" id="text-org328c943">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> provider base <span style="color: #2aa198; font-weight: bold;"><a href="https://example.org/projects/provider#&gt; is
   @owl:versionIRI &lt;https://example.org/projects/v3/provider#">&lt;https://example.org/projects/provider#&gt;</a></span><a href="https://example.org/projects/provider#&gt; is
@@ -855,9 +858,9 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-orgb88f72c" class="outline-3">
-<h3 id="orgb88f72c"><span class="section-number-3">2.2.</span> Consumer</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-org3877ee2" class="outline-3">
+<h3 id="org3877ee2">Consumer</h3>
+<div class="outline-text-3" id="text-org3877ee2">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">consumer</span> <span style="color: #859900;">is</span>
   <span style="color: #859900;">import</span> <span style="color: #268bd2;">provider</span>
@@ -1062,13 +1065,13 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-org275c7be" class="outline-2">
-<h2 id="org275c7be"><span class="section-number-2">3.</span> Alternatives Considered</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org81d92bd" class="outline-2">
+<h2 id="org81d92bd">Alternatives Considered</h2>
+<div class="outline-text-2" id="text-org81d92bd">
 </div>
-<div id="outline-container-org5d26a43" class="outline-3">
-<h3 id="org5d26a43"><span class="section-number-3">3.1.</span> Using version identifiers</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-orgedc3cd0" class="outline-3">
+<h3 id="orgedc3cd0">Using version identifiers</h3>
+<div class="outline-text-3" id="text-orgedc3cd0">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span>
   <span style="color: #859900;">base</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.org/projects/provider#">&lt;https://example.org/projects/provider#&gt;</a></span>
@@ -1087,9 +1090,9 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-org708e21f" class="outline-3">
-<h3 id="org708e21f"><span class="section-number-3">3.2.</span> Using version identifiers and resolver</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-orgbe382f9" class="outline-3">
+<h3 id="orgbe382f9">Using version identifiers and resolver</h3>
+<div class="outline-text-3" id="text-orgbe382f9">
 <div class="org-src-container">
 <pre class="src src-json"><span style="color: #657b83;">{</span>
   <span style="color: #6c71c4;">"base"</span>: <span style="color: #2aa198;">"https://example.org/projects/"</span>,
@@ -1112,9 +1115,9 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-orgbf9654b" class="outline-3">
-<h3 id="orgbf9654b"><span class="section-number-3">3.3.</span> Using version IRIs</h3>
-<div class="outline-text-3" id="text-3-3">
+<div id="outline-container-org8c812fe" class="outline-3">
+<h3 id="org8c812fe">Using version IRIs</h3>
+<div class="outline-text-3" id="text-org8c812fe">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span>
   <span style="color: #859900;">base</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.org/projects/provider#&gt;
@@ -1136,17 +1139,17 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-orgb849297" class="outline-2">
-<h2 id="orgb849297"><span class="section-number-2">4.</span> Proposed Change</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgb35c241" class="outline-2">
+<h2 id="orgb35c241">Proposed Change</h2>
+<div class="outline-text-2" id="text-orgb35c241">
 <p>
 TBD
 </p>
 </div>
 
-<div id="outline-container-org205feae" class="outline-3">
-<h3 id="org205feae"><span class="section-number-3">4.1.</span> Surface Syntax</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-org8b2b77f" class="outline-3">
+<h3 id="org8b2b77f">Surface Syntax</h3>
+<div class="outline-text-3" id="text-org8b2b77f">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span>
   <a href="https://example.org/projects/provider#&gt;
@@ -1166,9 +1169,9 @@ TBD
 </div>
 </div>
 
-<div id="outline-container-org1568665" class="outline-3">
-<h3 id="org1568665"><span class="section-number-3">4.2.</span> Grammar</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-orgc578f6f" class="outline-3">
+<h3 id="orgc578f6f">Grammar</h3>
+<div class="outline-text-3" id="text-orgc578f6f">
 <p>
 From
 </p>
@@ -1214,9 +1217,9 @@ ModuleImport
 </div>
 </div>
 
-<div id="outline-container-org67b3b21" class="outline-3">
-<h3 id="org67b3b21"><span class="section-number-3">4.3.</span> Resolver File</h3>
-<div class="outline-text-3" id="text-4-3">
+<div id="outline-container-org83b1b92" class="outline-3">
+<h3 id="org83b1b92">Resolver File</h3>
+<div class="outline-text-3" id="text-org83b1b92">
 <div class="org-src-container">
 <pre class="src src-json"><span style="color: #657b83;">{</span>
   <span style="color: #6c71c4;">"uri"</span>: <span style="color: #2aa198;">"https://example.org/projects/"</span>,
@@ -1241,7 +1244,7 @@ ModuleImport
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-12-20 Wed 15:31</p>
+<p class="date">Created: 2023-12-21 Thu 10:00</p>
 </div>
 </body>
 </html>

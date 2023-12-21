@@ -1,4 +1,5 @@
 #+TITLE: RFC002: Event Protocols
+#+SUBTITLE: Status: Withdrawn
 #+AUTHOR: Simon Johnston
 #+EMAIL: johnstonskj@gmail.com
 #+LANGUAGE: en
@@ -14,9 +15,10 @@ no construct today that defines how events are consumed by an entity.
 
 *Document Status History*
 
-| Date         | Status   | Comment               | Grammar Version |
-|--------------+----------+-----------------------+-----------------|
-| [2023-12-07] | Draft    |                       | =0.2.6=           |
+| Date             | Status    | Comment              | Grammar Version |
+|------------------+-----------+----------------------+-----------------|
+| [2023-12-07]     | Draft     |                      | =0.2.6=           |
+| [2023-12-21 Thu] | Withdrawn | Superceded by  [[./004-type-state-entities.org][RFC004]]  | N/A             |
 
 * Motivation
 

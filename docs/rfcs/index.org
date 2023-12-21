@@ -13,12 +13,12 @@
 *Current RFC Status*
 
 #+BEGIN: columnview :id global :format "%4NUMBER(RFC) %45ITEM(Title) %10TODO(State) %20AUTHOR(Primary Author) %20TAGS(Impacts) %23CREATED(Created)"
-| RFC | Title                            | State    | Primary Author | Impacts     | Created          |
-|-----+----------------------------------+----------+----------------+-------------+------------------|
-| 001 | Support versioning of modules    | DRAFT    | Simon Johnston | :grammar:   | <2023-12-07 Thu> |
-| 002 | Event Protocols                  | DRAFT    | Simon Johnston | :grammar:   | <2023-12-07 Thu> |
-| 003 | Remove groups from product types | APPROVED | Simon Johnston | :grammar:   | <2023-12-07 Thu> |
-| 004 | Move to Type-State Entities      | DRAFT    | Simon Johnston | :semantics: | <2023-12-20 Wed> |
+| RFC | Title                            | State     | Primary Author | Impacts     | Created          |
+|-----+----------------------------------+-----------+----------------+-------------+------------------|
+| 001 | Support versioning of modules    | DRAFT     | Simon Johnston | :grammar:   | <2023-12-07 Thu> |
+| 002 | Event Protocols                  | WITHDRAWN | Simon Johnston | :grammar:   | <2023-12-07 Thu> |
+| 003 | Remove groups from product types | APPROVED  | Simon Johnston | :grammar:   | <2023-12-07 Thu> |
+| 004 | Move to Type-State Entities      | DRAFT     | Simon Johnston | :semantics: | <2023-12-20 Wed> |
 #+END:
 
 * DRAFT Support versioning of modules                               :grammar:
@@ -30,7 +30,8 @@
 
 Current [[./001-versioned-modules.org][RFC Document]]
 
-* DRAFT Event Protocols                                             :grammar:
+* WITHDRAWN Event Protocols                                         :grammar:
+CLOSED: [2023-12-21 Thu 09:55]
 :PROPERTIES:
 :NUMBER: 002
 :AUTHOR: Simon Johnston

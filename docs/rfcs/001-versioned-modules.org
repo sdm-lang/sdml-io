@@ -1,4 +1,5 @@
 #+TITLE: RFC001: Support versioning of modules
+#+SUBTITLE: Status: Draft
 #+AUTHOR: Simon Johnston
 #+EMAIL: johnstonskj@gmail.com
 #+LANGUAGE: en

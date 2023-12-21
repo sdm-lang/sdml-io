@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-21 Thu 09:51 -->
+<!-- 2023-12-21 Thu 10:00 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SDML RFC Process</title>
@@ -206,9 +206,9 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orge3d1da7">1. RFC Document States</a></li>
-<li><a href="#orgf484c1f">2. RFC Index File</a></li>
-<li><a href="#org213c35b">3. RFC File Template</a></li>
+<li><a href="#org7e6b1b0">RFC Document States</a></li>
+<li><a href="#org2a5259b">RFC Index File</a></li>
+<li><a href="#org858bf65">RFC File Template</a></li>
 </ul>
 </div>
 </div>
@@ -218,15 +218,15 @@ Given an RFC titled &ldquo;Example New RFC&rdquo;;
 
 <ol class="org-ol">
 <li>Determine the next RFC number (3 digits, 0 padded,as <code>nnn</code>) from the <a href="./index.html">index.org</a> file.</li>
-<li>Create a new document <code>nnn-example-new-rfc.org</code> using the <a href="#orgff6369c">template</a> at the end of this document.</li>
+<li>Create a new document <code>nnn-example-new-rfc.org</code> using the <a href="#org4455c7e">template</a> at the end of this document.</li>
 <li>Any additional files such as images <b>must</b> start with the same <code>nnn-</code> prefix.</li>
-<li>Add a new section to the <code>index.org</code> file with the <a href="#org025874e">block of code</a> below.</li>
+<li>Add a new section to the <code>index.org</code> file with the <a href="#orgd1d52c5">block of code</a> below.</li>
 <li>Create a new pull request with these changes and label as &ldquo;RFC&rdquo;.</li>
 </ol>
 
-<div id="outline-container-orge3d1da7" class="outline-2">
-<h2 id="orge3d1da7"><span class="section-number-2">1.</span> RFC Document States</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-org7e6b1b0" class="outline-2">
+<h2 id="org7e6b1b0">RFC Document States</h2>
+<div class="outline-text-2" id="text-org7e6b1b0">
 <p>
 An RFC document goes through a number of different lifecycle states from Draft to Approved, Rejected, or Withdrawn. Each
 of these states is the name of an org-mode TODO state in the index file and as such appears in all upper-case as the
@@ -234,7 +234,7 @@ first word of the section title.
 </p>
 
 
-<div id="orgc5b1159" class="figure">
+<div id="org91a79cd" class="figure">
 <p><img src="sdml-rfc-states.svg" alt="sdml-rfc-states.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 1: </span>RFC State Machines</p>
@@ -279,9 +279,9 @@ that while an existing approved version exists it will be replaced at some point
 </dl>
 </div>
 
-<div id="outline-container-orgb7b7b6d" class="outline-3">
-<h3 id="orgb7b7b6d"><span class="section-number-3">1.1.</span> Impact Tags</h3>
-<div class="outline-text-3" id="text-1-1">
+<div id="outline-container-org123fdc1" class="outline-3">
+<h3 id="org123fdc1">Impact Tags</h3>
+<div class="outline-text-3" id="text-org123fdc1">
 <p>
 The index also uses org-mode tags to identify the impact of an RFC. While a single tag is preferred multiple may be
 specified if it makes sense. When choosing a tag try and choose the tag that corresponds to the area of focus; for
@@ -305,9 +305,9 @@ The current tags are:
 </div>
 </div>
 
-<div id="outline-container-orgf484c1f" class="outline-2">
-<h2 id="orgf484c1f"><span class="section-number-2">2.</span> <a id="org025874e"></a>RFC Index File</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org2a5259b" class="outline-2">
+<h2 id="org2a5259b"><a id="orgd1d52c5"></a>RFC Index File</h2>
+<div class="outline-text-2" id="text-org2a5259b">
 <p>
 Copy this block to the index file and edit as appropriate.
 </p>
@@ -328,9 +328,9 @@ Current <span style="color: #268bd2; text-decoration: underline;"><a href="./nnn
 </div>
 </div>
 
-<div id="outline-container-org213c35b" class="outline-2">
-<h2 id="org213c35b"><span class="section-number-2">3.</span> <a id="orgff6369c"></a>RFC File Template</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org858bf65" class="outline-2">
+<h2 id="org858bf65"><a id="org4455c7e"></a>RFC File Template</h2>
+<div class="outline-text-2" id="text-org858bf65">
 <p>
 The linked file (<code>template.org</code>) is a good base for a new RFC. Note that the italic text in green below is placeholder
 text and should all be replaced with your content.
@@ -338,6 +338,7 @@ text and should all be replaced with your content.
 
 <div class="org-src-container">
 <pre class="src src-org"><span style="color: #859900;">#+TITLE:</span> <span style="color: #b58900; font-size: 144%; font-weight: bold;">RFCnnn: Title of Document</span>
+<span style="color: #859900;">#+SUBTITLE:</span> <span style="color: #2aa198;">Status: Draft</span>
 <span style="color: #859900;">#+AUTHOR:</span> <span style="color: #2aa198;">Primary Author</span>
 <span style="color: #859900;">#+EMAIL:</span> <span style="color: #2aa198;">primary@example.com</span>
 <span style="color: #93a1a1; font-style: italic;">#+LANGUAGE: en</span>
@@ -380,11 +381,11 @@ The following changes <span style="color: #dc322f; background-color: #fffacd; fo
 
 <span style="color: #3cb371; font-style: italic;">What are you proposing to change?</span>
 
-<span style="color: #fdf6e3;">*</span><span style="color: #6c71c4;">*</span><span style="color: #6c71c4;"> Test cases</span>
+<span style="color: #bebebe; background-color: #fdf6e3;">*</span><span style="color: #6c71c4;">*</span><span style="color: #6c71c4;"> Test cases</span>
 
 <span style="color: #3cb371; font-style: italic;">What test cases do you intend to include.</span>
 
-<span style="color: #fdf6e3;">*</span><span style="color: #6c71c4;">*</span><span style="color: #6c71c4;"> Impact</span>
+<span style="color: #bebebe; background-color: #fdf6e3;">*</span><span style="color: #6c71c4;">*</span><span style="color: #6c71c4;"> Impact</span>
 
 <span style="color: #3cb371; font-style: italic;">What is the scope of the impact, this should relate to any tags you</span>
 <span style="color: #3cb371; font-style: italic;">added to the section in the index file.</span>
@@ -395,7 +396,7 @@ The following changes <span style="color: #dc322f; background-color: #fffacd; fo
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-12-21 Thu 09:51</p>
+<p class="date">Created: 2023-12-21 Thu 10:00</p>
 </div>
 </body>
 </html>

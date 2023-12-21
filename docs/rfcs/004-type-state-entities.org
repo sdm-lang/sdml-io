@@ -1,4 +1,5 @@
 #+TITLE: RFC004: Move to Type-State Entities
+#+SUBTITLE: Status: Draft
 #+AUTHOR: Primary Author
 #+EMAIL: primary@example.com
 #+LANGUAGE: en

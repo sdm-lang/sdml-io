@@ -1,4 +1,5 @@
 #+TITLE: RFCnnn: Title of Document
+#+SUBTITLE: Status: Draft
 #+AUTHOR: Primary Author
 #+EMAIL: primary@example.com
 #+LANGUAGE: en
