@@ -2366,6 +2366,7 @@ hide methods
 
 package Foundation {
     hide members
+    abstract class Definition
     abstract class Named
     abstract class Typed
 }
@@ -2382,7 +2383,7 @@ package Constraints {
     }
     package Environments {
         abstract class EnvironmentDefinition {}
-        EnvironmentDefinition -up-|> Named
+        EnvironmentDefinition -up-|> Definition
         
         class Function {}
         Function -up-|> EnvironmentDefinition

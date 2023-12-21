@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-20 Wed 10:23 -->
+<!-- 2023-12-20 Wed 15:31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RFC001: Support versioning of modules</title>
@@ -202,13 +202,1046 @@
  <a accesskey="H" href="./index.html"> HOME </a>
 </div><div id="content" class="content">
 <h1 class="title">RFC001: Support versioning of modules</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgb39ef57">1. Introduction</a></li>
+<li><a href="#org80c98b3">2. Motivation</a></li>
+<li><a href="#org275c7be">3. Alternatives Considered</a></li>
+<li><a href="#orgb849297">4. Proposed Change</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb39ef57" class="outline-2">
+<h2 id="orgb39ef57"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+TBD
+</p>
+
+<p>
+<b>Document Status History</b>
+</p>
+
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Date</th>
+<th scope="col" class="org-left">Status</th>
+<th scope="col" class="org-left">Comment</th>
+<th scope="col" class="org-left">Grammar Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">[2023-12-07 Thu]</span></span></td>
+<td class="org-left">Draft</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>0.2.6</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org80c98b3" class="outline-2">
+<h2 id="org80c98b3"><span class="section-number-2">2.</span> Motivation</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">consumer</span> <span style="color: #859900;">is</span>
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">provider</span>
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider_v3</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">consumer</span> <span style="color: #859900;">is</span>
+  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span>
+    <span style="color: #268bd2;">provider</span>
+    <span style="color: #268bd2;">provider_v3</span>
+  <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgdcba202" class="outline-3">
+<h3 id="orgdcba202"><span class="section-number-3">2.1.</span> Constructing an Ontology</h3>
+<div class="outline-text-3" id="text-2-1">
+</div>
+<div id="outline-container-org3549825" class="outline-4">
+<h4 id="org3549825"><span class="section-number-4">2.1.1.</span> Without a base</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-ttl"><span style="color: #d33682;">@base</span> <span style="color: #b58900;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;file:///users/me/sdml/modules/provider#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">:</a></span><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;file:///users/me/sdml/modules/provider#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">owl:</a></span><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;http://www.w3.org/2002/07/owl#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">rdf:</a></span><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">sdml:</a></span><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="file:///users/me/sdml/modules/provider#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;https://sdml.io/sdml-owl.ttl#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"> .</span>
+
+:   <span style="color: #268bd2;">rdf:</span><span style="color: #268bd2;">type</span> <span style="color: #268bd2;">owl:</span><span style="color: #268bd2;">Ontology</span><span style="color: #859900;">,</span> <span style="color: #268bd2;">sdml:</span><span style="color: #268bd2;">Module</span> <span style="color: #859900;">;</span>
+    <span style="color: #268bd2;">rdfs:</span><span style="color: #268bd2;">label</span> <span style="color: #2aa198;">"provider"</span> <span style="color: #859900;">.</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbd807e5" class="outline-4">
+<h4 id="orgbd807e5"><span class="section-number-4">2.1.2.</span> With a base</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span> <span style="color: #859900;">base</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.org/projects/provider#">&lt;https://example.org/projects/provider#&gt;</a></span> <span style="color: #859900;">is</span> <span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-ttl"><span style="color: #d33682;">@base</span> <span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;https://example.org/projects/provider#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">:</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;https://example.org/projects/provider#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">owl:</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;http://www.w3.org/2002/07/owl#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">rdf:</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">sdml:</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;https://sdml.io/sdml-owl.ttl#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"> .</span>
+
+:   <span style="color: #268bd2;">rdf:</span><span style="color: #268bd2;">type</span> <span style="color: #268bd2;">owl:</span><span style="color: #268bd2;">Ontology</span><span style="color: #859900;">,</span> <span style="color: #268bd2;">sdml:</span><span style="color: #268bd2;">Module</span> <span style="color: #859900;">;</span>
+    <span style="color: #268bd2;">rdfs:</span><span style="color: #268bd2;">label</span> <span style="color: #2aa198;">"provider"</span> <span style="color: #859900;">.</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8955499" class="outline-4">
+<h4 id="org8955499"><span class="section-number-4">2.1.3.</span> With an Owl version info</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span> <span style="color: #859900;">base</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.org/projects/provider#">&lt;https://example.org/projects/provider#&gt;</a></span> <span style="color: #859900;">is</span>
+  @owl:versionInfo "v0.3.2"
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-ttl"><span style="color: #d33682;">@base</span> <span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;https://example.org/projects/provider#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">:</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;https://example.org/projects/provider#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">owl:</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;http://www.w3.org/2002/07/owl#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">rdf:</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">sdml:</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;https://sdml.io/sdml-owl.ttl#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"> .</span>
+
+:   <span style="color: #268bd2;">rdf:</span><span style="color: #268bd2;">type</span> <span style="color: #268bd2;">owl:</span><span style="color: #268bd2;">Ontology</span><span style="color: #859900;">,</span> <span style="color: #268bd2;">sdml:</span><span style="color: #268bd2;">Module</span> <span style="color: #859900;">;</span>
+    <span style="color: #268bd2;">rdfs:</span><span style="color: #268bd2;">label</span> <span style="color: #2aa198;">"provider"</span> <span style="color: #859900;">;</span>
+    <span style="color: #268bd2;">owl:</span><span style="color: #268bd2;">versionInfo</span> <span style="color: #2aa198;">"v0.3.2"</span> <span style="color: #859900;">.</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9c316ef" class="outline-4">
+<h4 id="org9c316ef"><span class="section-number-4">2.1.4.</span> With an Owl version IRI</h4>
+<div class="outline-text-4" id="text-2-1-4">
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> provider base <span style="color: #2aa198; font-weight: bold;"><a href="https://example.org/projects/provider#&gt; is
+  @owl:versionIRI &lt;https://example.org/projects/v3/provider#">&lt;https://example.org/projects/provider#&gt;</a></span><a href="https://example.org/projects/provider#&gt; is
+  @owl:versionIRI &lt;https://example.org/projects/v3/provider#"> </a><span style="color: #859900;"><a href="https://example.org/projects/provider#&gt; is
+  @owl:versionIRI &lt;https://example.org/projects/v3/provider#">is</a></span><a href="https://example.org/projects/provider#&gt; is
+  @owl:versionIRI &lt;https://example.org/projects/v3/provider#">
+  @owl:versionIRI &lt;https://example.org/projects/v3/provider#&gt;</a>
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-ttl"><span style="color: #d33682;">@base</span> <span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;https://example.org/projects/provider#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">:</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;https://example.org/projects/provider#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">owl:</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;http://www.w3.org/2002/07/owl#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">rdf:</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">sdml:</a></span><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="https://example.org/projects/provider#&gt; .
+@prefix : &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;https://sdml.io/sdml-owl.ttl#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"> .</span>
+
+:   <span style="color: #268bd2;">rdf:</span><span style="color: #268bd2;">type</span> <span style="color: #268bd2;">owl:</span><span style="color: #268bd2;">Ontology</span><span style="color: #859900;">,</span> <span style="color: #268bd2;">sdml:</span><span style="color: #268bd2;">Module</span> <span style="color: #859900;">;</span>
+    <span style="color: #268bd2;">rdfs:</span><span style="color: #268bd2;">label</span> <span style="color: #2aa198;">"provider"</span> <span style="color: #859900;">;</span>
+    <span style="color: #268bd2;">owl:</span><span style="color: #268bd2;">versionIRI</span> <span style="color: #b58900;"><a href="https://example.org/projects/v3/provider#">&lt;https://example.org/projects/v3/provider#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"> .</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb88f72c" class="outline-3">
+<h3 id="orgb88f72c"><span class="section-number-3">2.2.</span> Consumer</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">consumer</span> <span style="color: #859900;">is</span>
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">provider</span>
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-ttl"><span style="color: #d33682;">@base</span> <span style="color: #b58900;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;file:///users/me/sdml/modules/consumer#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">:</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;file:///users/me/sdml/modules/consumer#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">provider:</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;https://example.org/projects/provider#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">owl:</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;http://www.w3.org/2002/07/owl#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">rdf:</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> .</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">
+</a><span style="color: #d33682;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">@prefix</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #268bd2;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">sdml:</a></span><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#"> </a><span style="color: #b58900;"><a href="file:///users/me/sdml/modules/consumer#&gt; .
+@prefix : &lt;file:///users/me/sdml/modules/consumer#&gt; .
+@prefix provider: &lt;https://example.org/projects/provider#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix sdml: &lt;https://sdml.io/sdml-owl.ttl#">&lt;https://sdml.io/sdml-owl.ttl#&gt;</a></span><span style="color: #93a1a1; font-style: italic;"> .</span>
+
+:   <span style="color: #268bd2;">rdf:</span><span style="color: #268bd2;">type</span> <span style="color: #268bd2;">owl:</span><span style="color: #268bd2;">Ontology</span><span style="color: #859900;">,</span> <span style="color: #268bd2;">sdml:</span><span style="color: #268bd2;">Module</span> <span style="color: #859900;">;</span>
+    <span style="color: #268bd2;">rdfs:</span><span style="color: #268bd2;">label</span> <span style="color: #2aa198;">"consumer"</span> <span style="color: #859900;">;</span>
+    <span style="color: #268bd2;">owl:</span><span style="color: #268bd2;">imports</span> <span style="color: #268bd2;">provider:</span> <span style="color: #859900;">.</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org275c7be" class="outline-2">
+<h2 id="org275c7be"><span class="section-number-2">3.</span> Alternatives Considered</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org5d26a43" class="outline-3">
+<h3 id="org5d26a43"><span class="section-number-3">3.1.</span> Using version identifiers</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span>
+  <span style="color: #859900;">base</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.org/projects/provider#">&lt;https://example.org/projects/provider#&gt;</a></span>
+  version "0.3.2"
+<span style="color: #859900;">is</span>
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">consumer</span> <span style="color: #859900;">is</span>
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">provider</span> "0.3.2"
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org708e21f" class="outline-3">
+<h3 id="org708e21f"><span class="section-number-3">3.2.</span> Using version identifiers and resolver</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+<pre class="src src-json"><span style="color: #657b83;">{</span>
+  <span style="color: #6c71c4;">"base"</span>: <span style="color: #2aa198;">"https://example.org/projects/"</span>,
+  <span style="color: #6c71c4;">"entries"</span>: <span style="color: #2aa198;">{</span>
+    <span style="color: #6c71c4;">"provider"</span>: <span style="color: #b58900;">{</span>
+      <span style="color: #6c71c4;">"item"</span>: <span style="color: #859900;">{</span>
+        <span style="color: #6c71c4;">"relative_uri"</span>: <span style="color: #2aa198;">"provider#"</span>,
+        <span style="color: #6c71c4;">"relative_path"</span>: <span style="color: #2aa198;">"src/provider.sdm"</span>
+      <span style="color: #859900;">}</span>,
+      <span style="color: #6c71c4;">"item"</span>: <span style="color: #859900;">{</span>
+        <span style="color: #6c71c4;">"relative_uri"</span>: <span style="color: #2aa198;">"provider#"</span>,
+        <span style="color: #6c71c4;">"version"</span>: <span style="color: #2aa198;">"0.3.2"</span>,
+        <span style="color: #6c71c4;">"relative_path"</span>: <span style="color: #2aa198;">"src/provider-v3.sdm"</span>
+      <span style="color: #859900;">}</span>
+    <span style="color: #b58900;">}</span>
+  <span style="color: #2aa198;">}</span>
+<span style="color: #657b83;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbf9654b" class="outline-3">
+<h3 id="orgbf9654b"><span class="section-number-3">3.3.</span> Using version IRIs</h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span>
+  <span style="color: #859900;">base</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.org/projects/provider#&gt;
+  version &lt;https://example.org/projects/v3/provider#">&lt;https://example.org/projects/provider#&gt;</a></span><a href="https://example.org/projects/provider#&gt;
+  version &lt;https://example.org/projects/v3/provider#">
+  version &lt;https://example.org/projects/v3/provider#&gt;</a>
+<span style="color: #859900;">is</span>
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">consumer</span> <span style="color: #859900;">is</span>
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">provider <a href="https://example.org/projects/v3/provider#">&lt;https://example</a></span><a href="https://example.org/projects/v3/provider#">.org/projects/v3/provider#&gt;</a>
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb849297" class="outline-2">
+<h2 id="orgb849297"><span class="section-number-2">4.</span> Proposed Change</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 TBD
 </p>
 </div>
+
+<div id="outline-container-org205feae" class="outline-3">
+<h3 id="org205feae"><span class="section-number-3">4.1.</span> Surface Syntax</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">provider</span>
+  <a href="https://example.org/projects/provider#&gt;
+  version &lt;https://example.org/projects/v3/provider#">&lt;https://example.org/projects/provider#&gt;
+  version &lt;https://example.org/projects/v3/provider#&gt;</a>
+<span style="color: #859900;">is</span>
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">consumer</span> <span style="color: #859900;">is</span>
+  <span style="color: #859900;">import</span> <span style="color: #268bd2;">provider <a href="https://example.org/projects/v3/provider#">&lt;https://example</a></span><a href="https://example.org/projects/v3/provider#">.org/projects/v3/provider#&gt;</a>
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1568665" class="outline-3">
+<h3 id="org1568665"><span class="section-number-3">4.2.</span> Grammar</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+From
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ebnf">Module
+    ::= <span style="color: #2aa198;">"module"</span> Identifier ModuleBase? ModuleBody
+
+ModuleBase
+    ::= <span style="color: #2aa198;">"base"</span> Iri
+
+ModuleBody
+    ::= <span style="color: #2aa198;">"is"</span>
+        ImportStatement* Annotation* Definition*
+        <span style="color: #2aa198;">"end"</span>
+
+ImportStatement
+    ::= <span style="color: #2aa198;">"import"</span> <span style="color: #657b83;">(</span> Import | <span style="color: #2aa198;">"["</span> Import+ <span style="color: #2aa198;">"]"</span> <span style="color: #657b83;">)</span>
+
+Import
+    ::= MemberImport | ModuleImport
+
+ModuleImport
+    ::= Identifer
+</pre>
+</div>
+
+<p>
+To
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ebnf">Module
+    ::= <span style="color: #2aa198;">"module"</span> Identifier ModuleIri? ModuleBody
+
+ModuleIri
+    ::= Iri <span style="color: #657b83;">(</span> <span style="color: #2aa198;">"version"</span> Iri <span style="color: #657b83;">)</span>?
+
+ModuleImport
+    ::= Identifer <span style="color: #657b83;">(</span> <span style="color: #2aa198;">"="</span> Iri <span style="color: #657b83;">)</span>?
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org67b3b21" class="outline-3">
+<h3 id="org67b3b21"><span class="section-number-3">4.3.</span> Resolver File</h3>
+<div class="outline-text-3" id="text-4-3">
+<div class="org-src-container">
+<pre class="src src-json"><span style="color: #657b83;">{</span>
+  <span style="color: #6c71c4;">"uri"</span>: <span style="color: #2aa198;">"https://example.org/projects/"</span>,
+  <span style="color: #6c71c4;">"entries"</span>: <span style="color: #2aa198;">{</span>
+    <span style="color: #6c71c4;">"provider"</span>: <span style="color: #b58900;">{</span>
+      <span style="color: #6c71c4;">"item"</span>: <span style="color: #859900;">{</span>
+        <span style="color: #6c71c4;">"relative_uri"</span>: <span style="color: #2aa198;">"provider#"</span>,
+        <span style="color: #6c71c4;">"relative_path"</span>: <span style="color: #2aa198;">"src/provider.sdm"</span>
+      <span style="color: #859900;">}</span>,
+      <span style="color: #6c71c4;">"item"</span>: <span style="color: #859900;">{</span>
+        <span style="color: #6c71c4;">"relative_uri"</span>: <span style="color: #2aa198;">"v3/provider#"</span>,
+        <span style="color: #6c71c4;">"relative_path"</span>: <span style="color: #2aa198;">"src/provider-v3.sdm"</span>
+      <span style="color: #859900;">}</span>
+    <span style="color: #b58900;">}</span>
+  <span style="color: #2aa198;">}</span>
+<span style="color: #657b83;">}</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-12-20 Wed 10:23</p>
+<p class="date">Created: 2023-12-20 Wed 15:31</p>
 </div>
 </body>
 </html>

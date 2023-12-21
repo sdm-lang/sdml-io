@@ -1,4 +1,4 @@
-#+TITLE: RFC002: Event Accepts
+#+TITLE: RFC002: Event Protocols
 #+AUTHOR: Simon Johnston
 #+EMAIL: johnstonskj@gmail.com
 #+LANGUAGE: en
@@ -7,7 +7,46 @@
 #+HTML_LINK_HOME: ./index.html
 #+HTML_LINK_UP: ./index.html
 
-TBD
+* Introduction
+
+Currently the language includes /event/ definitions which in turn identify the /entity/ that emits them. However, there is
+no construct today that defines how events are consumed by an entity. 
+
+*Document Status History*
+
+| Date         | Status   | Comment               | Grammar Version |
+|--------------+----------+-----------------------+-----------------|
+| [2023-12-07] | Draft    |                       | =0.2.6=           |
+
+* Motivation
+
+* Alternatives Considered
+
+** Event List
+
+#+BEGIN_SRC sdml :exports code :noeval
+module example is
+
+  import [ inventory vehicle ]
+
+  entity Booking is
+    identity id -> string
+
+    vehicle -> {0..1} vehicle:Vehicle
+
+    consumes [
+      inventory:VehicleAssigned
+      inventory:VehicleAvailable
+    ]
+  end
+
+end
+#+END_SRC
+
+
+* Proposed Change
+
+Examples here are still in-progress.
 
 #+BEGIN_SRC sdml :exports code :noeval
 module example is

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-20 Wed 11:02 -->
+<!-- 2023-12-20 Wed 16:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SDML RFCs</title>
@@ -202,9 +202,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgcd0efee">1. <span class="todo DRAFT">DRAFT</span> Support versioning of modules</a></li>
-<li><a href="#orgf3693a1">2. <span class="todo DRAFT">DRAFT</span> Event Accepts</a></li>
-<li><a href="#orge57a1fd">3. <span class="done APPROVED">APPROVED</span> Remove groups from product types&#xa0;&#xa0;&#xa0;<span class="tag"><span class="grammar">grammar</span></span></a></li>
+<li><a href="#orgad5e175">1. <span class="todo DRAFT">DRAFT</span> Support versioning of modules&#xa0;&#xa0;&#xa0;<span class="tag"><span class="grammar">grammar</span></span></a></li>
+<li><a href="#orgb58daf7">2. <span class="todo DRAFT">DRAFT</span> Event Protocols&#xa0;&#xa0;&#xa0;<span class="tag"><span class="grammar">grammar</span></span></a></li>
+<li><a href="#org71416dd">3. <span class="done APPROVED">APPROVED</span> Remove groups from product types&#xa0;&#xa0;&#xa0;<span class="tag"><span class="grammar">grammar</span></span></a></li>
+<li><a href="#org7f2b7e1">4. <span class="todo DRAFT">DRAFT</span> Move to Type-State Entities&#xa0;&#xa0;&#xa0;<span class="tag"><span class="semantics">semantics</span></span></a></li>
 </ul>
 </div>
 </div>
@@ -231,18 +232,15 @@
 <col  class="org-left" />
 
 <col  class="org-left" />
-
-<col  class="org-left" />
 </colgroup>
 <thead>
 <tr>
 <th scope="col" class="org-right">RFC</th>
 <th scope="col" class="org-left">Title</th>
 <th scope="col" class="org-left">State</th>
-<th scope="col" class="org-left">Author</th>
+<th scope="col" class="org-left">Primary Author</th>
 <th scope="col" class="org-left">Impacts</th>
-<th scope="col" class="org-left">Deadline</th>
-<th scope="col" class="org-left">B</th>
+<th scope="col" class="org-left">Created</th>
 </tr>
 </thead>
 <tbody>
@@ -251,19 +249,17 @@
 <td class="org-left">Support versioning of modules</td>
 <td class="org-left">DRAFT</td>
 <td class="org-left">Simon Johnston</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
+<td class="org-left">:grammar:</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2023-12-07 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
 <td class="org-right">002</td>
-<td class="org-left">Event Accepts</td>
+<td class="org-left">Event Protocols</td>
 <td class="org-left">DRAFT</td>
 <td class="org-left">Simon Johnston</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
+<td class="org-left">:grammar:</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2023-12-07 Thu&gt;</span></span></td>
 </tr>
 
 <tr>
@@ -272,14 +268,22 @@
 <td class="org-left">APPROVED</td>
 <td class="org-left">Simon Johnston</td>
 <td class="org-left">:grammar:</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">&#xa0;</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2023-12-07 Thu&gt;</span></span></td>
+</tr>
+
+<tr>
+<td class="org-right">004</td>
+<td class="org-left">Move to Type-State Entities</td>
+<td class="org-left">DRAFT</td>
+<td class="org-left">Simon Johnston</td>
+<td class="org-left">:semantics:</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2023-12-20 Wed&gt;</span></span></td>
 </tr>
 </tbody>
 </table>
 
-<div id="outline-container-orgcd0efee" class="outline-2">
-<h2 id="orgcd0efee"><span class="section-number-2">1.</span> <span class="todo DRAFT">DRAFT</span> Support versioning of modules</h2>
+<div id="outline-container-orgad5e175" class="outline-2">
+<h2 id="orgad5e175"><span class="section-number-2">1.</span> <span class="todo DRAFT">DRAFT</span> Support versioning of modules&#xa0;&#xa0;&#xa0;<span class="tag"><span class="grammar">grammar</span></span></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Current <a href="./001-versioned-modules.html">RFC Document</a>
@@ -287,8 +291,8 @@ Current <a href="./001-versioned-modules.html">RFC Document</a>
 </div>
 </div>
 
-<div id="outline-container-orgf3693a1" class="outline-2">
-<h2 id="orgf3693a1"><span class="section-number-2">2.</span> <span class="todo DRAFT">DRAFT</span> Event Accepts</h2>
+<div id="outline-container-orgb58daf7" class="outline-2">
+<h2 id="orgb58daf7"><span class="section-number-2">2.</span> <span class="todo DRAFT">DRAFT</span> Event Protocols&#xa0;&#xa0;&#xa0;<span class="tag"><span class="grammar">grammar</span></span></h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Current <a href="./002-event-accepts.html">RFC Document</a>
@@ -296,18 +300,26 @@ Current <a href="./002-event-accepts.html">RFC Document</a>
 </div>
 </div>
 
-<div id="outline-container-orge57a1fd" class="outline-2">
-<h2 id="orge57a1fd"><span class="section-number-2">3.</span> <span class="done APPROVED">APPROVED</span> Remove groups from product types&#xa0;&#xa0;&#xa0;<span class="tag"><span class="grammar">grammar</span></span></h2>
+<div id="outline-container-org71416dd" class="outline-2">
+<h2 id="org71416dd"><span class="section-number-2">3.</span> <span class="done APPROVED">APPROVED</span> Remove groups from product types&#xa0;&#xa0;&#xa0;<span class="tag"><span class="grammar">grammar</span></span></h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Current <a href="./003-remove-group.html">RFC Document</a>
 </p>
 </div>
 </div>
+<div id="outline-container-org7f2b7e1" class="outline-2">
+<h2 id="org7f2b7e1"><span class="section-number-2">4.</span> <span class="todo DRAFT">DRAFT</span> Move to Type-State Entities&#xa0;&#xa0;&#xa0;<span class="tag"><span class="semantics">semantics</span></span></h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Current <a href="./004-type-state-entities.html">RFC Document</a>
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-12-20 Wed 11:02</p>
+<p class="date">Created: 2023-12-20 Wed 16:36</p>
 </div>
 </body>
 </html>

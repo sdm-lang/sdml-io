@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-20 Wed 10:23 -->
+<!-- 2023-12-20 Wed 15:51 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RFC002: Event Accepts</title>
+<title>RFC002: Event Protocols</title>
 <meta name="author" content="Simon Johnston" />
 <meta name="generator" content="Org Mode" />
 <style>
@@ -201,9 +201,103 @@
  |
  <a accesskey="H" href="./index.html"> HOME </a>
 </div><div id="content" class="content">
-<h1 class="title">RFC002: Event Accepts</h1>
+<h1 class="title">RFC002: Event Protocols</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org8835b50">1. Introduction</a></li>
+<li><a href="#orgbc991fd">2. Motivation</a></li>
+<li><a href="#orgf6c414b">3. Alternatives Considered</a></li>
+<li><a href="#org06967f9">4. Proposed Change</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8835b50" class="outline-2">
+<h2 id="org8835b50"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
 <p>
-TBD
+Currently the language includes <i>event</i> definitions which in turn identify the <i>entity</i> that emits them. However, there is
+no construct today that defines how events are consumed by an entity. 
+</p>
+
+<p>
+<b>Document Status History</b>
+</p>
+
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Date</th>
+<th scope="col" class="org-left">Status</th>
+<th scope="col" class="org-left">Comment</th>
+<th scope="col" class="org-left">Grammar Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">[2023-12-07 Thu]</span></span></td>
+<td class="org-left">Draft</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>0.2.6</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgbc991fd" class="outline-2">
+<h2 id="orgbc991fd"><span class="section-number-2">2.</span> Motivation</h2>
+</div>
+
+<div id="outline-container-orgf6c414b" class="outline-2">
+<h2 id="orgf6c414b"><span class="section-number-2">3.</span> Alternatives Considered</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgaf42753" class="outline-3">
+<h3 id="orgaf42753"><span class="section-number-3">3.1.</span> Event List</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">import</span> <span style="color: #657b83; background-color: #fdf6e3;">[</span> <span style="color: #268bd2;">inventory</span> <span style="color: #268bd2;">vehicle</span> <span style="color: #657b83; background-color: #fdf6e3;">]</span>
+
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Booking</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> id <span style="color: #859900;">-&gt;</span> <span style="color: #6c71c4;">string</span>
+
+    vehicle <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">vehicle:Vehicle</span>
+
+    consumes <span style="color: #657b83;">[</span>
+      inventory:VehicleAssigned
+      inventory:VehicleAvailable
+    <span style="color: #657b83;">]</span>
+  <span style="color: #859900;">end</span>
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org06967f9" class="outline-2">
+<h2 id="org06967f9"><span class="section-number-2">4.</span> Proposed Change</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Examples here are still in-progress.
 </p>
 
 <div class="org-src-container">
@@ -248,9 +342,11 @@ Select ::=
 </pre>
 </div>
 </div>
+</div>
+</div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-12-20 Wed 10:23</p>
+<p class="date">Created: 2023-12-20 Wed 15:51</p>
 </div>
 </body>
 </html>

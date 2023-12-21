@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-12-21 Thu 09:48 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RFC004: Move to Type-State Entities</title>
+<meta name="author" content="Primary Author" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="./rfcs.css"/>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="./index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">RFC004: Move to Type-State Entities</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org3b8aada">1. Introduction</a></li>
+<li><a href="#org00bbe0b">2. Motivation</a></li>
+<li><a href="#org1228af2">3. Alternatives Considered</a></li>
+<li><a href="#orgbb4b4f8">4. Proposed Change</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org3b8aada" class="outline-2">
+<h2 id="org3b8aada"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+In our experience with SDML we have seen multiple cases of entities (and structures, but we will use entities as our
+example here) where the presence or absence of fields is dependent on the state of the entity. To model this we have
+seen users create an enumeration of the states of the entity and then constraints on fields to determine their
+application. However, to accomplish this it requires any field that may not be present in all states to be optional,
+that is to have a cardinality with a lower bound of 0 for those cases where it is not required. This leads to complex
+models of the following form. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">shipping</span> <span style="color: #859900;">is</span>
+
+  <span style="color: #859900;">enum</span> <span style="color: #268bd2;">ShipmentState</span> <span style="color: #859900;">of</span>
+    <span style="color: #268bd2;">Created</span>
+    <span style="color: #268bd2;">Planned</span>
+    <span style="color: #268bd2;">Loaded</span>
+    <span style="color: #268bd2;">InTransit</span>
+    <span style="color: #268bd2;">Delivered</span>
+  <span style="color: #859900;">end</span>
+  
+  <span style="color: #859900;">entity</span> <span style="color: #268bd2;">Shipment</span> <span style="color: #859900;">is</span>
+    <span style="color: #859900;">identity</span> id <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">gs1:ShipmentIdentifier</span>
+  
+    consignment <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">Consignment</span> <span style="color: #93a1a1; font-style: italic;">;; parent</span>
+    source <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">gs1:GlobalLocationIdentifier</span>
+    destination <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">gs1:GlobalLocationIdentifier</span>
+  
+    state <span style="color: #859900;">-&gt;</span> <span style="color: #268bd2;">ShipmentState</span>
+    
+    units <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">gs1:LogisticsUnitIdentifier</span> <span style="color: #859900;">is</span>
+      <span style="color: #859900;">assert</span> <span style="color: #d33682;">state_planned</span> <span style="color: #859900;">=</span> <span style="color: #657b83; background-color: #fdf6e3;">"units must be present if state /= Created"</span>
+    <span style="color: #859900;">end</span>
+  
+    assets <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">gs1:LogisticsAssetIdentifier</span> <span style="color: #859900;">is</span>
+      <span style="color: #859900;">assert</span> <span style="color: #d33682;">state_loaded</span> <span style="color: #859900;">=</span> <span style="color: #657b83; background-color: #fdf6e3;">"assets must be present if state not in Created, Planned"</span>
+    <span style="color: #859900;">end</span>
+  
+    embarkation_date <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">xsd:dateTime</span> <span style="color: #859900;">is</span>
+      <span style="color: #859900;">assert</span> <span style="color: #d33682;">state_created</span> <span style="color: #859900;">=</span> <span style="color: #657b83; background-color: #fdf6e3;">"embarkation_date must be present if state not in Created, Planned, Loaded"</span>
+    <span style="color: #859900;">end</span>
+  
+    delivery_date <span style="color: #859900;">-&gt;</span> <span style="color: #657b83; background-color: #fdf6e3;">{</span><span style="color: #268bd2;">0</span><span style="color: #859900;">..</span><span style="color: #268bd2;">1</span><span style="color: #657b83; background-color: #fdf6e3;">}</span> <span style="color: #268bd2;">xsd:dateTime</span> <span style="color: #859900;">is</span>
+      <span style="color: #859900;">assert</span> <span style="color: #d33682;">state_created</span> <span style="color: #859900;">=</span> <span style="color: #657b83; background-color: #fdf6e3;">"delivery_date must be present if state = Delivered"</span>
+    <span style="color: #859900;">end</span>
+    
+  <span style="color: #859900;">end</span>
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+
+<p>
+This RFC proposes a change to the grammar and semantics to model specific <i>states</i> within an entity and how these states
+affect the presence of particular fields.
+</p>
+
+<p>
+<b>Document Status History</b>
+</p>
+
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Date</th>
+<th scope="col" class="org-left">Status</th>
+<th scope="col" class="org-left">Comment</th>
+<th scope="col" class="org-left">Grammar Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">[2023-12-20 Wed]</span></span></td>
+<td class="org-left">Draft</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>0.2.7</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org00bbe0b" class="outline-2">
+<h2 id="org00bbe0b"><span class="section-number-2">2.</span> Motivation</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+One common use for constraints in our domain model is to define the cardinality of fields under certain conditions;
+especially to make them optional or required depending on the state of the entity. In programming languages there is an
+approach, little supported in mainstream languages, called <i>Type-State</i> programming where any non-trivial type has a set
+of states and its definition is dependent on this state.
+</p>
+
+<p>
+For example, a common programming error is to try to read or write to a file handle that has not yet been open, or was
+open but is now closed. We need to model <i>new</i>, <i>open</i>, and <i>closed</i> as distinct states during which only a subset of
+operations are allowed. In the following invented language we follow the type name <code>Self</code> with a state in brackets. Note
+that the state <code>Closed</code> is a terminal state as it has no operations and so nothing can be legally done with it.
+</p>
+
+<pre class="example" id="org4d3e1b8">
+type FileHandle {
+  state {
+    fn open(path): Self[Open];
+  }
+  state Open {
+    fn read(): Self[Open];
+    fn write(): Self[Open];
+    fn close(): Self[Closed];
+  }
+  state Closed {}
+}
+</pre>
+
+<p>
+Typically, as in this example type-state languages focus on sequencing of operations rather than in data; although that
+would be possible, as in:
+</p>
+
+<pre class="example" id="orga8bb227">
+type FileHandle {
+  state {
+  }
+  state Open {
+    path: Path
+  }
+  state Closed {}
+}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org1228af2" class="outline-2">
+<h2 id="org1228af2"><span class="section-number-2">3.</span> Alternatives Considered</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org5f75492" class="outline-3">
+<h3 id="org5f75492"><span class="section-number-3">3.1.</span> States with fields</h3>
+<div class="outline-text-3" id="text-3-1">
+<pre class="example" id="orgfb6218e">
+entity Shipment is
+  identity id -&gt; gs1:ShipmentIdentifier
+
+  consignment -&gt; Consignment ;; parent
+  
+  source -&gt; {0..1} gs1:GlobalLocationIdentifier
+  destination -&gt; {0..1} gs1:GlobalLocationIdentifier
+
+  initial state Planned is
+    units -&gt; {1..} gs1:LogisticsUnitIdentifier
+
+    on LoadingComplete =&gt; Loaded
+  end
+
+  state Loaded is
+    assets -&gt; {1..} gs1:LogisticsAssetIdentifier
+
+    on Embarked =&gt; InTransit
+  end
+
+  state InTransit is
+    embarkation_date -&gt; xsd:dateTime
+
+    on ev -&gt; DeliveryEvent
+      if ev.signed =&gt; Delivered
+  end
+
+  state Delivered is
+    delivery_date -&gt; xsd:dateTime
+  end
+end
+</pre>
+
+<ul class="org-ul">
+<li>New reserved words: <code>initial</code>, <code>state</code>, <code>on</code>, <code>if</code>.</li>
+<li>Reserved states: <code>created</code>, <code>updated</code>, <code>deleted</code> &#x2013; maybe.</li>
+<li>New operator: <code>=&gt;</code> &#x2013; or something.</li>
+<li>New constraint functions: <code>state()</code></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9762f1d" class="outline-3">
+<h3 id="org9762f1d"><span class="section-number-3">3.2.</span> Simple field constraints</h3>
+<div class="outline-text-3" id="text-3-2">
+<pre class="example" id="orga7a4dd7">
+union ShipmentStates of
+  Created
+  Planned
+  Loaded
+  InTransit
+  Delivered
+end
+
+entity Shipment is
+  identity id -&gt; gs1:ShipmentIdentifier
+
+  state -&gt; ShipmentState = Created
+
+  consignment -&gt; Consignment ;; parent
+  
+  source -&gt; {0..1} gs1:GlobalLocationIdentifier
+  destination -&gt; {0..1} gs1:GlobalLocationIdentifier
+  units -&gt; {1..} gs1:LogisticsUnitIdentifier not in [Created]
+  assets -&gt; {1..} gs1:LogisticsAssetIdentifier not in [created Planned]
+  embarkation_date -&gt; xsd:dateTime not in [created Planned Loaded]
+  delivery_date -&gt; xsd:dateTime not in [created Planned Loaded InTransit]
+end
+</pre>
+
+<pre class="example" id="org6fb9f98">
+  units -&gt; {1..} gs1:LogisticsUnitIdentifier is
+    assert state_cardinality is
+      self.container.state = Created implies self.min_occurs &gt;= 1
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org0706f0c" class="outline-3">
+<h3 id="org0706f0c"><span class="section-number-3">3.3.</span> States separate from fields</h3>
+<div class="outline-text-3" id="text-3-3">
+<pre class="example" id="org496e5a6">
+entity Shipment is
+  identity id -&gt; gs1:ShipmentIdentifier
+
+  consignment -&gt; Consignment ;; parent
+  
+  source -&gt; {0..1} gs1:GlobalLocationIdentifier
+  destination -&gt; {0..1} gs1:GlobalLocationIdentifier
+  units -&gt; {1..} gs1:LogisticsUnitIdentifier not in [Created]
+  assets -&gt; {1..} gs1:LogisticsAssetIdentifier not in [created Planned]
+  embarkation_date -&gt; xsd:dateTime not in [created Planned Loaded]
+  delivery_date -&gt; xsd:dateTime not in [created Planned Loaded InTransit]
+
+  statecase state of
+    created to Planned
+    Planned on LoadingComplete to Loaded
+    Loaded on Embarked to InTransit
+    InTransit
+      on ev -&gt; DeliveryEvent
+      if ev.signed =&gt; Delivered
+    Delivered
+  end
+
+end
+</pre>
+
+
+<div id="orgc869e98" class="figure">
+<p><img src="004-state-machine-example.svg" alt="004-state-machine-example.svg" class="org-svg" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Example State Machines</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7a5e053" class="outline-3">
+<h3 id="org7a5e053"><span class="section-number-3">3.4.</span> Potential de-sugaring</h3>
+<div class="outline-text-3" id="text-3-4">
+<pre class="example" id="org3c88c71">
+structure ShipmentPlanned is
+  units -&gt; {1..} gs1:LogisticsUnitIdentifier
+end
+
+structure ShipmentLoaded is
+  units -&gt; {1..} gs1:LogisticsUnitIdentifier
+  assets -&gt; {1..} gs1:LogisticsAssetIdentifier
+end
+
+structure ShipmentInTransit is
+  units -&gt; {1..} gs1:LogisticsUnitIdentifier
+  assets -&gt; {1..} gs1:LogisticsAssetIdentifier
+  embarkation_date -&gt; xsd:dateTime
+end
+
+structure ShipmentDelivered is
+  units -&gt; {1..} gs1:LogisticsUnitIdentifier
+  assets -&gt; {1..} gs1:LogisticsAssetIdentifier
+  embarkation_date -&gt; xsd:dateTime
+  delivery_date -&gt; xsd:dateTime
+end
+
+union ShipmentStates of
+  ShipmentPlanned
+  ShipmentLoaded
+  ShipmentInTransit
+  ShipmentDelivered
+end
+
+entity Shipment is
+  identity id -&gt; gs1:ShipmentIdentifier
+
+  consignment -&gt; Consignment ;; parent
+  
+  source -&gt; {0..1} gs1:GlobalLocationIdentifier
+  destination -&gt; {0..1} gs1:GlobalLocationIdentifier
+
+  current_state -&gt; ShipmentStates
+end
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbb4b4f8" class="outline-2">
+<h2 id="orgbb4b4f8"><span class="section-number-2">4.</span> Proposed Change</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+The following changes are required:
+</p>
+
+<p>
+<i>What are you proposing to change?</i>
+</p>
+</div>
+
+<div id="outline-container-orgdc4ebf5" class="outline-3">
+<h3 id="orgdc4ebf5"><span class="section-number-3">4.1.</span> Test cases</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+<i>What test cases do you intend to include.</i>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcef83ad" class="outline-3">
+<h3 id="orgcef83ad"><span class="section-number-3">4.2.</span> Impact</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+<i>What is the scope of the impact, this should relate to any tags you
+added to the section in the index file.</i>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Primary Author</p>
+<p class="date">Created: 2023-12-21 Thu 09:48</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,300 @@
+#+TITLE: RFC004: Move to Type-State Entities
+#+AUTHOR: Primary Author
+#+EMAIL: primary@example.com
+#+LANGUAGE: en
+#+OPTIONS: toc:1
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./rfcs.css"/>
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./index.html
+
+* Introduction
+
+In our experience with SDML we have seen multiple cases of entities (and structures, but we will use entities as our
+example here) where the presence or absence of fields is dependent on the state of the entity. To model this we have
+seen users create an enumeration of the states of the entity and then constraints on fields to determine their
+application. However, to accomplish this it requires any field that may not be present in all states to be optional,
+that is to have a cardinality with a lower bound of 0 for those cases where it is not required. This leads to complex
+models of the following form. 
+
+#+BEGIN_SRC sdml :exports code :noeval
+module shipping is
+
+  enum ShipmentState of
+    Created
+    Planned
+    Loaded
+    InTransit
+    Delivered
+  end
+  
+  entity Shipment is
+    identity id -> gs1:ShipmentIdentifier
+  
+    consignment -> Consignment ;; parent
+    source -> {0..1} gs1:GlobalLocationIdentifier
+    destination -> {0..1} gs1:GlobalLocationIdentifier
+  
+    state -> ShipmentState
+    
+    units -> {0..} gs1:LogisticsUnitIdentifier is
+      assert state_planned = "units must be present if state /= Created"
+    end
+  
+    assets -> {0..} gs1:LogisticsAssetIdentifier is
+      assert state_loaded = "assets must be present if state not in Created, Planned"
+    end
+  
+    embarkation_date -> {0..1} xsd:dateTime is
+      assert state_created = "embarkation_date must be present if state not in Created, Planned, Loaded"
+    end
+  
+    delivery_date -> {0..1} xsd:dateTime is
+      assert state_created = "delivery_date must be present if state = Delivered"
+    end
+    
+  end
+end
+#+END_SRC
+
+This RFC proposes a change to the grammar and semantics to model specific /states/ within an entity and how these states
+affect the presence of particular fields.
+
+*Document Status History*
+
+| Date         | Status | Comment | Grammar Version |
+|--------------+--------+---------+-----------------|
+| [2023-12-20] | Draft  |         | =0.2.7=           |
+
+* Motivation
+
+One common use for constraints in our domain model is to define the cardinality of fields under certain conditions;
+especially to make them optional or required depending on the state of the entity. In programming languages there is an
+approach, little supported in mainstream languages, called /Type-State/ programming where any non-trivial type has a set
+of states and its definition is dependent on this state.
+
+For example, a common programming error is to try to read or write to a file handle that has not yet been open, or was
+open but is now closed. We need to model /new/, /open/, and /closed/ as distinct states during which only a subset of
+operations are allowed. In the following invented language we follow the type name ~Self~ with a state in brackets. Note
+that the state ~Closed~ is a terminal state as it has no operations and so nothing can be legally done with it.
+
+#+BEGIN_EXAMPLE
+type FileHandle {
+  state {
+    fn open(path): Self[Open];
+  }
+  state Open {
+    fn read(): Self[Open];
+    fn write(): Self[Open];
+    fn close(): Self[Closed];
+  }
+  state Closed {}
+}
+#+END_EXAMPLE
+
+Typically, as in this example type-state languages focus on sequencing of operations rather than in data; although that
+would be possible, as in:
+
+#+BEGIN_EXAMPLE
+type FileHandle {
+  state {
+  }
+  state Open {
+    path: Path
+  }
+  state Closed {}
+}
+#+END_EXAMPLE
+
+* Alternatives Considered
+
+** States with fields
+
+#+BEGIN_EXAMPLE
+entity Shipment is
+  identity id -> gs1:ShipmentIdentifier
+
+  consignment -> Consignment ;; parent
+  
+  source -> {0..1} gs1:GlobalLocationIdentifier
+  destination -> {0..1} gs1:GlobalLocationIdentifier
+
+  initial state Planned is
+    units -> {1..} gs1:LogisticsUnitIdentifier
+
+    on LoadingComplete => Loaded
+  end
+
+  state Loaded is
+    assets -> {1..} gs1:LogisticsAssetIdentifier
+
+    on Embarked => InTransit
+  end
+
+  state InTransit is
+    embarkation_date -> xsd:dateTime
+
+    on ev -> DeliveryEvent
+      if ev.signed => Delivered
+  end
+
+  state Delivered is
+    delivery_date -> xsd:dateTime
+  end
+end
+#+END_EXAMPLE
+
+- New reserved words: ~initial~, ~state~, ~on~, ~if~.
+- Reserved states: ~created~, ~updated~, ~deleted~ -- maybe.
+- New operator: ~=>~ -- or something.
+- New constraint functions: ~state()~
+
+** Simple field constraints
+
+#+BEGIN_EXAMPLE
+union ShipmentStates of
+  Created
+  Planned
+  Loaded
+  InTransit
+  Delivered
+end
+
+entity Shipment is
+  identity id -> gs1:ShipmentIdentifier
+
+  state -> ShipmentState = Created
+
+  consignment -> Consignment ;; parent
+  
+  source -> {0..1} gs1:GlobalLocationIdentifier
+  destination -> {0..1} gs1:GlobalLocationIdentifier
+  units -> {1..} gs1:LogisticsUnitIdentifier not in [Created]
+  assets -> {1..} gs1:LogisticsAssetIdentifier not in [created Planned]
+  embarkation_date -> xsd:dateTime not in [created Planned Loaded]
+  delivery_date -> xsd:dateTime not in [created Planned Loaded InTransit]
+end
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+  units -> {1..} gs1:LogisticsUnitIdentifier is
+    assert state_cardinality is
+      self.container.state = Created implies self.min_occurs >= 1
+#+END_EXAMPLE
+
+** States separate from fields
+
+#+BEGIN_EXAMPLE
+entity Shipment is
+  identity id -> gs1:ShipmentIdentifier
+
+  consignment -> Consignment ;; parent
+  
+  source -> {0..1} gs1:GlobalLocationIdentifier
+  destination -> {0..1} gs1:GlobalLocationIdentifier
+  units -> {1..} gs1:LogisticsUnitIdentifier not in [Created]
+  assets -> {1..} gs1:LogisticsAssetIdentifier not in [created Planned]
+  embarkation_date -> xsd:dateTime not in [created Planned Loaded]
+  delivery_date -> xsd:dateTime not in [created Planned Loaded InTransit]
+
+  statecase state of
+    created to Planned
+    Planned on LoadingComplete to Loaded
+    Loaded on Embarked to InTransit
+    InTransit
+      on ev -> DeliveryEvent
+      if ev.signed => Delivered
+    Delivered
+  end
+
+end
+#+END_EXAMPLE
+
+#+NAME: src:004-state-machine-example
+#+BEGIN_SRC dot :file 004-state-machine-example.svg :exports results
+strict digraph {
+    bgcolor="transparent";
+    nodesep=0.25;
+    rankdir=LR;
+    ranksep=0.25;
+    
+    node [shape="rectangle"; style="rounded"; fontname="Sans-Serif"; fontsize=12; width=1.5];
+
+    // All place nodes.
+    created [shape="circle"; style="filled"; color="black"; fillcolor="black"; label=""; xlabel="created"; width=0.2];
+    Planned;
+    Loaded;
+    InTransit;
+    Delivered;
+    end [shape="circle"; style="filled"; color="black"; fillcolor="black"; label=""; width=0.15; peripheries=2];
+
+    created -> Planned;
+    Planned -> Loaded [label="LoadingComplete"];
+    Loaded -> InTransit [label="Embarked"];
+    InTransit -> Delivered [label="LoadingComplete\n[ev.signed => Delivered]"];
+    Delivered -> end;
+}
+#+END_SRC
+
+#+NAME: src:004-state-machine-example
+#+CAPTION: Example State Machine
+#+RESULTS: src:004-state-machine-example
+[[file:004-state-machine-example.svg]]
+
+** Potential de-sugaring
+
+#+BEGIN_EXAMPLE
+structure ShipmentPlanned is
+  units -> {1..} gs1:LogisticsUnitIdentifier
+end
+
+structure ShipmentLoaded is
+  units -> {1..} gs1:LogisticsUnitIdentifier
+  assets -> {1..} gs1:LogisticsAssetIdentifier
+end
+
+structure ShipmentInTransit is
+  units -> {1..} gs1:LogisticsUnitIdentifier
+  assets -> {1..} gs1:LogisticsAssetIdentifier
+  embarkation_date -> xsd:dateTime
+end
+
+structure ShipmentDelivered is
+  units -> {1..} gs1:LogisticsUnitIdentifier
+  assets -> {1..} gs1:LogisticsAssetIdentifier
+  embarkation_date -> xsd:dateTime
+  delivery_date -> xsd:dateTime
+end
+
+union ShipmentStates of
+  ShipmentPlanned
+  ShipmentLoaded
+  ShipmentInTransit
+  ShipmentDelivered
+end
+
+entity Shipment is
+  identity id -> gs1:ShipmentIdentifier
+
+  consignment -> Consignment ;; parent
+  
+  source -> {0..1} gs1:GlobalLocationIdentifier
+  destination -> {0..1} gs1:GlobalLocationIdentifier
+
+  current_state -> ShipmentStates
+end
+#+END_EXAMPLE
+
+* Proposed Change
+
+The following changes are required:
+
+/What are you proposing to change?/
+
+** Test cases
+
+/What test cases do you intend to include./
+
+** Impact
+
+/What is the scope of the impact, this should relate to any tags you
+added to the section in the index file./

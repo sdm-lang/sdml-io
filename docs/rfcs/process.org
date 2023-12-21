@@ -11,8 +11,9 @@ Given an RFC titled "Example New RFC";
 
 1. Determine the next RFC number (3 digits, 0 padded,as =nnn=) from the [[./index.org][index.org]] file.
 2. Create a new document =nnn-example-new-rfc.org= using the [[file-template][template]] at the end of this document.
-3. Add a new section to the =index.org= file with the [[index-entry][block of code]] below.
-4. Create a new pull request with these changes and label as "RFC".
+3. Any additional files such as images *must* start with the same =nnn-= prefix.
+4. Add a new section to the =index.org= file with the [[index-entry][block of code]] below.
+5. Create a new pull request with these changes and label as "RFC".
 
 * RFC Document States
 
@@ -28,10 +29,10 @@ strict digraph {
     rankdir=LR;
     ranksep=0.25;
     
-    node [shape="ellipse"; fontname="Sans-Serif"; fontsize=12; width=1.5];
+    node [shape="rectangle"; style="rounded"; fontname="Sans-Serif"; fontsize=12; width=1.5];
 
     // All place nodes.
-    start [style="filled"; color="black"; fillcolor="black"; label=""; height=0.2; width=0.2];
+    start [shape="circle"; style="filled"; color="black"; fillcolor="black"; label=""; width=0.2];
     draft [label="Draft"];
     proposed [label="Proposed"];
     testing [label="Testing"];
@@ -95,14 +96,25 @@ strict digraph {
 ** Impact Tags
 
 The index also uses org-mode tags to identify the impact of an RFC. While a single tag is preferred multiple may be
-specified if it makes sense. The current tags are =grammar=, =binding=, =test=, =query=, =example=, and =doc=.
+specified if it makes sense. When choosing a tag try and choose the tag that corresponds to the area of focus; for
+example, if the focus is to change the syntax to make it easier for the user to do something then the tag should be
+=grammar= even if the change /also/ affects the semantics, and tests. If the purpose is to make a change in the semantics to
+clarify how the language behaves the tag should be =semantics= even if it requires a corresponding change in grammar.
+
+The current tags are:
+
+- grammar :: a change impacts the grammar itself, this generally implies changes to all of the below. 
+- semantics :: a change impacts the semantics, which may or may not adjust the grammar.
+- queries :: a change impacts one of the scheme query files in the =queries= directory.
+- tests :: a change impacts one of the tests (corpus or highlight) in the =test= directory.
+- examples :: a change impacts one of the example files in the =example= directory.
 
 * <<index-entry>>RFC Index File
 
 Copy this block to the index file and edit as appropriate.
 
 #+BEGIN_SRC org :noeval
-,* DRAFT Example New RFC                                             :grammar:
+,* DRAFT Example New RFC    :tag:
 :PROPERTIES:
 :NUMBER: nnn
 :AUTHOR: Primary Author

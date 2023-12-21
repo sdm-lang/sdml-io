@@ -12,15 +12,16 @@
 
 *Current RFC Status*
 
-#+BEGIN: columnview :indent t :id global :format "%4NUMBER(RFC) %45ITEM(Title) %10TODO(State) %20AUTHOR(Author) %20TAGS(Impacts) %23DEADLINE(Deadline) %1BLOCKED(B)"
-| RFC | Title                            | State    | Author         | Impacts   | Deadline | B |
-|-----+----------------------------------+----------+----------------+-----------+----------+---|
-| 001 | Support versioning of modules    | DRAFT    | Simon Johnston |           |          |   |
-| 002 | Event Accepts                    | DRAFT    | Simon Johnston |           |          |   |
-| 003 | Remove groups from product types | APPROVED | Simon Johnston | :grammar: |          |   |
+#+BEGIN: columnview :id global :format "%4NUMBER(RFC) %45ITEM(Title) %10TODO(State) %20AUTHOR(Primary Author) %20TAGS(Impacts) %23CREATED(Created)"
+| RFC | Title                            | State    | Primary Author | Impacts     | Created          |
+|-----+----------------------------------+----------+----------------+-------------+------------------|
+| 001 | Support versioning of modules    | DRAFT    | Simon Johnston | :grammar:   | <2023-12-07 Thu> |
+| 002 | Event Protocols                  | DRAFT    | Simon Johnston | :grammar:   | <2023-12-07 Thu> |
+| 003 | Remove groups from product types | APPROVED | Simon Johnston | :grammar:   | <2023-12-07 Thu> |
+| 004 | Move to Type-State Entities      | DRAFT    | Simon Johnston | :semantics: | <2023-12-20 Wed> |
 #+END:
 
-* DRAFT Support versioning of modules
+* DRAFT Support versioning of modules                               :grammar:
 :PROPERTIES:
 :NUMBER: 001
 :AUTHOR: Simon Johnston
@@ -29,7 +30,7 @@
 
 Current [[./001-versioned-modules.org][RFC Document]]
 
-* DRAFT Event Accepts
+* DRAFT Event Protocols                                             :grammar:
 :PROPERTIES:
 :NUMBER: 002
 :AUTHOR: Simon Johnston
@@ -38,7 +39,7 @@ Current [[./001-versioned-modules.org][RFC Document]]
 
 Current [[./002-event-accepts.org][RFC Document]]
 
-* APPROVED Remove groups from product types               :grammar:
+* APPROVED Remove groups from product types                         :grammar:
 :PROPERTIES:
 :NUMBER: 003
 :AUTHOR: Simon Johnston
@@ -52,3 +53,13 @@ Current [[./002-event-accepts.org][RFC Document]]
 :END:
 
 Current [[./003-remove-group.org][RFC Document]]
+* DRAFT Move to Type-State Entities                               :semantics:
+:PROPERTIES:
+:NUMBER: 004
+:AUTHOR: Simon Johnston
+:CREATED: <2023-12-20 Wed>
+:END:
+:LOGBOOK:
+:END:
+
+Current [[./004-type-state-entities.org][RFC Document]]

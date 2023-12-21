@@ -1,4 +1,4 @@
-y#+TITLE: RFC001: Support versioning of modules
+#+TITLE: RFC001: Support versioning of modules
 #+AUTHOR: Simon Johnston
 #+EMAIL: johnstonskj@gmail.com
 #+LANGUAGE: en
@@ -7,4 +7,268 @@ y#+TITLE: RFC001: Support versioning of modules
 #+HTML_LINK_HOME: ./index.html
 #+HTML_LINK_UP: ./index.html
 
+* Introduction
+
 TBD
+
+*Document Status History*
+
+| Date         | Status   | Comment               | Grammar Version |
+|--------------+----------+-----------------------+-----------------|
+| [2023-12-07] | Draft    |                       | =0.2.6=           |
+
+* Motivation
+
+#+BEGIN_SRC sdml :exports code :noeval
+module provider is end
+#+END_SRC
+
+#+BEGIN_SRC sdml :exports code :noeval
+module consumer is
+  import provider
+end
+#+END_SRC
+
+#+BEGIN_SRC sdml :exports code :noeval
+module provider_v3 is end
+#+END_SRC
+
+#+BEGIN_SRC sdml :exports code :noeval
+module consumer is
+  import [
+    provider
+    provider_v3
+  ]
+end
+#+END_SRC
+
+** Constructing an Ontology
+
+*** Without a base
+
+#+BEGIN_SRC sdml :exports code :noeval
+module provider is end
+#+END_SRC
+
+#+BEGIN_SRC ttl :exports code :noeval
+@base <file:///users/me/sdml/modules/provider#> .
+@prefix : <file:///users/me/sdml/modules/provider#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sdml: <https://sdml.io/sdml-owl.ttl#> .
+
+:   rdf:type owl:Ontology, sdml:Module ;
+    rdfs:label "provider" .
+#+END_SRC
+
+*** With a base
+
+#+BEGIN_SRC sdml :exports code :noeval
+module provider base <https://example.org/projects/provider#> is end
+#+END_SRC
+
+#+BEGIN_SRC ttl :exports code :noeval
+@base <https://example.org/projects/provider#> .
+@prefix : <https://example.org/projects/provider#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sdml: <https://sdml.io/sdml-owl.ttl#> .
+
+:   rdf:type owl:Ontology, sdml:Module ;
+    rdfs:label "provider" .
+#+END_SRC
+
+*** With an Owl version info
+
+#+BEGIN_SRC sdml :exports code :noeval
+module provider base <https://example.org/projects/provider#> is
+  @owl:versionInfo "v0.3.2"
+end
+#+END_SRC
+
+#+BEGIN_SRC ttl :exports code :noeval
+@base <https://example.org/projects/provider#> .
+@prefix : <https://example.org/projects/provider#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sdml: <https://sdml.io/sdml-owl.ttl#> .
+
+:   rdf:type owl:Ontology, sdml:Module ;
+    rdfs:label "provider" ;
+    owl:versionInfo "v0.3.2" .
+#+END_SRC
+
+*** With an Owl version IRI
+
+#+BEGIN_SRC sdml :exports code :noeval
+module provider base <https://example.org/projects/provider#> is
+  @owl:versionIRI <https://example.org/projects/v3/provider#>
+end
+#+END_SRC
+
+#+BEGIN_SRC ttl :exports code :noeval
+@base <https://example.org/projects/provider#> .
+@prefix : <https://example.org/projects/provider#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sdml: <https://sdml.io/sdml-owl.ttl#> .
+
+:   rdf:type owl:Ontology, sdml:Module ;
+    rdfs:label "provider" ;
+    owl:versionIRI <https://example.org/projects/v3/provider#> .
+#+END_SRC
+
+** Consumer
+
+#+BEGIN_SRC sdml :exports code :noeval
+module consumer is
+  import provider
+end
+#+END_SRC
+
+#+BEGIN_SRC ttl :exports code :noeval
+@base <file:///users/me/sdml/modules/consumer#> .
+@prefix : <file:///users/me/sdml/modules/consumer#> .
+@prefix provider: <https://example.org/projects/provider#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sdml: <https://sdml.io/sdml-owl.ttl#> .
+
+:   rdf:type owl:Ontology, sdml:Module ;
+    rdfs:label "consumer" ;
+    owl:imports provider: .
+#+END_SRC
+
+* Alternatives Considered
+
+** Using version identifiers
+
+#+BEGIN_SRC sdml :exports code :noeval
+module provider
+  base <https://example.org/projects/provider#>
+  version "0.3.2"
+is
+end
+#+END_SRC
+
+#+BEGIN_SRC sdml :exports code :noeval
+module consumer is
+  import provider "0.3.2"
+end
+#+END_SRC
+
+** Using version identifiers and resolver
+
+#+BEGIN_SRC json :exports code :noeval
+{
+  "base": "https://example.org/projects/",
+  "entries": {
+    "provider": {
+      "item": {
+        "relative_uri": "provider#",
+        "relative_path": "src/provider.sdm"
+      },
+      "item": {
+        "relative_uri": "provider#",
+        "version": "0.3.2",
+        "relative_path": "src/provider-v3.sdm"
+      }
+    }
+  }
+}
+#+END_SRC
+
+** Using version IRIs
+
+#+BEGIN_SRC sdml :exports code :noeval
+module provider
+  base <https://example.org/projects/provider#>
+  version <https://example.org/projects/v3/provider#>
+is
+end
+#+END_SRC
+
+#+BEGIN_SRC sdml :exports code :noeval
+module consumer is
+  import provider <https://example.org/projects/v3/provider#>
+end
+#+END_SRC
+
+* Proposed Change
+
+TBD
+
+** Surface Syntax
+
+#+BEGIN_SRC sdml :exports code :noeval
+module provider
+  <https://example.org/projects/provider#>
+  version <https://example.org/projects/v3/provider#>
+is
+end
+#+END_SRC
+
+#+BEGIN_SRC sdml :exports code :noeval
+module consumer is
+  import provider <https://example.org/projects/v3/provider#>
+end
+#+END_SRC
+
+** Grammar
+
+From
+
+#+BEGIN_SRC ebnf :exports code :noeval
+Module
+    ::= "module" Identifier ModuleBase? ModuleBody
+
+ModuleBase
+    ::= "base" Iri
+
+ModuleBody
+    ::= "is"
+        ImportStatement* Annotation* Definition*
+        "end"
+
+ImportStatement
+    ::= "import" ( Import | "[" Import+ "]" )
+
+Import
+    ::= MemberImport | ModuleImport
+
+ModuleImport
+    ::= Identifer
+#+END_SRC
+
+To
+
+#+BEGIN_SRC ebnf :exports code :noeval
+Module
+    ::= "module" Identifier ModuleIri? ModuleBody
+
+ModuleIri
+    ::= Iri ( "version" Iri )?
+
+ModuleImport
+    ::= Identifer ( "=" Iri )?
+#+END_SRC
+
+** Resolver File
+
+#+BEGIN_SRC json :exports code :noeval
+{
+  "uri": "https://example.org/projects/",
+  "entries": {
+    "provider": {
+      "item": {
+        "relative_uri": "provider#",
+        "relative_path": "src/provider.sdm"
+      },
+      "item": {
+        "relative_uri": "v3/provider#",
+        "relative_path": "src/provider-v3.sdm"
+      }
+    }
+  }
+}
+#+END_SRC
