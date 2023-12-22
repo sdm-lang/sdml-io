@@ -3,11 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-21 Thu 10:00 -->
+<!-- 2023-12-21 Thu 11:13 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RFC004: Move to Type-State Entities</title>
-<meta name="author" content="Primary Author" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -193,7 +192,7 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { }
 </style>
-<link rel="stylesheet" type="text/css" href="./rfcs.css"/>
+<link rel="stylesheet" type="text/css" href="../plain-sdml.css"/>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -211,8 +210,20 @@
 <ul>
 <li><a href="#org02ae8ec">Introduction</a></li>
 <li><a href="#org453689d">Motivation</a></li>
-<li><a href="#org2868b37">Alternatives Considered</a></li>
-<li><a href="#org1550ed2">Proposed Change</a></li>
+<li><a href="#org2868b37">Alternatives Considered</a>
+<ul>
+<li><a href="#org02b4d9d">States with fields</a></li>
+<li><a href="#org4a523fa">Simple field constraints</a></li>
+<li><a href="#org6340eb2">States separate from fields</a></li>
+<li><a href="#org5c0686c">Potential de-sugaring</a></li>
+</ul>
+</li>
+<li><a href="#org1550ed2">Proposed Change</a>
+<ul>
+<li><a href="#orgfc47c5a">Test cases</a></li>
+<li><a href="#org412b4ac">Impact</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -328,7 +339,7 @@ operations are allowed. In the following invented language we follow the type na
 that the state <code>Closed</code> is a terminal state as it has no operations and so nothing can be legally done with it.
 </p>
 
-<pre class="example" id="org3a60606">
+<pre class="example" id="org279f03a">
 type FileHandle {
   state {
     fn open(path): Self[Open];
@@ -347,7 +358,7 @@ Typically, as in this example type-state languages focus on sequencing of operat
 would be possible, as in:
 </p>
 
-<pre class="example" id="org067b2cd">
+<pre class="example" id="orgc8a930d">
 type FileHandle {
   state {
   }
@@ -367,7 +378,7 @@ type FileHandle {
 <div id="outline-container-org02b4d9d" class="outline-3">
 <h3 id="org02b4d9d">States with fields</h3>
 <div class="outline-text-3" id="text-org02b4d9d">
-<pre class="example" id="orgdfd0ff8">
+<pre class="example" id="org8764d3f">
 entity Shipment is
   identity id -&gt; gs1:ShipmentIdentifier
 
@@ -413,7 +424,7 @@ end
 <div id="outline-container-org4a523fa" class="outline-3">
 <h3 id="org4a523fa">Simple field constraints</h3>
 <div class="outline-text-3" id="text-org4a523fa">
-<pre class="example" id="org25ef340">
+<pre class="example" id="orgfdfbfb8">
 union ShipmentStates of
   Created
   Planned
@@ -438,7 +449,7 @@ entity Shipment is
 end
 </pre>
 
-<pre class="example" id="orgddb538e">
+<pre class="example" id="orga4df201">
   units -&gt; {1..} gs1:LogisticsUnitIdentifier is
     assert state_cardinality is
       self.container.state = Created implies self.min_occurs &gt;= 1
@@ -449,7 +460,7 @@ end
 <div id="outline-container-org6340eb2" class="outline-3">
 <h3 id="org6340eb2">States separate from fields</h3>
 <div class="outline-text-3" id="text-org6340eb2">
-<pre class="example" id="orgfc740e4">
+<pre class="example" id="org9277eda">
 entity Shipment is
   identity id -&gt; gs1:ShipmentIdentifier
 
@@ -487,7 +498,7 @@ end
 <div id="outline-container-org5c0686c" class="outline-3">
 <h3 id="org5c0686c">Potential de-sugaring</h3>
 <div class="outline-text-3" id="text-org5c0686c">
-<pre class="example" id="org49feb2c">
+<pre class="example" id="org546f261">
 structure ShipmentPlanned is
   units -&gt; {1..} gs1:LogisticsUnitIdentifier
 end
@@ -565,8 +576,7 @@ added to the section in the index file.</i>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: Primary Author</p>
-<p class="date">Created: 2023-12-21 Thu 10:00</p>
+<p class="date">Created: 2023-12-21 Thu 11:13</p>
 </div>
 </body>
 </html>

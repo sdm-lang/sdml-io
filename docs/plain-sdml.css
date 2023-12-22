@@ -185,15 +185,6 @@ div#footnotes {
     font-size: 0.8em;
 }
 
-/* Clean-up for work docs */
-
 div#postamble {
-    margin-top: 2em;
-    border-top: 1px solid #A0A0A0;
-    font-weight: 100;
-}
-
-div#postamble p.validation {
     display: none;
-    font-size: 0.8em;
 }

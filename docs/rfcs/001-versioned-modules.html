@@ -3,11 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-12-21 Thu 10:00 -->
+<!-- 2023-12-21 Thu 11:13 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RFC001: Support versioning of modules</title>
-<meta name="author" content="Simon Johnston" />
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -193,7 +192,7 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { }
 </style>
-<link rel="stylesheet" type="text/css" href="./rfcs.css"/>
+<link rel="stylesheet" type="text/css" href="../plain-sdml.css"/>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -210,9 +209,33 @@
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#org14a9140">Introduction</a></li>
-<li><a href="#orgbf494ff">Motivation</a></li>
-<li><a href="#org81d92bd">Alternatives Considered</a></li>
-<li><a href="#orgb35c241">Proposed Change</a></li>
+<li><a href="#orgbf494ff">Motivation</a>
+<ul>
+<li><a href="#org25a9510">Constructing an Ontology</a>
+<ul>
+<li><a href="#orgf6dea3f">Without a base</a></li>
+<li><a href="#orgc793b80">With a base</a></li>
+<li><a href="#org23459b5">With an Owl version info</a></li>
+<li><a href="#org328c943">With an Owl version IRI</a></li>
+</ul>
+</li>
+<li><a href="#org3877ee2">Consumer</a></li>
+</ul>
+</li>
+<li><a href="#org81d92bd">Alternatives Considered</a>
+<ul>
+<li><a href="#orgedc3cd0">Using version identifiers</a></li>
+<li><a href="#orgbe382f9">Using version identifiers and resolver</a></li>
+<li><a href="#org8c812fe">Using version IRIs</a></li>
+</ul>
+</li>
+<li><a href="#orgb35c241">Proposed Change</a>
+<ul>
+<li><a href="#org8b2b77f">Surface Syntax</a></li>
+<li><a href="#orgc578f6f">Grammar</a></li>
+<li><a href="#org83b1b92">Resolver File</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -1243,8 +1266,7 @@ ModuleImport
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-12-21 Thu 10:00</p>
+<p class="date">Created: 2023-12-21 Thu 11:13</p>
 </div>
 </body>
 </html>

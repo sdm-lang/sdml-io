@@ -3,10 +3,10 @@
 #+EMAIL: johnstonskj@gmail.com
 #+LANGUAGE: en
 #+STARTUP: overview hidestars inlineimages entitiespretty
-#+OPTIONS: toc:1
 #+TODO: DRAFT PROPOSED TESTING UPDATING | APPROVED REJECTED WITHDRAWN
 #+TAGS: grammar binding test query example doc
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./rfcs.css"/>
+#+OPTIONS: author:nil created:nil creator:nil date:nil email:nil num:3 toc:t
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../plain-sdml.css"/>
 
 [[./process.org][Process Documentation]]
 

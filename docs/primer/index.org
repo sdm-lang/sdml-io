@@ -5,7 +5,7 @@
 #+LANGUAGE: en
 #+STARTUP: overview hidestars inlineimages entitiespretty
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="sdml-io.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../rtd-sdml.css"/>
 #+LATEX_HEADER: \usepackage{makeidx}
 #+LATEX_HEADER: \makeindex
 #+OPTIONS: toc:3 ^:{}
@@ -18,7 +18,7 @@
 
 #+NAME: img:sdml-logo
 #+ATTR_HTML: :width 75% :height 75%
-[[./logo/svg/square-dark.svg]]
+[[../logo/svg/square-dark.svg]]
 
 This short primer introduces the Simple Domain Modeling Language (SDML) and how you can apply it to model your business
 domain. This is not a replacement for the main SDML [[https://sdml.io][documentation]] but instead a quick tour of the language, it's
