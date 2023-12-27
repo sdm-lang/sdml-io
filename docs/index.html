@@ -7,6 +7,7 @@
     <title>SDML Home</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://kit.fontawesome.com/4af03e899e.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.nerdfonts.com/assets/css/webfont.css">
     <link rel="stylesheet" href="sdml-io.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   </head>
@@ -96,7 +97,7 @@
               <h1 class="title">
                 <p>The Simple Domain Modeling Language (SDML)</p>
               </h1>
-              <div class="subtitle sdml-text-medium is-4">
+              <div class="subtitle sdml-text-medium">
                 <p>
                   Everything you need for <strong>domain modeling</strong> with SDML
                </p>
@@ -108,13 +109,14 @@
         <section class="block content">
           <p>
             The Simple Domain Modeling Language (SDML) is a small data-oriented language for constructing, documenting,
-            and reasoning about a conceptual domain model. At it's core SDML comprises:
+            and reasoning about a conceptual domain model. The SDML language comprises:
           </p>
-            <ol>
-              <li>a <em>semantic model</em> whose structure and semantics are described in RDF by an OWL ontology,</li>
-              <li>a <em>surface syntax</em> for editing and sharing model artifacts, and</li>
-              <li>a <em>constraint language</em> to capture model invariants not covered by the data descriptions in the surface syntax.</li>
-            </ol>
+          <ol>
+            <li>a <em>semantic model</em> whose structure and semantics are described in RDF by an OWL ontology,</li>
+            <li>a <em>surface syntax</em> for editing and sharing model artifacts, and</li>
+            <li>a <em>constraint language</em> to capture model invariants not covered by the data descriptions in the
+              surface syntax.</li>
+          </ol>
         </section>
 
         <section class="block sdml-home-welcome sdml-large-block">
@@ -122,68 +124,183 @@
             <img class="sdml-logo-text" src="./logo/svg/horizontal-text.svg"/>
           </div>
           <div class="sdml-main-body-content">
-            <nav class="sdml-links">
-              <a class="sdml-link" href="./primer/index.html">
-                <span class="icon sdml-link-icon sdml-text-blue">
+            <nav>
+              <a class="sdml-link-card sdml-primer" href="./primer/index.html">
+                <span class="icon">
                   <i class="fas fa-rocket"></i>
                 </span>
-                <div class="sdml-link-body">
-                  <h2 class="sdml-link-title">
+                <div>
+                  <h2>
                     SDML Primer
                   </h2>
-                  <div class="sdml-link-subtitle">
+                  <p>
                     An example based walk-through of the SDML language and tools for new users.
-                  </div>
+                  </p>
                 </div>
               </a>
-              <a class="sdml-link" href="./reference/index.html">
-                <span class="icon sdml-link-icon sdml-text-red">
+              <a class="sdml-link-card sdml-reference" href="./reference/index.html">
+                <span class="icon">
                   <i class="fas fa-book"></i>
                 </span>
-                <div class="sdml-link-body">
-                  <h2 class="sdml-link-title">
+                <div>
+                  <h2>
                     SDML Reference
                   </h2>
-                  <div class="sdml-link-subtitle">
+                  <p>
                     Dive Deeper into the language syntax, semantics, and mappings. Useful for more advanced language
                     topics and for integration developers.
-                  </div>
+                  </p>
                 </div>
               </a>
-              <a class="sdml-link" href="./rfcs/index.html">
-                <span class="icon sdml-link-icon sdml-text-yellow">
+              <a class="sdml-link-card sdml-rfcs" href="./rfcs/index.html">
+                <span class="icon">
                   <i class="fas fa-comments"></i>
                 </span>
-                <div class="sdml-link-body">
-                  <h2 class="sdml-link-title">
+                <div>
+                  <h2>
                     Language RFCs
                   </h2>
-                  <div class="sdml-link-subtitle">
+                  <p>
                     Our process for evolving the SDML Language itself. Browse and comment on current proposed changes.
-                  </div>
+                  </p>
                 </div>
               </a>
-              <a class="sdml-link" href="https://github.com/sdm-lang/">
-                <span class="icon sdml-link-icon sdml-text-magenta">
+              <a class="sdml-link-card sdml-source" href="https://github.com/sdm-lang/">
+                <span class="icon">
                   <i class="fa-brands fa-github"></i>
                 </span>
-                <div class="sdml-link-body">
-                  <h2 class="sdml-link-title">
+                <div>
+                  <h2>
                     Github
                   </h2>
-                  <div class="sdml-link-subtitle">
+                  <p>
                     Browse the repositories of the <em>sdm-lang</em> organization.
-                  </div>
+                  </p>
                 </div>
               </a>
             </nav>
           </div>
         </section>
 
-        <section class="block sdml-home-example sdml-large-block">
+        <section class="block content sdml-language sdml-large-block">
+          <h2>Language Features</h2>
           <div class="columns">
-            <div class="column is-one-quarter has-text-left">
-              <h4 class="sdml-column-header">Language <strong>Features</strong></h4>
+            <div class="column is-two-thirds">
+              <pre class="src src-sdml"><span class="linenr">  1: </span><span class="src-kw">module</span> <span class="src-mod-def">hospitality</span> <span class="src-kw">is</span>
+<span class="linenr">  2: </span>
+<span class="linenr">  3: </span>  <span class="src-kw">import</span> <span class="src-brackets">[</span> <span class="src-mod-ref">dc</span> <span class="src-mod-ref">xsd</span> <span class="src-brackets">]</span>
+<span class="linenr">  4: </span>
+<span class="linenr">  5: </span>  <span class="src-property">@dc:description</span> <span class="src-operator">=</span> <span class="src-lit-string">"Hospitality Model"</span>
+<span class="linenr">  6: </span>  <span class="src-property">@dc:version</span> <span class="src-operator">=</span> <span class="src-lit-string">"2"</span>
+<span class="linenr">  7: </span>  <span class="src-property">@dc:dateCopyrighted</span> <span class="src-operator">=</span> <span class="src-type-ref">xsd:date</span><span class="src-brackets">(</span><span class="src-lit-string">"2023-12-21"</span><span class="src-brackets">)</span>
+<span class="linenr">  8: </span>
+<span class="linenr">  9: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Customer</span>
+<span class="linenr"> 10: </span>
+<span class="linenr"> 11: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Booking</span> <span class="src-kw">is</span>
+<span class="linenr"> 12: </span>    <span class="src-kw">identity</span> booking_code <span class="src-operator">-&gt;</span> <span class="src-builtin-type">string</span>
+<span class="linenr"> 13: </span>    customer <span class="src-operator">-&gt;</span> <span class="src-type-ref">Customer</span>
+<span class="linenr"> 14: </span>    property <span class="src-operator">-&gt;</span> <span class="src-type-ref">Property</span>
+<span class="linenr"> 15: </span>    room_style <span class="src-operator">-&gt;</span> <span class="src-type-ref">RoomStyle</span>
+<span class="linenr"> 16: </span>    room_rate <span class="src-operator">-&gt;</span> <span class="src-type-ref">Currency</span>
+<span class="linenr"> 17: </span>    dates <span class="src-operator">-&gt;</span> <span class="src-type-ref">DateRange</span>
+<span class="linenr"> 18: </span>    number_of_adults <span class="src-operator">-&gt;</span> <span class="src-builtin-type">integer</span>
+<span class="linenr"> 19: </span>    number_of_children <span class="src-operator">-&gt;</span> <span class="src-builtin-type">integer</span>
+<span class="linenr"> 20: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 21: </span>
+<span class="linenr"> 22: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Property</span> <span class="src-comment">;; fill this in later</span>
+<span class="linenr"> 24: </span>
+<span class="linenr"> 25: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Bill</span> <span class="src-kw">is</span>
+<span class="linenr"> 26: </span>    <span class="src-kw">identity</span> transaction_id <span class="src-operator">-&gt;</span> <span class="src-kw">unknown</span>
+<span class="linenr"> 27: </span>    for_stay <span class="src-operator">-&gt;</span> <span class="src-type-ref">Stay</span>
+<span class="linenr"> 28: </span>    charges <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-lit-number">0</span><span class="src-operator">..</span><span class="src-brackets">}</span> <span class="src-type-ref">Purchase</span>
+<span class="linenr"> 29: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 30: </span>
+<span class="linenr"> 31: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Stay</span> <span class="src-kw">is</span>
+<span class="linenr"> 32: </span>    <span class="src-kw">identity</span> id <span class="src-operator">-&gt;</span> <span class="src-kw">unknown</span>
+<span class="linenr"> 33: </span>    booking <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-lit-number">0</span><span class="src-operator">..</span><span class="src-lit-number">1</span><span class="src-brackets">}</span> <span class="src-type-ref">Booking</span>
+<span class="linenr"> 34: </span>    room_number <span class="src-operator">-&gt;</span> <span class="src-builtin-type">unsigned</span>
+<span class="linenr"> 35: </span>    room_rate <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-lit-number">0</span><span class="src-operator">..</span><span class="src-lit-number">1</span><span class="src-brackets">}</span> <span class="src-type-ref">Currency</span> <span class="src-comment">;; if different from booking</span>
+<span class="linenr"> 36: </span>    dates <span class="src-operator">-&gt;</span> <span class="src-type-ref">DateRange</span>
+<span class="linenr"> 37: </span>    tax_percent <span class="src-operator">-&gt;</span> <span class="src-type-ref">RatePercentage</span>
+<span class="linenr"> 38: </span>    discount_percent <span class="src-operator">-&gt;</span> <span class="src-type-ref">RatePercentage</span>
+<span class="linenr"> 39: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 40: </span>
+<span class="linenr"> 41: </span>  <span class="src-kw">datatype</span> <span class="src-type-def">Currency</span> <span class="src-operator">&lt;-</span> <span class="src-builtin-type">decimal</span> <span class="src-kw">is</span>
+<span class="linenr"> 42: </span>    <span class="src-property">@xsd:totalDigits</span> <span class="src-operator">=</span> <span class="src-lit-number">9</span>
+<span class="linenr"> 43: </span>    <span class="src-property">@xsd:fractionDigits</span> <span class="src-operator">=</span> <span class="src-lit-number">3</span>
+<span class="linenr"> 44: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 45: </span>
+<span class="linenr"> 46: </span>  <span class="src-kw">datatype</span> <span class="src-type-def">RatePercentage</span> <span class="src-operator">&lt;-</span> <span class="src-builtin-type">decimal</span> <span class="src-kw">is</span>
+<span class="linenr"> 47: </span>    <span class="src-property">@xsd:totalDigits</span> <span class="src-operator">=</span> <span class="src-lit-number">5</span>
+<span class="linenr"> 48: </span>    <span class="src-property">@xsd:fractionDigits</span> <span class="src-operator">=</span> <span class="src-lit-number">3</span>
+<span class="linenr"> 49: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 50: </span>
+<span class="linenr"> 51: </span>  <span class="src-kw">enum</span> <span class="src-type-def">RoomFeature</span> <span class="src-kw">of</span>
+<span class="linenr"> 52: </span>    <span class="src-variant">View</span>
+<span class="linenr"> 53: </span>    <span class="src-variant">NonSmoking</span>
+<span class="linenr"> 54: </span>    <span class="src-variant">Smoking</span>
+<span class="linenr"> 55: </span>    <span class="src-variant">Accessible</span>
+<span class="linenr"> 56: </span>    <span class="src-variant">OneSingleBed</span>
+<span class="linenr"> 57: </span>    <span class="src-variant">OneDoubleBed</span>
+<span class="linenr"> 58: </span>    <span class="src-variant">OneQueenBed</span>
+<span class="linenr"> 59: </span>    <span class="src-variant">OneKingBed</span>
+<span class="linenr"> 60: </span>    <span class="src-variant">TwoSingleBeds</span>
+<span class="linenr"> 61: </span>    <span class="src-variant">TwoDoubleBeds</span>
+<span class="linenr"> 62: </span>    <span class="src-variant">TwoQueenBeds</span>
+<span class="linenr"> 63: </span>    <span class="src-variant">TwoKingBeds</span>
+<span class="linenr"> 64: </span>    <span class="src-variant">Suite</span>
+<span class="linenr"> 65: </span>    <span class="src-variant">Fridge</span>
+<span class="linenr"> 66: </span>    <span class="src-variant">Kitchen</span>
+<span class="linenr"> 67: </span>    <span class="src-variant">Balcony</span>
+<span class="linenr"> 68: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 69: </span>
+<span class="linenr"> 70: </span>  <span class="src-kw">structure</span> <span class="src-type-def">DateRange</span> <span class="src-kw">is</span>
+<span class="linenr"> 71: </span>    <span class="src-kw">assert</span> <span class="src-constraint">formal_range</span> <span class="src-kw">is</span>
+<span class="linenr"> 72: </span>      <span class="src-kw">∀</span> <span class="src-builtin-var">self</span>, <span class="src-builtin-var">self</span><span class="src-punctuation">.</span><span class="src-func">starts</span> <span class="src-operator">≤</span> <span class="src-builtin-var">self</span><span class="src-punctuation">.</span><span class="src-func">ends</span>
+<span class="linenr"> 73: </span>    <span class="src-kw">end</span>
+<span class="linenr"> 74: </span>
+<span class="linenr"> 75: </span>    starts <span class="src-operator">-&gt;</span> <span class="src-type-ref">xsd:date</span>
+<span class="linenr"> 76: </span>    ends <span class="src-operator">-&gt;</span> <span class="src-type-ref">xsd:date</span>
+<span class="linenr"> 77: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 78: </span>
+<span class="linenr"> 79: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Room</span> <span class="src-kw">is</span>
+<span class="linenr"> 80: </span>    number <span class="src-operator">-&gt;</span> <span class="src-builtin-type">unsigned</span>
+<span class="linenr"> 81: </span>    floor <span class="src-operator">-&gt;</span> <span class="src-builtin-type">unsigned</span>
+<span class="linenr"> 82: </span>    style <span class="src-operator">-&gt;</span> <span class="src-type-ref">RoomStyle</span>
+<span class="linenr"> 83: </span>    additional_features <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-kw">unique</span> <span class="src-lit-number">0</span><span class="src-operator">..</span><span class="src-unbounded">*</span><span class="src-brackets">}</span> <span class="src-type-ref">RoomFeature</span>
+<span class="linenr"> 84: </span>    rate <span class="src-operator">-&gt;</span> <span class="src-type-def">Currency</span>
+<span class="linenr"> 85: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 86: </span>
+<span class="linenr"> 87: </span>  <span class="src-kw">structure</span> <span class="src-type-def">RoomStyle</span> <span class="src-kw">is</span>
+<span class="linenr"> 88: </span>    name <span class="src-operator">-&gt;</span> <span class="src-builtin-type">string</span>
+<span class="linenr"> 89: </span>    features <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-kw">unique</span> <span class="src-lit-number">1</span><span class="src-operator">..</span><span class="src-unbounded">*</span><span class="src-brackets">}</span> <span class="src-type-ref">RoomFeature</span>
+<span class="linenr"> 90: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 91: </span>
+<span class="linenr"> 92: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Charge</span>
+<span class="linenr"> 93: </span>
+<span class="linenr"> 94: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Purchase</span>
+<span class="linenr"> 95: </span>
+<span class="linenr"> 96: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Payment</span> <span class="src-kw">is</span>
+<span class="linenr"> 97: </span>    amount <span class="src-operator">-&gt;</span> <span class="src-type-ref">Currency</span>
+<span class="linenr"> 98: </span>    instrument <span class="src-operator">-&gt;</span> <span class="src-type-ref">PaymentInstrument</span>
+<span class="linenr"> 99: </span>  <span class="src-kw">end</span>
+<span class="linenr">100: </span>
+<span class="linenr">101: </span>  <span class="src-kw">union</span> <span class="src-type-def">PaymentInstrument</span> <span class="src-kw">of</span>
+<span class="linenr">102: </span>    <span class="src-variant">Cash</span>
+<span class="linenr">103: </span>    <span class="src-variant">Card</span>
+<span class="linenr">104: </span>    <span class="src-variant">Credit</span>
+<span class="linenr">105: </span>  <span class="src-kw">end</span>
+<span class="linenr">106: </span>
+<span class="linenr">107: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Cash</span>
+<span class="linenr">108: </span>
+<span class="linenr">109: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Card</span>
+<span class="linenr">110: </span>
+<span class="linenr">111: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Credit</span>
+<span class="linenr">112: </span>
+<span class="linenr">113: </span><span class="src-kw">end</span>
+</pre>
+            </div>
+            <div class="column is-one-third">
               <div class="card sdml-feature-card">
                 <div class="card-content">
                   <div class="content">
@@ -304,7 +421,7 @@
                   </div>
                 </div>
               </div>
-                <div class="card sdml-feature-card">
+              <div class="card sdml-feature-card">
                 <div class="card-content">
                   <div class="content">
                     <span class="icon sdml-text-magenta">
@@ -317,186 +434,124 @@
                 </div>
               </div>
             </div>
-            <div class="column is-half">
-              <pre class="src src-sdml"><span class="linenr">  1: </span><span class="src-kw">module</span> <span class="src-mod-def">hospitality</span> <span class="src-kw">is</span>
-<span class="linenr">  2: </span>
-<span class="linenr">  3: </span>  <span class="src-kw">import</span> <span class="src-brackets">[</span> <span class="src-mod-ref">dc</span> <span class="src-mod-ref">xsd</span> <span class="src-brackets">]</span>
-<span class="linenr">  4: </span>
-<span class="linenr">  5: </span>  <span class="src-property">@dc:description</span> <span class="src-operator">=</span> <span class="src-lit-string">"Hospitality Model"</span>
-<span class="linenr">  6: </span>  <span class="src-property">@dc:version</span> <span class="src-operator">=</span> <span class="src-lit-string">"2"</span>
-<span class="linenr">  7: </span>  <span class="src-property">@dc:dateCopyrighted</span> <span class="src-operator">=</span> <span class="src-type-ref">xsd:date</span><span class="src-brackets">(</span><span class="src-lit-string">"2023-12-21"</span><span class="src-brackets">)</span>
-<span class="linenr">  8: </span>
-<span class="linenr">  9: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Customer</span>
-<span class="linenr"> 10: </span>
-<span class="linenr"> 11: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Booking</span> <span class="src-kw">is</span>
-<span class="linenr"> 12: </span>    <span class="src-kw">identity</span> booking_code <span class="src-operator">-&gt;</span> <span class="src-builtin-type">string</span>
-<span class="linenr"> 13: </span>    customer <span class="src-operator">-&gt;</span> <span class="src-type-ref">Customer</span>
-<span class="linenr"> 14: </span>    property <span class="src-operator">-&gt;</span> <span class="src-type-ref">Property</span>
-<span class="linenr"> 15: </span>    room_style <span class="src-operator">-&gt;</span> <span class="src-type-ref">RoomStyle</span>
-<span class="linenr"> 16: </span>    room_rate <span class="src-operator">-&gt;</span> <span class="src-type-ref">Currency</span>
-<span class="linenr"> 17: </span>    dates <span class="src-operator">-&gt;</span> <span class="src-type-ref">DateRange</span>
-<span class="linenr"> 18: </span>    number_of_adults <span class="src-operator">-&gt;</span> <span class="src-builtin-type">integer</span>
-<span class="linenr"> 19: </span>    number_of_children <span class="src-operator">-&gt;</span> <span class="src-builtin-type">integer</span>
-<span class="linenr"> 20: </span>  <span class="src-kw">end</span>
-<span class="linenr"> 21: </span>
-<span class="linenr"> 22: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Property</span> <span class="src-comment">;; fill this in later</span>
-<span class="linenr"> 24: </span>
-<span class="linenr"> 25: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Bill</span> <span class="src-kw">is</span>
-<span class="linenr"> 26: </span>    <span class="src-kw">identity</span> transaction_id <span class="src-operator">-&gt;</span> <span class="src-kw">unknown</span>
-<span class="linenr"> 27: </span>    for_stay <span class="src-operator">-&gt;</span> <span class="src-type-ref">Stay</span>
-<span class="linenr"> 28: </span>    charges <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-lit-number">0</span><span class="src-operator">..</span><span class="src-brackets">}</span> <span class="src-type-ref">Purchase</span>
-<span class="linenr"> 29: </span>  <span class="src-kw">end</span>
-<span class="linenr"> 30: </span>
-<span class="linenr"> 31: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Stay</span> <span class="src-kw">is</span>
-<span class="linenr"> 32: </span>    <span class="src-kw">identity</span> id <span class="src-operator">-&gt;</span> <span class="src-kw">unknown</span>
-<span class="linenr"> 33: </span>    booking <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-lit-number">0</span><span class="src-operator">..</span><span class="src-lit-number">1</span><span class="src-brackets">}</span> <span class="src-type-ref">Booking</span>
-<span class="linenr"> 34: </span>    room_number <span class="src-operator">-&gt;</span> <span class="src-builtin-type">unsigned</span>
-<span class="linenr"> 35: </span>    room_rate <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-lit-number">0</span><span class="src-operator">..</span><span class="src-lit-number">1</span><span class="src-brackets">}</span> <span class="src-type-ref">Currency</span> <span class="src-comment">;; if different from booking</span>
-<span class="linenr"> 36: </span>    dates <span class="src-operator">-&gt;</span> <span class="src-type-ref">DateRange</span>
-<span class="linenr"> 37: </span>    tax_percent <span class="src-operator">-&gt;</span> <span class="src-type-ref">RatePercentage</span>
-<span class="linenr"> 38: </span>    discount_percent <span class="src-operator">-&gt;</span> <span class="src-type-ref">RatePercentage</span>
-<span class="linenr"> 39: </span>  <span class="src-kw">end</span>
-<span class="linenr"> 40: </span>
-<span class="linenr"> 41: </span>  <span class="src-kw">datatype</span> <span class="src-type-def">Currency</span> <span class="src-operator">&lt;-</span> <span class="src-builtin-type">decimal</span> <span class="src-kw">is</span>
-<span class="linenr"> 42: </span>    <span class="src-property">@xsd:totalDigits</span> <span class="src-operator">=</span> <span class="src-lit-number">9</span>
-<span class="linenr"> 43: </span>    <span class="src-property">@xsd:fractionDigits</span> <span class="src-operator">=</span> <span class="src-lit-number">3</span>
-<span class="linenr"> 44: </span>  <span class="src-kw">end</span>
-<span class="linenr"> 45: </span>
-<span class="linenr"> 46: </span>  <span class="src-kw">datatype</span> <span class="src-type-def">RatePercentage</span> <span class="src-operator">&lt;-</span> <span class="src-builtin-type">decimal</span> <span class="src-kw">is</span>
-<span class="linenr"> 47: </span>    <span class="src-property">@xsd:totalDigits</span> <span class="src-operator">=</span> <span class="src-lit-number">5</span>
-<span class="linenr"> 48: </span>    <span class="src-property">@xsd:fractionDigits</span> <span class="src-operator">=</span> <span class="src-lit-number">3</span>
-<span class="linenr"> 49: </span>  <span class="src-kw">end</span>
-<span class="linenr"> 50: </span>
-<span class="linenr"> 51: </span>  <span class="src-kw">enum</span> <span class="src-type-def">RoomFeature</span> <span class="src-kw">of</span>
-<span class="linenr"> 52: </span>    <span class="src-variant">View</span>
-<span class="linenr"> 53: </span>    <span class="src-variant">NonSmoking</span>
-<span class="linenr"> 54: </span>    <span class="src-variant">Smoking</span>
-<span class="linenr"> 55: </span>    <span class="src-variant">Accessible</span>
-<span class="linenr"> 56: </span>    <span class="src-variant">OneSingleBed</span>
-<span class="linenr"> 57: </span>    <span class="src-variant">OneDoubleBed</span>
-<span class="linenr"> 58: </span>    <span class="src-variant">OneQueenBed</span>
-<span class="linenr"> 59: </span>    <span class="src-variant">OneKingBed</span>
-<span class="linenr"> 60: </span>    <span class="src-variant">TwoSingleBeds</span>
-<span class="linenr"> 61: </span>    <span class="src-variant">TwoDoubleBeds</span>
-<span class="linenr"> 62: </span>    <span class="src-variant">TwoQueenBeds</span>
-<span class="linenr"> 63: </span>    <span class="src-variant">TwoKingBeds</span>
-<span class="linenr"> 64: </span>    <span class="src-variant">Suite</span>
-<span class="linenr"> 65: </span>    <span class="src-variant">Fridge</span>
-<span class="linenr"> 66: </span>    <span class="src-variant">Kitchen</span>
-<span class="linenr"> 67: </span>    <span class="src-variant">Balcony</span>
-<span class="linenr"> 68: </span>  <span class="src-kw">end</span>
-<span class="linenr"> 69: </span>
-<span class="linenr"> 70: </span>  <span class="src-kw">structure</span> <span class="src-type-def">DateRange</span> <span class="src-kw">is</span>
-<span class="linenr"> 71: </span>    <span class="src-kw">assert</span> <span class="src-constraint">formal_range</span> <span class="src-kw">is</span>
-<span class="linenr"> 72: </span>      <span class="src-kw">∀</span> <span class="src-builtin-var">self</span>, <span class="src-builtin-var">self</span><span class="src-punctuation">.</span><span class="src-func">starts</span> <span class="src-operator">≤</span> <span class="src-builtin-var">self</span><span class="src-punctuation">.</span><span class="src-func">ends</span>
-<span class="linenr"> 73: </span>    <span class="src-kw">end</span>
-<span class="linenr"> 74: </span>
-<span class="linenr"> 75: </span>    starts <span class="src-operator">-&gt;</span> <span class="src-type-ref">xsd:date</span>
-<span class="linenr"> 76: </span>    ends <span class="src-operator">-&gt;</span> <span class="src-type-ref">xsd:date</span>
-<span class="linenr"> 77: </span>  <span class="src-kw">end</span>
-<span class="linenr"> 78: </span>
-<span class="linenr"> 79: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Room</span> <span class="src-kw">is</span>
-<span class="linenr"> 80: </span>    number <span class="src-operator">-&gt;</span> <span class="src-builtin-type">unsigned</span>
-<span class="linenr"> 81: </span>    floor <span class="src-operator">-&gt;</span> <span class="src-builtin-type">unsigned</span>
-<span class="linenr"> 82: </span>    style <span class="src-operator">-&gt;</span> <span class="src-type-ref">RoomStyle</span>
-<span class="linenr"> 83: </span>    additional_features <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-kw">unique</span> <span class="src-lit-number">0</span><span class="src-operator">..</span><span class="src-unbounded">*</span><span class="src-brackets">}</span> <span class="src-type-ref">RoomFeature</span>
-<span class="linenr"> 84: </span>    rate <span class="src-operator">-&gt;</span> <span class="src-type-def">Currency</span>
-<span class="linenr"> 85: </span>  <span class="src-kw">end</span>
-<span class="linenr"> 86: </span>
-<span class="linenr"> 87: </span>  <span class="src-kw">structure</span> <span class="src-type-def">RoomStyle</span> <span class="src-kw">is</span>
-<span class="linenr"> 88: </span>    name <span class="src-operator">-&gt;</span> <span class="src-builtin-type">string</span>
-<span class="linenr"> 89: </span>    features <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-kw">unique</span> <span class="src-lit-number">1</span><span class="src-operator">..</span><span class="src-unbounded">*</span><span class="src-brackets">}</span> <span class="src-type-ref">RoomFeature</span>
-<span class="linenr"> 90: </span>  <span class="src-kw">end</span>
-<span class="linenr"> 91: </span>
-<span class="linenr"> 92: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Charge</span>
-<span class="linenr"> 93: </span>
-<span class="linenr"> 94: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Purchase</span>
-<span class="linenr"> 95: </span>
-<span class="linenr"> 96: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Payment</span> <span class="src-kw">is</span>
-<span class="linenr"> 97: </span>    amount <span class="src-operator">-&gt;</span> <span class="src-type-ref">Currency</span>
-<span class="linenr"> 98: </span>    instrument <span class="src-operator">-&gt;</span> <span class="src-type-ref">PaymentInstrument</span>
-<span class="linenr"> 99: </span>  <span class="src-kw">end</span>
-<span class="linenr">100: </span>
-<span class="linenr">101: </span>  <span class="src-kw">union</span> <span class="src-type-def">PaymentInstrument</span> <span class="src-kw">of</span>
-<span class="linenr">102: </span>    <span class="src-variant">Cash</span>
-<span class="linenr">103: </span>    <span class="src-variant">Card</span>
-<span class="linenr">104: </span>    <span class="src-variant">Credit</span>
-<span class="linenr">105: </span>  <span class="src-kw">end</span>
-<span class="linenr">106: </span>
-<span class="linenr">107: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Cash</span>
-<span class="linenr">108: </span>
-<span class="linenr">109: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Card</span>
-<span class="linenr">110: </span>
-<span class="linenr">111: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Credit</span>
-<span class="linenr">112: </span>
-<span class="linenr">113: </span><span class="src-kw">end</span>
-</pre>
+          </div>
+        </section>
+
+        <section id="sdml-integrations" class="block content sdml-integrations sdml-large-block"">
+          <h2>Tools and integrations</h2>
+          <div class="columns">
+            <div class="column">
+              <div class="card">
+                <div class="card-content">
+                  <div class="content">
+                    <span class="icon sdml-text-blue">
+                      <i class="nf nf-dev-visualstudio"></i>
+                    </span>
+                    <strong>Visual Studio</strong> <a href="https://github.com/sdm-lang/sdml-vscode">support</a> is
+                    available in the <a href="https://marketplace.visualstudio.com/items?itemName=SimonJohnston.sdml">marketplace</a>
+                    and provides syntax highlighting, code snippets, and CLI-tool integration for diagram generation.
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-content">
+                  <div class="content">
+                    <span class="icon sdml-text-red">
+                      <i class="fa-duotone fa-flower"></i>
+                    </span>
+                    <strong>TextMate</strong> <a href="https://github.com/sdm-lang/SDML.tmbundle">support</a> includes
+                    syntax highlighting, annotation and definition snippets, symbol-list integration, and CLI-tool
+                    integration for diagram generation.
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-content">
+                  <div class="content">
+                   <span class="icon sdml-text-yellow-dark">
+                     <i class="nf nf-custom-emacs"></i>
+                   </span>
+                   <strong>Emacs</strong> <a href="https://github.com/sdm-lang/emacs-sdml-mode">sdml-mode</a> provides
+                   the most complete and up-to-date support including syntax highlighting based directly on the
+                   tree-sitter grammar, indentation, code-folding, and symbol prettification. It also integrates with
+                   abbreviations, ya-snippets, ispell, flycheck, and org-babel.
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="column is-one-quarter has-text-right">
-              <h4 class="sdml-column-header"><strong>Tools</strong> and integrations</h4>
-              <div class="card sdml-feature-card">
+            <div class="column">
+              <div class="card">
                 <div class="card-content">
                   <div class="content">
-                    <strong>Visual Studio</strong> support is available in the marketplace and provides syntax highlighting,
-                    code snippets, and CLI-tool integration for diagram generation.
+                   <span class="icon sdml-text-magenta">
+                     <i class="nf nf-dev-sublime"></i>
+                   </span>
+                   <strong>Sublime Text</strong> has <a href="https://github.com/sdm-lang/sdml-sublime-text">partially
+                     supported</a> syntax highlighting and some of the TextMate snippets included. The grammar can also
+                   be used by the <code>bat</code> command line tool for highlighting.
                   </div>
                 </div>
               </div>
-              <div class="card sdml-feature-card">
+              <div class="card">
                 <div class="card-content">
                   <div class="content">
-                    <strong>TextMate</strong> support includes syntax highlighting, annotation and definition snippets,
-                    symbol-list integration, and CLI-tool integration for diagram generation.
+                   <span class="icon sdml-text-blue">
+                     <i class="nf nf-fae-tree"></i>
+                   </span>
+                   The SDML surface syntax is defined as a <a href="https://tree-sitter.github.io/tree-sitter/">tree-sitter</a>
+                   grammar. This grammar can be used via the provided C, Rust, Node, or WASM bindings and is directly
+                   supported by some tools.
                   </div>
                 </div>
               </div>
-              <div class="card sdml-feature-card">
+              <div class="card">
                 <div class="card-content">
                   <div class="content">
-                    <strong>Emacs</strong> provides the most complete and up-to-date support including syntax highlighting based
-                    directly on the tree-sitter grammar, indentation, code-folding, and symbol prettification. It
-                    also integrates with abbreviations, ya-snippets, ispell, flycheck, and org-babel.
+                   <span class="icon sdml-text-red">
+                     <i class="fa-duotone fa-industry-windows fa-flip-horizontal"></i>
+                   </span>
+                   The SDML command-line tool generates <strong>UML</strong> class diagrams from modules using
+                   <strong>PlantUML</strong>. These diagrams can be saved in source form allowing for further
+                   off-line editing.
                   </div>
                 </div>
               </div>
-              <div class="card sdml-feature-card">
+            </div>
+            <div class="column">
+              <div class="card">
                 <div class="card-content">
                   <div class="content">
-                    <strong>Sublime Text</strong> has partially supported syntax highlighting and some of the TextMate snippets
-                    included. The grammar can also be used by the <code>bat</code> command line tool for
-                    highlighting.
+                   <span class="icon sdml-text-yellow-dark">
+                     <i class="nf nf-md-graph_outline"></i>
+                   </span>
+                   The SDML command-line tool generates non-UML diagrams, such as <strong>concept diagrams</strong>,
+                   using <strong>GraphViz</strong>. These diagrams can be saved in source form allowing for further
+                   off-line editing.
                   </div>
                 </div>
               </div>
-              <div class="card sdml-feature-card">
+              <div class="card">
                 <div class="card-content">
                   <div class="content">
-                    The SDML command-line tool generates <strong>UML</strong> class diagrams from modules using <strong>PlantUML</strong>.
-                    These diagrams can be saved in source form allowing for further off-line editing.
+                    <span class="icon sdml-text-magenta">
+                      <i class="nf nf-md-semantic_web"></i>
+                    </span>
+                    The SDML command-line tool can generate an <strong>RDF</strong> representation of a module for
+                    integration with model repositories and <strong>OWL</strong>-enabled reasoning tools.
                   </div>
                 </div>
               </div>
-              <div class="card sdml-feature-card">
+              <div class="card">
                 <div class="card-content">
                   <div class="content">
-                    The SDML command-line tool generates non-UML diagrams, such as <strong>concept diagrams</strong>, using <strong>GraphViz</strong>.
-                    These diagrams can be saved in source form allowing for further off-line editing.
-                  </div>
-                </div>
-              </div>
-              <div class="card sdml-feature-card">
-                <div class="card-content">
-                  <div class="content">
-                    The SDML command-line tool can generate an <strong>RDF</strong> representation of a module for integration
-                    with model repositories and <strong>OWL</strong>-enabled reasoning tools.
-                  </div>
-                </div>
-              </div>
-              <div class="card sdml-feature-card">
-                <div class="card-content">
-                  <div class="content">
-                    Documentation in <strong>Markdown</strong> or Emacs <strong>org-mode</strong> can be generated from modules using the SDML
-                    command-line tool.
+                    <span class="icon sdml-text-blue">
+                      <i class="fa-brands fa-markdown"></i>
+                    </span>
+                    <span class="icon sdml-text-red">
+                      <i class="nf nf-custom-orgmode"></i>
+                    </span>
+                    Documentation in <strong>Markdown</strong> or Emacs <strong>org-mode</strong> can be generated from
+                    modules using the SDML command-line tool.
                   </div>
                 </div>
               </div>
@@ -505,16 +560,36 @@
         </section>
 
         <section id="sdml-getting-started" class="block content sdml-getting-started sdml-large-block"">
-          <h2 class="is-4">Let's get started!</h2>
-          <p>Coming soon</p>
+          <h2>Let's get started!</h2>
+          <p>
+            This section will demonstrate the steps necessary to install the SDML tools and integrations so you can
+            start writing your own domain models.
+          </p>
 
           <h4>
             <span class="icon sdml-text-blue">
               <i class="fa-duotone fa-cloud-arrow-down"></i>
             </span>
-            Download
+            Installer
           </h4>
-          <p>Coming soon</p>
+          <p>
+            A <em>partial</em> installer script is provided that will install necessary prerequisites and the SDML tools
+            themselves. This script requires the <a href="https://brew.sh/">Homebrew</a> package manager; because the
+            script was developed on, and for, Mac systems, it may work on Linux, but at this time has no Windows
+            counterpart. The following is the easiest way to execute the installer.
+          </p>
+
+          <pre>$ curl https://sdml.io/install.sh | bash</pre>
+
+          <p>The script performs the following tasks</p>
+
+          <ol>
+            <li>Install <a href="https://plantuml.com/">PlantUML</a>, for use in producing UML diagrams.</li>
+            <li>Install <a href="https://graphviz.org/">GraphViz</a>, for use in producing other diagrams.</li>
+            <li>Install <a href="https://rust-lang.github.io/rustup/">Rustup</a>, for the <code>cargo</code> command.</li>
+            <li>Using cargo, install the sdml-cli package, for the <code>sdml</code> command.</li>
+            <li>Prompt the user to install an editor and associated language support packages.</li>
+          </ol>
 
           <h4>
             <span class="icon sdml-text-red">
@@ -522,12 +597,13 @@
             </span>
             Editor
           </h4>
-          <p>Coming soon</p>
-
           <p>
             As a text language it is important that a good editor is available to help the author use SDML in an
             efficient manner. Extensions have been developed for a set of editors, and while not exhaustive, it covers
-            the most popular. For new users we recommend Visual Studio Code.
+            the most popular. For new users we recommend Visual Studio Code. The installer script above will attempt
+            to install one of the supported text editors along with the SDML integration for it. However, if you wish to
+            do this manually, or find that the installer does not work with your development environment the following
+            are the steps necessary for major editors.
           </p>
 
           <div class="card edit-tabs-card">
@@ -598,7 +674,7 @@
                     <pre>$ curl https://raw.githubusercontent.com/sdm-lang/sdml-sublime-text/main/install.sh | sh</pre>
                     <p>
                       Alternatively, you can download a release zip file from Github
-                      (<a href="https://github.com/sdm-lang/SDML.tmbundlesdml-sublime-text">sdm-lang/SDML.tmbundlesdml-sublime-text</a>)
+                      (<a href="https://github.com/sdm-lang/sdml-sublime-text">sdm-lang/sdml-sublime-text</a>)
                       and unzip into the Sublime Text "Packages" directory.
                     </p>
                   </div>
@@ -609,19 +685,130 @@
 
           <h4>
             <span class="icon sdml-text-yellow-dark">
+              <i class="fa-duotone fa-square-terminal"></i>
+            </span>
+            Command-Line Interface (CLI)
+          </h4>
+          <p>
+            The SDML command-line tool is used to validate module source files as well as generate different
+            representations and diagrams from the source. Once installed the option <code>--help</code> or the command
+            <code>help</code> will guide you through the commands available.
+          </p>
+
+          <pre>$ sdml --help
+Rust CLI for Simple Domain Modeling Language (SDML)
+
+<strong><u>Usage:</u> sdml</strong> [OPTIONS] <COMMAND>
+
+<strong><u>Commands:</u></strong>
+  <strong>doc</strong>        Document a module
+  <strong>deps</strong>       Show module dependencies
+  <strong>tags</strong>       Extract tags from a module
+  <strong>highlight</strong>  Syntax highlight a module source
+  <strong>convert</strong>    Convert a module into other formats
+  <strong>draw</strong>       Draw diagrams from a module
+  <strong>version</strong>    Show tool and library versions
+  <strong>help</strong>       Print this message or the help of the given subcommand(s)
+
+<strong><u>Options:</u></strong>
+  -v, --verbose..</strong>.  More output per occurrence
+  -q, --quiet..</strong>.    Less output per occurrence
+  -h, --help</strong>        Print help
+  -V, --version</strong>     Print version
+</pre>
+
+          <p>
+            If you wish to install the command-line tool on it's own, without using the install script above, it is
+            simple using the Rust language's <code>cargo install sdml-cli</code> command. If you do not have cargo
+            installed you can follow
+            <a href="https://doc.rust-lang.org/cargo/getting-started/installation.html"><em>Installing Cargo</em></a>
+            in the Cargo book, or use Homebrew to install <code>rustup-init</code>.
+          </p>
+
+          <p>
+            To list the dependencies of a module the <code>deps</code> command will print them as a tree, as shown
+            below. It can also output the dependencies as a GraphViz dot file or as RDF triples.
+          </p>
+
+          <pre>$ sdml deps --depth 2 --input-file rentals-5.sdm
+rentals
+├── xsd
+├── cids
+│   ├── dc
+│   └── skos
+├── skos
+└── dc
+</pre>
+
+          <p>
+            The <code>tags</code> command will output a <em>ctags</em> file for tools that use them for determining the
+            location of symbol definitions.
+          </p>
+
+          <pre>$ sdml tags --input-file rentals-5.sdm
+Basic	rentals-5.sdm	436go
+Booking	rentals-5.sdm	934go
+Compact	rentals-5.sdm	305go
+CompactUtilityVehicle	rentals-5.sdm	330go
+Customer	rentals-5.sdm	859go
+CustomerLevel	rentals-5.sdm	415go
+...
+</pre>
+
+          <h4>
+            <span class="icon sdml-text-magenta">
               <i class="fa-duotone fa-diagram-project"></i>
             </span>
             Diagram
           </h4>
           <p>Coming soon</p>
 
+          <pre>$ sdml draw --help
+Draw diagrams from a module
+
+<strong><u>Usage:</u> sdml draw</strong> [OPTIONS] <strong>--diagram</strong> <DIAGRAM> [MODULE]
+
+<strong><u>Arguments:</u></strong>
+  [MODULE]
+          SDML module, loaded using the standard resolver
+
+<strong><u>Options:</u></strong>
+  <strong>-d, --diagram</strong> <DIAGRAM>
+          Diagram to draw
+
+          Possible values:
+          - <strong>concepts:</strong>            Concept Overview
+          - <strong>entity-relationship:</strong> Entity Relationship
+          - <strong>uml-class:</strong>           UML Class
+</pre>
+
           <h4>
-            <span class="icon sdml-text-magenta">
+            <span class="icon sdml-text-blue">
               <i class="fa-duotone fa-file-import"></i>
             </span>
             Document
           </h4>
           <p>Coming soon</p>
+
+          <pre>$ sdml doc --help
+Document a module
+
+<strong><u>Usage:</u> sdml doc</strong> [OPTIONS] [MODULE]
+
+<strong><u>Arguments:</u></strong>
+  [MODULE]
+          SDML module, loaded using the standard resolver
+
+<strong><u>Options:</u></strong>
+  <strong>-f, --output-format</strong> <OUTPUT_FORMAT>
+          Format to convert into
+
+          [default: org-mode]
+
+          Possible values:
+          - <strong>org-mode</strong>: Emacs org-mode
+          - <strong>markdown</strong>: Markdown
+</pre>
 
         </section>
 

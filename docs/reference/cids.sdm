@@ -1,0 +1,10 @@
+module cids is 
+
+  import [ dc skos ]
+
+  @skos:prefLabel="CIDS"@en
+  @skos:altLabel = "Common Identifiers"@en
+
+  datatype VehicleIdentificationNumber <- string
+
+end
