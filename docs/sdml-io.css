@@ -209,66 +209,122 @@ footer .content p .hashtag::before {
     color: #e68ebc;
 }
 
-/* Code */
-pre.src {}
+/* Source Code -- Base https://simonkjohnston.life/solarized.html */
+pre.src {
+    background-color: #fdf6e3;
+    color: #002b36;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8em;
+    font-weight: 400;
+}
 pre.src .linenr {
-    color: #7a7a7a;
-}
-pre.src-sdml {}
-pre.src-sdml .src-kw {
-    color: #859900;
-}
-pre.src-sdml .src-mod-def {
-    color: #268bd2;
-    font-weight: bold;
-}
-pre.src-sdml .src-mod-ref {
-    color: #268bd2;
-}
-pre.src-sdml .src-type-def {
-    color: #268bd2;
-    font-weight: bold;
-}
-pre.src-sdml .src-type-ref {
-    color: #268bd2;
-}
-pre.src-sdml .src-operator {
-    color: #b58900;
-}
-pre.src-sdml .src-func {
-    color: #b58900;
-}
-pre.src-sdml .src-builtin-type {
-    color: #6c71c4;
-}
-pre.src-sdml .src-builtin-var {
-    color: #6c71c4;
-}
-pre.src-sdml .src-brackets {
     color: #657b83;
 }
-pre.src-sdml .src-punctuation {
-    color: #657b83;
+pre.src .keyword {
+    color: #b58900;
 }
-pre.src-sdml .src-comment {
-    color: #b5b5b5;
+pre.src .operator {
+    color: #b58900;
+    font-weight: 300;
+}
+pre.src .type-definition {
+    color: #268bd2;
+    font-weight: 600;
+}
+pre.src .type {
+    color: #268bd2;
+}
+pre.src .type-builtin {
+    color: #6c71c4;
+}
+pre.src .module-definition {
+    color: #268bd2;
+    font-weight: 600;
+}
+pre.src .module {
+    color: #268bd2;
+}
+pre.src .punctuation {
+    color: #586e75;
+    font-weight: 300;
+}
+pre.src .punctuation-separator {
+    color: #586e75;
+    font-weight: 300;
+}
+pre.src .punctuation-bracket {
+    color: #586e75;
+    font-weight: 300;
+}
+pre.src .comment { /* plus: comment-line, comment-block */
+    color: #93a1a1;
     font-style: italic;
+    font-weight: 300;
 }
-pre.src-sdml .src-property {
-    color: #d33682;
+pre.src .variable.definition {
+    color: #cb4b16;
+    font-weight: 600;
 }
-pre.src-sdml .src-constraint {
-    color: #d33682;
+pre.src .variable {
+    color: #cb4b16;
 }
-pre.src-sdml .src-lit-number {
-    color: #268bd2;
+pre.src .variable-builtin {
+    color: #cb4b16;
 }
-pre.src-sdml .src-lit-string {
+pre.src .function-definition {
+    color: #2aa198;
+    font-weight: 600;
+}
+pre.src .function-call {
     color: #2aa198;
 }
-pre.src-sdml .src-variant {
+pre.src .function-builtin-call {
+    color: #2aa198;
+}
+pre.src .property {
+    color: #d33682;
+}
+pre.src .literal {
+    color: #859900;
+    font-weight: 500;
+}
+pre.src .constant {
+    color: #859900;
+    font-weight: 500;
+}
+
+/* Source Code -- SDML */
+pre.src-sdml .type-variant {
     color: #268bd2;
 }
-pre.src-sdml .src-unbounded {
-    color: #268bd2;
+pre.src-sdml .property-annotation {
+    color: #d33682;
+}
+pre.src-sdml .property-constraint {
+    color: #d33682;
+}
+pre.src-sdml .literal-number {
+    color: #859900;
+    font-weight: 500;
+}
+pre.src-sdml .literal-string {
+    color: #859900;
+    font-weight: 500;
+}
+pre.src-sdml .constant-unbounded {
+    color: #859900;
+}
+
+pre.src-repl .prompt {
+    color: #93a1a1;
+}
+pre.src-repl .command {
+    font-weight: 500;
+}
+pre.src-repl strong {
+    font-weight: 600;
+}
+pre.src-repl em {
+    font-style: normal;
+    text-decoration: underline;
 }

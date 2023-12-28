@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://kit.fontawesome.com/4af03e899e.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://www.nerdfonts.com/assets/css/webfont.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400,500,600,700&display=swap">
     <link rel="stylesheet" href="sdml-io.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   </head>
@@ -183,121 +184,121 @@
         </section>
 
         <section class="block content sdml-language sdml-large-block">
-          <h2>Language Features</h2>
+          <h2>Language features</h2>
           <div class="columns">
             <div class="column is-two-thirds">
-              <pre class="src src-sdml"><span class="linenr">  1: </span><span class="src-kw">module</span> <span class="src-mod-def">hospitality</span> <span class="src-kw">is</span>
+              <pre class="src src-sdml"><span class="linenr">  1: </span><span class="keyword">module</span> <span class="module-definition">hospitality</span> <span class="keyword">is</span>
 <span class="linenr">  2: </span>
-<span class="linenr">  3: </span>  <span class="src-kw">import</span> <span class="src-brackets">[</span> <span class="src-mod-ref">dc</span> <span class="src-mod-ref">xsd</span> <span class="src-brackets">]</span>
+<span class="linenr">  3: </span>  <span class="keyword">import</span> <span class="punctuation-bracket">[</span> <span class="module-reference">dc</span> <span class="module-reference">xsd</span> <span class="punctuation-bracket">]</span>
 <span class="linenr">  4: </span>
-<span class="linenr">  5: </span>  <span class="src-property">@dc:description</span> <span class="src-operator">=</span> <span class="src-lit-string">"Hospitality Model"</span>
-<span class="linenr">  6: </span>  <span class="src-property">@dc:version</span> <span class="src-operator">=</span> <span class="src-lit-string">"2"</span>
-<span class="linenr">  7: </span>  <span class="src-property">@dc:dateCopyrighted</span> <span class="src-operator">=</span> <span class="src-type-ref">xsd:date</span><span class="src-brackets">(</span><span class="src-lit-string">"2023-12-21"</span><span class="src-brackets">)</span>
+<span class="linenr">  5: </span>  <span class="property-annotation">@dc:description</span> <span class="operator">=</span> <span class="literal-string">"Hospitality Model"</span>
+<span class="linenr">  6: </span>  <span class="property-annotation">@dc:version</span> <span class="operator">=</span> <span class="literal-string">"2"</span>
+<span class="linenr">  7: </span>  <span class="property-annotation">@dc:dateCopyrighted</span> <span class="operator">=</span> <span class="type-reference">xsd:date</span><span class="punctuation-bracket">(</span><span class="literal-string">"2023-12-21"</span><span class="punctuation-bracket">)</span>
 <span class="linenr">  8: </span>
-<span class="linenr">  9: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Customer</span>
+<span class="linenr">  9: </span>  <span class="keyword">entity</span> <span class="type-definition">Customer</span>
 <span class="linenr"> 10: </span>
-<span class="linenr"> 11: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Booking</span> <span class="src-kw">is</span>
-<span class="linenr"> 12: </span>    <span class="src-kw">identity</span> booking_code <span class="src-operator">-&gt;</span> <span class="src-builtin-type">string</span>
-<span class="linenr"> 13: </span>    customer <span class="src-operator">-&gt;</span> <span class="src-type-ref">Customer</span>
-<span class="linenr"> 14: </span>    property <span class="src-operator">-&gt;</span> <span class="src-type-ref">Property</span>
-<span class="linenr"> 15: </span>    room_style <span class="src-operator">-&gt;</span> <span class="src-type-ref">RoomStyle</span>
-<span class="linenr"> 16: </span>    room_rate <span class="src-operator">-&gt;</span> <span class="src-type-ref">Currency</span>
-<span class="linenr"> 17: </span>    dates <span class="src-operator">-&gt;</span> <span class="src-type-ref">DateRange</span>
-<span class="linenr"> 18: </span>    number_of_adults <span class="src-operator">-&gt;</span> <span class="src-builtin-type">integer</span>
-<span class="linenr"> 19: </span>    number_of_children <span class="src-operator">-&gt;</span> <span class="src-builtin-type">integer</span>
-<span class="linenr"> 20: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 11: </span>  <span class="keyword">entity</span> <span class="type-definition">Booking</span> <span class="keyword">is</span>
+<span class="linenr"> 12: </span>    <span class="keyword">identity</span> booking_code <span class="operator">-&gt;</span> <span class="type-builtin-reference">string</span>
+<span class="linenr"> 13: </span>    customer <span class="operator">-&gt;</span> <span class="type-reference">Customer</span>
+<span class="linenr"> 14: </span>    property <span class="operator">-&gt;</span> <span class="type-reference">Property</span>
+<span class="linenr"> 15: </span>    room_style <span class="operator">-&gt;</span> <span class="type-reference">RoomStyle</span>
+<span class="linenr"> 16: </span>    room_rate <span class="operator">-&gt;</span> <span class="type-reference">Currency</span>
+<span class="linenr"> 17: </span>    dates <span class="operator">-&gt;</span> <span class="type-reference">DateRange</span>
+<span class="linenr"> 18: </span>    number_of_adults <span class="operator">-&gt;</span> <span class="type-builtin-reference">integer</span>
+<span class="linenr"> 19: </span>    number_of_children <span class="operator">-&gt;</span> <span class="type-builtin-reference">integer</span>
+<span class="linenr"> 20: </span>  <span class="keyword">end</span>
 <span class="linenr"> 21: </span>
-<span class="linenr"> 22: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Property</span> <span class="src-comment">;; fill this in later</span>
+<span class="linenr"> 22: </span>  <span class="keyword">entity</span> <span class="type-definition">Property</span> <span class="comment">;; fill this in later</span>
 <span class="linenr"> 24: </span>
-<span class="linenr"> 25: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Bill</span> <span class="src-kw">is</span>
-<span class="linenr"> 26: </span>    <span class="src-kw">identity</span> transaction_id <span class="src-operator">-&gt;</span> <span class="src-kw">unknown</span>
-<span class="linenr"> 27: </span>    for_stay <span class="src-operator">-&gt;</span> <span class="src-type-ref">Stay</span>
-<span class="linenr"> 28: </span>    charges <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-lit-number">0</span><span class="src-operator">..</span><span class="src-brackets">}</span> <span class="src-type-ref">Purchase</span>
-<span class="linenr"> 29: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 25: </span>  <span class="keyword">entity</span> <span class="type-definition">Bill</span> <span class="keyword">is</span>
+<span class="linenr"> 26: </span>    <span class="keyword">identity</span> transaction_id <span class="operator">-&gt;</span> <span class="keyword">unknown</span>
+<span class="linenr"> 27: </span>    for_stay <span class="operator">-&gt;</span> <span class="type-reference">Stay</span>
+<span class="linenr"> 28: </span>    charges <span class="operator">-&gt;</span> <span class="punctuation-bracket">{</span><span class="literal-number">0</span><span class="operator">..</span><span class="punctuation-bracket">}</span> <span class="type-reference">Purchase</span>
+<span class="linenr"> 29: </span>  <span class="keyword">end</span>
 <span class="linenr"> 30: </span>
-<span class="linenr"> 31: </span>  <span class="src-kw">entity</span> <span class="src-type-def">Stay</span> <span class="src-kw">is</span>
-<span class="linenr"> 32: </span>    <span class="src-kw">identity</span> id <span class="src-operator">-&gt;</span> <span class="src-kw">unknown</span>
-<span class="linenr"> 33: </span>    booking <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-lit-number">0</span><span class="src-operator">..</span><span class="src-lit-number">1</span><span class="src-brackets">}</span> <span class="src-type-ref">Booking</span>
-<span class="linenr"> 34: </span>    room_number <span class="src-operator">-&gt;</span> <span class="src-builtin-type">unsigned</span>
-<span class="linenr"> 35: </span>    room_rate <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-lit-number">0</span><span class="src-operator">..</span><span class="src-lit-number">1</span><span class="src-brackets">}</span> <span class="src-type-ref">Currency</span> <span class="src-comment">;; if different from booking</span>
-<span class="linenr"> 36: </span>    dates <span class="src-operator">-&gt;</span> <span class="src-type-ref">DateRange</span>
-<span class="linenr"> 37: </span>    tax_percent <span class="src-operator">-&gt;</span> <span class="src-type-ref">RatePercentage</span>
-<span class="linenr"> 38: </span>    discount_percent <span class="src-operator">-&gt;</span> <span class="src-type-ref">RatePercentage</span>
-<span class="linenr"> 39: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 31: </span>  <span class="keyword">entity</span> <span class="type-definition">Stay</span> <span class="keyword">is</span>
+<span class="linenr"> 32: </span>    <span class="keyword">identity</span> id <span class="operator">-&gt;</span> <span class="keyword">unknown</span>
+<span class="linenr"> 33: </span>    booking <span class="operator">-&gt;</span> <span class="punctuation-bracket">{</span><span class="literal-number">0</span><span class="operator">..</span><span class="literal-number">1</span><span class="punctuation-bracket">}</span> <span class="type-reference">Booking</span>
+<span class="linenr"> 34: </span>    room_number <span class="operator">-&gt;</span> <span class="type-builtin-reference">unsigned</span>
+<span class="linenr"> 35: </span>    room_rate <span class="operator">-&gt;</span> <span class="punctuation-bracket">{</span><span class="literal-number">0</span><span class="operator">..</span><span class="literal-number">1</span><span class="punctuation-bracket">}</span> <span class="type-reference">Currency</span> <span class="comment">;; if different from booking</span>
+<span class="linenr"> 36: </span>    dates <span class="operator">-&gt;</span> <span class="type-reference">DateRange</span>
+<span class="linenr"> 37: </span>    tax_percent <span class="operator">-&gt;</span> <span class="type-reference">RatePercentage</span>
+<span class="linenr"> 38: </span>    discount_percent <span class="operator">-&gt;</span> <span class="type-reference">RatePercentage</span>
+<span class="linenr"> 39: </span>  <span class="keyword">end</span>
 <span class="linenr"> 40: </span>
-<span class="linenr"> 41: </span>  <span class="src-kw">datatype</span> <span class="src-type-def">Currency</span> <span class="src-operator">&lt;-</span> <span class="src-builtin-type">decimal</span> <span class="src-kw">is</span>
-<span class="linenr"> 42: </span>    <span class="src-property">@xsd:totalDigits</span> <span class="src-operator">=</span> <span class="src-lit-number">9</span>
-<span class="linenr"> 43: </span>    <span class="src-property">@xsd:fractionDigits</span> <span class="src-operator">=</span> <span class="src-lit-number">3</span>
-<span class="linenr"> 44: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 41: </span>  <span class="keyword">datatype</span> <span class="type-definition">Currency</span> <span class="operator">&lt;-</span> <span class="type-builtin-reference">decimal</span> <span class="keyword">is</span>
+<span class="linenr"> 42: </span>    <span class="property-annotation">@xsd:totalDigits</span> <span class="operator">=</span> <span class="literal-number">9</span>
+<span class="linenr"> 43: </span>    <span class="property-annotation">@xsd:fractionDigits</span> <span class="operator">=</span> <span class="literal-number">3</span>
+<span class="linenr"> 44: </span>  <span class="keyword">end</span>
 <span class="linenr"> 45: </span>
-<span class="linenr"> 46: </span>  <span class="src-kw">datatype</span> <span class="src-type-def">RatePercentage</span> <span class="src-operator">&lt;-</span> <span class="src-builtin-type">decimal</span> <span class="src-kw">is</span>
-<span class="linenr"> 47: </span>    <span class="src-property">@xsd:totalDigits</span> <span class="src-operator">=</span> <span class="src-lit-number">5</span>
-<span class="linenr"> 48: </span>    <span class="src-property">@xsd:fractionDigits</span> <span class="src-operator">=</span> <span class="src-lit-number">3</span>
-<span class="linenr"> 49: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 46: </span>  <span class="keyword">datatype</span> <span class="type-definition">RatePercentage</span> <span class="operator">&lt;-</span> <span class="type-builtin-reference">decimal</span> <span class="keyword">is</span>
+<span class="linenr"> 47: </span>    <span class="property-annotation">@xsd:totalDigits</span> <span class="operator">=</span> <span class="literal-number">5</span>
+<span class="linenr"> 48: </span>    <span class="property-annotation">@xsd:fractionDigits</span> <span class="operator">=</span> <span class="literal-number">3</span>
+<span class="linenr"> 49: </span>  <span class="keyword">end</span>
 <span class="linenr"> 50: </span>
-<span class="linenr"> 51: </span>  <span class="src-kw">enum</span> <span class="src-type-def">RoomFeature</span> <span class="src-kw">of</span>
-<span class="linenr"> 52: </span>    <span class="src-variant">View</span>
-<span class="linenr"> 53: </span>    <span class="src-variant">NonSmoking</span>
-<span class="linenr"> 54: </span>    <span class="src-variant">Smoking</span>
-<span class="linenr"> 55: </span>    <span class="src-variant">Accessible</span>
-<span class="linenr"> 56: </span>    <span class="src-variant">OneSingleBed</span>
-<span class="linenr"> 57: </span>    <span class="src-variant">OneDoubleBed</span>
-<span class="linenr"> 58: </span>    <span class="src-variant">OneQueenBed</span>
-<span class="linenr"> 59: </span>    <span class="src-variant">OneKingBed</span>
-<span class="linenr"> 60: </span>    <span class="src-variant">TwoSingleBeds</span>
-<span class="linenr"> 61: </span>    <span class="src-variant">TwoDoubleBeds</span>
-<span class="linenr"> 62: </span>    <span class="src-variant">TwoQueenBeds</span>
-<span class="linenr"> 63: </span>    <span class="src-variant">TwoKingBeds</span>
-<span class="linenr"> 64: </span>    <span class="src-variant">Suite</span>
-<span class="linenr"> 65: </span>    <span class="src-variant">Fridge</span>
-<span class="linenr"> 66: </span>    <span class="src-variant">Kitchen</span>
-<span class="linenr"> 67: </span>    <span class="src-variant">Balcony</span>
-<span class="linenr"> 68: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 51: </span>  <span class="keyword">enum</span> <span class="type-definition">RoomFeature</span> <span class="keyword">of</span>
+<span class="linenr"> 52: </span>    <span class="type-variant">View</span>
+<span class="linenr"> 53: </span>    <span class="type-variant">NonSmoking</span>
+<span class="linenr"> 54: </span>    <span class="type-variant">Smoking</span>
+<span class="linenr"> 55: </span>    <span class="type-variant">Accessible</span>
+<span class="linenr"> 56: </span>    <span class="type-variant">OneSingleBed</span>
+<span class="linenr"> 57: </span>    <span class="type-variant">OneDoubleBed</span>
+<span class="linenr"> 58: </span>    <span class="type-variant">OneQueenBed</span>
+<span class="linenr"> 59: </span>    <span class="type-variant">OneKingBed</span>
+<span class="linenr"> 60: </span>    <span class="type-variant">TwoSingleBeds</span>
+<span class="linenr"> 61: </span>    <span class="type-variant">TwoDoubleBeds</span>
+<span class="linenr"> 62: </span>    <span class="type-variant">TwoQueenBeds</span>
+<span class="linenr"> 63: </span>    <span class="type-variant">TwoKingBeds</span>
+<span class="linenr"> 64: </span>    <span class="type-variant">Suite</span>
+<span class="linenr"> 65: </span>    <span class="type-variant">Fridge</span>
+<span class="linenr"> 66: </span>    <span class="type-variant">Kitchen</span>
+<span class="linenr"> 67: </span>    <span class="type-variant">Balcony</span>
+<span class="linenr"> 68: </span>  <span class="keyword">end</span>
 <span class="linenr"> 69: </span>
-<span class="linenr"> 70: </span>  <span class="src-kw">structure</span> <span class="src-type-def">DateRange</span> <span class="src-kw">is</span>
-<span class="linenr"> 71: </span>    <span class="src-kw">assert</span> <span class="src-constraint">formal_range</span> <span class="src-kw">is</span>
-<span class="linenr"> 72: </span>      <span class="src-kw">∀</span> <span class="src-builtin-var">self</span>, <span class="src-builtin-var">self</span><span class="src-punctuation">.</span><span class="src-func">starts</span> <span class="src-operator">≤</span> <span class="src-builtin-var">self</span><span class="src-punctuation">.</span><span class="src-func">ends</span>
-<span class="linenr"> 73: </span>    <span class="src-kw">end</span>
+<span class="linenr"> 70: </span>  <span class="keyword">structure</span> <span class="type-definition">DateRange</span> <span class="keyword">is</span>
+<span class="linenr"> 71: </span>    <span class="keyword">assert</span> <span class="property-constraint">formal_range</span> <span class="keyword">is</span>
+<span class="linenr"> 72: </span>      <span class="keyword">∀</span> <span class="variable-builtin">self</span><span class="punctuation-separator">,</span> <span class="variable-builtin">self</span><span class="punctuation-separator">.</span><span class="function-call">starts</span> <span class="operator">≤</span> <span class="variable-builtin">self</span><span class="punctuation-separator">.</span><span class="function-call">ends</span>
+<span class="linenr"> 73: </span>    <span class="keyword">end</span>
 <span class="linenr"> 74: </span>
-<span class="linenr"> 75: </span>    starts <span class="src-operator">-&gt;</span> <span class="src-type-ref">xsd:date</span>
-<span class="linenr"> 76: </span>    ends <span class="src-operator">-&gt;</span> <span class="src-type-ref">xsd:date</span>
-<span class="linenr"> 77: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 75: </span>    starts <span class="operator">-&gt;</span> <span class="type-reference">xsd:date</span>
+<span class="linenr"> 76: </span>    ends <span class="operator">-&gt;</span> <span class="type-reference">xsd:date</span>
+<span class="linenr"> 77: </span>  <span class="keyword">end</span>
 <span class="linenr"> 78: </span>
-<span class="linenr"> 79: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Room</span> <span class="src-kw">is</span>
-<span class="linenr"> 80: </span>    number <span class="src-operator">-&gt;</span> <span class="src-builtin-type">unsigned</span>
-<span class="linenr"> 81: </span>    floor <span class="src-operator">-&gt;</span> <span class="src-builtin-type">unsigned</span>
-<span class="linenr"> 82: </span>    style <span class="src-operator">-&gt;</span> <span class="src-type-ref">RoomStyle</span>
-<span class="linenr"> 83: </span>    additional_features <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-kw">unique</span> <span class="src-lit-number">0</span><span class="src-operator">..</span><span class="src-unbounded">*</span><span class="src-brackets">}</span> <span class="src-type-ref">RoomFeature</span>
-<span class="linenr"> 84: </span>    rate <span class="src-operator">-&gt;</span> <span class="src-type-def">Currency</span>
-<span class="linenr"> 85: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 79: </span>  <span class="keyword">structure</span> <span class="type-definition">Room</span> <span class="keyword">is</span>
+<span class="linenr"> 80: </span>    number <span class="operator">-&gt;</span> <span class="type-builtin-reference">unsigned</span>
+<span class="linenr"> 81: </span>    floor <span class="operator">-&gt;</span> <span class="type-builtin-reference">unsigned</span>
+<span class="linenr"> 82: </span>    style <span class="operator">-&gt;</span> <span class="type-reference">RoomStyle</span>
+<span class="linenr"> 83: </span>    additional_features <span class="operator">-&gt;</span> <span class="punctuation-bracket">{</span><span class="keyword">unique</span> <span class="literal-number">0</span><span class="operator">..</span><span class="constant-unbounded">*</span><span class="punctuation-bracket">}</span> <span class="type-reference">RoomFeature</span>
+<span class="linenr"> 84: </span>    rate <span class="operator">-&gt;</span> <span class="type-definition">Currency</span>
+<span class="linenr"> 85: </span>  <span class="keyword">end</span>
 <span class="linenr"> 86: </span>
-<span class="linenr"> 87: </span>  <span class="src-kw">structure</span> <span class="src-type-def">RoomStyle</span> <span class="src-kw">is</span>
-<span class="linenr"> 88: </span>    name <span class="src-operator">-&gt;</span> <span class="src-builtin-type">string</span>
-<span class="linenr"> 89: </span>    features <span class="src-operator">-&gt;</span> <span class="src-brackets">{</span><span class="src-kw">unique</span> <span class="src-lit-number">1</span><span class="src-operator">..</span><span class="src-unbounded">*</span><span class="src-brackets">}</span> <span class="src-type-ref">RoomFeature</span>
-<span class="linenr"> 90: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 87: </span>  <span class="keyword">structure</span> <span class="type-definition">RoomStyle</span> <span class="keyword">is</span>
+<span class="linenr"> 88: </span>    name <span class="operator">-&gt;</span> <span class="type-builtin-reference">string</span>
+<span class="linenr"> 89: </span>    features <span class="operator">-&gt;</span> <span class="punctuation-bracket">{</span><span class="keyword">unique</span> <span class="literal-number">1</span><span class="operator">..</span><span class="constant-unbounded">*</span><span class="punctuation-bracket">}</span> <span class="type-reference">RoomFeature</span>
+<span class="linenr"> 90: </span>  <span class="keyword">end</span>
 <span class="linenr"> 91: </span>
-<span class="linenr"> 92: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Charge</span>
+<span class="linenr"> 92: </span>  <span class="keyword">structure</span> <span class="type-definition">Charge</span>
 <span class="linenr"> 93: </span>
-<span class="linenr"> 94: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Purchase</span>
+<span class="linenr"> 94: </span>  <span class="keyword">structure</span> <span class="type-definition">Purchase</span>
 <span class="linenr"> 95: </span>
-<span class="linenr"> 96: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Payment</span> <span class="src-kw">is</span>
-<span class="linenr"> 97: </span>    amount <span class="src-operator">-&gt;</span> <span class="src-type-ref">Currency</span>
-<span class="linenr"> 98: </span>    instrument <span class="src-operator">-&gt;</span> <span class="src-type-ref">PaymentInstrument</span>
-<span class="linenr"> 99: </span>  <span class="src-kw">end</span>
+<span class="linenr"> 96: </span>  <span class="keyword">structure</span> <span class="type-definition">Payment</span> <span class="keyword">is</span>
+<span class="linenr"> 97: </span>    amount <span class="operator">-&gt;</span> <span class="type-reference">Currency</span>
+<span class="linenr"> 98: </span>    instrument <span class="operator">-&gt;</span> <span class="type-reference">PaymentInstrument</span>
+<span class="linenr"> 99: </span>  <span class="keyword">end</span>
 <span class="linenr">100: </span>
-<span class="linenr">101: </span>  <span class="src-kw">union</span> <span class="src-type-def">PaymentInstrument</span> <span class="src-kw">of</span>
-<span class="linenr">102: </span>    <span class="src-variant">Cash</span>
-<span class="linenr">103: </span>    <span class="src-variant">Card</span>
-<span class="linenr">104: </span>    <span class="src-variant">Credit</span>
-<span class="linenr">105: </span>  <span class="src-kw">end</span>
+<span class="linenr">101: </span>  <span class="keyword">union</span> <span class="type-definition">PaymentInstrument</span> <span class="keyword">of</span>
+<span class="linenr">102: </span>    <span class="type-variant">Cash</span>
+<span class="linenr">103: </span>    <span class="type-variant">Card</span>
+<span class="linenr">104: </span>    <span class="type-variant">Credit</span>
+<span class="linenr">105: </span>  <span class="keyword">end</span>
 <span class="linenr">106: </span>
-<span class="linenr">107: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Cash</span>
+<span class="linenr">107: </span>  <span class="keyword">structure</span> <span class="type-definition">Cash</span>
 <span class="linenr">108: </span>
-<span class="linenr">109: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Card</span>
+<span class="linenr">109: </span>  <span class="keyword">structure</span> <span class="type-definition">Card</span>
 <span class="linenr">110: </span>
-<span class="linenr">111: </span>  <span class="src-kw">structure</span> <span class="src-type-def">Credit</span>
+<span class="linenr">111: </span>  <span class="keyword">structure</span> <span class="type-definition">Credit</span>
 <span class="linenr">112: </span>
-<span class="linenr">113: </span><span class="src-kw">end</span>
+<span class="linenr">113: </span><span class="keyword">end</span>
 </pre>
             </div>
             <div class="column is-one-third">
@@ -695,12 +696,12 @@
             <code>help</code> will guide you through the commands available.
           </p>
 
-          <pre>$ sdml --help
-Rust CLI for Simple Domain Modeling Language (SDML)
+          <pre class="src src-repl"><span class="prompt">$</span> <span class="command">sdml --help</span>
+Rust CLI for Simple Domain Modeling Language (SDML).
 
-<strong><u>Usage:</u> sdml</strong> [OPTIONS] <COMMAND>
+<strong><em>Usage:</em> sdml</strong> [OPTIONS] <COMMAND>
 
-<strong><u>Commands:</u></strong>
+<strong><em>Commands:</em></strong>
   <strong>doc</strong>        Document a module
   <strong>deps</strong>       Show module dependencies
   <strong>tags</strong>       Extract tags from a module
@@ -710,11 +711,11 @@ Rust CLI for Simple Domain Modeling Language (SDML)
   <strong>version</strong>    Show tool and library versions
   <strong>help</strong>       Print this message or the help of the given subcommand(s)
 
-<strong><u>Options:</u></strong>
-  -v, --verbose..</strong>.  More output per occurrence
-  -q, --quiet..</strong>.    Less output per occurrence
-  -h, --help</strong>        Print help
-  -V, --version</strong>     Print version
+<strong><em>Options:</em></strong>
+  <strong>-v, --verbose..</strong>.  More output per occurrence
+  <strong>-q, --quiet..</strong>.    Less output per occurrence
+  <strong>-h, --help</strong>        Print help
+  <strong>-V, --version</strong>     Print version
 </pre>
 
           <p>
@@ -730,7 +731,7 @@ Rust CLI for Simple Domain Modeling Language (SDML)
             below. It can also output the dependencies as a GraphViz dot file or as RDF triples.
           </p>
 
-          <pre>$ sdml deps --depth 2 --input-file rentals-5.sdm
+          <pre class="src src-repl"><span class="prompt">$</span> <span class="command">sdml deps --depth 2 --input-file rentals-5.sdm</span>
 rentals
 ├── xsd
 ├── cids
@@ -745,7 +746,7 @@ rentals
             location of symbol definitions.
           </p>
 
-          <pre>$ sdml tags --input-file rentals-5.sdm
+          <pre class="src src-repl"><span class="prompt">$</span> <span class="command">sdml tags --input-file rentals-5.sdm</span>
 Basic	rentals-5.sdm	436go
 Booking	rentals-5.sdm	934go
 Compact	rentals-5.sdm	305go
@@ -753,6 +754,25 @@ CompactUtilityVehicle	rentals-5.sdm	330go
 Customer	rentals-5.sdm	859go
 CustomerLevel	rentals-5.sdm	415go
 ...
+</pre>
+
+          <p>
+            The <code>highlight</code> command will output a syntax highlighted version of the input module, by default
+            the output includes control characters to highlight for a terminal which is useful for previewing files.
+            Alternatively the <code>--output-format</code> can be used to output html with inline styles.
+          </p>
+
+          <pre class="src src-repl src-sdml"><span class="prompt">$</span> <span class="command">sdml highlight -i cids.sdm</span>
+<span class="keyword">module</span> <span class="module-definition">cids</span> <span class="keyword">is</span>
+
+  <span class="keyword">import</span> <span class="punctuation-bracket">[</span> <span class="module-reference">dc</span> <span class="module-reference">skos</span> <span class="punctuation-bracket">]</span>
+
+  <span class="property-annotation">@skos:prefLabel</span> <span class="operator">=</span> <span class="literal-string">"CIDS"</span>
+  <span class="property-annotation">@skos:altLabel</span> <span class="operator">=</span> <span class="literal-string">"Common Identifiers"</span>
+
+  <span class="keyword">datatype</span> <span class="type-definition">VehicleIdentificationNumber</span> <span class="operator"><-</span> <span class="type-builtin-reference">string</span>
+
+<span class="keyword">end</span>
 </pre>
 
           <h4>
@@ -763,16 +783,16 @@ CustomerLevel	rentals-5.sdm	415go
           </h4>
           <p>Coming soon</p>
 
-          <pre>$ sdml draw --help
-Draw diagrams from a module
+          <pre class="src src-repl"><span class="prompt">$</span> <span class="command">sdml draw --help</span>
+Draw diagrams from an SDML module.
 
-<strong><u>Usage:</u> sdml draw</strong> [OPTIONS] <strong>--diagram</strong> <DIAGRAM> [MODULE]
+<strong><em>Usage:</em> sdml draw</strong> [OPTIONS] <strong>--diagram</strong> <DIAGRAM> [MODULE]
 
-<strong><u>Arguments:</u></strong>
+<strong><em>Arguments:</em></strong>
   [MODULE]
           SDML module, loaded using the standard resolver
 
-<strong><u>Options:</u></strong>
+<strong><em>Options:</em></strong>
   <strong>-d, --diagram</strong> <DIAGRAM>
           Diagram to draw
 
@@ -790,16 +810,16 @@ Draw diagrams from a module
           </h4>
           <p>Coming soon</p>
 
-          <pre>$ sdml doc --help
-Document a module
+          <pre class="src src-repl"><span class="prompt">$</span> <span class="command">sdml doc --help</span>
+Produce documentation for an SDML module.
 
-<strong><u>Usage:</u> sdml doc</strong> [OPTIONS] [MODULE]
+<strong><em>Usage:</em> sdml doc</strong> [OPTIONS] [MODULE]
 
-<strong><u>Arguments:</u></strong>
+<strong><em>Arguments:</em></strong>
   [MODULE]
           SDML module, loaded using the standard resolver
 
-<strong><u>Options:</u></strong>
+<strong><em>Options:</em></strong>
   <strong>-f, --output-format</strong> <OUTPUT_FORMAT>
           Format to convert into
 
