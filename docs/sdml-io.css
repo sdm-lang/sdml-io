@@ -286,6 +286,10 @@ pre > code span.literal-string-special {
   color: #859900;
   font-weight: 600;
 }
+pre > code span.literal-url {
+  color: #6c71c4;
+  font-weight: 600;
+}
 pre > code span.method {
   color: #2aa198;
 }
@@ -379,10 +383,7 @@ pre > code.shell span.command {
   color: #002b36;
   font-weight: 500;
 }
-pre > code.shell strong {
-  font-weight: 700;
-}
 pre > code.shell em {
-    font-style: normal;
-    text-decoration: underline;
+  font-style: normal;
+  text-decoration: underline;
 }

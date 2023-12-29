@@ -29,6 +29,10 @@ pre {
     > code.shell {
         @include shell-code-span(prompt);
         @include shell-code-span(command, $color: default, $weight: medium);
+//        span.literal-url {
+//            text-decoration: underline;
+//            text-decoration-style: wavy;
+//        }
         strong {
             font-weight: map.get($font, weights bold);
         }

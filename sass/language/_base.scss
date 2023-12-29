@@ -50,6 +50,7 @@ pre {
         @include base-code-span(literal-number, $weight: semi-bold);
         @include base-code-span(literal-string, $weight: semi-bold);
         @include base-code-span(literal-string-special, $weight: semi-bold);
+        @include base-code-span(literal-url, $weight: semi-bold);
         @include base-code-span(method);
         @include base-code-span(method-call);
         @include base-code-span(method-definition, $weight: bold);
