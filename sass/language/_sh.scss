@@ -13,7 +13,7 @@ $shell-color-map: map.merge(
     )
 );
 
-@mixin shell-code-span($class, $color: '', $weight: '', $decoration: '') {
+@mixin shell-code-span($class, $color: '', $weight: '', $style: '', $decoration: '') {
     @include meta.apply(
         meta.get-mixin('code-span', 'base'),
         $shell-color-map,
@@ -21,6 +21,7 @@ $shell-color-map: map.merge(
         $class,
         $color,
         $weight,
+        $style,
         $decoration
     );
 }

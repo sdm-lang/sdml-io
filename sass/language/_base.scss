@@ -4,7 +4,7 @@
 $color-map: () !default;
 $font: () !default;
 
-@mixin code-span($in-color-map, $in-font, $class, $color: '', $weight: '', $decoration: '') {
+@mixin code-span($in-color-map, $in-font, $class, $color: '', $weight: '', $style: '', $decoration: '') {
     span.#{$class} {
         @if $color == '' {
             color: map.get($in-color-map, $class);
@@ -14,14 +14,17 @@ $font: () !default;
         @if $weight != '' {
             font-weight: map.get($in-font, weights, $weight);
         }
+        @if $style != '' {
+            font-style: $style
+        }
         @if $decoration != '' {
             text-decoration: $decoration;
         }
     }
 }
 
-@mixin base-code-span($class, $color: '', $weight: '', $decoration: '') {
-    @include code-span($color-map, $font, $class, $color, $weight, $decoration);
+@mixin base-code-span($class, $color: '', $weight: '', $style: '', $decoration: '') {
+    @include code-span($color-map, $font, $class, $color, $weight, $style, $decoration);
 }
 
 pre {
@@ -33,9 +36,9 @@ pre {
     font-weight: map.get($font, weights, normal);
     > code {
         font-family: $-font-family;
-        @include base-code-span(comment, $weight: light);
-        @include base-code-span(comment-line, $weight: light);
-        @include base-code-span(comment-block, $weight: light);
+        @include base-code-span(comment, $weight: light, $style: italic);
+        @include base-code-span(comment-line, $weight: light, $style: italic);
+        @include base-code-span(comment-block, $weight: light, $style: italic);
         @include base-code-span(constant, $weight: semi-bold);
         @include base-code-span(constant-builtin, $weight: semi-bold);
         @include base-code-span(error, $weight: bold, $decoration: underline);

@@ -224,14 +224,17 @@ pre > code {
 pre > code span.comment {
   color: #93a1a1;
   font-weight: 300;
+  font-style: italic;
 }
 pre > code span.comment-line {
   color: #93a1a1;
   font-weight: 300;
+  font-style: italic;
 }
 pre > code span.comment-block {
   color: #93a1a1;
   font-weight: 300;
+  font-style: italic;
 }
 pre > code span.constant {
   color: #859900;

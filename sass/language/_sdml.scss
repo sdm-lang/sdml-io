@@ -15,7 +15,7 @@ $sdml-color-map: map.merge(
     )
 );
 
-@mixin sdml-code-span($class, $color: '', $weight: '', $decoration: '') {
+@mixin sdml-code-span($class, $color: '', $weight: '', $style: '', $decoration: '') {
     @include meta.apply(
         meta.get-mixin('code-span', 'base'),
         $sdml-color-map,
@@ -23,6 +23,7 @@ $sdml-color-map: map.merge(
         $class,
         $color,
         $weight,
+        $style,
         $decoration
     );
 }
