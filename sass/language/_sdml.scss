@@ -1,0 +1,36 @@
+@use "sass:map";
+@use "sass:meta";
+
+@use "base";
+
+$color-map: () !default;
+$font: () !default;
+
+$sdml-color-map: map.merge(
+    $color-map,
+    (
+        constant-unbounded: map.get($color-map, constant),
+        type-variant: map.get($color-map, type),
+        value-variant: map.get($color-map, constant),
+    )
+);
+
+@mixin sdml-code-span($class, $color: '', $weight: '', $decoration: '') {
+    @include meta.apply(
+        meta.get-mixin('code-span', 'base'),
+        $sdml-color-map,
+        $font,
+        $class,
+        $color,
+        $weight,
+        $decoration
+    );
+}
+
+pre {
+    > code.sdml {
+        @include sdml-code-span(constant-unbounded);
+        @include sdml-code-span(type-variant);
+        @include sdml-code-span(value-variant);
+    }
+}

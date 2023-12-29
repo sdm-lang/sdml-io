@@ -209,122 +209,180 @@ footer .content p .hashtag::before {
     color: #e68ebc;
 }
 
-/* Source Code -- Base https://simonkjohnston.life/solarized.html */
-pre.src {
-    background-color: #fdf6e3;
-    color: #002b36;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.8em;
-    font-weight: 400;
+/* Source Code -- Generated from ../sass/highlight.scss */
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap");
+pre {
+  background: #fdf6e3;
+  color: #002b36;
+  font-family: "Fira Code", monospace;
+  font-size: 0.8em;
+  font-weight: 400;
 }
-pre.src .linenr {
-    color: #657b83;
+pre > code {
+  font-family: "Fira Code", monospace;
 }
-pre.src .keyword {
-    color: #b58900;
+pre > code span.comment {
+  color: #93a1a1;
+  font-weight: 300;
 }
-pre.src .operator {
-    color: #b58900;
-    font-weight: 300;
+pre > code span.comment-line {
+  color: #93a1a1;
+  font-weight: 300;
 }
-pre.src .type-definition {
-    color: #268bd2;
-    font-weight: 600;
+pre > code span.comment-block {
+  color: #93a1a1;
+  font-weight: 300;
 }
-pre.src .type {
-    color: #268bd2;
+pre > code span.constant {
+  color: #859900;
+  font-weight: 600;
 }
-pre.src .type-builtin {
-    color: #6c71c4;
+pre > code span.constant-builtin {
+  color: #859900;
+  font-weight: 600;
 }
-pre.src .module-definition {
-    color: #268bd2;
-    font-weight: 600;
+pre > code span.error {
+  color: #cb4b16;
+  font-weight: 700;
+  text-decoration: underline;
 }
-pre.src .module {
-    color: #268bd2;
+pre > code span.function {
+  color: #2aa198;
 }
-pre.src .punctuation {
-    color: #586e75;
-    font-weight: 300;
+pre > code span.function-call {
+  color: #2aa198;
 }
-pre.src .punctuation-separator {
-    color: #586e75;
-    font-weight: 300;
+pre > code span.function-builtin-call {
+  color: #2aa198;
 }
-pre.src .punctuation-bracket {
-    color: #586e75;
-    font-weight: 300;
+pre > code span.function-definition {
+  color: #2aa198;
+  font-weight: 700;
 }
-pre.src .comment { /* plus: comment-line, comment-block */
-    color: #93a1a1;
-    font-style: italic;
-    font-weight: 300;
+pre > code span.keyword {
+  color: #b58900;
 }
-pre.src .variable.definition {
-    color: #cb4b16;
-    font-weight: 600;
+pre > code span.linenr {
+  color: #657b83;
+  font-weight: 300;
 }
-pre.src .variable {
-    color: #cb4b16;
+pre > code span.literal {
+  color: #859900;
+  font-weight: 600;
 }
-pre.src .variable-builtin {
-    color: #cb4b16;
+pre > code span.literal-boolean {
+  color: #859900;
+  font-weight: 600;
 }
-pre.src .function-definition {
-    color: #2aa198;
-    font-weight: 600;
+pre > code span.literal-number {
+  color: #859900;
+  font-weight: 600;
 }
-pre.src .function-call {
-    color: #2aa198;
+pre > code span.literal-string {
+  color: #859900;
+  font-weight: 600;
 }
-pre.src .function-builtin-call {
-    color: #2aa198;
+pre > code span.literal-string-special {
+  color: #859900;
+  font-weight: 600;
 }
-pre.src .property {
-    color: #d33682;
+pre > code span.method {
+  color: #2aa198;
 }
-pre.src .literal {
-    color: #859900;
-    font-weight: 500;
+pre > code span.method-call {
+  color: #2aa198;
 }
-pre.src .constant {
-    color: #859900;
-    font-weight: 500;
+pre > code span.method-definition {
+  color: #2aa198;
+  font-weight: 700;
+}
+pre > code span.module {
+  color: #268bd2;
+}
+pre > code span.module-builtin {
+  color: #6c71c4;
+}
+pre > code span.module-definition {
+  color: #268bd2;
+  font-weight: 700;
+}
+pre > code span.operator {
+  color: #b58900;
+  font-weight: 300;
+}
+pre > code span.property-annotation {
+  color: #d33682;
+}
+pre > code span.property-constraint {
+  color: #d33682;
+}
+pre > code span.punctuation {
+  color: #586e75;
+  font-weight: 300;
+}
+pre > code span.punctuation-bracket {
+  color: #586e75;
+  font-weight: 300;
+}
+pre > code span.punctuation-delimiter {
+  color: #586e75;
+  font-weight: 300;
+}
+pre > code span.punctuation-separator {
+  color: #586e75;
+  font-weight: 300;
+}
+pre > code span.type {
+  color: #268bd2;
+}
+pre > code span.type-builtin {
+  color: #6c71c4;
+}
+pre > code span.type-definition {
+  color: #268bd2;
+  font-weight: 700;
+}
+pre > code span.variable {
+  color: #002b36;
+}
+pre > code span.variable-builtin {
+  color: #002b36;
+}
+pre > code span.variable-definition {
+  color: #002b36;
+  font-weight: 700;
+}
+pre > code span.variable-field {
+  color: #002b36;
+}
+pre > code span.variable-parameter {
+  color: #002b36;
+}
+pre > code span.warning {
+  text-decoration: underline;
 }
 
-/* Source Code -- SDML */
-pre.src-sdml .type-variant {
-    color: #268bd2;
+pre > code.sdml span.constant-unbounded {
+  color: #859900;
 }
-pre.src-sdml .property-annotation {
-    color: #d33682;
+pre > code.sdml span.type-variant {
+  color: #268bd2;
 }
-pre.src-sdml .property-constraint {
-    color: #d33682;
-}
-pre.src-sdml .literal-number {
-    color: #859900;
-    font-weight: 500;
-}
-pre.src-sdml .literal-string {
-    color: #859900;
-    font-weight: 500;
-}
-pre.src-sdml .constant-unbounded {
-    color: #859900;
+pre > code.sdml span.value-variant {
+  color: #859900;
 }
 
-pre.src-repl .prompt {
-    color: #93a1a1;
+pre > code.shell span.prompt {
+  color: #93a1a1;
 }
-pre.src-repl .command {
-    font-weight: 500;
+pre > code.shell span.command {
+  color: #002b36;
+  font-weight: 500;
 }
-pre.src-repl strong {
-    font-weight: 600;
+pre > code.shell strong {
+  font-weight: 700;
 }
-pre.src-repl em {
+pre > code.shell em {
     font-style: normal;
     text-decoration: underline;
 }

@@ -1,0 +1,57 @@
+$color: (
+    background: #fdf6e3,
+    default: #002b36,
+
+    comment: #93a1a1,
+    comment-line: #93a1a1,
+    comment-block: #93a1a1,
+
+    constant: #859900,
+    constant-builtin: #859900,
+
+    error: #cb4b16,
+
+    function: #2aa198,
+    function-call: #2aa198,
+    function-builtin-call: #2aa198,
+    function-definition: #2aa198,
+
+    keyword: #b58900,
+
+    linenr: #657b83,
+
+    literal: #859900,
+    literal-boolean: #859900,
+    literal-number: #859900,
+    literal-string: #859900,
+    literal-string-special: #859900,
+
+    method: #2aa198,
+    method-call: #2aa198,
+    method-definition: #2aa198,
+
+    module: #268bd2,
+    module-builtin: #6c71c4,
+    module-definition: #268bd2,
+
+    operator: #b58900,
+
+    property: #d33682,
+    property-annotation: #d33682,
+    property-constraint: #d33682,
+
+    punctuation: #586e75,
+    punctuation-bracket: #586e75,
+    punctuation-delimiter: #586e75,
+    punctuation-separator: #586e75,
+
+    type: #268bd2,
+    type-builtin: #6c71c4,
+    type-definition: #268bd2,
+
+    variable: #002b36,
+    variable-builtin: #002b36,
+    variable-definition: #002b36,
+    variable-field: #002b36,
+    variable-parameter: #002b36,
+);

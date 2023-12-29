@@ -1,0 +1,40 @@
+@use "sass:map";
+@use "sass:meta";
+
+@use "base";
+
+$color-map: () !default;
+$font: () !default;
+
+$shell-color-map: map.merge(
+    $color-map,
+    (
+        prompt: #93a1a1,
+    )
+);
+
+@mixin shell-code-span($class, $color: '', $weight: '', $decoration: '') {
+    @include meta.apply(
+        meta.get-mixin('code-span', 'base'),
+        $shell-color-map,
+        $font,
+        $class,
+        $color,
+        $weight,
+        $decoration
+    );
+}
+
+pre {
+    > code.shell {
+        @include shell-code-span(prompt);
+        @include shell-code-span(command, $color: default, $weight: medium);
+        strong {
+            font-weight: map.get($font, weights bold);
+        }
+        em {
+            font-style: normal;
+            text-decoration: underline;
+        }
+    }
+}

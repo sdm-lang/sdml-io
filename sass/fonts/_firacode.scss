@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+$font: (
+    name: 'Fira Code',
+    fallback: monospace,
+    size:  0.8em,
+
+    weights: (
+        light: 300,
+        normal: 400,
+        medium: 500,
+        semi-bold: 600,
+        bold: 700,
+    ),
+)

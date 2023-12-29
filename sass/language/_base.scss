@@ -1,0 +1,76 @@
+@use "sass:map";
+@use "sass:meta";
+
+$color-map: () !default;
+$font: () !default;
+
+@mixin code-span($in-color-map, $in-font, $class, $color: '', $weight: '', $decoration: '') {
+    span.#{$class} {
+        @if $color == '' {
+            color: map.get($in-color-map, $class);
+        } @else {
+            color: map.get($in-color-map, $color);
+        }
+        @if $weight != '' {
+            font-weight: map.get($in-font, weights, $weight);
+        }
+        @if $decoration != '' {
+            text-decoration: $decoration;
+        }
+    }
+}
+
+@mixin base-code-span($class, $color: '', $weight: '', $decoration: '') {
+    @include code-span($color-map, $font, $class, $color, $weight, $decoration);
+}
+
+pre {
+    $-font-family: map.get($font, name), map.get($font, fallback);
+    background: map.get($color-map, background);
+    color: map.get($color-map, default);
+    font-family: $-font-family;
+    font-size: map.get($font, size);
+    font-weight: map.get($font, weights, normal);
+    > code {
+        font-family: $-font-family;
+        @include base-code-span(comment, $weight: light);
+        @include base-code-span(comment-line, $weight: light);
+        @include base-code-span(comment-block, $weight: light);
+        @include base-code-span(constant, $weight: semi-bold);
+        @include base-code-span(constant-builtin, $weight: semi-bold);
+        @include base-code-span(error, $weight: bold, $decoration: underline);
+        @include base-code-span(function);
+        @include base-code-span(function-call);
+        @include base-code-span(function-builtin-call);
+        @include base-code-span(function-definition, $weight: bold);
+        @include base-code-span(keyword);
+        @include base-code-span(linenr, $weight: light);
+        @include base-code-span(literal, $weight: semi-bold);
+        @include base-code-span(literal-boolean, $weight: semi-bold);
+        @include base-code-span(literal-number, $weight: semi-bold);
+        @include base-code-span(literal-string, $weight: semi-bold);
+        @include base-code-span(literal-string-special, $weight: semi-bold);
+        @include base-code-span(method);
+        @include base-code-span(method-call);
+        @include base-code-span(method-definition, $weight: bold);
+        @include base-code-span(module);
+        @include base-code-span(module-builtin);
+        @include base-code-span(module-definition, $weight: bold);
+        @include base-code-span(operator, $weight: light);
+        @include base-code-span(property-annotation);
+        @include base-code-span(property-constraint);
+        @include base-code-span(punctuation, $weight: light);
+        @include base-code-span(punctuation-bracket, $weight: light);
+        @include base-code-span(punctuation-delimiter, $weight: light);
+        @include base-code-span(punctuation-separator, $weight: light);
+        @include base-code-span(type);
+        @include base-code-span(type-builtin);
+        @include base-code-span(type-definition, $weight: bold);
+        @include base-code-span(variable);
+        @include base-code-span(variable-builtin);
+        @include base-code-span(variable-definition, $weight: bold);
+        @include base-code-span(variable-field);
+        @include base-code-span(variable-parameter);
+        @include base-code-span(warning, $decoration: underline);
+    }
+}

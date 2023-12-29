@@ -1,0 +1,17 @@
+@use "fonts/firacode";
+@use "themes/solarized-light/colors";
+
+@use "language/base" with (
+    $font: firacode.$font,
+    $color-map: colors.$color,
+);
+
+@use "language/sdml" with  (
+    $font: firacode.$font,
+    $color-map: colors.$color,
+);
+
+@use "language/sh" with  (
+    $font: firacode.$font,
+    $color-map: colors.$color,
+);
