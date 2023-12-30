@@ -1,0 +1,237 @@
+# -*- mode:org -*-
+#+TITLE: Tree-Sitter Inspired CSS Highlighting
+#+AUTHOR: Simon Johnston
+#+EMAIL: johnstonskj@gmail.com
+#+LANGUAGE: en
+#+STARTUP: overview hidestars inlineimages entitiespretty
+#+OPTIONS: author:nil created:nil creator:nil date:nil email:nil num:3 toc:t
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../docs/plain-sdml.css"/>
+#+HTML_LINK_HOME: ../docs/index.html
+#+HTML_LINK_UP: ../docs/index.html
+
+This directory contains a simple, but extensible, code highlighting framework using Sass. The goal is to produce final
+HTML that contains as little extraneous content as possible and use modern tools and style to allow it to be used beyond
+just SDML today.
+
+Features:
+
+1. Use Tree-Sitter inspired hierarchical names for syntax elements.
+2. Define color choices in separate and reusable themes using Sass maps.
+3. Define font choices as separate Sass maps.
+4. Define languages as sets of =span= classes.
+   1. Provide a common base language definition that is usable as-is for simple cases.
+
+* Tree-Sitter Style Naming
+:PROPERTIES:
+:CUSTOM_ID: tree-sitter-naming
+:END:
+
+Naming uses a simple hierarchy with additional name components typically adding specificity. So, while in most cases it
+is not necessary to make =line= and =block= comments visually distinct these specifiers can be added to the =comment= root. In
+the case of the =function=, =method=, =module=, =type=, and =variable= roots on their own they signify a reference or usage with
+=definition= added as necessary. The component =builtin= can be added to =function=, =method=, =module=, =type=, and =variable= to
+denote a language-defined name.
+
+#+NAME: src:naming-grammar
+#+CAPTION: Syntax Name Grammar
+#+BEGIN_EXAMPLE
+comment ( block | line )?
+
+constant ( builtin )?
+
+error
+
+function ( builtin? call | definition )?
+
+keyword
+
+literal ( boolean | character | number | string special? | url )?
+
+method ( builtin? call | definition )?
+
+module ( builtin | definition )?
+
+operator
+
+property ( annotation )?
+
+punctuation ( bracket | delimiter | separator )?
+
+type ( builtin | definition )?
+
+variable ( builtin | definition | field | parameter )?
+
+warning
+#+END_EXAMPLE
+
+Note that in the grammar in listing [[src:naming-grammar]] function and method are both top-level names whereas tree-sitter uses =function= and
+=function.method=.
+
+* CSS Applied
+:PROPERTIES:
+:CUSTOM_ID: css-applied
+:END:
+
+The following, listing [[src:example-usage]], demonstrates how the framework is applied to source code using as simple HTML as possible.
+
+#+NAME: src:example-usage
+#+CAPTION: Example Usage with SDML
+#+BEGIN_SRC html -n
+<pre>
+  <code class="sdml">
+    <span class="keyword">module</span> <span class="module">name</span> <span class="keyword">is</span>
+    <span class="keyword">end</span>
+  </code>
+</pre>
+#+END_SRC
+
+The =pre= tag acts as the outer marker and contains the default font, font attributes, as well as background and text
+colors. This tag should always remain language independent and provides only the visual attributes common to all
+code-like content. The inner =code= tag, and there should only be one per =pre= tag, specifies the languages it renders as
+one or more class names. Finally, the distinct elements of the rendered language are wrapped in =span= elements with the
+hierarchical name above as the class name.
+
+* CSS Defined
+:PROPERTIES:
+:CUSTOM_ID: css-defined
+:END:
+
+** Color Theme
+
+Each theme is defined in a Sass /partial module/, in the =themes= directory. This file *must* contain a Sass map with the
+name ~$color~ and the following keys: ~background~ and ~default~ along with the hierarchy of syntax names separated by the
+hyphen or =-= character. The value associated with each key is a CSS color, as can be seen in listing [[src:example-color-theme]].
+
+#+NAME: src:example-color-theme
+#+CAPTION: Example Color Theme
+#+BEGIN_SRC css -n
+$color: (
+    background: #fdf6e3,
+    default: #002b36,
+
+    comment: #93a1a1,
+    comment-line: #93a1a1,
+    // ...
+);
+#+END_SRC
+
+** Code Font
+
+Each code font is described in a Sass /partial module/, in the =fonts= directory. This file *must* contain a Sass map with the
+name ~$font~ and the following keys: ~name~, ~size~, and ~weights~ (~fallback~ is optional). The weights have named keys that
+allow the selection of specific weight values supported by the font. Listing [[src:example-font-definition]] is the font
+definition for Fira Code.
+
+#+NAME: src:example-font-definition
+#+CAPTION: Example Font Definition
+#+BEGIN_SRC css -n
+$font: (
+    name: 'Fira Code',
+    fallback: monospace,
+    size:  0.8em,
+
+    weights: (
+        light: 300,
+        normal: 400,
+        medium: 500,
+        semi-bold: 600,
+        bold: 700,
+    ),
+);
+#+END_SRC
+
+** Language
+
+#+NAME: src:example-language-definition
+#+CAPTION: Example Language Definition
+#+BEGIN_SRC css -n
+@use "sass:map";
+@use "sass:meta";
+
+@use "base";
+
+$color-map: () !default;
+$font: () !default;
+
+$sdml-color-map: map.merge(
+    $color-map,
+    (
+        constant-unbounded: map.get($color-map, constant),
+        type-variant: map.get($color-map, type),
+        value-variant: map.get($color-map, constant),
+    )
+);
+
+@mixin sdml-code-span($class, $color: '', $weight: '', $style: '', $decoration: '') {
+    @include meta.apply(
+        meta.get-mixin('code-span', 'base'),
+        $sdml-color-map,
+        $font,
+        $class,
+        $color,
+        $weight,
+        $style,
+        $decoration
+    );
+}
+
+pre {
+    > code.sdml {
+        @include sdml-code-span(constant-unbounded);
+        @include sdml-code-span(type-variant);
+        @include sdml-code-span(value-variant);
+    }
+}
+#+END_SRC
+
+- Lines =1..2=; These are Sass built-in modules used in the following sections.
+- Line =4=; Here we import the base language definition, this specifically provides the mixin named ~code-span~ referred to below.
+- Lines =6..7=; These two definitions are the configuration for the module and are provided when this module is used.
+- Lines =9..16=; This definition provides a new color map that merges local definitions into the color map provided when
+  the module is used.
+- Lines =18..29=; This new mixin wraps the existing ~code-span~ mixin from the base module calling it with the new color
+  map and provided font.
+- Lines =31..37=; Finally, this is where the actual CSS elements are defined, 
+
+* Sass Build
+:PROPERTIES:
+:CUSTOM_ID: sass-build
+:END:
+
+To build a complete CSS file it is necessary to associate one or more language definitions with a specific font and
+color theme (the configuration values from listing [[src:example-language-definition]]). The following demonstrates the
+configuration used for the =sdml.io= homepage using the Fira Code font, Solarized light theme, and SDML/Bash languages.
+
+#+NAME: src:example-config-script
+#+CAPTION: Example Configuration Script
+#+BEGIN_SRC css -n
+// Choose a font
+@use "fonts/firacode";
+
+// Choose a theme
+@use "themes/solarized-light/colors";
+
+// Include the base language definition 
+@use "language/base" with (
+    $font: firacode.$font,
+    $color-map: colors.$color,
+);
+
+// Include additional language definitions...
+
+@use "language/sdml" with  (
+    $font: firacode.$font,
+    $color-map: colors.$color,
+);
+
+@use "language/sh" with  (
+    $font: firacode.$font,
+    $color-map: colors.$color,
+);
+#+END_SRC
+
+#+NAME: src:example-build-command
+#+CAPTION: Example Build Command
+#+BEGIN_SRC sh
+$ sass --style=compressed --verbose highlight.scss >../docs/sdml-highlight.css
+#+END_SRC

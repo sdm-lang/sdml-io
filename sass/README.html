@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-12-29 Fri 17:04 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tree-Sitter Inspired CSS Highlighting</title>
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../docs/plain-sdml.css"/>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../docs/index.html"> UP </a>
+ |
+ <a accesskey="H" href="../docs/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Tree-Sitter Inspired CSS Highlighting</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#tree-sitter-naming">1. Tree-Sitter Style Naming</a></li>
+<li><a href="#css-applied">2. CSS Applied</a></li>
+<li><a href="#css-defined">3. CSS Defined</a>
+<ul>
+<li><a href="#org6670f7b">3.1. Color Theme</a></li>
+<li><a href="#org8af7fae">3.2. Code Font</a></li>
+<li><a href="#org46cf6cc">3.3. Language</a></li>
+</ul>
+</li>
+<li><a href="#sass-build">4. Sass Build</a></li>
+</ul>
+</div>
+</div>
+<p>
+This directory contains a simple, but extensible, code highlighting framework using Sass. The goal is to produce final
+HTML that contains as little extraneous content as possible and use modern tools and style to allow it to be used beyond
+just SDML today.
+</p>
+
+<p>
+Features:
+</p>
+
+<ol class="org-ol">
+<li>Use Tree-Sitter inspired hierarchical names for syntax elements.</li>
+<li>Define color choices in separate and reusable themes using Sass maps.</li>
+<li>Define font choices as separate Sass maps.</li>
+<li>Define languages as sets of <code>span</code> classes.
+<ol class="org-ol">
+<li>Provide a common base language definition that is usable as-is for simple cases.</li>
+</ol></li>
+</ol>
+
+<div id="outline-container-tree-sitter-naming" class="outline-2">
+<h2 id="tree-sitter-naming"><span class="section-number-2">1.</span> Tree-Sitter Style Naming</h2>
+<div class="outline-text-2" id="text-tree-sitter-naming">
+<p>
+Naming uses a simple hierarchy with additional name components typically adding specificity. So, while in most cases it
+is not necessary to make <code>line</code> and <code>block</code> comments visually distinct these specifiers can be added to the <code>comment</code> root. In
+the case of the <code>function</code>, <code>method</code>, <code>module</code>, <code>type</code>, and <code>variable</code> roots on their own they signify a reference or usage with
+<code>definition</code> added as necessary. The component <code>builtin</code> can be added to <code>function</code>, <code>method</code>, <code>module</code>, <code>type</code>, and <code>variable</code> to
+denote a language-defined name.
+</p>
+
+<pre class="example" id="org625d332">
+comment ( block | line )?
+
+constant ( builtin )?
+
+error
+
+function ( builtin? call | definition )?
+
+keyword
+
+literal ( boolean | character | number | string special? | url )?
+
+method ( builtin? call | definition )?
+
+module ( builtin | definition )?
+
+operator
+
+property ( annotation )?
+
+punctuation ( bracket | delimiter | separator )?
+
+type ( builtin | definition )?
+
+variable ( builtin | definition | field | parameter )?
+
+warning
+</pre>
+
+<p>
+Note that in the grammar in listing <a href="#org625d332">1</a> function and method are both top-level names whereas tree-sitter uses <code>function</code> and
+<code>function.method</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-css-applied" class="outline-2">
+<h2 id="css-applied"><span class="section-number-2">2.</span> CSS Applied</h2>
+<div class="outline-text-2" id="text-css-applied">
+<p>
+The following, listing <a href="#org7dfc143">1</a>, demonstrates how the framework is applied to source code using as simple HTML as possible.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>Example Usage with SDML</label><pre class="src src-html" id="org7dfc143"><span class="linenr">1: </span>&lt;<span style="color: #b58900;">pre</span>&gt;
+<span class="linenr">2: </span>  &lt;<span style="color: #b58900;">code</span> <span style="color: #6c71c4;">class</span>=<span style="color: #2aa198;">"sdml"</span>&gt;
+<span class="linenr">3: </span>    &lt;<span style="color: #b58900;">span</span> <span style="color: #6c71c4;">class</span>=<span style="color: #2aa198;">"keyword"</span>&gt;module&lt;/<span style="color: #b58900;">span</span>&gt; &lt;<span style="color: #b58900;">span</span> <span style="color: #6c71c4;">class</span>=<span style="color: #2aa198;">"module"</span>&gt;name&lt;/<span style="color: #b58900;">span</span>&gt; &lt;<span style="color: #b58900;">span</span> <span style="color: #6c71c4;">class</span>=<span style="color: #2aa198;">"keyword"</span>&gt;is&lt;/<span style="color: #b58900;">span</span>&gt;
+<span class="linenr">4: </span>    &lt;<span style="color: #b58900;">span</span> <span style="color: #6c71c4;">class</span>=<span style="color: #2aa198;">"keyword"</span>&gt;end&lt;/<span style="color: #b58900;">span</span>&gt;
+<span class="linenr">5: </span>  &lt;/<span style="color: #b58900;">code</span>&gt;
+<span class="linenr">6: </span>&lt;/<span style="color: #b58900;">pre</span>&gt;
+</pre>
+</div>
+
+<p>
+The <code>pre</code> tag acts as the outer marker and contains the default font, font attributes, as well as background and text
+colors. This tag should always remain language independent and provides only the visual attributes common to all
+code-like content. The inner <code>code</code> tag, and there should only be one per <code>pre</code> tag, specifies the languages it renders as
+one or more class names. Finally, the distinct elements of the rendered language are wrapped in <code>span</code> elements with the
+hierarchical name above as the class name.
+</p>
+</div>
+</div>
+
+<div id="outline-container-css-defined" class="outline-2">
+<h2 id="css-defined"><span class="section-number-2">3.</span> CSS Defined</h2>
+<div class="outline-text-2" id="text-css-defined">
+</div>
+
+<div id="outline-container-org6670f7b" class="outline-3">
+<h3 id="org6670f7b"><span class="section-number-3">3.1.</span> Color Theme</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Each theme is defined in a Sass <i>partial module</i>, in the <code>themes</code> directory. This file <b>must</b> contain a Sass map with the
+name <code>$color</code> and the following keys: <code>background</code> and <code>default</code> along with the hierarchy of syntax names separated by the
+hyphen or <code>-</code> character. The value associated with each key is a CSS color, as can be seen in listing <a href="#orgf8b5182">2</a>.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Example Color Theme</label><pre class="src src-css" id="orgf8b5182"><span class="linenr">1: </span>$color: <span style="color: #657b83;">(</span>
+<span class="linenr">2: </span>    <span style="color: #859900;">background</span>: <span style="color: #000000; background-color: #fdf6e3;">#fdf6e3</span>,
+<span class="linenr">3: </span>    <span style="color: #859900;">default</span>: <span style="color: #ffffff; background-color: #002b36;">#002b36</span>,
+<span class="linenr">4: </span>
+<span class="linenr">5: </span>    <span style="color: #859900;">comment</span>: <span style="color: #000000; background-color: #93a1a1;">#93a1a1</span>,
+<span class="linenr">6: </span>    <span style="color: #859900;">comment-line</span>: <span style="color: #000000; background-color: #93a1a1;">#93a1a1</span>,
+<span class="linenr">7: </span>    // ...
+<span class="linenr">8: </span><span style="color: #657b83;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8af7fae" class="outline-3">
+<h3 id="org8af7fae"><span class="section-number-3">3.2.</span> Code Font</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Each code font is described in a Sass <i>partial module</i>, in the <code>fonts</code> directory. This file <b>must</b> contain a Sass map with the
+name <code>$font</code> and the following keys: <code>name</code>, <code>size</code>, and <code>weights</code> (<code>fallback</code> is optional). The weights have named keys that
+allow the selection of specific weight values supported by the font. Listing <a href="#org8ce0b4b">3</a> is the font
+definition for Fira Code.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Example Font Definition</label><pre class="src src-css" id="org8ce0b4b"><span class="linenr"> 1: </span>$font: <span style="color: #657b83;">(</span>
+<span class="linenr"> 2: </span>    <span style="color: #859900;">name</span>: <span style="color: #2aa198;">'Fira Code'</span>,
+<span class="linenr"> 3: </span>    <span style="color: #859900;">fallback</span>: monospace,
+<span class="linenr"> 4: </span>    <span style="color: #859900;">size</span>:  0.8em,
+<span class="linenr"> 5: </span>
+<span class="linenr"> 6: </span>    <span style="color: #859900;">weights</span>: <span style="color: #2aa198;">(</span>
+<span class="linenr"> 7: </span>        <span style="color: #859900;">light</span>: 300,
+<span class="linenr"> 8: </span>        <span style="color: #859900;">normal</span>: 400,
+<span class="linenr"> 9: </span>        <span style="color: #859900;">medium</span>: 500,
+<span class="linenr">10: </span>        <span style="color: #859900;">semi-bold</span>: 600,
+<span class="linenr">11: </span>        <span style="color: #859900;">bold</span>: 700,
+<span class="linenr">12: </span>    <span style="color: #2aa198;">)</span>,
+<span class="linenr">13: </span><span style="color: #657b83;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org46cf6cc" class="outline-3">
+<h3 id="org46cf6cc"><span class="section-number-3">3.3.</span> Language</h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>Example Language Definition</label><pre class="src src-css" id="org973dc3b"><span class="linenr"> 1: </span><span style="color: #6c71c4;">@use</span> <span style="color: #2aa198;">"sass:map"</span>;
+<span class="linenr"> 2: </span><span style="color: #6c71c4;">@use</span> <span style="color: #2aa198;">"sass:meta"</span>;
+<span class="linenr"> 3: </span>
+<span class="linenr"> 4: </span><span style="color: #6c71c4;">@use</span> <span style="color: #2aa198;">"base"</span>;
+<span class="linenr"> 5: </span>
+<span class="linenr"> 6: </span>$color-map: <span style="color: #657b83;">()</span> !default;
+<span class="linenr"> 7: </span>$font: <span style="color: #657b83;">()</span> !default;
+<span class="linenr"> 8: </span>
+<span class="linenr"> 9: </span>$sdml-color-map: map.merge<span style="color: #657b83;">(</span>
+<span class="linenr">10: </span>    $color-map,
+<span class="linenr">11: </span>    <span style="color: #2aa198;">(</span>
+<span class="linenr">12: </span>        <span style="color: #859900;">constant-unbounded</span>: map.get<span style="color: #b58900;">(</span>$color-map, constant<span style="color: #b58900;">)</span>,
+<span class="linenr">13: </span>        <span style="color: #859900;">type-variant</span>: map.get<span style="color: #b58900;">(</span>$color-map, type<span style="color: #b58900;">)</span>,
+<span class="linenr">14: </span>        <span style="color: #859900;">value-variant</span>: map.get<span style="color: #b58900;">(</span>$color-map, constant<span style="color: #b58900;">)</span>,
+<span class="linenr">15: </span>    <span style="color: #2aa198;">)</span>
+<span class="linenr">16: </span><span style="color: #657b83;">)</span>;
+<span class="linenr">17: </span>
+<span class="linenr">18: </span><span style="color: #6c71c4;">@mixin</span> sdml-code-span<span style="color: #657b83;">(</span>$class, $color: <span style="color: #2aa198;">''</span>, $weight: <span style="color: #2aa198;">''</span>, $style: <span style="color: #2aa198;">''</span>, $decoration: <span style="color: #2aa198;">''</span><span style="color: #657b83;">)</span> <span style="color: #657b83;">{</span>
+<span class="linenr">19: </span>    <span style="color: #6c71c4;">@include</span> meta.apply<span style="color: #2aa198;">(</span>
+<span class="linenr">20: </span>        meta.get-mixin<span style="color: #b58900;">(</span><span style="color: #2aa198;">'code-span'</span>, <span style="color: #2aa198;">'base'</span><span style="color: #b58900;">)</span>,
+<span class="linenr">21: </span>        $sdml-color-map,
+<span class="linenr">22: </span>        $font,
+<span class="linenr">23: </span>        $class,
+<span class="linenr">24: </span>        $color,
+<span class="linenr">25: </span>        $weight,
+<span class="linenr">26: </span>        $style,
+<span class="linenr">27: </span>        $decoration
+<span class="linenr">28: </span>    <span style="color: #2aa198;">)</span>;
+<span class="linenr">29: </span><span style="color: #657b83;">}</span>
+<span class="linenr">30: </span>
+<span class="linenr">31: </span><span style="color: #b58900;">pre </span><span style="color: #657b83;">{</span>
+<span class="linenr">32: </span>    <span style="color: #b58900;">&gt; code.sdml </span><span style="color: #2aa198;">{</span>
+<span class="linenr">33: </span>        <span style="color: #6c71c4;">@include</span> sdml-code-span<span style="color: #b58900;">(</span>constant-unbounded<span style="color: #b58900;">)</span>;
+<span class="linenr">34: </span>        <span style="color: #6c71c4;">@include</span> sdml-code-span<span style="color: #b58900;">(</span>type-variant<span style="color: #b58900;">)</span>;
+<span class="linenr">35: </span>        <span style="color: #6c71c4;">@include</span> sdml-code-span<span style="color: #b58900;">(</span>value-variant<span style="color: #b58900;">)</span>;
+<span class="linenr">36: </span>    <span style="color: #2aa198;">}</span>
+<span class="linenr">37: </span><span style="color: #657b83;">}</span>
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Lines <code>1..2</code>; These are Sass built-in modules used in the following sections.</li>
+<li>Line <code>4</code>; Here we import the base language definition, this specifically provides the mixin named <code>code-span</code> referred to below.</li>
+<li>Lines <code>6..7</code>; These two definitions are the configuration for the module and are provided when this module is used.</li>
+<li>Lines <code>9..16</code>; This definition provides a new color map that merges local definitions into the color map provided when
+the module is used.</li>
+<li>Lines <code>18..29</code>; This new mixin wraps the existing <code>code-span</code> mixin from the base module calling it with the new color
+map and provided font.</li>
+<li>Lines <code>31..37</code>; Finally, this is where the actual CSS elements are defined,</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sass-build" class="outline-2">
+<h2 id="sass-build"><span class="section-number-2">4.</span> Sass Build</h2>
+<div class="outline-text-2" id="text-sass-build">
+<p>
+To build a complete CSS file it is necessary to associate one or more language definitions with a specific font and
+color theme. The following demonstrates the configuration used for the <code>sdml.io</code> homepage using the Fira Code font,
+Solarized light theme, and SDML/Bash languages.
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Example Configuration Script</label><pre class="src src-css" id="orgcbd1bcd"><span class="linenr"> 1: </span>// Choose a font
+<span class="linenr"> 2: </span><span style="color: #6c71c4;">@use</span> <span style="color: #2aa198;">"fonts/firacode"</span>;
+<span class="linenr"> 3: </span>// Choose a theme
+<span class="linenr"> 4: </span><span style="color: #6c71c4;">@use</span> <span style="color: #2aa198;">"themes/solarized-light/colors"</span>;
+<span class="linenr"> 5: </span>
+<span class="linenr"> 6: </span>// Include the base language definition 
+<span class="linenr"> 7: </span><span style="color: #6c71c4;">@use</span> <span style="color: #2aa198;">"language/base"</span> with <span style="color: #657b83;">(</span>
+<span class="linenr"> 8: </span>    $font: firacode.$font,
+<span class="linenr"> 9: </span>    $color-map: colors.$color,
+<span class="linenr">10: </span><span style="color: #657b83;">)</span>;
+<span class="linenr">11: </span>
+<span class="linenr">12: </span>// Include additional language definitions...
+<span class="linenr">13: </span>
+<span class="linenr">14: </span><span style="color: #6c71c4;">@use</span> <span style="color: #2aa198;">"language/sdml"</span> with  <span style="color: #657b83;">(</span>
+<span class="linenr">15: </span>    $font: firacode.$font,
+<span class="linenr">16: </span>    $color-map: colors.$color,
+<span class="linenr">17: </span><span style="color: #657b83;">)</span>;
+<span class="linenr">18: </span>
+<span class="linenr">19: </span><span style="color: #6c71c4;">@use</span> <span style="color: #2aa198;">"language/sh"</span> with  <span style="color: #657b83;">(</span>
+<span class="linenr">20: </span>    $font: firacode.$font,
+<span class="linenr">21: </span>    $color-map: colors.$color,
+<span class="linenr">22: </span><span style="color: #657b83;">)</span>;
+</pre>
+</div>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>Example Build Command</label><pre class="src src-sh" id="org388eb7d">$ sass --style=compressed --verbose highlight.scss &gt;../docs/sdml-highlight.css
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-12-29 Fri 17:04</p>
+</div>
+</body>
+</html>
