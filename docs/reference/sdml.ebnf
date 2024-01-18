@@ -1,8 +1,8 @@
 Module
-    ::= "module" Identifier ModuleBase? ModuleBody
+    ::= "module" Identifier ModuleLocations? ModuleBody
 
-ModuleBase
-    ::= "base" Iri
+ModuleLocations
+    ::= Iri ( "version" QuotedString? Iri )?
 
 ModuleBody
     ::= "is"
@@ -16,7 +16,7 @@ Import
     ::= MemberImport | ModuleImport
 
 ModuleImport
-    ::= Identifer
+    ::= Identifer Iri?
 
 MemberImport
     ::= QualifiedIdentifier
@@ -36,6 +36,7 @@ Definition
         | StructureDef
         | TypeClassDef
         | UnionDef
+        | RdfThingDef
 
 DataTypeDef
     ::= "datatype" Identifier
@@ -72,6 +73,12 @@ EventDef
         "source" IdentifierReference
         StructuredBody?
 
+PropertyDef
+    ::= "property" Identifier PropertyBody?
+
+PropertyBody
+    ::= "is" Annotation* ( IdentityRole | MemberRole )+ "end"
+
 StructureDef
     ::= "structure" Identifier StructuredBody?
 
@@ -92,11 +99,14 @@ TypeVariant
 TypeVariantRename
     ::= "as" Identifier
 
-PropertyDef
-    ::= "property" Identifier PropertyBody?
+RdfThingDef
+    ::= "rdf" ( RdfClassDef | RdfPropertyDef )
 
-PropertyBody
-    ::= "is" Annotation* ( IdentityRole | MemberRole )+ "end"
+RdfClassDef
+    ::= "structure" Identifier AnnotationOnlyBody
+
+RdfPropertyDef
+    ::= "property" Identifier AnnotationOnlyBody
 
 IdentityRole
     ::= "identity" Identifier TypeExpression AnnotationOnlyBody?

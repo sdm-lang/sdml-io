@@ -1135,14 +1135,22 @@ Rewriting the RDF from listing [[lst:rdfs-comment]] into SDML results in the def
 #+NAME: lst:rdfs-comment-in-sdml
 #+CAPTION: The SDML definition of rdfs:comment
 #+BEGIN_SRC sdml :exports code :noeval
-module rdfs is
+module rdf_schema base <http://www.w3.org/2000/01/rdf-schema#> is
 
-  ;; a lot of things elided.
+  import [ rdf owl ]
 
-  structure comment is
-    @rdf:type = [ rdf:Property owl:AnnotationProperty ]
-    @isDefinedBy = <http://www.w3.org/2000/01/rdf-schema#>
-    @label = "comment"
+  rdf structure Resource is
+    ;; rdf:type -- rdf:Class is automatically implied
+    ;; rdfs:label -- structure name is automatically implied
+    ;; @isDefinedBy -- module base URL is automatically implied
+    @comment = "The class resource, everything."
+  end
+
+  rdf property comment is
+    ;; rdf:type -- rdf:Property is automatically implied
+    ;; rdfs:label -- property name is automatically implied
+    ;; @isDefinedBy -- module base URL is automatically implied
+    @rdf:type = owl:AnnotationProperty
     @comment = "A description of the subject resource."
     @domain = Resource
     @range = Literal
@@ -1153,13 +1161,26 @@ end
 
 The following are commonly used RDF and OWL definition properties.
 
-- =rdf:type= --
-- =rdfs:domain= and =rdfs:range= --
-- =rdfs:subClassOf= and =rdfs:subPropertyOf= --
-- =owl:equivalentClass= and =owl:equivalentProperty= --
-- =owl:inverseOf= --
-- =owl:disjointWith= --
-- =owl:FunctionalProperty=, =owl:InverseFunctionalProperty=, =owl:SymmetricProperty= and =owl:TransitiveProperty= --
+| Property               | Applies To | Type           | Comments |
+|------------------------+------------+----------------+----------|
+| =rdf:type=               | Either     | Type Reference |          |
+| =rdfs:domain=            | Property   | Type Reference |          |
+| =rdfs:range=             | Property   | Type Reference |          |
+| =rdfs:subClassOf=        | Structure  | Type Reference |          |
+| =rdfs:subPropertyOf=     | Property   | Type Reference |          |
+| =owl:equivalentClass=    | Structure  | Type Reference |          |
+| =owl:equivalentProperty= | Property   | Type Reference |          |
+| =owl:inverseOf=          | Property   | Type Reference |          |
+| =owl:disjointWith=       | Structure  | Type Reference |          |
+|                        |            |                |          |
+
+Commonly used annotation super-types
+
+- =owl:AnnotationProperty=
+- =owl:FunctionalProperty=
+- =owl:InverseFunctionalProperty=
+- =owl:SymmetricProperty=
+- =owl:TransitiveProperty=
 
 ** <<sec:structured-types>>Structured Types
 

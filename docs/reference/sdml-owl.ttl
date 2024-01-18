@@ -166,33 +166,6 @@
         "The unknown type, used as a marker in incomplete members."@en .
 
 # -------------------------------------------------------------------
-# Classes ❱ Classifier ❱ Groups
-# -------------------------------------------------------------------
-
-:Group rdf:type owl:Class ;
-    rdfs:subClassOf :ModelElement ;
-    rdfs:isDefinedBy : ;
-    skos:prefLabel "Group of Members"@en ;
-    skos:definition
-        "A group of members within a record type."@en .
-
-:EntityGroup rdf:type owl:Class ;
-    rdfs:subClassOf :Group ;
-    owl:disjointWith :StructureGroup ;
-    rdfs:isDefinedBy : ;
-    skos:prefLabel "Entity Group"@en ;
-    skos:definition
-        "A group of members within an Entity."@en .
-
-:StructureGroup rdf:type owl:Class ;
-    rdfs:subClassOf :Group ;
-    owl:disjointWith :EntityGroup ;
-    rdfs:isDefinedBy : ;
-    skos:prefLabel "Structure Group"@en ;
-    skos:definition
-        "A group of members within a Structure, or Event."@en .
-
-# -------------------------------------------------------------------
 # Classes ❱ Classifier ❱ Members
 # -------------------------------------------------------------------
 
