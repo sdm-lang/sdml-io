@@ -27,9 +27,9 @@ None.
 
 The following changes are required:
 
-1. Add a new ~rdf_def~ rule to the grammar that defines either a class or property using an ~annotaion_only_body~.
-2. Add specific rules ~rdf_type_class~ and ~rdf_type_property~ for the distinct keywords.
-3. Add the new rule ~rdf_def~ to the existing ~definition~ rule.
+1. Add a new ~rdf_def~ rule to the grammar that defines either a class or property using an ~annotaion_only_body~ (listing [[src:grammar-rdf_def]]).
+2. Add specific rules ~rdf_type_class~ and ~rdf_type_property~ for the distinct keywords (listing [[src:grammar-rdf_def]]).
+3. Add the new rule ~rdf_def~ to the existing ~definition~ rule (listing [[src:grammar-definition]]).
 
 #+NAME: src:grammar-rdf_def
 #+CAPTION: Grammar for ~rdf_def~ rule
@@ -67,6 +67,8 @@ definition: $ => choice(
     $.rdf_def
 ),
 #+END_SRC
+
+Listing [[src:rdf_schema-example]] shows this new grammar used to define elements in the RDF Schema module.
 
 #+NAME: src:rdf_schema-example
 #+CAPTION: Example Module
