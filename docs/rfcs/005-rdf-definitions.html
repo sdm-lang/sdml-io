@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-01-18 Thu 08:45 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RFC005: Explicit RDF definitions</title>
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../plain-sdml.css"/>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="./index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">RFC005: Explicit RDF definitions
+<br />
+<span class="subtitle">Status: Approved</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org76a8f89">1. Introduction</a></li>
+<li><a href="#org4af9468">2. Motivation</a></li>
+<li><a href="#org6dd5f3e">3. Alternatives Considered</a></li>
+<li><a href="#org0bf2aa9">4. Proposed Change</a>
+<ul>
+<li><a href="#org7e2069a">4.1. Test cases</a></li>
+<li><a href="#org14d4c8d">4.2. Impact</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org76a8f89" class="outline-2">
+<h2 id="org76a8f89"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+It turns out to be confusing to use existing structure types to define new RDF classes and properties. Rather than
+continuing to document rules on composition and restrictions on some RDF predicates we regularize these into new
+explicit definitions.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4af9468" class="outline-2">
+<h2 id="org4af9468"><span class="section-number-2">2.</span> Motivation</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+<i>Why is there a problem, or a potential opportunity. Please include examples.</i>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6dd5f3e" class="outline-2">
+<h2 id="org6dd5f3e"><span class="section-number-2">3.</span> Alternatives Considered</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+<i>This is a good way to describe the thinking behind the proposed change or
+changes.</i>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0bf2aa9" class="outline-2">
+<h2 id="org0bf2aa9"><span class="section-number-2">4.</span> Proposed Change</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+The following changes are required:
+</p>
+
+<ol class="org-ol">
+<li>Add a new <code>rdf_def</code> rule to the grammar that defines either a class or property using an <code>annotaion_only_body</code>.</li>
+<li>Add specific rules <code>rdf_type_class</code> and <code>rdf_type_property</code> for the distinct keywords.</li>
+<li>Add the new rule <code>rdf_def</code> to the existing <code>definition</code> rule.</li>
+</ol>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>Grammar for <code>rdf_def</code> rule</label><pre class="src src-js" id="org660734b">rdf_def: $ =&gt; seq<span style="color: #657b83;">(</span>
+    keyword<span style="color: #2aa198;">(</span><span style="color: #2aa198;">'rdf'</span><span style="color: #2aa198;">)</span>,
+    field<span style="color: #2aa198;">(</span>
+        <span style="color: #2aa198;">'type'</span>,
+        choice<span style="color: #b58900;">(</span>
+            $.rdf_type_class,
+            $.rdf_type_property,
+        <span style="color: #b58900;">)</span>
+    <span style="color: #2aa198;">)</span>,
+    field<span style="color: #2aa198;">(</span><span style="color: #2aa198;">'name'</span>, $.identifier<span style="color: #2aa198;">)</span>,
+    field<span style="color: #2aa198;">(</span><span style="color: #2aa198;">'body'</span>, $.annotation_only_body<span style="color: #2aa198;">)</span>
+<span style="color: #657b83;">)</span>,
+
+rdf_type_class: $ =&gt; keyword<span style="color: #657b83;">(</span><span style="color: #2aa198;">'structure'</span><span style="color: #657b83;">)</span>,
+
+rdf_type_property: $ =&gt; keyword<span style="color: #657b83;">(</span><span style="color: #2aa198;">'property'</span><span style="color: #657b83;">)</span>,
+</pre>
+</div>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Grammar for <code>definition</code> rule</label><pre class="src src-js" id="org8d340bb">definition: $ =&gt; choice<span style="color: #657b83;">(</span>
+    $.data_type_def,
+    $.entity_def,
+    $.enum_def,
+    $.event_def,
+    $.property_def,
+    $.structure_def,
+    $.type_class_def,
+    $.union_def,
+    $.rdf_def
+<span style="color: #657b83;">)</span>,
+</pre>
+</div>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Example Module</label><pre class="src src-sdml" id="orgda2caa3"><span style="color: #859900;">module</span> <span style="color: #268bd2;">rdf_schema</span> <span style="color: #2aa198; font-weight: bold;"><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</a></span><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -"> </a><span style="color: #859900;"><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -">is</a></span><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -">
+
+  </a><span style="color: #859900;"><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -">import</a></span><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -"> </a><span style="color: #657b83; background-color: #fdf6e3;"><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -">[</a></span><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -"> </a><span style="color: #268bd2;"><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -">owl</a></span><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -"> </a><span style="color: #268bd2;"><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -">rdf</a></span><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -"> </a><span style="color: #657b83; background-color: #fdf6e3;"><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -">]</a></span><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -">
+
+  </a><span style="color: #859900;"><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -">structure</a></span><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -"> </a><span style="color: #268bd2;"><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -">Foo</a></span><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -"> </a><span style="color: #859900;"><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -">is</a></span><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -"> a </a><span style="color: #859900;"><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+
+  import [ owl rdf ]
+
+  structure Foo is a -">-&gt;</a></span> <span style="color: #6c71c4;">string</span> <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">rdf</span> <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Resource</span> <span style="color: #859900;">is</span> <span style="color: #93a1a1; font-style: italic;">;; assumed: @rdf:type = rdf:Class</span>
+    <span style="color: #d33682;">@comment</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"The class resource, everything."</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">rdf</span> <span style="color: #859900;">property</span> <span style="color: #268bd2;">subClassOf</span> <span style="color: #859900;">is</span> <span style="color: #93a1a1; font-style: italic;">;; assumed: @rdf:type = rdf:Property</span>
+    <span style="color: #d33682;">@domain</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">Class</span>
+    <span style="color: #d33682;">@range</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">Class</span>
+    <span style="color: #d33682;">@comment</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"The subject is a subclass of a class."</span>
+  <span style="color: #859900;">end</span>
+
+  <span style="color: #859900;">rdf</span> <span style="color: #859900;">property</span> <span style="color: #268bd2;">comment</span> <span style="color: #859900;">is</span>
+    <span style="color: #d33682;">@rdf:type</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">owl:AnnotationProperty</span>
+    <span style="color: #d33682;">@domain</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">Resource</span>
+    <span style="color: #d33682;">@range</span> <span style="color: #859900;">=</span> <span style="color: #268bd2;">Literal</span>
+    <span style="color: #d33682;">@comment</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"A description of the subject resource."</span>
+  <span style="color: #859900;">end</span>
+
+<span style="color: #859900;">end</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org7e2069a" class="outline-3">
+<h3 id="org7e2069a"><span class="section-number-3">4.1.</span> Test cases</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>The module in listing <a href="#orgda2caa3">3</a> is included in the tree-sitter-sdml package in the <code>examples</code> directory
+which is included in the parser test step.</li>
+<li>An explicit test case, <code>rdf_definitions.sdm</code> has been added to the tree-sitter-sdml <code>test/corpus</code> directory.</li>
+<li>An explicit test case, <code>rdf_definitions.sdm</code> has been added to the sdml-parse crate&rsquo;s <code>tests/examples</code> directory.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org14d4c8d" class="outline-3">
+<h3 id="org14d4c8d"><span class="section-number-3">4.2.</span> Impact</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+This will require changes to the reference documentation to:
+</p>
+
+<ul class="org-ul">
+<li>add new rules to <code>sdml.ebnf</code>,</li>
+<li>update the surface syntax description to include these new rules, and</li>
+<li>rewrite the section on defining new RDF properties and classes.</li>
+</ul>
+
+<p>
+This will change how we define standard library modules as well.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2024-01-18 Thu 08:45</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+#+TITLE: RFC005: Explicit RDF definitions
+#+SUBTITLE: Status: Approved
+#+AUTHOR: Primary Author
+#+EMAIL: johnstonskj@gmail.com
+#+LANGUAGE: en
+#+OPTIONS: author:nil created:nil creator:nil date:nil email:nil num:3 toc:t
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../plain-sdml.css"/>
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./index.html
+
+
+* Introduction
+
+It turns out to be confusing to use existing structure types to define new RDF classes and properties. Rather than
+continuing to document rules on composition and restrictions on some RDF predicates we regularize these into new
+explicit definitions.
+
+* Motivation
+
+The current use of standard structures to define RDF classes and properties is cumbersome.
+
+* Alternatives Considered
+
+None.
+
+* Proposed Change
+
+The following changes are required:
+
+1. Add a new ~rdf_def~ rule to the grammar that defines either a class or property using an ~annotaion_only_body~.
+2. Add specific rules ~rdf_type_class~ and ~rdf_type_property~ for the distinct keywords.
+3. Add the new rule ~rdf_def~ to the existing ~definition~ rule.
+
+#+NAME: src:grammar-rdf_def
+#+CAPTION: Grammar for ~rdf_def~ rule
+#+BEGIN_SRC js :eval never
+rdf_def: $ => seq(
+    keyword('rdf'),
+    field(
+        'type',
+        choice(
+            $.rdf_type_class,
+            $.rdf_type_property,
+        )
+    ),
+    field('name', $.identifier),
+    field('body', $.annotation_only_body)
+),
+
+rdf_type_class: $ => keyword('structure'),
+
+rdf_type_property: $ => keyword('property'),
+#+END_SRC
+
+#+NAME: src:grammar-definition
+#+CAPTION: Grammar for ~definition~ rule
+#+BEGIN_SRC js :eval never
+definition: $ => choice(
+    $.data_type_def,
+    $.entity_def,
+    $.enum_def,
+    $.event_def,
+    $.property_def,
+    $.structure_def,
+    $.type_class_def,
+    $.union_def,
+    $.rdf_def
+),
+#+END_SRC
+
+#+NAME: src:rdf_schema-example
+#+CAPTION: Example Module
+#+BEGIN_SRC sdml :eval never
+module rdf_schema <http://www.w3.org/2000/01/rdf-schema#> is
+
+  import [ owl rdf ]
+
+  structure Foo is a -> string end
+
+  rdf structure Resource is ;; assumed: @rdf:type = rdf:Class
+    @comment = "The class resource, everything."
+  end
+
+  rdf property subClassOf is ;; assumed: @rdf:type = rdf:Property
+    @domain = Class
+    @range = Class
+    @comment = "The subject is a subclass of a class."
+  end
+
+  rdf property comment is
+    @rdf:type = owl:AnnotationProperty
+    @domain = Resource
+    @range = Literal
+    @comment = "A description of the subject resource."
+  end
+
+end
+#+END_SRC
+
+** Test cases
+
+1. The module in listing [[src:rdf_schema-example]] is included in the tree-sitter-sdml package in the =examples= directory
+   which is included in the parser test step.
+2. An explicit test case, =rdf_definitions.sdm= has been added to the tree-sitter-sdml =test/corpus= directory.
+3. An explicit test case, =rdf_definitions.sdm= has been added to the sdml-parse crate's =tests/examples= directory.
+
+** Impact
+
+This will require changes to the reference documentation to:
+
+- add new rules to =sdml.ebnf=,
+- update the surface syntax description to include these new rules, and
+- rewrite the section on defining new RDF properties and classes.
+
+This will change how we define standard library modules as well.

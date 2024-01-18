@@ -1,7 +1,7 @@
 #+TITLE: RFC004: Move to Type-State Entities
 #+SUBTITLE: Status: Draft
 #+AUTHOR: Primary Author
-#+EMAIL: primary@example.com
+#+EMAIL: johnstonskj@gmail.com
 #+LANGUAGE: en
 #+OPTIONS: author:nil created:nil creator:nil date:nil email:nil num:3 toc:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../plain-sdml.css"/>

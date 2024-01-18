@@ -19,6 +19,7 @@
 | 002 | Event Protocols                  | WITHDRAWN | Simon Johnston | :grammar:   | <2023-12-07 Thu> |
 | 003 | Remove groups from product types | APPROVED  | Simon Johnston | :grammar:   | <2023-12-07 Thu> |
 | 004 | Move to Type-State Entities      | DRAFT     | Simon Johnston | :semantics: | <2023-12-20 Wed> |
+| 005 | Explicit RDF definitions         | APPROVED  | Simon Johnston | :grammar:   | <2024-01-18 Thu> |
 #+END:
 
 * DRAFT Support versioning of modules                               :grammar:
@@ -64,3 +65,14 @@ Current [[./003-remove-group.org][RFC Document]]
 :END:
 
 Current [[./004-type-state-entities.org][RFC Document]]
+
+* APPROVED Explicit RDF definitions
+:PROPERTIES:
+:NUMBER: 005
+:AUTHOR: Simon Johnston
+:CREATED: <2024-01-18 Thu>
+:END:
+:LOGBOOK:
+:END:
+
+Current [[./005-rdf-definitions.org][RFC Document]]
