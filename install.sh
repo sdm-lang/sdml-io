@@ -66,6 +66,16 @@ install_package brew plantuml PlantUML
 install_package brew dot graphviz GraphViz
 install_package brew git Git
 
+if [[ $OSTYPE = darwin* ]]; then
+    if ! xcrun 2>&1 >/dev/null; then
+        if ! xcode-select --install; then
+            echo "${ERROR} ${installer} failed to install package ${package} for ${display_name}"
+            exit 3
+        fi
+    fi
+    echo "${SUCCESS} xcode command-line installed"
+fi
+
 if ! command -v cargo 2>&1 >/dev/null; then
     if [[ ! -x ${HOME}/.cargo/bin/cargo ]]; then
         install_package brew cargo rustup-init "Rust Toolchain"
