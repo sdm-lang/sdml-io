@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-01-18 Thu 08:45 -->
+<!-- 2024-01-19 Fri 08:00 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RFC005: Explicit RDF definitions</title>
@@ -208,13 +208,13 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org76a8f89">1. Introduction</a></li>
-<li><a href="#org4af9468">2. Motivation</a></li>
-<li><a href="#org6dd5f3e">3. Alternatives Considered</a></li>
-<li><a href="#org0bf2aa9">4. Proposed Change</a>
+<li><a href="#org4912371">1. Introduction</a></li>
+<li><a href="#orgad36dec">2. Motivation</a></li>
+<li><a href="#org2caf73a">3. Alternatives Considered</a></li>
+<li><a href="#org70541d8">4. Proposed Change</a>
 <ul>
-<li><a href="#org7e2069a">4.1. Test cases</a></li>
-<li><a href="#org14d4c8d">4.2. Impact</a></li>
+<li><a href="#org018f33d">4.1. Test cases</a></li>
+<li><a href="#org51cff61">4.2. Impact</a></li>
 </ul>
 </li>
 </ul>
@@ -222,8 +222,8 @@
 </div>
 
 
-<div id="outline-container-org76a8f89" class="outline-2">
-<h2 id="org76a8f89"><span class="section-number-2">1.</span> Introduction</h2>
+<div id="outline-container-org4912371" class="outline-2">
+<h2 id="org4912371"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 It turns out to be confusing to use existing structure types to define new RDF classes and properties. Rather than
@@ -233,40 +233,40 @@ explicit definitions.
 </div>
 </div>
 
-<div id="outline-container-org4af9468" class="outline-2">
-<h2 id="org4af9468"><span class="section-number-2">2.</span> Motivation</h2>
+<div id="outline-container-orgad36dec" class="outline-2">
+<h2 id="orgad36dec"><span class="section-number-2">2.</span> Motivation</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-<i>Why is there a problem, or a potential opportunity. Please include examples.</i>
+The current use of standard structures to define RDF classes and properties is cumbersome.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org6dd5f3e" class="outline-2">
-<h2 id="org6dd5f3e"><span class="section-number-2">3.</span> Alternatives Considered</h2>
+<div id="outline-container-org2caf73a" class="outline-2">
+<h2 id="org2caf73a"><span class="section-number-2">3.</span> Alternatives Considered</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-<i>This is a good way to describe the thinking behind the proposed change or
-changes.</i>
+None.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org0bf2aa9" class="outline-2">
-<h2 id="org0bf2aa9"><span class="section-number-2">4.</span> Proposed Change</h2>
+<div id="outline-container-org70541d8" class="outline-2">
+<h2 id="org70541d8"><span class="section-number-2">4.</span> Proposed Change</h2>
 <div class="outline-text-2" id="text-4">
 <p>
-The following changes are required:
+<b><i>Syntax</i></b>: The following grammar changes are required:
 </p>
 
 <ol class="org-ol">
-<li>Add a new <code>rdf_def</code> rule to the grammar that defines either a class or property using an <code>annotaion_only_body</code>.</li>
-<li>Add specific rules <code>rdf_type_class</code> and <code>rdf_type_property</code> for the distinct keywords.</li>
-<li>Add the new rule <code>rdf_def</code> to the existing <code>definition</code> rule.</li>
+<li>Add a new <code>rdf_def</code> rule to the grammar that defines either a class or property using an <code>annotaion_only_body</code> (listing <a href="#org8b0240d">1</a>).</li>
+<li>Add specific rules <code>rdf_type_class</code> and <code>rdf_type_property</code> for the distinct keywords (listing <a href="#org8b0240d">1</a>).</li>
+<li>Add a new <code>rdf_super_types</code> to specify the type or types of the definition.</li>
+<li>Add the new rule <code>rdf_def</code> to the existing <code>definition</code> rule (listing <a href="#org210ca83">2</a>).</li>
 </ol>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>Grammar for <code>rdf_def</code> rule</label><pre class="src src-js" id="org660734b">rdf_def: $ =&gt; seq<span style="color: #657b83;">(</span>
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>Grammar for <code>rdf_def</code> rule</label><pre class="src src-js" id="org8b0240d">rdf_def: $ =&gt; seq<span style="color: #657b83;">(</span>
     keyword<span style="color: #2aa198;">(</span><span style="color: #2aa198;">'rdf'</span><span style="color: #2aa198;">)</span>,
     field<span style="color: #2aa198;">(</span>
         <span style="color: #2aa198;">'type'</span>,
@@ -276,17 +276,29 @@ The following changes are required:
         <span style="color: #b58900;">)</span>
     <span style="color: #2aa198;">)</span>,
     field<span style="color: #2aa198;">(</span><span style="color: #2aa198;">'name'</span>, $.identifier<span style="color: #2aa198;">)</span>,
+    optional<span style="color: #2aa198;">(</span>field<span style="color: #b58900;">(</span><span style="color: #2aa198;">'super_types'</span>, $.rdf_super_types<span style="color: #b58900;">)</span><span style="color: #2aa198;">)</span>,
     field<span style="color: #2aa198;">(</span><span style="color: #2aa198;">'body'</span>, $.annotation_only_body<span style="color: #2aa198;">)</span>
 <span style="color: #657b83;">)</span>,
 
 rdf_type_class: $ =&gt; keyword<span style="color: #657b83;">(</span><span style="color: #2aa198;">'structure'</span><span style="color: #657b83;">)</span>,
-
 rdf_type_property: $ =&gt; keyword<span style="color: #657b83;">(</span><span style="color: #2aa198;">'property'</span><span style="color: #657b83;">)</span>,
+
+rdf_super_types: $ =&gt; seq<span style="color: #657b83;">(</span>
+    operator<span style="color: #2aa198;">(</span><span style="color: #2aa198;">'&lt;-'</span><span style="color: #2aa198;">)</span>,
+    choice<span style="color: #2aa198;">(</span>
+        $.identifier_reference,
+        seq<span style="color: #b58900;">(</span>
+            <span style="color: #2aa198;">'['</span>,
+            repeat<span style="color: #859900;">(</span>$.identifier_reference<span style="color: #859900;">)</span>,
+            <span style="color: #2aa198;">']'</span>
+        <span style="color: #b58900;">)</span>
+    <span style="color: #2aa198;">)</span>
+<span style="color: #657b83;">)</span>,
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Grammar for <code>definition</code> rule</label><pre class="src src-js" id="org8d340bb">definition: $ =&gt; choice<span style="color: #657b83;">(</span>
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Grammar for <code>definition</code> rule</label><pre class="src src-js" id="org210ca83">definition: $ =&gt; choice<span style="color: #657b83;">(</span>
     $.data_type_def,
     $.entity_def,
     $.enum_def,
@@ -300,8 +312,27 @@ rdf_type_property: $ =&gt; keyword<span style="color: #657b83;">(</span><span st
 </pre>
 </div>
 
+<p>
+<b><i>Semantics</i></b>: As the super type list is optional the semantics assume the following:
+</p>
+
+<ol class="org-ol">
+<li>If the keyword <code>structure</code> is used and <b>no</b> super types are provided, a predicate <code>rdfs:type</code> with object <code>rdfs:Class</code> is added.</li>
+<li>If the keyword <code>structure</code> is used and super types <b>are</b> provided, a predicate <code>rdfs:subClassOf</code> is added for each super
+type with the super type as object.</li>
+<li>If the keyword <code>structure</code> is used and an <b>empty</b> super type list is provided, no <code>rdfs:type</code> or <code>rdfs:subClassOf</code> are added.</li>
+<li>If the keyword <code>property</code> is used and no super types are provided a predicate <code>rdfs:type</code> with object <code>rdf:Property</code> is added.</li>
+<li>If the keyword <code>property</code> is used and super types <b>are</b> provided, a predicate <code>rdfs:subPropertyOf</code> is added for each super
+type with the super type as object.</li>
+<li>If the keyword <code>property</code> is used and an <b>empty</b> super type list is provided, no <code>rdfs:type</code> or <code>rdfs:subPropertyOf</code> are added.</li>
+</ol>
+
+<p>
+<b><i>Example</i></b>: Listing <a href="#org3a0aa7b">3</a> shows this new grammar used to define elements in the RDF Schema module.
+</p>
+
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Example Module</label><pre class="src src-sdml" id="orgda2caa3"><span style="color: #859900;">module</span> <span style="color: #268bd2;">rdf_schema</span> <span style="color: #2aa198; font-weight: bold;"><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Example Module</label><pre class="src src-sdml" id="org3a0aa7b"><span style="color: #859900;">module</span> <span style="color: #268bd2;">rdf_schema</span> <span style="color: #2aa198; font-weight: bold;"><a href="http://www.w3.org/2000/01/rdf-schema#&gt; is
 
   import [ owl rdf ]
 
@@ -391,7 +422,7 @@ rdf_type_property: $ =&gt; keyword<span style="color: #657b83;">(</span><span st
 
   structure Foo is a -">-&gt;</a></span> <span style="color: #6c71c4;">string</span> <span style="color: #859900;">end</span>
 
-  <span style="color: #859900;">rdf</span> <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Resource</span> <span style="color: #859900;">is</span> <span style="color: #93a1a1; font-style: italic;">;; assumed: @rdf:type = rdf:Class</span>
+  <span style="color: #859900;">rdf</span> <span style="color: #859900;">structure</span> <span style="color: #268bd2;">Resource</span> &lt;- Resource <span style="color: #859900;">is</span> <span style="color: #93a1a1; font-style: italic;">;; assumed: @rdf:type = rdf:Class</span>
     <span style="color: #d33682;">@comment</span> <span style="color: #859900;">=</span> <span style="color: #2aa198;">"The class resource, everything."</span>
   <span style="color: #859900;">end</span>
 
@@ -413,11 +444,11 @@ rdf_type_property: $ =&gt; keyword<span style="color: #657b83;">(</span><span st
 </div>
 </div>
 
-<div id="outline-container-org7e2069a" class="outline-3">
-<h3 id="org7e2069a"><span class="section-number-3">4.1.</span> Test cases</h3>
+<div id="outline-container-org018f33d" class="outline-3">
+<h3 id="org018f33d"><span class="section-number-3">4.1.</span> Test cases</h3>
 <div class="outline-text-3" id="text-4-1">
 <ol class="org-ol">
-<li>The module in listing <a href="#orgda2caa3">3</a> is included in the tree-sitter-sdml package in the <code>examples</code> directory
+<li>The module in listing <a href="#org3a0aa7b">3</a> is included in the tree-sitter-sdml package in the <code>examples</code> directory
 which is included in the parser test step.</li>
 <li>An explicit test case, <code>rdf_definitions.sdm</code> has been added to the tree-sitter-sdml <code>test/corpus</code> directory.</li>
 <li>An explicit test case, <code>rdf_definitions.sdm</code> has been added to the sdml-parse crate&rsquo;s <code>tests/examples</code> directory.</li>
@@ -425,8 +456,8 @@ which is included in the parser test step.</li>
 </div>
 </div>
 
-<div id="outline-container-org14d4c8d" class="outline-3">
-<h3 id="org14d4c8d"><span class="section-number-3">4.2.</span> Impact</h3>
+<div id="outline-container-org51cff61" class="outline-3">
+<h3 id="org51cff61"><span class="section-number-3">4.2.</span> Impact</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 This will require changes to the reference documentation to:
@@ -446,7 +477,7 @@ This will change how we define standard library modules as well.
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2024-01-18 Thu 08:45</p>
+<p class="date">Created: 2024-01-19 Fri 08:00</p>
 </div>
 </body>
 </html>

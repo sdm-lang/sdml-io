@@ -3,7 +3,7 @@
 #+AUTHOR: Primary Author
 #+EMAIL: johnstonskj@gmail.com
 #+LANGUAGE: en
-#+OPTIONS: author:nil created:nil creator:nil date:nil email:nil num:3 toc:t
+#+OPTIONS: author:nil created:nil creator:nil date:nil email:nil num:t toc:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../plain-sdml.css"/>
 #+HTML_LINK_HOME: ./index.html
 #+HTML_LINK_UP: ./index.html
@@ -25,11 +25,12 @@ None.
 
 * Proposed Change
 
-The following changes are required:
+*/Syntax/*: The following grammar changes are required:
 
 1. Add a new ~rdf_def~ rule to the grammar that defines either a class or property using an ~annotaion_only_body~ (listing [[src:grammar-rdf_def]]).
 2. Add specific rules ~rdf_type_class~ and ~rdf_type_property~ for the distinct keywords (listing [[src:grammar-rdf_def]]).
-3. Add the new rule ~rdf_def~ to the existing ~definition~ rule (listing [[src:grammar-definition]]).
+3. Add a new ~rdf_super_types~ to specify the type or types of the definition.
+4. Add the new rule ~rdf_def~ to the existing ~definition~ rule (listing [[src:grammar-definition]]).
 
 #+NAME: src:grammar-rdf_def
 #+CAPTION: Grammar for ~rdf_def~ rule
@@ -44,12 +45,24 @@ rdf_def: $ => seq(
         )
     ),
     field('name', $.identifier),
+    optional(field('super_types', $.rdf_super_types)),
     field('body', $.annotation_only_body)
 ),
 
 rdf_type_class: $ => keyword('structure'),
-
 rdf_type_property: $ => keyword('property'),
+
+rdf_super_types: $ => seq(
+    operator('<-'),
+    choice(
+        $.identifier_reference,
+        seq(
+            '[',
+            repeat($.identifier_reference),
+            ']'
+        )
+    )
+),
 #+END_SRC
 
 #+NAME: src:grammar-definition
@@ -68,7 +81,18 @@ definition: $ => choice(
 ),
 #+END_SRC
 
-Listing [[src:rdf_schema-example]] shows this new grammar used to define elements in the RDF Schema module.
+*/Semantics/*: As the super type list is optional the semantics assume the following:
+
+1. If the keyword ~structure~ is used and *no* super types are provided, a predicate ~rdfs:type~ with object ~rdfs:Class~ is added.
+1. If the keyword ~structure~ is used and super types *are* provided, a predicate ~rdfs:subClassOf~ is added for each super
+   type with the super type as object.
+1. If the keyword ~structure~ is used and an *empty* super type list is provided, no ~rdfs:type~ or ~rdfs:subClassOf~ are added.
+1. If the keyword ~property~ is used and no super types are provided a predicate ~rdfs:type~ with object ~rdf:Property~ is added.
+1. If the keyword ~property~ is used and super types *are* provided, a predicate ~rdfs:subPropertyOf~ is added for each super
+   type with the super type as object.
+1. If the keyword ~property~ is used and an *empty* super type list is provided, no ~rdfs:type~ or ~rdfs:subPropertyOf~ are added.
+
+*/Example/*: Listing [[src:rdf_schema-example]] shows this new grammar used to define elements in the RDF Schema module.
 
 #+NAME: src:rdf_schema-example
 #+CAPTION: Example Module
@@ -79,7 +103,7 @@ module rdf_schema <http://www.w3.org/2000/01/rdf-schema#> is
 
   structure Foo is a -> string end
 
-  rdf structure Resource is ;; assumed: @rdf:type = rdf:Class
+  rdf structure Resource <- Resource is ;; assumed: @rdf:type = rdf:Class
     @comment = "The class resource, everything."
   end
 

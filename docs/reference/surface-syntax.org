@@ -1130,6 +1130,13 @@ use non-annotation properties such as =rdf:type=, =rdfs:domain=, and =rdfs:range
 allow this, if a model element has the property =rdf:type= then the transformation from that element to RDF *does not* use
 any of the transformations described here but an explicit mapping from *only* the provided properties.
 
+#+BEGIN_SRC ebnf
+RdfThingDef
+    ::= "rdf" Identifier RdfTypes? AnnotationOnlyBody
+RdfTypes
+    ::= "type" ( IdentifierReference | "[" IdentiferReference "]" )
+#+END_SRC
+
 Rewriting the RDF from listing [[lst:rdfs-comment]] into SDML results in the definition in listing [[lst:rdfs-comment-in-sdml]].
 
 #+NAME: lst:rdfs-comment-in-sdml
@@ -1139,18 +1146,17 @@ module rdf_schema base <http://www.w3.org/2000/01/rdf-schema#> is
 
   import [ rdf owl ]
 
-  rdf structure Resource is
+  rdf Resource is
     ;; rdf:type -- rdf:Class is automatically implied
     ;; rdfs:label -- structure name is automatically implied
     ;; @isDefinedBy -- module base URL is automatically implied
     @comment = "The class resource, everything."
   end
 
-  rdf property comment is
+  rdf comment type [ rdf:Property owl:AnnotationProperty ] is
     ;; rdf:type -- rdf:Property is automatically implied
     ;; rdfs:label -- property name is automatically implied
     ;; @isDefinedBy -- module base URL is automatically implied
-    @rdf:type = owl:AnnotationProperty
     @comment = "A description of the subject resource."
     @domain = Resource
     @range = Literal

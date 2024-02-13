@@ -100,13 +100,10 @@ TypeVariantRename
     ::= "as" Identifier
 
 RdfThingDef
-    ::= "rdf" ( RdfClassDef | RdfPropertyDef )
+    ::= "rdf" Identifier RdfTypes? AnnotationOnlyBody
 
-RdfClassDef
-    ::= "structure" Identifier AnnotationOnlyBody
-
-RdfPropertyDef
-    ::= "property" Identifier AnnotationOnlyBody
+RdfTypes
+    ::= "type" ( IdentifierReference | "[" IdentiferReference "]" )
 
 IdentityRole
     ::= "identity" Identifier TypeExpression AnnotationOnlyBody?
