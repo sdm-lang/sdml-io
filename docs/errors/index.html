@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-02-13 Tue 13:01 -->
+<!-- 2024-02-13 Tue 13:08 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Simple Domain Modeling Language</title>
@@ -27,7 +27,7 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgf2341e3">1. Bugs</a>
+<li><a href="#org5f5e77e">1. Bugs</a>
 <ul>
 <li><a href="#B0001">1.1. B01: Tree-Sitter Error Node</a></li>
 <li><a href="#B0002">1.2. B02: Tree-Sitter Unexpected Node</a></li>
@@ -35,11 +35,11 @@
 <li><a href="#B0004">1.4. B03: Tree-Sitter Missing Variable</a></li>
 </ul>
 </li>
-<li><a href="#org985f877">2. Errors</a>
+<li><a href="#org6161508">2. Errors</a>
 <ul>
 <li><a href="#E0101">2.1. E101: ModuleNotFound</a>
 <ul>
-<li><a href="#orgd760627">2.1.1. Example</a></li>
+<li><a href="#orgd669ab7">2.1.1. Example</a></li>
 </ul>
 </li>
 <li><a href="#E0102">2.2. E102: ModuleVersionNotFound</a></li>
@@ -56,22 +56,22 @@
 <li><a href="#E0113">2.13. E113: DefinitionNotFound</a></li>
 </ul>
 </li>
-<li><a href="#orgc06b690">3. Warnings</a>
+<li><a href="#orgd8bbd27">3. Warnings</a>
 <ul>
 <li><a href="#W0301:">3.1. W301: ModuleAlreadyImported</a>
 <ul>
-<li><a href="#org2eb08df">3.1.1. Example</a></li>
+<li><a href="#org7ccf538">3.1.1. Example</a></li>
 </ul>
 </li>
 <li><a href="#W0302">3.2. W302: MemberAlreadyImported</a>
 <ul>
-<li><a href="#org3c19685">3.2.1. Example</a></li>
+<li><a href="#orgaedd57c">3.2.1. Example</a></li>
 </ul>
 </li>
 <li><a href="#W0303">3.3. W303: ValidationIncomplete</a></li>
 </ul>
 </li>
-<li><a href="#orgb2c592f">4. Informational</a>
+<li><a href="#org0ad2091">4. Informational</a>
 <ul>
 <li><a href="#I0501:">4.1. I501: IncompleteDefinition</a></li>
 <li><a href="#I0502">4.2. I502: IncompleteMember</a></li>
@@ -79,7 +79,7 @@
 <li><a href="#I0504">4.4. I504: UnconstrainedDatatype</a></li>
 </ul>
 </li>
-<li><a href="#org0fa7819">5. Appendix: Rust <code>ErrorCode</code> enum</a></li>
+<li><a href="#org3b47e4a">5. Appendix: Rust <code>ErrorCode</code> enum</a></li>
 </ul>
 </div>
 </div>
@@ -88,8 +88,8 @@ This page provides a reference to the errors, warnings, and informational messag
 output by the <code>sdml</code> command-line tool.
 </p>
 
-<div id="outline-container-orgf2341e3" class="outline-2">
-<h2 id="orgf2341e3"><span class="section-number-2">1.</span> Bugs</h2>
+<div id="outline-container-org5f5e77e" class="outline-2">
+<h2 id="org5f5e77e"><span class="section-number-2">1.</span> Bugs</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This category represents bugs in the command-line tool where it&rsquo;s parser receives unexpected nodes from the underlyiung
@@ -144,8 +144,8 @@ with the name of the node kind that should have contained the expected variable.
 </div>
 
 
-<div id="outline-container-org985f877" class="outline-2">
-<h2 id="org985f877"><span class="section-number-2">2.</span> Errors</h2>
+<div id="outline-container-org6161508" class="outline-2">
+<h2 id="org6161508"><span class="section-number-2">2.</span> Errors</h2>
 <div class="outline-text-2" id="text-2">
 </div>
 <div id="outline-container-E0101" class="outline-3">
@@ -156,8 +156,8 @@ TBD
 </p>
 </div>
 
-<div id="outline-container-orgd760627" class="outline-4">
-<h4 id="orgd760627"><span class="section-number-4">2.1.1.</span> Example</h4>
+<div id="outline-container-orgd669ab7" class="outline-4">
+<h4 id="orgd669ab7"><span class="section-number-4">2.1.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-1-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api&gt; is
@@ -186,14 +186,14 @@ TBD
 </pre>
 </div>
 
-<pre class="example" id="org7f15898">
+<pre class="example" id="org333bb40">
 error[E0101]: imported module `owl` has no version URI
   ┌─ examples/simple.sdm:5:5
   │
 5 │     owl &lt;http://www.w3.org/2002/07/owl#&gt;
   │     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ this import requires a version URI
   │
-  = for more details, see &lt;https://sdml.io/docs/errors#E0101&gt;
+  = for more details, see &lt;https://sdml.io/errors/#E0101&gt;
 </pre>
 </div>
 </div>
@@ -309,8 +309,8 @@ TBD
 </div>
 
 
-<div id="outline-container-orgc06b690" class="outline-2">
-<h2 id="orgc06b690"><span class="section-number-2">3.</span> Warnings</h2>
+<div id="outline-container-orgd8bbd27" class="outline-2">
+<h2 id="orgd8bbd27"><span class="section-number-2">3.</span> Warnings</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 <div id="outline-container-W0301:" class="outline-3">
@@ -321,8 +321,8 @@ An import statement includes a module already imported.
 </p>
 </div>
 
-<div id="outline-container-org2eb08df" class="outline-4">
-<h4 id="org2eb08df"><span class="section-number-4">3.1.1.</span> Example</h4>
+<div id="outline-container-org7ccf538" class="outline-4">
+<h4 id="org7ccf538"><span class="section-number-4">3.1.1.</span> Example</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api">&lt;https://example.com/api&gt;</a></span> <span style="color: #859900;">is</span>
@@ -335,7 +335,7 @@ An import statement includes a module already imported.
 </pre>
 </div>
 
-<pre class="example" id="org38c2fe9">
+<pre class="example" id="orgafee807">
 warning[W0301]: duplicate import of module
   ┌─ examples/errors/W0301.sdm:5:19
   │
@@ -345,7 +345,7 @@ warning[W0301]: duplicate import of module
 5 │   import [ dc xsd owl owl ]
   │                   ^^^ this module
   │
-  = for more details, see &lt;https://sdml.io/docs/errors#W0301&gt;
+  = for more details, see &lt;https://sdml.io/errors/#W0301&gt;
 
 warning[W0301]: duplicate import of module
   ┌─ examples/errors/W0301.sdm:5:23
@@ -356,7 +356,7 @@ warning[W0301]: duplicate import of module
 5 │   import [ dc xsd owl owl ]
   │                       ^^^ this module
   │
-  = for more details, see &lt;https://sdml.io/docs/errors#W0301&gt;
+  = for more details, see &lt;https://sdml.io/errors/#W0301&gt;
 
 warning: module `example` generated 2 warnings.
 </pre>
@@ -372,8 +372,8 @@ An import statement includes a member already imported.
 </p>
 </div>
 
-<div id="outline-container-org3c19685" class="outline-4">
-<h4 id="org3c19685"><span class="section-number-4">3.2.1.</span> Example</h4>
+<div id="outline-container-orgaedd57c" class="outline-4">
+<h4 id="orgaedd57c"><span class="section-number-4">3.2.1.</span> Example</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api">&lt;https://example.com/api&gt;</a></span> <span style="color: #859900;">is</span>
@@ -386,7 +386,7 @@ An import statement includes a member already imported.
 </pre>
 </div>
 
-<pre class="example" id="org067bfa3">
+<pre class="example" id="orgde364e2">
 warning[W0302]: duplicate import of member
   ┌─ examples/errors/W0302.sdm:5:19
   │
@@ -396,7 +396,7 @@ warning[W0302]: duplicate import of member
 5 │   import [ dc xsd owl:Class ]
   │                   ^^^^^^^^^ this member
   │
-  = for more details, see &lt;https://sdml.io/docs/errors#W0302&gt;
+  = for more details, see &lt;https://sdml.io/errors/#W0302&gt;
 
 warning: module `example` generated 1 warnings.
 </pre>
@@ -415,8 +415,8 @@ TBD
 </div>
 
 
-<div id="outline-container-orgb2c592f" class="outline-2">
-<h2 id="orgb2c592f"><span class="section-number-2">4.</span> Informational</h2>
+<div id="outline-container-org0ad2091" class="outline-2">
+<h2 id="org0ad2091"><span class="section-number-2">4.</span> Informational</h2>
 <div class="outline-text-2" id="text-4">
 </div>
 <div id="outline-container-I0501:" class="outline-3">
@@ -457,66 +457,58 @@ TBD
 </div>
 
 
-<div id="outline-container-org0fa7819" class="outline-2">
-<h2 id="org0fa7819"><span class="section-number-2">5.</span> Appendix: Rust <code>ErrorCode</code> enum</h2>
+<div id="outline-container-org3b47e4a" class="outline-2">
+<h2 id="org3b47e4a"><span class="section-number-2">5.</span> Appendix: Rust <code>ErrorCode</code> enum</h2>
 <div class="outline-text-2" id="text-5">
-<p>
-#+BEGIN<sub>EXAMPLE</sub>: rust 
+<pre class="example" id="org2f50bb7">
 pub enum ErrorCode {
-    <i>/ ----------------------------&#x2013;&#x2014;
-    /</i> Bugs
-    // ----------------------------&#x2013;&#x2014;
+    // ---------------------------------
+    // Bugs
+    // ---------------------------------
     TreeSitterErrorNode = 1,
     TreeSitterUnexpectedNode = 2,
     TreeSitterMissingNode = 3,
     TreeSitterMissingVariable = 4,
-</p>
 
-<p>
-<i>/ ----------------------------&#x2013;&#x2014;
-/</i> Errors
-// ----------------------------&#x2013;&#x2014;
-ModuleNotFound = 101,
-ModuleVersionNotFound = 102,
-ModuleVersionMismatch = 103,
-DuplicateDefinitionName = 104,
-DuplicateMemberName = 105,
-DuplicateVariantName = 106,
-InvalidIdentifier = 107,
-InvalidLanguageTag = 108,
-InvalidValueForType = 109,
-InvalidModuleBaseUrl = 110,
-InvalidModuleVersionInfo = 111,
-InvalidModuleVersionUrl = 112,
-DefinitionNotFound = 113,
-</p>
+    // ---------------------------------
+    // Errors
+    // ---------------------------------
+    ModuleNotFound = 101,
+    ModuleVersionNotFound = 102,
+    ModuleVersionMismatch = 103,
+    DuplicateDefinitionName = 104,
+    DuplicateMemberName = 105,
+    DuplicateVariantName = 106,
+    InvalidIdentifier = 107,
+    InvalidLanguageTag = 108,
+    InvalidValueForType = 109,
+    InvalidModuleBaseUrl = 110,
+    InvalidModuleVersionInfo = 111,
+    InvalidModuleVersionUrl = 112,
+    DefinitionNotFound = 113,
 
-<p>
-<i>/ ----------------------------&#x2013;&#x2014;
-/</i> Warnings
-// ----------------------------&#x2013;&#x2014;
-ModuleAlreadyImported = 301,
-MemberAlreadyImported = 302,
-ValidationIncomplete = 303,
-</p>
+    // ---------------------------------
+    // Warnings
+    // ---------------------------------
+    ModuleAlreadyImported = 301,
+    MemberAlreadyImported = 302,
+    ValidationIncomplete = 303,
 
-<p>
-    <i>/ ----------------------------&#x2013;&#x2014;
-    /</i> Informational
-    // ----------------------------&#x2013;&#x2014;
+    // ---------------------------------
+    // Informational
+    // ---------------------------------
     IncompleteDefinition = 501,
     IncompleteMember = 502,
     StringWithoutLanguage = 503,
     UnconstrainedDatatype = 504,
 }
-#+END<sub>EXAMPLE</sub>
-</p>
+</pre>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2024-02-13 Tue 13:01</p>
+<p class="date">Created: 2024-02-13 Tue 13:08</p>
 </div>
 </body>
 </html>

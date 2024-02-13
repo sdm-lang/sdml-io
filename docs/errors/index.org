@@ -85,7 +85,7 @@ error[E0101]: imported module `owl` has no version URI
 5 │     owl <http://www.w3.org/2002/07/owl#>
   │     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ this import requires a version URI
   │
-  = for more details, see <https://sdml.io/docs/errors#E0101>
+  = for more details, see <https://sdml.io/errors/#E0101>
 #+END_EXAMPLE
 
 ** E102: ModuleVersionNotFound
@@ -204,7 +204,7 @@ warning[W0301]: duplicate import of module
 5 │   import [ dc xsd owl owl ]
   │                   ^^^ this module
   │
-  = for more details, see <https://sdml.io/docs/errors#W0301>
+  = for more details, see <https://sdml.io/errors/#W0301>
 
 warning[W0301]: duplicate import of module
   ┌─ examples/errors/W0301.sdm:5:23
@@ -215,7 +215,7 @@ warning[W0301]: duplicate import of module
 5 │   import [ dc xsd owl owl ]
   │                       ^^^ this module
   │
-  = for more details, see <https://sdml.io/docs/errors#W0301>
+  = for more details, see <https://sdml.io/errors/#W0301>
 
 warning: module `example` generated 2 warnings.
 #+END_EXAMPLE
@@ -249,7 +249,7 @@ warning[W0302]: duplicate import of member
 5 │   import [ dc xsd owl:Class ]
   │                   ^^^^^^^^^ this member
   │
-  = for more details, see <https://sdml.io/docs/errors#W0302>
+  = for more details, see <https://sdml.io/errors/#W0302>
 
 warning: module `example` generated 1 warnings.
 #+END_EXAMPLE
@@ -295,7 +295,7 @@ TBD
 
 * Appendix: Rust =ErrorCode= enum
 
-#+BEGIN_EXAMPLE: rust 
+#+BEGIN_EXAMPLE rust 
 pub enum ErrorCode {
     // ---------------------------------
     // Bugs
