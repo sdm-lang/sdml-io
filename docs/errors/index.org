@@ -11,7 +11,6 @@
 
 #+BEGIN_SRC emacs-lisp :exports none
 (require 'ebnf-mode)
-(require 'ob-rust)
 (require 'ob-sdml)
 #+END_SRC
 
@@ -61,29 +60,49 @@ with the name of the node kind that should have contained the expected variable.
 
 * Errors
 
-** E101: ModuleNotFound
+This category represents errors in module loading, in parsing a complete tree-sitter tree, or in module validation.
+
+** E100: ModuleNotFound
+:PROPERTIES:
+:CUSTOM_ID: E0100
+:END:
+
+An attempt to load a module failed, specifically a module that was loaded directly, not from another module's import
+statements.
+
+*** Example
+
+#+BEGIN_EXAMPLE
+$ sdml validate orl
+
+error[E0101]: module not found
+ = for more details, see <https://sdml.io/errors/#E0101>
+ = module name `orl`
+#+END_EXAMPLE
+
+** E101: ImportedModuleNotFound
 :PROPERTIES:
 :CUSTOM_ID: E0101
 :END:
 
-TBD
+An attempt to load a module listed in another module's import statement failed.
 
 *** Example
 
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
-  import owl <http://www.w3.org/2002/07/owl#>
+  import other
 
 end
 #+END_SRC
 
 #+BEGIN_EXAMPLE
-error[E0101]: imported module `owl` has no version URI
-  ┌─ examples/simple.sdm:5:5
+error[E0101]: module in import statement not found
+  ┌─ examples/errors/e0101.sdm:3:10
   │
-5 │     owl <http://www.w3.org/2002/07/owl#>
-  │     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ this import requires a version URI
+3 │   import other
+  │          ^^^^^ this import
   │
   = for more details, see <https://sdml.io/errors/#E0101>
 #+END_EXAMPLE
@@ -95,6 +114,38 @@ error[E0101]: imported module `owl` has no version URI
 
 TBD
 
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  import nonversioned_other <https://example.com/api/v2>
+
+end
+#+END_SRC
+
+#+BEGIN_SRC sdml :exports code :eval never
+module nonversioned_other <https://example.com/api> is
+end
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+error[E0102]: imported module has no version URI
+  ┌─ examples/errors/e0102.sdm:3:10
+  │
+3 │   import nonversioned_other <https://example.com/api/v2>
+  │          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ this import
+  │
+  ┌─ ./examples/errors/nonversioned_other.sdm:1:1
+  │  
+1 │ ╭ module nonversioned_other <https://example.com/api> is
+2 │ │ end
+3 │ │ 
+  │ ╰' this module
+  │  
+  = help: for more details, see <⁨https://sdml.io/errors/#E0102⁩>"
+#+END_EXAMPLE
+
 ** E103: ModuleVersionMismatch
 :PROPERTIES:
 :CUSTOM_ID: E0103
@@ -102,40 +153,235 @@ TBD
 
 TBD
 
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  import versioned_other <https://example.com/api/v3>
+
+end
+#+END_SRC
+
+#+BEGIN_SRC sdml :exports code :eval never
+module versioned_other <https://example.com/api>
+       version "v2" <https://example.com/api/v2> is
+end
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+error[E0103]: actual module URI does not match import requirement
+  ┌─ examples/errors/e0103.sdm:3:26
+  │
+3 │   import versioned_other <https://example.com/api/v3>
+  │                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected this version URI
+  │
+  ┌─ ./examples/errors/versioned_other.sdm:2:21
+  │
+2 │        version "v2" <https://example.com/api/v2> is
+  │                     ---------------------------- module contained this version URI
+  │
+  = help: for more details, see <⁨https://sdml.io/errors/#E0103⁩>"
+#+END_EXAMPLE
+
 ** E104: DuplicateDefinitionName
 :PROPERTIES:
 :CUSTOM_ID: E0104
 :END:
 
-TBD
+A module contains multiple definitions with the same name. A module is a namespace meaning that all definitions within
+it *must* have unique names (identifiers).
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  structure Foo
+
+  structure Bar
+
+  structure Foo
+
+end
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+error[E0104]: a definition with this name already exists
+  ┌─ examples/errors/e0104.sdm:3:13
+  │
+3 │   structure Foo
+  │             ^^^ this definition name
+  ·
+7 │   structure Foo
+  │             --- was previously defined here
+  │
+  = for more details, see <https://sdml.io/errors/#E0104>
+
+error: module `example` generated 1 errors.
+#+END_EXAMPLE
 
 ** E105: DuplicateMemberName
 :PROPERTIES:
 :CUSTOM_ID: E0105
 :END:
 
-TBD
+An entity, event, or structure definition contains multiple members with the same name. A definition is a namespace
+meaning that all members within it *must* have unique names (identifiers).
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  structure Foo is
+    foo -> string
+    bar -> integer
+    foo -> boolean
+  end
+
+end
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+error[E0105]: a member with this name already exists
+  ┌─ examples/errors/e0105.sdm:6:5
+  │
+4 │     foo -> string
+  │     --- was previously defined here
+5 │     bar -> integer
+6 │     foo -> boolean
+  │     ^^^ this member name
+  │
+  = for more details, see <https://sdml.io/errors/#E0105>
+
+error: module `example` generated 1 errors.
+#+END_EXAMPLE
 
 ** E106: DuplicateVariantName
 :PROPERTIES:
 :CUSTOM_ID: E0106
 :END:
 
-TBD
+An enum or union definition contains multiple variants with the same name. A definition is a namespace meaning that all
+variants within it *must* have unique names (identifiers).
+
+*** Example Value Variant
+
+#+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  enum EnumFoo of
+    Foo
+    Bar
+    Foo
+  end
+
+end
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+error[E0104]: a variant with this name already exists
+  ┌─ examples/errors/e0106-union.sdm:6:5
+  │
+4 │     Foo
+  │     --- was previously defined here
+5 │     Bar
+6 │     Foo
+  │     ^^^ this variant name
+  │
+  = for more details, see <https://sdml.io/errors/#E0104>
+
+error: module `example` generated 1 errors.
+#+END_EXAMPLE
+
+*** Example Type Variant
+
+#+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  union UnionFoo of
+    Foo
+    Bar
+    Foo
+  end
+
+end
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+error[E0104]: a variant with this name already exists
+  ┌─ examples/errors/e0106-union.sdm:6:5
+  │
+4 │     Foo
+  │     --- was previously defined here
+5 │     Bar
+6 │     Foo
+  │     ^^^ this variant name
+  │
+  = for more details, see <https://sdml.io/errors/#E0104>
+
+error: module `example` generated 1 errors.
+#+END_EXAMPLE
+
+*** Example Type Variant Rename
+
+#+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  union UnionFoo of
+    Foo
+    Bar
+    Boo as Foo
+  end
+
+end
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+error[E0104]: a variant with this name already exists
+  ┌─ examples/errors/e0106-rename.sdm:6:12
+  │
+4 │     Foo
+  │     --- was previously defined here
+5 │     Bar
+6 │     Boo as Foo
+  │            ^^^ this variant name
+  │
+  = for more details, see <https://sdml.io/errors/#E0104>
+
+error: module `example` generated 1 errors.
+#+END_EXAMPLE
 
 ** E107: InvalidIdentifier
 :PROPERTIES:
 :CUSTOM_ID: E0107
 :END:
 
-TBD
+API only.
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
 
 ** E108: InvalidLanguageTag
 :PROPERTIES:
 :CUSTOM_ID: E0108
 :END:
 
-TBD
+API only.
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
 
 ** E109: InvalidValueForType
 :PROPERTIES:
@@ -144,12 +390,28 @@ TBD
 
 TBD
 
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
 ** E110: InvalidModuleBaseUrl
 :PROPERTIES:
 :CUSTOM_ID: E0110
 :END:
 
-TBD
+API only.
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
 
 ** E111: InvalidModuleVersionInfo
 :PROPERTIES:
@@ -158,12 +420,28 @@ TBD
 
 TBD
 
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
 ** E112: InvalidModuleVersionUrl
 :PROPERTIES:
 :CUSTOM_ID: E0112
 :END:
 
-TBD
+API only.
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
 
 ** E113: DefinitionNotFound
 :PROPERTIES:
@@ -171,6 +449,14 @@ TBD
 :END:
 
 TBD
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
 
 
 * Warnings
@@ -180,7 +466,8 @@ TBD
 :CUSTOM_ID: W0301:
 :END:
 
-An import statement includes a module already imported.
+An import statement includes a module already imported. This is a warning because the loader will not attempt to
+re-parse the same module, but it's more than just bad style.
 
 *** Example
 
@@ -188,7 +475,6 @@ An import statement includes a module already imported.
 module example <https://example.com/api> is
 
   import owl
-
   import [ dc xsd owl owl ]
 
 end
@@ -225,7 +511,8 @@ warning: module `example` generated 2 warnings.
 :CUSTOM_ID: W0302
 :END:
 
-An import statement includes a member already imported.
+An import statement includes a member already imported. This is a warning because the loader will not attempt to
+re-parse the same module to access the same member, but it's more than just bad style.
 
 *** Example
 
@@ -233,7 +520,6 @@ An import statement includes a member already imported.
 module example <https://example.com/api> is
 
   import owl:Class
-
   import [ dc xsd owl:Class ]
 
 end
@@ -261,22 +547,104 @@ warning: module `example` generated 1 warnings.
 
 TBD
 
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
 
 * Informational
+
+** I500: IncompleteModule
+:PROPERTIES:
+:CUSTOM_ID: I0500:
+:END:
+
+The module is /incomplete/ as one or more definitions is incomplete.
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  structure Foo
+
+end
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+note[I0500]: this module is incomplete
+  ┌─ examples/errors/i0500.sdm:1:1
+  │  
+1 │ ╭ module example <https://example.com/api> is
+2 │ │ 
+3 │ │   structure Foo
+4 │ │ 
+5 │ │ end
+6 │ │ 
+  │ ╰^ this module
+  │  
+  = help: for more details, see <⁨https://sdml.io/errors/#I0500⁩>"
+#+END_EXAMPLE
 
 ** I501: IncompleteDefinition
 :PROPERTIES:
 :CUSTOM_ID: I0501:
 :END:
 
-TBD
+The definition is /incomplete/ as it has no body, or as one or more members or variants is incomplete.
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  structure Foo
+
+end
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+note[I0501]: this definition is incomplete
+  ┌─ examples/errors/i0500.sdm:3:3
+  │
+3 │   structure Foo
+  │   ^^^^^^^^^^^^^ this definition
+  │
+  = help: for more details, see <⁨https://sdml.io/errors/#I0501⁩>"
+#+END_EXAMPLE
 
 ** I502: IncompleteMember
 :PROPERTIES:
 :CUSTOM_ID: I0502
 :END:
 
-TBD
+The member is /incomplete/ as it's type is declared as =unknown=.
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  structure Foo is
+    bar -> unknown
+  end
+
+end
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+note[I0502]: this member is incomplete
+  ┌─ examples/errors/i0502.sdm:4:5
+  │
+4 │     bar -> unknown
+  │     ^^^^^^^^^^^^^^ this member
+  │
+  = help: for more details, see <⁨https://sdml.io/errors/#I0502⁩>"
+#+END_EXAMPLE
 
 ** I503: StringWithoutLanguage
 :PROPERTIES:
@@ -285,6 +653,14 @@ TBD
 
 TBD
 
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
 ** I504: UnconstrainedDatatype
 :PROPERTIES:
 :CUSTOM_ID: I0504
@@ -292,49 +668,10 @@ TBD
 
 TBD
 
+*** Example
 
-* Appendix: Rust =ErrorCode= enum
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
 
-#+BEGIN_EXAMPLE rust 
-pub enum ErrorCode {
-    // ---------------------------------
-    // Bugs
-    // ---------------------------------
-    TreeSitterErrorNode = 1,
-    TreeSitterUnexpectedNode = 2,
-    TreeSitterMissingNode = 3,
-    TreeSitterMissingVariable = 4,
-
-    // ---------------------------------
-    // Errors
-    // ---------------------------------
-    ModuleNotFound = 101,
-    ModuleVersionNotFound = 102,
-    ModuleVersionMismatch = 103,
-    DuplicateDefinitionName = 104,
-    DuplicateMemberName = 105,
-    DuplicateVariantName = 106,
-    InvalidIdentifier = 107,
-    InvalidLanguageTag = 108,
-    InvalidValueForType = 109,
-    InvalidModuleBaseUrl = 110,
-    InvalidModuleVersionInfo = 111,
-    InvalidModuleVersionUrl = 112,
-    DefinitionNotFound = 113,
-
-    // ---------------------------------
-    // Warnings
-    // ---------------------------------
-    ModuleAlreadyImported = 301,
-    MemberAlreadyImported = 302,
-    ValidationIncomplete = 303,
-
-    // ---------------------------------
-    // Informational
-    // ---------------------------------
-    IncompleteDefinition = 501,
-    IncompleteMember = 502,
-    StringWithoutLanguage = 503,
-    UnconstrainedDatatype = 504,
-}
+#+BEGIN_EXAMPLE
 #+END_EXAMPLE
