@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-02-15 Thu 14:17 -->
+<!-- 2024-02-16 Fri 08:37 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Simple Domain Modeling Language</title>
@@ -27,134 +27,179 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org055fe40">1. Bugs</a>
+<li><a href="#orgd59b06b">1. Bugs</a>
 <ul>
-<li><a href="#B0001">1.1. B01: Tree-Sitter Error Node</a></li>
-<li><a href="#B0002">1.2. B02: Tree-Sitter Unexpected Node</a></li>
-<li><a href="#B0003">1.3. B03: Tree-Sitter Missing Node</a></li>
-<li><a href="#B0004">1.4. B03: Tree-Sitter Missing Variable</a></li>
+<li><a href="#B0001">1.1. B0001: Tree-Sitter Error Node</a></li>
+<li><a href="#B0002">1.2. B0002: Tree-Sitter Unexpected Node</a></li>
+<li><a href="#B0003">1.3. B0003: Tree-Sitter Missing Node</a></li>
+<li><a href="#B0004">1.4. B0003: Tree-Sitter Missing Variable</a></li>
 </ul>
 </li>
-<li><a href="#orgdc881e1">2. Errors</a>
+<li><a href="#org4b358f0">2. Errors</a>
 <ul>
-<li><a href="#E0100">2.1. E100: ModuleNotFound</a>
+<li><a href="#E0100">2.1. E0100: Module Not Found</a>
 <ul>
-<li><a href="#orgddf3028">2.1.1. Example</a></li>
+<li><a href="#orgbcf4e99">2.1.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#E0101">2.2. E101: ImportedModuleNotFound</a>
+<li><a href="#E0101">2.2. E0101: Imported Module Not Found</a>
 <ul>
-<li><a href="#org40514ff">2.2.1. Example</a></li>
+<li><a href="#orga764478">2.2.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#E0102">2.3. E102: ModuleVersionNotFound</a>
+<li><a href="#E0102">2.3. E0102: Module Version Not Found</a>
 <ul>
-<li><a href="#org26bceaf">2.3.1. Example</a></li>
+<li><a href="#org745de26">2.3.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#E0103">2.4. E103: ModuleVersionMismatch</a>
+<li><a href="#E0103">2.4. E0103: Module Version Mismatch</a>
 <ul>
-<li><a href="#orgd1bb428">2.4.1. Example</a></li>
+<li><a href="#org150fa2b">2.4.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#E0104">2.5. E104: DuplicateDefinitionName</a>
+<li><a href="#E0104">2.5. E0104: Duplicate Definition Name</a>
 <ul>
-<li><a href="#org88f5d1b">2.5.1. Example</a></li>
+<li><a href="#org7f2ac49">2.5.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#E0105">2.6. E105: DuplicateMemberName</a>
+<li><a href="#E0105">2.6. E0105: Duplicate Member Name</a>
 <ul>
-<li><a href="#org73f81d1">2.6.1. Example</a></li>
+<li><a href="#org3499990">2.6.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#E0106">2.7. E106: DuplicateVariantName</a>
+<li><a href="#E0106">2.7. E0106: Duplicate Variant Name</a>
 <ul>
-<li><a href="#org0d86bfb">2.7.1. Example Value Variant</a></li>
-<li><a href="#org631040e">2.7.2. Example Type Variant</a></li>
-<li><a href="#orgd8c3e69">2.7.3. Example Type Variant Rename</a></li>
+<li><a href="#orgd1d613a">2.7.1. Example Value Variant</a></li>
+<li><a href="#org5031f72">2.7.2. Example Type Variant</a></li>
+<li><a href="#orgb44d6f6">2.7.3. Example Type Variant Rename</a></li>
 </ul>
 </li>
-<li><a href="#E0107">2.8. E107: InvalidIdentifier</a>
+<li><a href="#E0107">2.8. E0107: Invalid Identifier</a>
 <ul>
-<li><a href="#orge604efb">2.8.1. Example</a></li>
+<li><a href="#orgfdfb21d">2.8.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#E0108">2.9. E108: InvalidLanguageTag</a>
+<li><a href="#E0108">2.9. E0108: Invalid Language Tag</a>
 <ul>
-<li><a href="#org8a2b57c">2.9.1. Example</a></li>
+<li><a href="#org5247b4b">2.9.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#E0109">2.10. E109: InvalidValueForType</a>
+<li><a href="#E0109">2.10. E0109: Invalid Value For Type</a>
 <ul>
-<li><a href="#org13328d6">2.10.1. Example</a></li>
+<li><a href="#orga2dbe15">2.10.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#E0110">2.11. E110: InvalidModuleBaseUrl</a>
+<li><a href="#E0110">2.11. E0110: Invalid Module Base Url</a>
 <ul>
-<li><a href="#org8e31acd">2.11.1. Example</a></li>
+<li><a href="#org45a01ea">2.11.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#E0111">2.12. E111: InvalidModuleVersionInfo</a>
+<li><a href="#E0111">2.12. E0111: Invalid Module Version Info</a>
 <ul>
-<li><a href="#org144385a">2.12.1. Example</a></li>
+<li><a href="#org4bcb9c3">2.12.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#E0112">2.13. E112: InvalidModuleVersionUrl</a>
+<li><a href="#E0112">2.13. E0112: Invalid Module Version Url</a>
 <ul>
-<li><a href="#orgd6e3419">2.13.1. Example</a></li>
+<li><a href="#org5f264ac">2.13.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#E0113">2.14. E113: DefinitionNotFound</a>
+<li><a href="#E0113">2.14. E0113: Definition Not Found</a>
 <ul>
-<li><a href="#org9980e4c">2.14.1. Example</a></li>
+<li><a href="#org319fe3a">2.14.1. Example</a></li>
+</ul>
+</li>
+<li><a href="#E0114">2.15. E0114: Type Definition Not Found</a>
+<ul>
+<li><a href="#org2627fca">2.15.1. Example</a></li>
+</ul>
+</li>
+<li><a href="#E0115">2.16. E0115: Datatype Invalid Base</a>
+<ul>
+<li><a href="#orgcefaa88">2.16.1. Example</a></li>
+</ul>
+</li>
+<li><a href="#E0116">2.17. E0116: Type Class Incompatible</a>
+<ul>
+<li><a href="#org23ed791">2.17.1. Example</a></li>
+</ul>
+</li>
+<li><a href="#E0117">2.18. E0117: Property Incompatible</a>
+<ul>
+<li><a href="#org2c7ee64">2.18.1. Example</a></li>
+</ul>
+</li>
+<li><a href="#E0118">2.19. E0118: RDF Definition Incompatible</a>
+<ul>
+<li><a href="#org1c87d84">2.19.1. Example</a></li>
+</ul>
+</li>
+<li><a href="#E0119">2.20. E0119: Feature Set Not a Union</a>
+<ul>
+<li><a href="#org741aced">2.20.1. Example</a></li>
+</ul>
+</li>
+<li><a href="#E0120">2.21. E0120: Property Reference Not a Property</a>
+<ul>
+<li><a href="#org0d4bd3f">2.21.1. Example</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org44712af">3. Warnings</a>
+<li><a href="#org418008f">3. Warnings</a>
 <ul>
-<li><a href="#W0301:">3.1. W301: ModuleAlreadyImported</a>
+<li><a href="#W0301:">3.1. W0301: Module Already Imported</a>
 <ul>
-<li><a href="#orge2e44dc">3.1.1. Example</a></li>
+<li><a href="#orge85a663">3.1.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#W0302">3.2. W302: MemberAlreadyImported</a>
+<li><a href="#W0302">3.2. W0302: Member Already Imported</a>
 <ul>
-<li><a href="#org12777fb">3.2.1. Example</a></li>
+<li><a href="#org9da9dab">3.2.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#W0303">3.3. W303: ValidationIncomplete</a>
+<li><a href="#W0303">3.3. W0303: Validation Incomplete</a>
 <ul>
-<li><a href="#org7eca997">3.3.1. Example</a></li>
+<li><a href="#org34626d1">3.3.1. Example</a></li>
+</ul>
+</li>
+<li><a href="#E0304">3.4. W0304: Module Version Info Empty</a>
+<ul>
+<li><a href="#org49905a1">3.4.1. Example</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org53e10e2">4. Informational</a>
+<li><a href="#org20a8d94">4. Informational</a>
 <ul>
-<li><a href="#I0500:">4.1. I500: IncompleteModule</a>
+<li><a href="#I0500:">4.1. I0500: Incomplete Module</a>
 <ul>
-<li><a href="#org9f02ff5">4.1.1. Example</a></li>
+<li><a href="#org925d512">4.1.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#I0501:">4.2. I501: IncompleteDefinition</a>
+<li><a href="#I0501:">4.2. I0501: Incomplete Definition</a>
 <ul>
-<li><a href="#org8a55b09">4.2.1. Example</a></li>
+<li><a href="#org5a0420f">4.2.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#I0502">4.3. I502: IncompleteMember</a>
+<li><a href="#I0502">4.3. I0502: Incomplete Member</a>
 <ul>
-<li><a href="#orgb7d3b46">4.3.1. Example</a></li>
+<li><a href="#orgc8d430c">4.3.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#I0503">4.4. I503: StringWithoutLanguage</a>
+<li><a href="#I0503">4.4. I0503: String Without Language</a>
 <ul>
-<li><a href="#org46d56be">4.4.1. Example</a></li>
+<li><a href="#org931f71c">4.4.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#I0504">4.5. I504: UnconstrainedDatatype</a>
+<li><a href="#I0504">4.5. I0504: Unconstrained Datatype</a>
 <ul>
-<li><a href="#org6c4c381">4.5.1. Example</a></li>
+<li><a href="#org4da8729">4.5.1. Example</a></li>
+</ul>
+</li>
+<li><a href="#I0505">4.6. I0505: Double Underscored Identifier</a>
+<ul>
+<li><a href="#orgc9e2451">4.6.1. Example</a></li>
 </ul>
 </li>
 </ul>
@@ -167,8 +212,8 @@ This page provides a reference to the errors, warnings, and informational messag
 output by the <code>sdml</code> command-line tool.
 </p>
 
-<div id="outline-container-org055fe40" class="outline-2">
-<h2 id="org055fe40"><span class="section-number-2">1.</span> Bugs</h2>
+<div id="outline-container-orgd59b06b" class="outline-2">
+<h2 id="orgd59b06b"><span class="section-number-2">1.</span> Bugs</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This category represents bugs in the command-line tool where it&rsquo;s parser receives unexpected nodes from the underlyiung
@@ -177,7 +222,7 @@ tree-sitter parser.
 </div>
 
 <div id="outline-container-B0001" class="outline-3">
-<h3 id="B0001"><span class="section-number-3">1.1.</span> B01: Tree-Sitter Error Node</h3>
+<h3 id="B0001"><span class="section-number-3">1.1.</span> B0001: Tree-Sitter Error Node</h3>
 <div class="outline-text-3" id="text-B0001">
 <p>
 If the tree-sitter parser itself cannot parse some content it inserts an <code>error</code> node in the tree. When the SDML parser
@@ -192,7 +237,7 @@ processing when the error node was found.
 </div>
 
 <div id="outline-container-B0002" class="outline-3">
-<h3 id="B0002"><span class="section-number-3">1.2.</span> B02: Tree-Sitter Unexpected Node</h3>
+<h3 id="B0002"><span class="section-number-3">1.2.</span> B0002: Tree-Sitter Unexpected Node</h3>
 <div class="outline-text-3" id="text-B0002">
 <p>
 The <code>Diagnostic</code> for this error will attempt to record the file ID, location, and the name of any expected nodes along
@@ -202,7 +247,7 @@ with the name of the node found.
 </div>
 
 <div id="outline-container-B0003" class="outline-3">
-<h3 id="B0003"><span class="section-number-3">1.3.</span> B03: Tree-Sitter Missing Node</h3>
+<h3 id="B0003"><span class="section-number-3">1.3.</span> B0003: Tree-Sitter Missing Node</h3>
 <div class="outline-text-3" id="text-B0003">
 <p>
 The <code>Diagnostic</code> for this error will attempt to record the file ID, location, and the name of any expected nodes along
@@ -212,7 +257,7 @@ with the name of any variable that might have contained the expected node.
 </div>
 
 <div id="outline-container-B0004" class="outline-3">
-<h3 id="B0004"><span class="section-number-3">1.4.</span> B03: Tree-Sitter Missing Variable</h3>
+<h3 id="B0004"><span class="section-number-3">1.4.</span> B0003: Tree-Sitter Missing Variable</h3>
 <div class="outline-text-3" id="text-B0004">
 <p>
 The <code>Diagnostic</code> for this error will attempt to record the file ID, location, and the name of the expected variable along
@@ -223,8 +268,8 @@ with the name of the node kind that should have contained the expected variable.
 </div>
 
 
-<div id="outline-container-orgdc881e1" class="outline-2">
-<h2 id="orgdc881e1"><span class="section-number-2">2.</span> Errors</h2>
+<div id="outline-container-org4b358f0" class="outline-2">
+<h2 id="org4b358f0"><span class="section-number-2">2.</span> Errors</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 This category represents errors in module loading, in parsing a complete tree-sitter tree, or in module validation.
@@ -232,7 +277,7 @@ This category represents errors in module loading, in parsing a complete tree-si
 </div>
 
 <div id="outline-container-E0100" class="outline-3">
-<h3 id="E0100"><span class="section-number-3">2.1.</span> E100: ModuleNotFound</h3>
+<h3 id="E0100"><span class="section-number-3">2.1.</span> E0100: Module Not Found</h3>
 <div class="outline-text-3" id="text-E0100">
 <p>
 An attempt to load a module failed, specifically a module that was loaded directly, not from another module&rsquo;s import
@@ -240,10 +285,10 @@ statements.
 </p>
 </div>
 
-<div id="outline-container-orgddf3028" class="outline-4">
-<h4 id="orgddf3028"><span class="section-number-4">2.1.1.</span> Example</h4>
+<div id="outline-container-orgbcf4e99" class="outline-4">
+<h4 id="orgbcf4e99"><span class="section-number-4">2.1.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-1-1">
-<pre class="example" id="org56610ef">
+<pre class="example" id="orgb9e703c">
 $ sdml validate orl
 
 error[E0101]: module not found
@@ -255,15 +300,15 @@ error[E0101]: module not found
 </div>
 
 <div id="outline-container-E0101" class="outline-3">
-<h3 id="E0101"><span class="section-number-3">2.2.</span> E101: ImportedModuleNotFound</h3>
+<h3 id="E0101"><span class="section-number-3">2.2.</span> E0101: Imported Module Not Found</h3>
 <div class="outline-text-3" id="text-E0101">
 <p>
 An attempt to load a module listed in another module&rsquo;s import statement failed.
 </p>
 </div>
 
-<div id="outline-container-org40514ff" class="outline-4">
-<h4 id="org40514ff"><span class="section-number-4">2.2.1.</span> Example</h4>
+<div id="outline-container-orga764478" class="outline-4">
+<h4 id="orga764478"><span class="section-number-4">2.2.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api">&lt;https://example.com/api&gt;</a></span> <span style="color: #859900;">is</span>
@@ -274,7 +319,7 @@ An attempt to load a module listed in another module&rsquo;s import statement fa
 </pre>
 </div>
 
-<pre class="example" id="org0b01e7a">
+<pre class="example" id="orge4a3463">
 error[E0101]: module in import statement not found
   ┌─ examples/errors/e0101.sdm:3:10
   │
@@ -288,15 +333,15 @@ error[E0101]: module in import statement not found
 </div>
 
 <div id="outline-container-E0102" class="outline-3">
-<h3 id="E0102"><span class="section-number-3">2.3.</span> E102: ModuleVersionNotFound</h3>
+<h3 id="E0102"><span class="section-number-3">2.3.</span> E0102: Module Version Not Found</h3>
 <div class="outline-text-3" id="text-E0102">
 <p>
 TBD
 </p>
 </div>
 
-<div id="outline-container-org26bceaf" class="outline-4">
-<h4 id="org26bceaf"><span class="section-number-4">2.3.1.</span> Example</h4>
+<div id="outline-container-org745de26" class="outline-4">
+<h4 id="org745de26"><span class="section-number-4">2.3.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api&gt; is
@@ -331,7 +376,7 @@ TBD
 </pre>
 </div>
 
-<pre class="example" id="org3beab16">
+<pre class="example" id="orgd9e183e">
 error[E0102]: imported module has no version URI
   ┌─ examples/errors/e0102.sdm:3:10
   │
@@ -352,15 +397,15 @@ error[E0102]: imported module has no version URI
 </div>
 
 <div id="outline-container-E0103" class="outline-3">
-<h3 id="E0103"><span class="section-number-3">2.4.</span> E103: ModuleVersionMismatch</h3>
+<h3 id="E0103"><span class="section-number-3">2.4.</span> E0103: Module Version Mismatch</h3>
 <div class="outline-text-3" id="text-E0103">
 <p>
 TBD
 </p>
 </div>
 
-<div id="outline-container-orgd1bb428" class="outline-4">
-<h4 id="orgd1bb428"><span class="section-number-4">2.4.1.</span> Example</h4>
+<div id="outline-container-org150fa2b" class="outline-4">
+<h4 id="org150fa2b"><span class="section-number-4">2.4.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-4-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api&gt; is
@@ -401,7 +446,7 @@ TBD
 </pre>
 </div>
 
-<pre class="example" id="org8e4c185">
+<pre class="example" id="orgf48f66f">
 error[E0103]: actual module URI does not match import requirement
   ┌─ examples/errors/e0103.sdm:3:26
   │
@@ -420,7 +465,7 @@ error[E0103]: actual module URI does not match import requirement
 </div>
 
 <div id="outline-container-E0104" class="outline-3">
-<h3 id="E0104"><span class="section-number-3">2.5.</span> E104: DuplicateDefinitionName</h3>
+<h3 id="E0104"><span class="section-number-3">2.5.</span> E0104: Duplicate Definition Name</h3>
 <div class="outline-text-3" id="text-E0104">
 <p>
 A module contains multiple definitions with the same name. A module is a namespace meaning that all definitions within
@@ -428,8 +473,8 @@ it <b>must</b> have unique names (identifiers).
 </p>
 </div>
 
-<div id="outline-container-org88f5d1b" class="outline-4">
-<h4 id="org88f5d1b"><span class="section-number-4">2.5.1.</span> Example</h4>
+<div id="outline-container-org7f2ac49" class="outline-4">
+<h4 id="org7f2ac49"><span class="section-number-4">2.5.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-5-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api">&lt;https://example.com/api&gt;</a></span> <span style="color: #859900;">is</span>
@@ -444,7 +489,7 @@ it <b>must</b> have unique names (identifiers).
 </pre>
 </div>
 
-<pre class="example" id="org33cd260">
+<pre class="example" id="org3bf9450">
 error[E0104]: a definition with this name already exists
   ┌─ examples/errors/e0104.sdm:3:13
   │
@@ -463,7 +508,7 @@ error: module `example` generated 1 errors.
 </div>
 
 <div id="outline-container-E0105" class="outline-3">
-<h3 id="E0105"><span class="section-number-3">2.6.</span> E105: DuplicateMemberName</h3>
+<h3 id="E0105"><span class="section-number-3">2.6.</span> E0105: Duplicate Member Name</h3>
 <div class="outline-text-3" id="text-E0105">
 <p>
 An entity, event, or structure definition contains multiple members with the same name. A definition is a namespace
@@ -471,8 +516,8 @@ meaning that all members within it <b>must</b> have unique names (identifiers).
 </p>
 </div>
 
-<div id="outline-container-org73f81d1" class="outline-4">
-<h4 id="org73f81d1"><span class="section-number-4">2.6.1.</span> Example</h4>
+<div id="outline-container-org3499990" class="outline-4">
+<h4 id="org3499990"><span class="section-number-4">2.6.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-6-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api&gt; is
@@ -582,7 +627,7 @@ meaning that all members within it <b>must</b> have unique names (identifiers).
 </pre>
 </div>
 
-<pre class="example" id="org854314e">
+<pre class="example" id="orgbe68dc4">
 error[E0105]: a member with this name already exists
   ┌─ examples/errors/e0105.sdm:6:5
   │
@@ -601,7 +646,7 @@ error: module `example` generated 1 errors.
 </div>
 
 <div id="outline-container-E0106" class="outline-3">
-<h3 id="E0106"><span class="section-number-3">2.7.</span> E106: DuplicateVariantName</h3>
+<h3 id="E0106"><span class="section-number-3">2.7.</span> E0106: Duplicate Variant Name</h3>
 <div class="outline-text-3" id="text-E0106">
 <p>
 An enum or union definition contains multiple variants with the same name. A definition is a namespace meaning that all
@@ -609,8 +654,8 @@ variants within it <b>must</b> have unique names (identifiers).
 </p>
 </div>
 
-<div id="outline-container-org0d86bfb" class="outline-4">
-<h4 id="org0d86bfb"><span class="section-number-4">2.7.1.</span> Example Value Variant</h4>
+<div id="outline-container-orgd1d613a" class="outline-4">
+<h4 id="orgd1d613a"><span class="section-number-4">2.7.1.</span> Example Value Variant</h4>
 <div class="outline-text-4" id="text-2-7-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api">&lt;https://example.com/api&gt;</a></span> <span style="color: #859900;">is</span>
@@ -625,7 +670,7 @@ variants within it <b>must</b> have unique names (identifiers).
 </pre>
 </div>
 
-<pre class="example" id="orga9959ed">
+<pre class="example" id="orge5d234e">
 error[E0104]: a variant with this name already exists
   ┌─ examples/errors/e0106-union.sdm:6:5
   │
@@ -642,8 +687,8 @@ error: module `example` generated 1 errors.
 </div>
 </div>
 
-<div id="outline-container-org631040e" class="outline-4">
-<h4 id="org631040e"><span class="section-number-4">2.7.2.</span> Example Type Variant</h4>
+<div id="outline-container-org5031f72" class="outline-4">
+<h4 id="org5031f72"><span class="section-number-4">2.7.2.</span> Example Type Variant</h4>
 <div class="outline-text-4" id="text-2-7-2">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api">&lt;https://example.com/api&gt;</a></span> <span style="color: #859900;">is</span>
@@ -658,7 +703,7 @@ error: module `example` generated 1 errors.
 </pre>
 </div>
 
-<pre class="example" id="orgeac6350">
+<pre class="example" id="org9ff7650">
 error[E0104]: a variant with this name already exists
   ┌─ examples/errors/e0106-union.sdm:6:5
   │
@@ -675,8 +720,8 @@ error: module `example` generated 1 errors.
 </div>
 </div>
 
-<div id="outline-container-orgd8c3e69" class="outline-4">
-<h4 id="orgd8c3e69"><span class="section-number-4">2.7.3.</span> Example Type Variant Rename</h4>
+<div id="outline-container-orgb44d6f6" class="outline-4">
+<h4 id="orgb44d6f6"><span class="section-number-4">2.7.3.</span> Example Type Variant Rename</h4>
 <div class="outline-text-4" id="text-2-7-3">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api">&lt;https://example.com/api&gt;</a></span> <span style="color: #859900;">is</span>
@@ -691,7 +736,7 @@ error: module `example` generated 1 errors.
 </pre>
 </div>
 
-<pre class="example" id="org9fbff54">
+<pre class="example" id="org66c2d08">
 error[E0104]: a variant with this name already exists
   ┌─ examples/errors/e0106-rename.sdm:6:12
   │
@@ -710,22 +755,22 @@ error: module `example` generated 1 errors.
 </div>
 
 <div id="outline-container-E0107" class="outline-3">
-<h3 id="E0107"><span class="section-number-3">2.8.</span> E107: InvalidIdentifier</h3>
+<h3 id="E0107"><span class="section-number-3">2.8.</span> E0107: Invalid Identifier</h3>
 <div class="outline-text-3" id="text-E0107">
 <p>
 API only.
 </p>
 </div>
 
-<div id="outline-container-orge604efb" class="outline-4">
-<h4 id="orge604efb"><span class="section-number-4">2.8.1.</span> Example</h4>
+<div id="outline-container-orgfdfb21d" class="outline-4">
+<h4 id="orgfdfb21d"><span class="section-number-4">2.8.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-8-1">
 <div class="org-src-container">
 <pre class="src src-sdml">
 </pre>
 </div>
 
-<pre class="example" id="org164a1f1">
+<pre class="example" id="org83b5f4b">
 
 </pre>
 </div>
@@ -733,22 +778,22 @@ API only.
 </div>
 
 <div id="outline-container-E0108" class="outline-3">
-<h3 id="E0108"><span class="section-number-3">2.9.</span> E108: InvalidLanguageTag</h3>
+<h3 id="E0108"><span class="section-number-3">2.9.</span> E0108: Invalid Language Tag</h3>
 <div class="outline-text-3" id="text-E0108">
 <p>
 API only.
 </p>
 </div>
 
-<div id="outline-container-org8a2b57c" class="outline-4">
-<h4 id="org8a2b57c"><span class="section-number-4">2.9.1.</span> Example</h4>
+<div id="outline-container-org5247b4b" class="outline-4">
+<h4 id="org5247b4b"><span class="section-number-4">2.9.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-9-1">
 <div class="org-src-container">
 <pre class="src src-sdml">
 </pre>
 </div>
 
-<pre class="example" id="orgff96713">
+<pre class="example" id="orgbe56511">
 
 </pre>
 </div>
@@ -756,22 +801,22 @@ API only.
 </div>
 
 <div id="outline-container-E0109" class="outline-3">
-<h3 id="E0109"><span class="section-number-3">2.10.</span> E109: InvalidValueForType</h3>
+<h3 id="E0109"><span class="section-number-3">2.10.</span> E0109: Invalid Value For Type</h3>
 <div class="outline-text-3" id="text-E0109">
 <p>
 TBD
 </p>
 </div>
 
-<div id="outline-container-org13328d6" class="outline-4">
-<h4 id="org13328d6"><span class="section-number-4">2.10.1.</span> Example</h4>
+<div id="outline-container-orga2dbe15" class="outline-4">
+<h4 id="orga2dbe15"><span class="section-number-4">2.10.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-10-1">
 <div class="org-src-container">
 <pre class="src src-sdml">
 </pre>
 </div>
 
-<pre class="example" id="orgd57beef">
+<pre class="example" id="org3635761">
 
 </pre>
 </div>
@@ -779,22 +824,22 @@ TBD
 </div>
 
 <div id="outline-container-E0110" class="outline-3">
-<h3 id="E0110"><span class="section-number-3">2.11.</span> E110: InvalidModuleBaseUrl</h3>
+<h3 id="E0110"><span class="section-number-3">2.11.</span> E0110: Invalid Module Base Url</h3>
 <div class="outline-text-3" id="text-E0110">
 <p>
 API only.
 </p>
 </div>
 
-<div id="outline-container-org8e31acd" class="outline-4">
-<h4 id="org8e31acd"><span class="section-number-4">2.11.1.</span> Example</h4>
+<div id="outline-container-org45a01ea" class="outline-4">
+<h4 id="org45a01ea"><span class="section-number-4">2.11.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-11-1">
 <div class="org-src-container">
 <pre class="src src-sdml">
 </pre>
 </div>
 
-<pre class="example" id="org55df29d">
+<pre class="example" id="org89aec0e">
 
 </pre>
 </div>
@@ -802,22 +847,22 @@ API only.
 </div>
 
 <div id="outline-container-E0111" class="outline-3">
-<h3 id="E0111"><span class="section-number-3">2.12.</span> E111: InvalidModuleVersionInfo</h3>
+<h3 id="E0111"><span class="section-number-3">2.12.</span> E0111: Invalid Module Version Info</h3>
 <div class="outline-text-3" id="text-E0111">
 <p>
 TBD
 </p>
 </div>
 
-<div id="outline-container-org144385a" class="outline-4">
-<h4 id="org144385a"><span class="section-number-4">2.12.1.</span> Example</h4>
+<div id="outline-container-org4bcb9c3" class="outline-4">
+<h4 id="org4bcb9c3"><span class="section-number-4">2.12.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-12-1">
 <div class="org-src-container">
 <pre class="src src-sdml">
 </pre>
 </div>
 
-<pre class="example" id="org2c4d3c2">
+<pre class="example" id="org389eaab">
 
 </pre>
 </div>
@@ -825,22 +870,22 @@ TBD
 </div>
 
 <div id="outline-container-E0112" class="outline-3">
-<h3 id="E0112"><span class="section-number-3">2.13.</span> E112: InvalidModuleVersionUrl</h3>
+<h3 id="E0112"><span class="section-number-3">2.13.</span> E0112: Invalid Module Version Url</h3>
 <div class="outline-text-3" id="text-E0112">
 <p>
 API only.
 </p>
 </div>
 
-<div id="outline-container-orgd6e3419" class="outline-4">
-<h4 id="orgd6e3419"><span class="section-number-4">2.13.1.</span> Example</h4>
+<div id="outline-container-org5f264ac" class="outline-4">
+<h4 id="org5f264ac"><span class="section-number-4">2.13.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-13-1">
 <div class="org-src-container">
 <pre class="src src-sdml">
 </pre>
 </div>
 
-<pre class="example" id="org748cb74">
+<pre class="example" id="orgc62d903">
 
 </pre>
 </div>
@@ -848,22 +893,183 @@ API only.
 </div>
 
 <div id="outline-container-E0113" class="outline-3">
-<h3 id="E0113"><span class="section-number-3">2.14.</span> E113: DefinitionNotFound</h3>
+<h3 id="E0113"><span class="section-number-3">2.14.</span> E0113: Definition Not Found</h3>
 <div class="outline-text-3" id="text-E0113">
 <p>
 TBD
 </p>
 </div>
 
-<div id="outline-container-org9980e4c" class="outline-4">
-<h4 id="org9980e4c"><span class="section-number-4">2.14.1.</span> Example</h4>
+<div id="outline-container-org319fe3a" class="outline-4">
+<h4 id="org319fe3a"><span class="section-number-4">2.14.1.</span> Example</h4>
 <div class="outline-text-4" id="text-2-14-1">
 <div class="org-src-container">
 <pre class="src src-sdml">
 </pre>
 </div>
 
-<pre class="example" id="org941ed65">
+<pre class="example" id="orgdbb12df">
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-E0114" class="outline-3">
+<h3 id="E0114"><span class="section-number-3">2.15.</span> E0114: Type Definition Not Found</h3>
+<div class="outline-text-3" id="text-E0114">
+<p>
+TBD
+</p>
+</div>
+
+<div id="outline-container-org2627fca" class="outline-4">
+<h4 id="org2627fca"><span class="section-number-4">2.15.1.</span> Example</h4>
+<div class="outline-text-4" id="text-2-15-1">
+<div class="org-src-container">
+<pre class="src src-sdml">
+</pre>
+</div>
+
+<pre class="example" id="org30840da">
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-E0115" class="outline-3">
+<h3 id="E0115"><span class="section-number-3">2.16.</span> E0115: Datatype Invalid Base</h3>
+<div class="outline-text-3" id="text-E0115">
+<p>
+TBD
+</p>
+</div>
+
+<div id="outline-container-orgcefaa88" class="outline-4">
+<h4 id="orgcefaa88"><span class="section-number-4">2.16.1.</span> Example</h4>
+<div class="outline-text-4" id="text-2-16-1">
+<div class="org-src-container">
+<pre class="src src-sdml">
+</pre>
+</div>
+
+<pre class="example" id="orgf0bdae7">
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-E0116" class="outline-3">
+<h3 id="E0116"><span class="section-number-3">2.17.</span> E0116: Type Class Incompatible</h3>
+<div class="outline-text-3" id="text-E0116">
+<p>
+TBD
+</p>
+</div>
+
+<div id="outline-container-org23ed791" class="outline-4">
+<h4 id="org23ed791"><span class="section-number-4">2.17.1.</span> Example</h4>
+<div class="outline-text-4" id="text-2-17-1">
+<div class="org-src-container">
+<pre class="src src-sdml">
+</pre>
+</div>
+
+<pre class="example" id="org6e5dc41">
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-E0117" class="outline-3">
+<h3 id="E0117"><span class="section-number-3">2.18.</span> E0117: Property Incompatible</h3>
+<div class="outline-text-3" id="text-E0117">
+<p>
+TBD
+</p>
+</div>
+
+<div id="outline-container-org2c7ee64" class="outline-4">
+<h4 id="org2c7ee64"><span class="section-number-4">2.18.1.</span> Example</h4>
+<div class="outline-text-4" id="text-2-18-1">
+<div class="org-src-container">
+<pre class="src src-sdml">
+</pre>
+</div>
+
+<pre class="example" id="org351067e">
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-E0118" class="outline-3">
+<h3 id="E0118"><span class="section-number-3">2.19.</span> E0118: RDF Definition Incompatible</h3>
+<div class="outline-text-3" id="text-E0118">
+<p>
+TBD
+</p>
+</div>
+
+<div id="outline-container-org1c87d84" class="outline-4">
+<h4 id="org1c87d84"><span class="section-number-4">2.19.1.</span> Example</h4>
+<div class="outline-text-4" id="text-2-19-1">
+<div class="org-src-container">
+<pre class="src src-sdml">
+</pre>
+</div>
+
+<pre class="example" id="org7142c2e">
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-E0119" class="outline-3">
+<h3 id="E0119"><span class="section-number-3">2.20.</span> E0119: Feature Set Not a Union</h3>
+<div class="outline-text-3" id="text-E0119">
+<p>
+TBD
+</p>
+</div>
+
+<div id="outline-container-org741aced" class="outline-4">
+<h4 id="org741aced"><span class="section-number-4">2.20.1.</span> Example</h4>
+<div class="outline-text-4" id="text-2-20-1">
+<div class="org-src-container">
+<pre class="src src-sdml">
+</pre>
+</div>
+
+<pre class="example" id="org988fb01">
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-E0120" class="outline-3">
+<h3 id="E0120"><span class="section-number-3">2.21.</span> E0120: Property Reference Not a Property</h3>
+<div class="outline-text-3" id="text-E0120">
+<p>
+TBD
+</p>
+</div>
+
+<div id="outline-container-org0d4bd3f" class="outline-4">
+<h4 id="org0d4bd3f"><span class="section-number-4">2.21.1.</span> Example</h4>
+<div class="outline-text-4" id="text-2-21-1">
+<div class="org-src-container">
+<pre class="src src-sdml">
+</pre>
+</div>
+
+<pre class="example" id="org36e9887">
 
 </pre>
 </div>
@@ -872,12 +1078,12 @@ TBD
 </div>
 
 
-<div id="outline-container-org44712af" class="outline-2">
-<h2 id="org44712af"><span class="section-number-2">3.</span> Warnings</h2>
+<div id="outline-container-org418008f" class="outline-2">
+<h2 id="org418008f"><span class="section-number-2">3.</span> Warnings</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 <div id="outline-container-W0301:" class="outline-3">
-<h3 id="W0301:"><span class="section-number-3">3.1.</span> W301: ModuleAlreadyImported</h3>
+<h3 id="W0301:"><span class="section-number-3">3.1.</span> W0301: Module Already Imported</h3>
 <div class="outline-text-3" id="text-W0301:">
 <p>
 An import statement includes a module already imported. This is a warning because the loader will not attempt to
@@ -885,8 +1091,8 @@ re-parse the same module, but it&rsquo;s more than just bad style.
 </p>
 </div>
 
-<div id="outline-container-orge2e44dc" class="outline-4">
-<h4 id="orge2e44dc"><span class="section-number-4">3.1.1.</span> Example</h4>
+<div id="outline-container-orge85a663" class="outline-4">
+<h4 id="orge85a663"><span class="section-number-4">3.1.1.</span> Example</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api">&lt;https://example.com/api&gt;</a></span> <span style="color: #859900;">is</span>
@@ -898,7 +1104,7 @@ re-parse the same module, but it&rsquo;s more than just bad style.
 </pre>
 </div>
 
-<pre class="example" id="org32331d5">
+<pre class="example" id="org5ffe05a">
 warning[W0301]: duplicate import of module
   ┌─ examples/errors/W0301.sdm:5:19
   │
@@ -928,7 +1134,7 @@ warning: module `example` generated 2 warnings.
 </div>
 
 <div id="outline-container-W0302" class="outline-3">
-<h3 id="W0302"><span class="section-number-3">3.2.</span> W302: MemberAlreadyImported</h3>
+<h3 id="W0302"><span class="section-number-3">3.2.</span> W0302: Member Already Imported</h3>
 <div class="outline-text-3" id="text-W0302">
 <p>
 An import statement includes a member already imported. This is a warning because the loader will not attempt to
@@ -936,8 +1142,8 @@ re-parse the same module to access the same member, but it&rsquo;s more than jus
 </p>
 </div>
 
-<div id="outline-container-org12777fb" class="outline-4">
-<h4 id="org12777fb"><span class="section-number-4">3.2.1.</span> Example</h4>
+<div id="outline-container-org9da9dab" class="outline-4">
+<h4 id="org9da9dab"><span class="section-number-4">3.2.1.</span> Example</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api">&lt;https://example.com/api&gt;</a></span> <span style="color: #859900;">is</span>
@@ -949,7 +1155,7 @@ re-parse the same module to access the same member, but it&rsquo;s more than jus
 </pre>
 </div>
 
-<pre class="example" id="orge9d9d4a">
+<pre class="example" id="org0e2dfcf">
 warning[W0302]: duplicate import of member
   ┌─ examples/errors/W0302.sdm:5:19
   │
@@ -968,22 +1174,45 @@ warning: module `example` generated 1 warnings.
 </div>
 
 <div id="outline-container-W0303" class="outline-3">
-<h3 id="W0303"><span class="section-number-3">3.3.</span> W303: ValidationIncomplete</h3>
+<h3 id="W0303"><span class="section-number-3">3.3.</span> W0303: Validation Incomplete</h3>
 <div class="outline-text-3" id="text-W0303">
 <p>
 TBD
 </p>
 </div>
 
-<div id="outline-container-org7eca997" class="outline-4">
-<h4 id="org7eca997"><span class="section-number-4">3.3.1.</span> Example</h4>
+<div id="outline-container-org34626d1" class="outline-4">
+<h4 id="org34626d1"><span class="section-number-4">3.3.1.</span> Example</h4>
 <div class="outline-text-4" id="text-3-3-1">
 <div class="org-src-container">
 <pre class="src src-sdml">
 </pre>
 </div>
 
-<pre class="example" id="orga705f70">
+<pre class="example" id="org3868e95">
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-E0304" class="outline-3">
+<h3 id="E0304"><span class="section-number-3">3.4.</span> W0304: Module Version Info Empty</h3>
+<div class="outline-text-3" id="text-E0304">
+<p>
+TBD
+</p>
+</div>
+
+<div id="outline-container-org49905a1" class="outline-4">
+<h4 id="org49905a1"><span class="section-number-4">3.4.1.</span> Example</h4>
+<div class="outline-text-4" id="text-3-4-1">
+<div class="org-src-container">
+<pre class="src src-sdml">
+</pre>
+</div>
+
+<pre class="example" id="org8f32a10">
 
 </pre>
 </div>
@@ -992,20 +1221,20 @@ TBD
 </div>
 
 
-<div id="outline-container-org53e10e2" class="outline-2">
-<h2 id="org53e10e2"><span class="section-number-2">4.</span> Informational</h2>
+<div id="outline-container-org20a8d94" class="outline-2">
+<h2 id="org20a8d94"><span class="section-number-2">4.</span> Informational</h2>
 <div class="outline-text-2" id="text-4">
 </div>
 <div id="outline-container-I0500:" class="outline-3">
-<h3 id="I0500:"><span class="section-number-3">4.1.</span> I500: IncompleteModule</h3>
+<h3 id="I0500:"><span class="section-number-3">4.1.</span> I0500: Incomplete Module</h3>
 <div class="outline-text-3" id="text-I0500:">
 <p>
 The module is <i>incomplete</i> as one or more definitions is incomplete.
 </p>
 </div>
 
-<div id="outline-container-org9f02ff5" class="outline-4">
-<h4 id="org9f02ff5"><span class="section-number-4">4.1.1.</span> Example</h4>
+<div id="outline-container-org925d512" class="outline-4">
+<h4 id="org925d512"><span class="section-number-4">4.1.1.</span> Example</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api">&lt;https://example.com/api&gt;</a></span> <span style="color: #859900;">is</span>
@@ -1016,7 +1245,7 @@ The module is <i>incomplete</i> as one or more definitions is incomplete.
 </pre>
 </div>
 
-<pre class="example" id="orgae74b95">
+<pre class="example" id="orgaa7124b">
 note[I0500]: this module is incomplete
   ┌─ examples/errors/i0500.sdm:1:1
   │  
@@ -1035,15 +1264,15 @@ note[I0500]: this module is incomplete
 </div>
 
 <div id="outline-container-I0501:" class="outline-3">
-<h3 id="I0501:"><span class="section-number-3">4.2.</span> I501: IncompleteDefinition</h3>
+<h3 id="I0501:"><span class="section-number-3">4.2.</span> I0501: Incomplete Definition</h3>
 <div class="outline-text-3" id="text-I0501:">
 <p>
 The definition is <i>incomplete</i> as it has no body, or as one or more members or variants is incomplete.
 </p>
 </div>
 
-<div id="outline-container-org8a55b09" class="outline-4">
-<h4 id="org8a55b09"><span class="section-number-4">4.2.1.</span> Example</h4>
+<div id="outline-container-org5a0420f" class="outline-4">
+<h4 id="org5a0420f"><span class="section-number-4">4.2.1.</span> Example</h4>
 <div class="outline-text-4" id="text-4-2-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api">&lt;https://example.com/api&gt;</a></span> <span style="color: #859900;">is</span>
@@ -1054,7 +1283,7 @@ The definition is <i>incomplete</i> as it has no body, or as one or more members
 </pre>
 </div>
 
-<pre class="example" id="org1edd469">
+<pre class="example" id="orgd8d1904">
 note[I0501]: this definition is incomplete
   ┌─ examples/errors/i0500.sdm:3:3
   │
@@ -1068,15 +1297,15 @@ note[I0501]: this definition is incomplete
 </div>
 
 <div id="outline-container-I0502" class="outline-3">
-<h3 id="I0502"><span class="section-number-3">4.3.</span> I502: IncompleteMember</h3>
+<h3 id="I0502"><span class="section-number-3">4.3.</span> I0502: Incomplete Member</h3>
 <div class="outline-text-3" id="text-I0502">
 <p>
 The member is <i>incomplete</i> as it&rsquo;s type is declared as <code>unknown</code>.
 </p>
 </div>
 
-<div id="outline-container-orgb7d3b46" class="outline-4">
-<h4 id="orgb7d3b46"><span class="section-number-4">4.3.1.</span> Example</h4>
+<div id="outline-container-orgc8d430c" class="outline-4">
+<h4 id="orgc8d430c"><span class="section-number-4">4.3.1.</span> Example</h4>
 <div class="outline-text-4" id="text-4-3-1">
 <div class="org-src-container">
 <pre class="src src-sdml"><span style="color: #859900;">module</span> <span style="color: #268bd2;">example</span> <span style="color: #2aa198; font-weight: bold;"><a href="https://example.com/api&gt; is
@@ -1122,7 +1351,7 @@ The member is <i>incomplete</i> as it&rsquo;s type is declared as <code>unknown<
 </pre>
 </div>
 
-<pre class="example" id="orgb63c175">
+<pre class="example" id="org02a313d">
 note[I0502]: this member is incomplete
   ┌─ examples/errors/i0502.sdm:4:5
   │
@@ -1136,22 +1365,22 @@ note[I0502]: this member is incomplete
 </div>
 
 <div id="outline-container-I0503" class="outline-3">
-<h3 id="I0503"><span class="section-number-3">4.4.</span> I503: StringWithoutLanguage</h3>
+<h3 id="I0503"><span class="section-number-3">4.4.</span> I0503: String Without Language</h3>
 <div class="outline-text-3" id="text-I0503">
 <p>
 TBD
 </p>
 </div>
 
-<div id="outline-container-org46d56be" class="outline-4">
-<h4 id="org46d56be"><span class="section-number-4">4.4.1.</span> Example</h4>
+<div id="outline-container-org931f71c" class="outline-4">
+<h4 id="org931f71c"><span class="section-number-4">4.4.1.</span> Example</h4>
 <div class="outline-text-4" id="text-4-4-1">
 <div class="org-src-container">
 <pre class="src src-sdml">
 </pre>
 </div>
 
-<pre class="example" id="org86ed312">
+<pre class="example" id="org1b6a58d">
 
 </pre>
 </div>
@@ -1159,22 +1388,45 @@ TBD
 </div>
 
 <div id="outline-container-I0504" class="outline-3">
-<h3 id="I0504"><span class="section-number-3">4.5.</span> I504: UnconstrainedDatatype</h3>
+<h3 id="I0504"><span class="section-number-3">4.5.</span> I0504: Unconstrained Datatype</h3>
 <div class="outline-text-3" id="text-I0504">
 <p>
 TBD
 </p>
 </div>
 
-<div id="outline-container-org6c4c381" class="outline-4">
-<h4 id="org6c4c381"><span class="section-number-4">4.5.1.</span> Example</h4>
+<div id="outline-container-org4da8729" class="outline-4">
+<h4 id="org4da8729"><span class="section-number-4">4.5.1.</span> Example</h4>
 <div class="outline-text-4" id="text-4-5-1">
 <div class="org-src-container">
 <pre class="src src-sdml">
 </pre>
 </div>
 
-<pre class="example" id="orgff252a5">
+<pre class="example" id="orgab9e883">
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-I0505" class="outline-3">
+<h3 id="I0505"><span class="section-number-3">4.6.</span> I0505: Double Underscored Identifier</h3>
+<div class="outline-text-3" id="text-I0505">
+<p>
+TBD
+</p>
+</div>
+
+<div id="outline-container-orgc9e2451" class="outline-4">
+<h4 id="orgc9e2451"><span class="section-number-4">4.6.1.</span> Example</h4>
+<div class="outline-text-4" id="text-4-6-1">
+<div class="org-src-container">
+<pre class="src src-sdml">
+</pre>
+</div>
+
+<pre class="example" id="orge4b6376">
 
 </pre>
 </div>
@@ -1184,7 +1436,7 @@ TBD
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2024-02-15 Thu 14:17</p>
+<p class="date">Created: 2024-02-16 Fri 08:37</p>
 </div>
 </body>
 </html>

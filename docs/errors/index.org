@@ -22,7 +22,7 @@ output by the =sdml= command-line tool.
 This category represents bugs in the command-line tool where it's parser receives unexpected nodes from the underlyiung
 tree-sitter parser.
 
-** B01: Tree-Sitter Error Node
+** B0001: Tree-Sitter Error Node
 :PROPERTIES:
 :CUSTOM_ID: B0001
 :END:
@@ -33,7 +33,7 @@ encounters such a node it is clearly a defect in the underlying source, but we d
 The =Diagnostic= for this error will attempt to record the file ID, location, and the name of any rule the parser was
 processing when the error node was found.
 
-** B02: Tree-Sitter Unexpected Node
+** B0002: Tree-Sitter Unexpected Node
 :PROPERTIES:
 :CUSTOM_ID: B0002
 :END:
@@ -41,7 +41,7 @@ processing when the error node was found.
 The =Diagnostic= for this error will attempt to record the file ID, location, and the name of any expected nodes along
 with the name of the node found.
 
-** B03: Tree-Sitter Missing Node
+** B0003: Tree-Sitter Missing Node
 :PROPERTIES:
 :CUSTOM_ID: B0003
 :END:
@@ -49,7 +49,7 @@ with the name of the node found.
 The =Diagnostic= for this error will attempt to record the file ID, location, and the name of any expected nodes along
 with the name of any variable that might have contained the expected node.
 
-** B03: Tree-Sitter Missing Variable
+** B0003: Tree-Sitter Missing Variable
 :PROPERTIES:
 :CUSTOM_ID: B0004
 :END:
@@ -62,7 +62,7 @@ with the name of the node kind that should have contained the expected variable.
 
 This category represents errors in module loading, in parsing a complete tree-sitter tree, or in module validation.
 
-** E100: ModuleNotFound
+** E0100: Module Not Found
 :PROPERTIES:
 :CUSTOM_ID: E0100
 :END:
@@ -80,7 +80,7 @@ error[E0101]: module not found
  = module name `orl`
 #+END_EXAMPLE
 
-** E101: ImportedModuleNotFound
+** E0101: Imported Module Not Found
 :PROPERTIES:
 :CUSTOM_ID: E0101
 :END:
@@ -107,7 +107,7 @@ error[E0101]: module in import statement not found
   = for more details, see <https://sdml.io/errors/#E0101>
 #+END_EXAMPLE
 
-** E102: ModuleVersionNotFound
+** E0102: Module Version Not Found
 :PROPERTIES:
 :CUSTOM_ID: E0102
 :END:
@@ -146,7 +146,7 @@ error[E0102]: imported module has no version URI
   = help: for more details, see <⁨https://sdml.io/errors/#E0102⁩>"
 #+END_EXAMPLE
 
-** E103: ModuleVersionMismatch
+** E0103: Module Version Mismatch
 :PROPERTIES:
 :CUSTOM_ID: E0103
 :END:
@@ -184,7 +184,7 @@ error[E0103]: actual module URI does not match import requirement
   = help: for more details, see <⁨https://sdml.io/errors/#E0103⁩>"
 #+END_EXAMPLE
 
-** E104: DuplicateDefinitionName
+** E0104: Duplicate Definition Name
 :PROPERTIES:
 :CUSTOM_ID: E0104
 :END:
@@ -221,7 +221,7 @@ error[E0104]: a definition with this name already exists
 error: module `example` generated 1 errors.
 #+END_EXAMPLE
 
-** E105: DuplicateMemberName
+** E0105: Duplicate Member Name
 :PROPERTIES:
 :CUSTOM_ID: E0105
 :END:
@@ -258,7 +258,7 @@ error[E0105]: a member with this name already exists
 error: module `example` generated 1 errors.
 #+END_EXAMPLE
 
-** E106: DuplicateVariantName
+** E0106: Duplicate Variant Name
 :PROPERTIES:
 :CUSTOM_ID: E0106
 :END:
@@ -353,7 +353,7 @@ error[E0104]: a variant with this name already exists
 error: module `example` generated 1 errors.
 #+END_EXAMPLE
 
-** E107: InvalidIdentifier
+** E0107: Invalid Identifier
 :PROPERTIES:
 :CUSTOM_ID: E0107
 :END:
@@ -368,7 +368,7 @@ API only.
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
-** E108: InvalidLanguageTag
+** E0108: Invalid Language Tag
 :PROPERTIES:
 :CUSTOM_ID: E0108
 :END:
@@ -383,7 +383,7 @@ API only.
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
-** E109: InvalidValueForType
+** E0109: Invalid Value For Type
 :PROPERTIES:
 :CUSTOM_ID: E0109
 :END:
@@ -398,7 +398,7 @@ TBD
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
-** E110: InvalidModuleBaseUrl
+** E0110: Invalid Module Base Url
 :PROPERTIES:
 :CUSTOM_ID: E0110
 :END:
@@ -413,7 +413,7 @@ API only.
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
-** E111: InvalidModuleVersionInfo
+** E0111: Invalid Module Version Info
 :PROPERTIES:
 :CUSTOM_ID: E0111
 :END:
@@ -428,7 +428,7 @@ TBD
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
-** E112: InvalidModuleVersionUrl
+** E0112: Invalid Module Version Url
 :PROPERTIES:
 :CUSTOM_ID: E0112
 :END:
@@ -443,9 +443,114 @@ API only.
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
-** E113: DefinitionNotFound
+** E0113: Definition Not Found
 :PROPERTIES:
 :CUSTOM_ID: E0113
+:END:
+
+TBD
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
+** E0114: Type Definition Not Found
+:PROPERTIES:
+:CUSTOM_ID: E0114
+:END:
+
+TBD
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
+** E0115: Datatype Invalid Base
+:PROPERTIES:
+:CUSTOM_ID: E0115
+:END:
+
+TBD
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
+** E0116: Type Class Incompatible
+:PROPERTIES:
+:CUSTOM_ID: E0116
+:END:
+
+TBD
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
+** E0117: Property Incompatible
+:PROPERTIES:
+:CUSTOM_ID: E0117
+:END:
+
+TBD
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
+** E0118: RDF Definition Incompatible
+:PROPERTIES:
+:CUSTOM_ID: E0118
+:END:
+
+TBD
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
+** E0119: Feature Set Not a Union
+:PROPERTIES:
+:CUSTOM_ID: E0119
+:END:
+
+TBD
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
+** E0120: Property Reference Not a Property
+:PROPERTIES:
+:CUSTOM_ID: E0120
 :END:
 
 TBD
@@ -461,7 +566,7 @@ TBD
 
 * Warnings
 
-** W301: ModuleAlreadyImported
+** W0301: Module Already Imported
 :PROPERTIES:
 :CUSTOM_ID: W0301:
 :END:
@@ -506,7 +611,7 @@ warning[W0301]: duplicate import of module
 warning: module `example` generated 2 warnings.
 #+END_EXAMPLE
 
-** W302: MemberAlreadyImported
+** W0302: Member Already Imported
 :PROPERTIES:
 :CUSTOM_ID: W0302
 :END:
@@ -540,9 +645,24 @@ warning[W0302]: duplicate import of member
 warning: module `example` generated 1 warnings.
 #+END_EXAMPLE
 
-** W303: ValidationIncomplete
+** W0303: Validation Incomplete
 :PROPERTIES:
 :CUSTOM_ID: W0303
+:END:
+
+TBD
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
+** W0304: Module Version Info Empty
+:PROPERTIES:
+:CUSTOM_ID: E0304
 :END:
 
 TBD
@@ -558,7 +678,7 @@ TBD
 
 * Informational
 
-** I500: IncompleteModule
+** I0500: Incomplete Module
 :PROPERTIES:
 :CUSTOM_ID: I0500:
 :END:
@@ -590,7 +710,7 @@ note[I0500]: this module is incomplete
   = help: for more details, see <⁨https://sdml.io/errors/#I0500⁩>"
 #+END_EXAMPLE
 
-** I501: IncompleteDefinition
+** I0501: Incomplete Definition
 :PROPERTIES:
 :CUSTOM_ID: I0501:
 :END:
@@ -617,7 +737,7 @@ note[I0501]: this definition is incomplete
   = help: for more details, see <⁨https://sdml.io/errors/#I0501⁩>"
 #+END_EXAMPLE
 
-** I502: IncompleteMember
+** I0502: Incomplete Member
 :PROPERTIES:
 :CUSTOM_ID: I0502
 :END:
@@ -646,7 +766,7 @@ note[I0502]: this member is incomplete
   = help: for more details, see <⁨https://sdml.io/errors/#I0502⁩>"
 #+END_EXAMPLE
 
-** I503: StringWithoutLanguage
+** I0503: String Without Language
 :PROPERTIES:
 :CUSTOM_ID: I0503
 :END:
@@ -661,9 +781,24 @@ TBD
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
-** I504: UnconstrainedDatatype
+** I0504: Unconstrained Datatype
 :PROPERTIES:
 :CUSTOM_ID: I0504
+:END:
+
+TBD
+
+*** Example
+
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
+** I0505: Double Underscored Identifier
+:PROPERTIES:
+:CUSTOM_ID: I0505
 :END:
 
 TBD
