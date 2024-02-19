@@ -19,7 +19,7 @@ output by the =sdml= command-line tool.
 
 * Bugs
 
-This category represents bugs in the command-line tool where it's parser receives unexpected nodes from the underlyiung
+This category represents bugs in the command-line tool where it's parser receives unexpected nodes from the underlying
 tree-sitter parser.
 
 ** B0001: Tree-Sitter Error Node
@@ -33,6 +33,35 @@ encounters such a node it is clearly a defect in the underlying source, but we d
 The =Diagnostic= for this error will attempt to record the file ID, location, and the name of any rule the parser was
 processing when the error node was found.
 
+*** Example
+
+#+CAPTION: Example Module
+#+NAME: lst:b0001-module
+#+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> version "" is
+  ; missing the version URI, error here  ----------^
+end
+#+END_SRC
+
+#+CAPTION: Validation Output
+#+NAME: lst:b0001-output
+#+BEGIN_EXAMPLE
+bug[B0001]: tree-sitter parse error encountered
+  ┌─ examples/errors/b0002.sdm:1:1
+  │  
+1 │ ╭ module example <https://example.com/api> version "" is
+2 │ │   ; missing the version URI, error here  ----------^
+3 │ │ end
+4 │ │ 
+  │ ╰^ here
+  │  
+  = in grammar rule: `module`
+  = help: encountered a tree-sitter ERROR node in the parse tree
+  = help: for more details, see <https://sdml.io/errors/#B0002>  
+
+bug: parser generated 1 bugs.
+#+END_EXAMPLE
+
 ** B0002: Tree-Sitter Unexpected Node
 :PROPERTIES:
 :CUSTOM_ID: B0002
@@ -40,6 +69,18 @@ processing when the error node was found.
 
 The =Diagnostic= for this error will attempt to record the file ID, location, and the name of any expected nodes along
 with the name of the node found.
+
+*** Example
+
+#+CAPTION: Example Module
+#+NAME: lst:b0003-module
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+CAPTION: Validation Output
+#+NAME: lst:b0003-output
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
 
 ** B0003: Tree-Sitter Missing Node
 :PROPERTIES:
@@ -49,13 +90,37 @@ with the name of the node found.
 The =Diagnostic= for this error will attempt to record the file ID, location, and the name of any expected nodes along
 with the name of any variable that might have contained the expected node.
 
-** B0003: Tree-Sitter Missing Variable
+*** Example
+
+#+CAPTION: Example Module
+#+NAME: lst:b0003-module
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+CAPTION: Validation Output
+#+NAME: lst:b0003-output
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
+** B0004: Tree-Sitter Missing Variable
 :PROPERTIES:
 :CUSTOM_ID: B0004
 :END:
 
 The =Diagnostic= for this error will attempt to record the file ID, location, and the name of the expected variable along
 with the name of the node kind that should have contained the expected variable.
+
+*** Example
+
+#+CAPTION: Example Module
+#+NAME: lst:b0004-module
+#+BEGIN_SRC sdml :exports code :eval never
+#+END_SRC
+
+#+CAPTION: Validation Output
+#+NAME: lst:b0004-output
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
 
 
 * Errors
@@ -72,12 +137,14 @@ statements.
 
 *** Example
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0100-output
 #+BEGIN_EXAMPLE
 $ sdml validate orl
 
 error[E0101]: module not found
- = for more details, see <https://sdml.io/errors/#E0101>
  = module name `orl`
+ = for more details, see <https://sdml.io/errors/#E0101>
 #+END_EXAMPLE
 
 ** E0101: Imported Module Not Found
@@ -89,6 +156,8 @@ An attempt to load a module listed in another module's import statement failed.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0101-module
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
@@ -97,14 +166,18 @@ module example <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0101-output
 #+BEGIN_EXAMPLE
-error[E0101]: module in import statement not found
+error[E0101]: module named in import statement not found
   ┌─ examples/errors/e0101.sdm:3:10
   │
 3 │   import other
   │          ^^^^^ this import
   │
-  = for more details, see <https://sdml.io/errors/#E0101>
+  = help: for more details, see <https://sdml.io/errors/#E0101>  
+
+error: parser generated 1  errors.
 #+END_EXAMPLE
 
 ** E0102: Module Version Not Found
@@ -112,10 +185,13 @@ error[E0101]: module in import statement not found
 :CUSTOM_ID: E0102
 :END:
 
-TBD
+A client module has asked to import a provider module at a /specific version/. However, the resolver found the provider
+module but it does not contain a version URI.
 
 *** Example
 
+#+CAPTION: Client Module
+#+NAME: lst:e0102-module-client
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
@@ -124,11 +200,15 @@ module example <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Provider Module
+#+NAME: lst:e0102-module-provider
 #+BEGIN_SRC sdml :exports code :eval never
 module nonversioned_other <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0102-output
 #+BEGIN_EXAMPLE
 error[E0102]: imported module has no version URI
   ┌─ examples/errors/e0102.sdm:3:10
@@ -143,7 +223,9 @@ error[E0102]: imported module has no version URI
 3 │ │ 
   │ ╰' this module
   │  
-  = help: for more details, see <⁨https://sdml.io/errors/#E0102⁩>"
+  = help: for more details, see <⁨https://sdml.io/errors/#E0102⁩>  
+
+error: module `⁨example⁩` generated ⁨⁨1⁩  errors⁩.
 #+END_EXAMPLE
 
 ** E0103: Module Version Mismatch
@@ -151,10 +233,13 @@ error[E0102]: imported module has no version URI
 :CUSTOM_ID: E0103
 :END:
 
-TBD
+A client module has asked to import a provider module at a /specific version/. However, the resolver found the provider
+module but it's version URI does not match the client's expected value.
 
 *** Example
 
+#+CAPTION: Client Module
+#+NAME: lst:e0103-module-client
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
@@ -163,12 +248,16 @@ module example <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Provider Module
+#+NAME: lst:e0103-module-provider
 #+BEGIN_SRC sdml :exports code :eval never
 module versioned_other <https://example.com/api>
        version "v2" <https://example.com/api/v2> is
 end
 #+END_SRC
 
+#+NAME: lst:e0103-output
+#+CAPTION: Validation Output
 #+BEGIN_EXAMPLE
 error[E0103]: actual module URI does not match import requirement
   ┌─ examples/errors/e0103.sdm:3:26
@@ -181,7 +270,9 @@ error[E0103]: actual module URI does not match import requirement
 2 │        version "v2" <https://example.com/api/v2> is
   │                     ---------------------------- module contained this version URI
   │
-  = help: for more details, see <⁨https://sdml.io/errors/#E0103⁩>"
+  = help: for more details, see <https://sdml.io/errors/#E0103>  
+
+error: module `example` generated 1  errors.
 #+END_EXAMPLE
 
 ** E0104: Duplicate Definition Name
@@ -194,6 +285,8 @@ it *must* have unique names (identifiers).
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0104-module
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
@@ -206,8 +299,10 @@ module example <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0104-output
 #+BEGIN_EXAMPLE
-error[E0104]: a definition with this name already exists
+error[E0104]: a definition with this name already exists in this module
   ┌─ examples/errors/e0104.sdm:3:13
   │
 3 │   structure Foo
@@ -216,9 +311,9 @@ error[E0104]: a definition with this name already exists
 7 │   structure Foo
   │             --- was previously defined here
   │
-  = for more details, see <https://sdml.io/errors/#E0104>
+  = help: for more details, see <https://sdml.io/errors/#E0104>  
 
-error: module `example` generated 1 errors.
+error: module `example` generated 1  errors.
 #+END_EXAMPLE
 
 ** E0105: Duplicate Member Name
@@ -231,6 +326,8 @@ meaning that all members within it *must* have unique names (identifiers).
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0105-module
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
@@ -243,8 +340,10 @@ module example <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0105-output
 #+BEGIN_EXAMPLE
-error[E0105]: a member with this name already exists
+error[E0105]: a member with this name already exists in this definition
   ┌─ examples/errors/e0105.sdm:6:5
   │
 4 │     foo -> string
@@ -253,9 +352,9 @@ error[E0105]: a member with this name already exists
 6 │     foo -> boolean
   │     ^^^ this member name
   │
-  = for more details, see <https://sdml.io/errors/#E0105>
+  = help: for more details, see <⁨https://sdml.io/errors/#E0105⁩>  
 
-error: module `example` generated 1 errors.
+error: module `⁨example⁩` generated ⁨⁨1⁩  errors⁩.
 #+END_EXAMPLE
 
 ** E0106: Duplicate Variant Name
@@ -268,6 +367,8 @@ variants within it *must* have unique names (identifiers).
 
 *** Example Value Variant
 
+#+CAPTION: Example Module
+#+NAME: lst:e0106-enum-module
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
@@ -280,9 +381,11 @@ module example <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0106-enum-output
 #+BEGIN_EXAMPLE
-error[E0104]: a variant with this name already exists
-  ┌─ examples/errors/e0106-union.sdm:6:5
+error[E0106]: a variant with this name already exists in this definition
+  ┌─ examples/errors/e0106-enum.sdm:6:5
   │
 4 │     Foo
   │     --- was previously defined here
@@ -290,13 +393,15 @@ error[E0104]: a variant with this name already exists
 6 │     Foo
   │     ^^^ this variant name
   │
-  = for more details, see <https://sdml.io/errors/#E0104>
+  = help: for more details, see <⁨https://sdml.io/errors/#E0106⁩>  
 
-error: module `example` generated 1 errors.
+error: module `⁨example⁩` generated ⁨⁨1⁩  errors⁩.
 #+END_EXAMPLE
 
 *** Example Type Variant
 
+#+CAPTION: Example Module
+#+NAME: lst:e0106-union-module
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
@@ -309,8 +414,10 @@ module example <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0106-union-output
 #+BEGIN_EXAMPLE
-error[E0104]: a variant with this name already exists
+error[E0106]: a variant with this name already exists in this definition
   ┌─ examples/errors/e0106-union.sdm:6:5
   │
 4 │     Foo
@@ -319,13 +426,15 @@ error[E0104]: a variant with this name already exists
 6 │     Foo
   │     ^^^ this variant name
   │
-  = for more details, see <https://sdml.io/errors/#E0104>
+  = help: for more details, see <⁨https://sdml.io/errors/#E0106⁩>  
 
-error: module `example` generated 1 errors.
+error: module `⁨example⁩` generated ⁨⁨1⁩  errors⁩.
 #+END_EXAMPLE
 
 *** Example Type Variant Rename
 
+#+CAPTION: Example Module
+#+NAME: lst:e0106-rename-module
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
@@ -338,8 +447,10 @@ module example <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0106-rename-output
 #+BEGIN_EXAMPLE
-error[E0104]: a variant with this name already exists
+error[E0106]: a variant with this name already exists in this definition
   ┌─ examples/errors/e0106-rename.sdm:6:12
   │
 4 │     Foo
@@ -348,9 +459,9 @@ error[E0104]: a variant with this name already exists
 6 │     Boo as Foo
   │            ^^^ this variant name
   │
-  = for more details, see <https://sdml.io/errors/#E0104>
+  = help: for more details, see <⁨https://sdml.io/errors/#E0106⁩>  
 
-error: module `example` generated 1 errors.
+error: module `⁨example⁩` generated ⁨⁨1⁩  errors⁩.
 #+END_EXAMPLE
 
 ** E0107: Invalid Identifier
@@ -362,9 +473,13 @@ API only.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0107-module
 #+BEGIN_SRC sdml :exports code :eval never
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0107-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
@@ -377,9 +492,13 @@ API only.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0108-module
 #+BEGIN_SRC sdml :exports code :eval never
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0108-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
@@ -392,9 +511,13 @@ TBD
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0109-module
 #+BEGIN_SRC sdml :exports code :eval never
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0109-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
@@ -407,24 +530,13 @@ API only.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0110-module
 #+BEGIN_SRC sdml :exports code :eval never
 #+END_SRC
 
-#+BEGIN_EXAMPLE
-#+END_EXAMPLE
-
-** E0111: Invalid Module Version Info
-:PROPERTIES:
-:CUSTOM_ID: E0111
-:END:
-
-TBD
-
-*** Example
-
-#+BEGIN_SRC sdml :exports code :eval never
-#+END_SRC
-
+#+CAPTION: Validation Output
+#+NAME: lst:e0110-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
@@ -437,9 +549,13 @@ API only.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0112-module
 #+BEGIN_SRC sdml :exports code :eval never
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0112-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
@@ -452,9 +568,13 @@ TBD
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0113-module
 #+BEGIN_SRC sdml :exports code :eval never
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0113-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
@@ -463,14 +583,35 @@ TBD
 :CUSTOM_ID: E0114
 :END:
 
-TBD
+A type name, qualified or unqualified, cannot be resolved to a type definition.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0114-module
 #+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  structure Foo is
+    name -> Bar
+  end
+
+end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0114-output
 #+BEGIN_EXAMPLE
+error[E0114]: type definition not found in module
+  ┌─ examples/errors/e0114.sdm:4:13
+  │
+4 │     name -> Bar
+  │             ^^^ this reference
+  │
+  = help: did you forget to add an import for this type, or qualify it's name
+  = help: for more details, see <⁨https://sdml.io/errors/#E0114⁩>  
+
+error: module `⁨example⁩` generated ⁨⁨1⁩  errors⁩
 #+END_EXAMPLE
 
 ** E0115: Datatype Invalid Base
@@ -478,14 +619,33 @@ TBD
 :CUSTOM_ID: E0115
 :END:
 
-TBD
+The base type for a datatype definition *must* itself be a datatype definition.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0115-module
 #+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  structure Foo
+
+  datatype bar <- Foo
+
+end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0115-output
 #+BEGIN_EXAMPLE
+error[E0115]: invalid type for datatype base, not a datatype
+  ┌─ examples/errors/e0115.sdm:5:19
+  │
+5 │   datatype bar <- Foo
+  │                   ^^^ this reference
+  │
+  = help: A type reference in this position must refer to a datatype definition
+  = help: for more details, see <⁨https://sdml.io/errors/#E0115⁩>  
 #+END_EXAMPLE
 
 ** E0116: Type Class Incompatible
@@ -497,9 +657,13 @@ TBD
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0116-module
 #+BEGIN_SRC sdml :exports code :eval never
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0116-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
@@ -512,9 +676,13 @@ TBD
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0117-module
 #+BEGIN_SRC sdml :exports code :eval never
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0117-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
@@ -527,9 +695,13 @@ TBD
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0118-module
 #+BEGIN_SRC sdml :exports code :eval never
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0118-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
@@ -538,14 +710,35 @@ TBD
 :CUSTOM_ID: E0119
 :END:
 
-TBD
+When defining a member as a feature extension point, the name after the keyword =features= *must* be a union definition.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0119-module
 #+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  structure Foo
+
+  structure Bar is
+    name -> features Foo
+  end
+
+end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0119-output
 #+BEGIN_EXAMPLE
+error[E0119]: invalid type for feature set, not a union
+  ┌─ examples/errors/e0119.sdm:6:22
+  │
+6 │     name -> features Foo
+  │                      ^^^ this reference
+  │
+  = help: A type reference in this position must refer to a union definition
+  = help: for more details, see <⁨https://sdml.io/errors/#E0119⁩>  
 #+END_EXAMPLE
 
 ** E0120: Property Reference Not a Property
@@ -553,14 +746,35 @@ TBD
 :CUSTOM_ID: E0120
 :END:
 
-TBD
+When defining a member using a property role, the name after the keyword =in= *must* be a property definition.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:e0120-module
 #+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  structure Foo
+
+  structure Bar is
+    name in Foo
+  end
+
+end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:e0120-output
 #+BEGIN_EXAMPLE
+error[E0120]: member references a non-property as a property
+  ┌─ examples/errors/e0120.sdm:6:13
+  │
+6 │     name in Foo
+  │             ^^^ this reference
+  │
+  = help: A type reference in this position must refer to a property definition
+  = help: for more details, see <⁨https://sdml.io/errors/#E0120⁩>  
 #+END_EXAMPLE
 
 
@@ -576,6 +790,8 @@ re-parse the same module, but it's more than just bad style.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:w0301-module
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
@@ -585,6 +801,8 @@ module example <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:w0301-output
 #+BEGIN_EXAMPLE
 warning[W0301]: duplicate import of module
   ┌─ examples/errors/W0301.sdm:5:19
@@ -621,6 +839,8 @@ re-parse the same module to access the same member, but it's more than just bad 
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:w0302-module
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
@@ -630,6 +850,8 @@ module example <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:w0302-output
 #+BEGIN_EXAMPLE
 warning[W0302]: duplicate import of member
   ┌─ examples/errors/W0302.sdm:5:19
@@ -654,26 +876,98 @@ TBD
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:w0303-module
 #+BEGIN_SRC sdml :exports code :eval never
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:w0303-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
 ** W0304: Module Version Info Empty
 :PROPERTIES:
-:CUSTOM_ID: E0304
+:CUSTOM_ID: W0304
 :END:
 
-TBD
+The version information string in the module header is empty. This is suspicious as it's not clear what =""= means as a
+version identifier.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:w0304-module
 #+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api>
+  version "" <https://example.com/api/v2> is
+
+end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:w0304-output
 #+BEGIN_EXAMPLE
+warning[W0304]: module's version info string is empty
+  ┌─ examples/errors/w0304.sdm:1:50
+  │
+1 │ module example <https://example.com/api> version "" <https://example.com/api/v2> is
+  │                                                  ^^ this value
+  │
+  = help: for more details, see <https://sdml.io/errors/#W0304>  
+
+warning: module `example` generated 1 warnings.
 #+END_EXAMPLE
+
+** W0305: Deprecated Term Used
+:PROPERTIES:
+:CUSTOM_ID: W0305
+:END:
+
+The core validation allows for the use of /term sets/ which denote terms that should not be used, and indicates
+alternatives that should be used instead.
+
+*** Example
+
+#+CAPTION: Example Module
+#+NAME: lst:w0305-module
+#+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  structure AccessRecord is
+    black_list -> {0..} string
+    white_list -> {0..} string
+  end
+
+end
+#+END_SRC
+
+#+CAPTION: Validation Output
+#+NAME: lst:w0305-output
+#+BEGIN_EXAMPLE
+warning[W0305]: found a deprecated term, consider an alternative
+  ┌─ examples/errors/w0305.sdm:4:5
+  │
+4 │     black_list -> {0..} string
+  │     ^^^^^^^^^^ here
+  │
+  = help: consider one of: Block list, Blocked, Deny list, Denied, Exclusion list, Excluded, Unsafe list, Unapproved
+  = help: Applies a negative connotation to things that are black and a positive connotation to those that are white.
+  = help: for more details, see <https://sdml.io/errors/#W0305>
+
+warning[W0305]: found a deprecated term, consider an alternative
+  ┌─ examples/errors/w0305.sdm:5:5
+  │
+5 │     white_list -> {0..} string
+  │     ^^^^^^^^^^ here
+  │
+  = help: consider one of: Allow list, Allowed, Deny list, Denied, Inclusion list, Included, Safe list, Approved
+  = help: Applies a negative connotation to things that are black and a positive connotation to those that are white.
+  = help: for more details, see <https://sdml.io/errors/#W0305>  
+
+warning: module name: `example` generated 2 warnings.
+#+END_EXAMPLE
+
 
 
 * Informational
@@ -687,6 +981,8 @@ The module is /incomplete/ as one or more definitions is incomplete.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:i0500-module
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
@@ -695,6 +991,8 @@ module example <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:i0500-output
 #+BEGIN_EXAMPLE
 note[I0500]: this module is incomplete
   ┌─ examples/errors/i0500.sdm:1:1
@@ -707,7 +1005,7 @@ note[I0500]: this module is incomplete
 6 │ │ 
   │ ╰^ this module
   │  
-  = help: for more details, see <⁨https://sdml.io/errors/#I0500⁩>"
+  = help: for more details, see <https://sdml.io/errors/#I0500>
 #+END_EXAMPLE
 
 ** I0501: Incomplete Definition
@@ -715,10 +1013,12 @@ note[I0500]: this module is incomplete
 :CUSTOM_ID: I0501:
 :END:
 
-The definition is /incomplete/ as it has no body, or as one or more members or variants is incomplete.
+The definition is /incomplete/ as it has no body, or as one or more members is incomplete.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:i0501-module
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
@@ -727,6 +1027,8 @@ module example <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:i0501-output
 #+BEGIN_EXAMPLE
 note[I0501]: this definition is incomplete
   ┌─ examples/errors/i0500.sdm:3:3
@@ -734,7 +1036,7 @@ note[I0501]: this definition is incomplete
 3 │   structure Foo
   │   ^^^^^^^^^^^^^ this definition
   │
-  = help: for more details, see <⁨https://sdml.io/errors/#I0501⁩>"
+  = help: for more details, see <https://sdml.io/errors/#I0501>
 #+END_EXAMPLE
 
 ** I0502: Incomplete Member
@@ -742,10 +1044,12 @@ note[I0501]: this definition is incomplete
 :CUSTOM_ID: I0502
 :END:
 
-The member is /incomplete/ as it's type is declared as =unknown=.
+The member is /incomplete/ as it's type is declared to be =unknown=.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:i0502-module
 #+BEGIN_SRC sdml :exports code :eval never
 module example <https://example.com/api> is
 
@@ -756,6 +1060,8 @@ module example <https://example.com/api> is
 end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:i0502-output
 #+BEGIN_EXAMPLE
 note[I0502]: this member is incomplete
   ┌─ examples/errors/i0502.sdm:4:5
@@ -763,7 +1069,7 @@ note[I0502]: this member is incomplete
 4 │     bar -> unknown
   │     ^^^^^^^^^^^^^^ this member
   │
-  = help: for more details, see <⁨https://sdml.io/errors/#I0502⁩>"
+  = help: for more details, see <https://sdml.io/errors/#I0503>
 #+END_EXAMPLE
 
 ** I0503: String Without Language
@@ -771,13 +1077,25 @@ note[I0502]: this member is incomplete
 :CUSTOM_ID: I0503
 :END:
 
-TBD
+A string literal, usually the value of an attribute property, has no attached language identifier. While this is
+grammatically correct it is useful to add language tags to allow future translation.
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:i0503-module
 #+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  import dc
+
+  @dc:description = "in unspecified language"
+
+end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:i0503-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
@@ -786,13 +1104,29 @@ TBD
 :CUSTOM_ID: I0504
 :END:
 
-TBD
+A builtin datatype, or an RDF/XSD datatype, was used without any qualification. It is generally better to create new
+datatypes for members that assert meaningful constraints on the types value-space.
+
+In our example, can a name contain /any/ Unicode codepoint? Can it be of arbitrary length? Can an age be an unbounded
+integer, which also implies negative values?
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:i0504-module
 #+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  structure Foo is
+    name -> string
+    age -> integer
+  end
+
+end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:i0504-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
 
@@ -805,8 +1139,19 @@ TBD
 
 *** Example
 
+#+CAPTION: Example Module
+#+NAME: lst:i0505-module
 #+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  structure Foo is
+    name__full -> string
+  end
+
+end
 #+END_SRC
 
+#+CAPTION: Validation Output
+#+NAME: lst:i0505-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
