@@ -1218,3 +1218,103 @@ end
 #+NAME: lst:i0505-output
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
+** I0506: Identifier Not Preferred Case
+:PROPERTIES:
+:CUSTOM_ID: I0506
+:END:
+
+For readability the following naming conventions are preferred for source code, and this code identifies where
+identifies do not conform to these conventions.
+
+| Model Element    | Preferred Case                   | Example               |
+|------------------+----------------------------------+-----------------------|
+| module           | snake case                       | =rdf=, =rdf_schema=       |
+| datatype         | snake or upper camel case        | =integer=, =CustomerId=   |
+| rdf definition   | snake or upper camel case        | =type=, =Class=           |
+| type definitions | upper camel case                 | =Class=, =Customer=       |
+| value variants   | upper camel or /shouty/ snake case | =DebitCard=, =DEBIT_CARD= |
+| member           | snake case                       | =nmame=, =customer_id=    |
+| imported member  | snake or upper camel case        | =integer=, =CustomerId=   |
+
+*** Example
+
+#+CAPTION: Example Module
+#+NAME: lst:i0506-module
+#+BEGIN_SRC sdml :exports code :eval never
+module Example <https://example.com/api> is
+
+  structure access_record is
+    Name -> string
+  end
+
+  enum Foo of
+    one
+    two
+  end
+
+  union Bar of
+    Foo as foo
+  end
+
+end
+#+END_SRC
+
+#+CAPTION: Validation Output
+#+NAME: lst:i0506-output
+#+BEGIN_EXAMPLE
+note[I0506]: identifier not using preferred casing
+  ┌─ examples/errors/i0506.sdm:1:8
+  │
+1 │ module Example <https://example.com/api> is
+  │        ^^^^^^^ this identifier
+  │
+  = expected snake case (snake_case)
+  = help: for more details, see <https://sdml.io/errors/#I0506>
+
+note[I0506]: identifier not using preferred casing
+  ┌─ examples/errors/i0506.sdm:3:13
+  │
+3 │   structure access_record is
+  │             ^^^^^^^^^^^^^ this identifier
+  │
+  = expected upper camel case (UpperCamelCase)
+  = help: for more details, see <https://sdml.io/errors/#I0506>
+
+note[I0506]: identifier not using preferred casing
+  ┌─ examples/errors/i0506.sdm:4:5
+  │
+4 │     Name -> string
+  │     ^^^^ this identifier
+  │
+  = expected snake case (snake_case)
+  = help: for more details, see <https://sdml.io/errors/#I0506>
+
+note[I0506]: identifier not using preferred casing
+  ┌─ examples/errors/i0506.sdm:8:5
+  │
+8 │     one
+  │     ^^^ this identifier
+  │
+  = expected upper camel (UpperCamelCase) or shouty snake case (SHOUTY_SNAKE_CASE)
+  = help: for more details, see <https://sdml.io/errors/#I0506>
+
+note[I0506]: identifier not using preferred casing
+  ┌─ examples/errors/i0506.sdm:9:5
+  │
+9 │     two
+  │     ^^^ this identifier
+  │
+  = expected upper camel (UpperCamelCase) or shouty snake case (SHOUTY_SNAKE_CASE)
+  = help: for more details, see <https://sdml.io/errors/#I0506>
+
+note[I0506]: identifier not using preferred casing
+   ┌─ examples/errors/i0506.sdm:13:12
+   │
+13 │     Foo as foo
+   │            ^^^ this identifier
+   │
+   = expected upper camel case (UpperCamelCase)
+   = help: for more details, see <https://sdml.io/errors/#I0506>
+
+note: module `Example` generated 6 informational
+#+END_EXAMPLE
