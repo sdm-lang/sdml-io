@@ -571,11 +571,25 @@ TBD
 #+CAPTION: Example Module
 #+NAME: lst:e0113-module
 #+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  import [ skos:Unknown ]
+
+end
 #+END_SRC
 
 #+CAPTION: Validation Output
 #+NAME: lst:e0113-output
 #+BEGIN_EXAMPLE
+error[E0113]: definition not found in module
+  ┌─ examples/errors/e0113.sdm:3:12
+  │
+3 │   import [ skos:Unknown ]
+  │            ^^^^^^^^^^^^ this reference
+  │
+  = help: for more details, see <https://sdml.io/errors/#E0113>
+
+error: module `example` generated 1  errors
 #+END_EXAMPLE
 
 ** E0114: Type Definition Not Found
@@ -660,6 +674,15 @@ TBD
 #+CAPTION: Example Module
 #+NAME: lst:e0116-module
 #+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  class Foo(T)
+
+  structure Bar is
+    name -> Foo
+  end
+
+end
 #+END_SRC
 
 #+CAPTION: Validation Output
@@ -679,11 +702,29 @@ TBD
 #+CAPTION: Example Module
 #+NAME: lst:e0117-module
 #+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  property Foo
+
+  structure Bar is
+    name -> Foo
+  end
+
+end
 #+END_SRC
 
 #+CAPTION: Validation Output
 #+NAME: lst:e0117-output
 #+BEGIN_EXAMPLE
+error[E0117]: a property definition is not compatible in this location
+  ┌─ examples/errors/e0117.sdm:6:13
+  │
+6 │     name -> Foo
+  │             ^^^ this usage
+  │
+  = help: for more details, see <https://sdml.io/errors/#E0117>
+
+error: module `example` generated 1  errors
 #+END_EXAMPLE
 
 ** E0118: RDF Definition Incompatible
@@ -698,11 +739,33 @@ TBD
 #+CAPTION: Example Module
 #+NAME: lst:e0118-module
 #+BEGIN_SRC sdml :exports code :eval never
+module example <https://example.com/api> is
+
+  import rdf
+
+  rdf Foo is
+    @rdf:type = rdf:Resource
+  end
+
+  structure Bar is
+    name -> Foo
+  end
+
+end
 #+END_SRC
 
 #+CAPTION: Validation Output
 #+NAME: lst:e0118-output
 #+BEGIN_EXAMPLE
+error[E0118]: an RDF definition is not compatible in this location
+   ┌─ examples/errors/e0118.sdm:10:13
+   │
+10 │     name -> Foo
+   │             ^^^ this usage
+   │
+   = help: for more details, see <https://sdml.io/errors/#E0118>
+
+error: module `example` generated 1  errors
 #+END_EXAMPLE
 
 ** E0119: Feature Set Not a Union
