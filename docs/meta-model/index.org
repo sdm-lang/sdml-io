@@ -11,7 +11,6 @@
 
 #+BEGIN_SRC emacs-lisp :exports none
 (require 'ob-plantuml) ;; builtin
-(setq org-confirm-babel-evaluate nil)
 #+END_SRC
 
 #+BEGIN_ABSTRACT

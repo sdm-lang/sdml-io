@@ -2,15 +2,24 @@
 #+STARTUP: overview hidestars inlineimages entitiespretty
 
 * Appendix: Standard Library
+:PROPERTIES:
+:CUSTOM_ID: standard-library
+:END:
 
 The standard library provided with SDML contains the language library itself, SDML modules representing commonly used
 external namespaces, and a set of predicates and functions that are available for writing constraints.
 
 ** Type Classes
+:PROPERTIES:
+:CUSTOM_ID: lib:type-classes
+:END:
 
 TBD
 
 ** SDML Module
+:PROPERTIES:
+:CUSTOM_ID: lib:sdml-module
+:END:
 
 The ~sdml~ module contains the set of types that represent the language itself, most of which are only used in the writing
 of constraints. However, the pre-defined simple types ~boolean~, ~decimal~, etc. are also defined here.
@@ -72,6 +81,9 @@ end
 #+END_SRC
 
 ** Commonly Used Modules
+:PROPERTIES:
+:CUSTOM_ID: lib:common-modules
+:END:
 
 *** Dublin Core Elements
 
@@ -357,11 +369,14 @@ module xsd base <http://www.w3.org/2001/XMLSchema#> is end
 #+END_SRC
 
 ** Constraint Language Library
+:PROPERTIES:
+:CUSTOM_ID: lib:constraint-language
+:END:
 
 Note that all of the predicates, relations, and functions in this section exist within the ~sdml~ module scope but
 qualification is optional unless the application is ambiguous in a particular context.
 
-The standard library provides methods to constraints in the form of type classes (see section [[sec:type-classes]])
+The standard library provides methods to constraints in the form of type classes (see section [[#lib:type-classes]])
 described in the following sections.
 
 *** ~Named~ and ~Typed~

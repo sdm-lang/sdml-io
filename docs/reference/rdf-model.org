@@ -1,7 +1,10 @@
 #+LANGUAGE: en
 #+STARTUP: overview hidestars inlineimages entitiespretty
 
-* <<sec:rdf-semantic-model>>The RDF Semantics
+* The RDF Semantics
+:PROPERTIES:
+:CUSTOM_ID: rdf-semantics
+:END:
 
 The W3C's [[https://www.w3.org/RDF/][Resource Description Framework]] (RDF) is a mature standard for the open development of vocabularies and
 knowledge representation. Key characteristics are that it has a fundamentally simple model, was designed with an /Open
@@ -202,6 +205,9 @@ For a higher resolution version, [[file:owl-ontology.svg][click here]].
 3. Open diamonds correspond to aggregate associations, or weak ownership.
 
 ** What is an Ontology?
+:PROPERTIES:
+:CUSTOM_ID: rdf:what-is-ontology
+:END:
 
 The term /ontology/ was adopted from philosophy in around 1980 to describe logical theories developed to support work in
 artificial intelligence – for instance logical theories capturing the knowledge of the world of a robot. Since then the
@@ -225,10 +231,13 @@ together with successive layers of spokes comprising domain ontologies built out
 terms contained in the hub. A top level ontology is an ontology designed to serve as hub in such an architecture.
 
 ** SDML Ontology
+:PROPERTIES:
+:CUSTOM_ID: rdf:sdml-ontology
+:END:
 
 Listing [[lst:owl-ontology]] is the ontology header that describes the Ontology itself. This shows the use of annotation
 properties from the Dublin Core [[https://www.dublincore.org/specifications/dublin-core/dcmi-terms/][DCMI Terms]] and the W3C Simple Knowledge Organization System ([[https://www.w3.org/TR/skos-reference/][SKOS]]). Section
-[[sec:common-annotations]] presents details on commonly used annotation properties found in the Ontology.
+[[#rdf:common-annotations]] presents details on commonly used annotation properties found in the Ontology.
 
 #+NAME: lst:owl-ontology
 #+CAPTION: OWL: Ontology Header
@@ -250,10 +259,16 @@ properties from the Dublin Core [[https://www.dublincore.org/specifications/dubl
 #+END_SRC
 
 ** Datatypes
+:PROPERTIES:
+:CUSTOM_ID: rdf:datatypes
+:END:
 
-The built-in datatypes supported by SDML are covered in section [[sec:surface-syntax]], specifically in table [[tbl:builtin-simple-types]].
+The built-in datatypes supported by SDML are covered in section [[#surface-syntax]], specifically in table [[tbl:builtin-simple-types]].
 
 ** Classes
+:PROPERTIES:
+:CUSTOM_ID: rdf:classes
+:END:
 
 All classes have an RDF type of =owl:Class=.
 
@@ -285,6 +300,9 @@ All classes have an RDF type of =owl:Class=.
 | =:Variant=           | None.                      |                                               |
 
 ** Object Properties
+:PROPERTIES:
+:CUSTOM_ID: rdf:object-properties
+:END:
 
 All object properties have an RDF type of =owl:ObjectProperty=.
 
@@ -318,6 +336,9 @@ Notes:
 2. These are also sub-properties of =:hasMember=.
 
 ** Datatype Properties
+:PROPERTIES:
+:CUSTOM_ID: rdf:datatype-properties
+:END:
 
 All datatype properties have an RDF type of =owl:DatatypeProperty=.
 
@@ -330,6 +351,9 @@ All datatype properties have an RDF type of =owl:DatatypeProperty=.
 | =:minOccurs= |                 | =:Cardinality= | =xsd:nonNegativeInteger= |
 
 ** Annotation Properties
+:PROPERTIES:
+:CUSTOM_ID: rdf:annotation-properties
+:END:
 
 All annotation properties have an RDF type of =owl:AnnotationProperty=.
 
@@ -379,7 +403,10 @@ The values for this property are:
 The corresponding property =:hasVersionIdType= references the type used to represent a specific version. The default for this
 is =xsd:string=.
 
-** <<sec:common-annotations>>Commonly Used Annotations
+** Commonly Used Annotations
+:PROPERTIES:
+:CUSTOM_ID: rdf:common-annotations
+:END:
 
 The following are annotation properties that are common in defining and using Ontologies and other forms of controlled
 vocabularies. These are all well-defined as well as commonly understood and so should be used before others in

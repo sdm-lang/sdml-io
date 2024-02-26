@@ -1,7 +1,10 @@
 #+LANGUAGE: en
 #+STARTUP: overview hidestars inlineimages entitiespretty
 
-* <<sec:complete-grammar>>Appendix: Surface Syntax Grammar
+* Appendix: Surface Syntax Grammar
+:PROPERTIES:
+:CUSTOM_ID: surface-syntax-grammar
+:END:
 
 The grammar of the surface syntax is presented in Extended Backus–Naur form (EBNF)[fn:ebnf]. The addition of a character literal
 range operation =..= reduces the number of single character alternatives for clarity. There are also a set of pre-defined
@@ -332,6 +335,9 @@ Whitespace
 #+END_SRC
 
 *** The Embedded Constraint Language
+:PROPERTIES:
+:CUSTOM_ID: ebnf:constraints
+:END:
 
 Given that the /formal/ constraint language component of SDML is likely to be used less frequently *and* the grammar is
 fairly long we have made it a separate section.
@@ -460,6 +466,9 @@ ReservedSelf
 #+END_SRC
 
 *** Constraint Environment Definitions
+:PROPERTIES:
+:CUSTOM_ID: ebnf:constraint-environments
+:END:
 
 #+BEGIN_SRC ebnf
 ConstraintEnvironment
@@ -502,6 +511,9 @@ ByDefinition
 #+END_SRC
 
 *** Sequence Builders
+:PROPERTIES:
+:CUSTOM_ID: ebnf:sequence-builders
+:END:
 
 #+BEGIN_SRC ebnf
 SequenceBuilder

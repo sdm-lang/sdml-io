@@ -2,12 +2,21 @@
 #+STARTUP: overview hidestars inlineimages entitiespretty
 
 * Common Modeling Questions
+:PROPERTIES:
+:CUSTOM_ID: common-modeling-questions
+:END:
 
 ** Why are Enumerations and Unions distinct
+:PROPERTIES:
+:CUSTOM_ID: faq:enums-and-unions
+:END:
 
 TBD
 
 ** How to model Polymorphism
+:PROPERTIES:
+:CUSTOM_ID: faq:polymorphism
+:END:
 
 The term /polymorphism/ is, in itself, polymorphic; the intent in software to create a structure that may be of more than
 one /type/ is useful enough that it has been invented a number of times.
@@ -27,6 +36,9 @@ different types or the use of a single symbol to represent multiple different ty
 As SDML does not support pointers, inheritance, or interface definitions, polymorphism is provided *only* via union types.
 
 ** Modeling Features, Sets and Extensions
+:PROPERTIES:
+:CUSTOM_ID: faw:features-and-extensions
+:END:
 
 
 In software development, a feature model is a compact representation of all the products of a Software Product Line
@@ -239,6 +251,9 @@ end
 #+END_SRC
 
 ** When to use Property Definitions
+:PROPERTIES:
+:CUSTOM_ID: faq:property-definitions
+:END:
 
 #+CAPTION: Union Type Definition
 #+BEGIN_SRC sdml :exports code :noeval

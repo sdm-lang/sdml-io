@@ -3,6 +3,9 @@
 
 
 * Implementation and Tools
+:PROPERTIES:
+:CUSTOM_ID: implementation-and-tools
+:END:
 
 Figure [[fig:model-transforms]] gave a high-level overview of transformations, this section will expand not only on
 transforms but also the other capabilities of the tooling for SDML.
@@ -85,7 +88,10 @@ digraph G {
 #+RESULTS: src:implementation-overview
 [[file:./images/implementation-overview.svg]]
 
-** <<sec:tool-installation>>Installation
+** Installation
+:PROPERTIES:
+:CUSTOM_ID: impl:installation
+:END:
 
 While the following sections will provide more details on the components of figure [[fig:implementation-overview]] this
 section will cover the install script provided on this site. Because the script was developed on, and for, Mac systems,
@@ -119,16 +125,19 @@ this reason alone we recommend Visual Studio Code as the easiest to configure an
 
 #+NAME: tbl:editor-support
 #+CAPTION: Editor Support Packages
-| Editor        | See                      | Mechanism        | Package          | Status                 |
-|---------------+--------------------------+------------------+------------------+------------------------|
-| [[https://www.gnu.org/software/emacs/][Emacs]] (<29)   | §<<sec:editor-emacs>>    | Tree-sitter      | [[https://github.com/sdm-lang/emacs-sdml-mode][sdml-mode.el]]     | Primary tool, tested   |
-| [[https://code.visualstudio.com/][VSCode]]        | §<<sec:editor-vscode>>   | TextMate grammar | [[https://github.com/sdm-lang/sdml-vscode][sdml extension]]   | Secondary tool, tested |
-| [[https://macromates.com/][TextMate]]      | §<<sec:editor-textmate>> | TextMate grammar | [[https://github.com/sdm-lang/SDML.tmbundle][SDML.tmplugin]]    | Some testing           |
-| [[https://www.sublimetext.com/][Sublime Text]]  | §<<sec:editor-sublime>>  | TextMate grammar | [[https://github.com/sdm-lang/SDML.tmbundle][SDML.tmplugin]]    | Untested               |
-| [[https://www.jetbrains.com/idea/][IntelliJ IDEA]] | §<<sec:editor-idea>>     | TextMate grammar | [[https://github.com/sdm-lang/SDML.tmbundle][SDML.tmplugin]]    | Untried                |
-| Vim ([[https://neovim.io/][Neovim]])  | §<<sec:editor-neovim>>   | Tree-sitter      | [[https://github.com/sdm-lang/tree-sitter-sdml][tree-sitter-sdml]] | Untried                |
+| Editor                                               | See                       | Mechanism        | Package                                                            | Status                 |
+|------------------------------------------------------+---------------------------+------------------+--------------------------------------------------------------------+------------------------|
+| [[https://www.gnu.org/software/emacs/][Emacs]] (<29) | §[[#impl:editor-emacs]]   | Tree-sitter      | [[https://github.com/sdm-lang/emacs-sdml-mode][sdml-mode.el]]      | Primary tool, tested   |
+| [[https://code.visualstudio.com/][VSCode]]           | §[[#impl:editor-vscode]]  | TextMate grammar | [[https://github.com/sdm-lang/sdml-vscode][sdml extension]]        | Secondary tool, tested |
+| [[https://macromates.com/][TextMate]]                | §[[#impl:editor-textmate]] | TextMate grammar | [[https://github.com/sdm-lang/SDML.tmbundle][SDML.tmplugin]]       | Some testing           |
+| [[https://www.sublimetext.com/][Sublime Text]]       | §[[#impl:editor-sublime]] | TextMate grammar | [[https://github.com/sdm-lang/SDML.tmbundle][SDML.tmplugin]]       | Untested               |
+| [[https://www.jetbrains.com/idea/][IntelliJ IDEA]]   | §[[#impl:editor-intellij]] | TextMate grammar | [[https://github.com/sdm-lang/SDML.tmbundle][SDML.tmplugin]]       | Untried                |
+| Vim ([[https://neovim.io/][Neovim]])                 | §[[#impl:editor-neovim]]  | Tree-sitter      | [[https://github.com/sdm-lang/tree-sitter-sdml][tree-sitter-sdml]] | Untried                |
 
 ** Command-Line Tool
+:PROPERTIES:
+:CUSTOM_ID: impl:sdml-cli
+:END:
 
 The SDML command-line tool is used to validate module source files as well as generate different representations and
 diagrams from the source. Once installed the option =--help= or the command =help= will guide you through the commands
@@ -265,7 +274,7 @@ $ sdml draw --diagram entity-relationship \
 #+END_EXAMPLE
 
 For the mose detail a UML Class diagram can be generated with the diagram specifier =uml-class=. The generated diagram
-applies the profile outlined in appendix [[app:uml-profile]]. To generate an image file you need to install
+applies the profile outlined in appendix [[#uml-profile]]. To generate an image file you need to install
 PlantUML[fn:puml].
 
 #+BEGIN_EXAMPLE
@@ -321,7 +330,11 @@ module subDomain is
 end
 #+END_SRC
 
-** <<sec:editor-emacs>>Emacs
+** Emacs
+:PROPERTIES:
+:CUSTOM_ID: impl:editor-emacs
+:END:
+
 Emacs has been the primary /playground/ for SDML and as such has some tools already built for editing and documentation.
 The package [[https://github.com/sdm-lang/emacs-sdml-mode][sdml-mode]] (currently not in any package repository) is associated with any file ending in =.sdm= or =.sdml= with
 highlighting and indentation support. Follow the installation instructions on the package's own site.
@@ -508,7 +521,10 @@ as well.
 #+END_SRC
 #+END_EXAMPLE
 
-** <<sec:editor-vscode>>Visual Studio Code
+** Visual Studio Code
+:PROPERTIES:
+:CUSTOM_ID: impl:editor-vscode
+:END:
 
 Visual Studio Code is a modern, powerful, configurable, and cross-platform editor and IDE. It has excellent language
 support based on years of Microsoft IDE development experience. VSCode is also lightweight enough to use for quick tasks
@@ -563,14 +579,21 @@ by the tool.
 #+CAPTION: Extension Settings
 [[file:./images/vscode-settings.png]]
 
-The installer script (section [[sec:tool-installation]]) performs the following steps if you select Visual Studio Code as
+The installer script (section [[#impl:installation]]) performs the following steps if you select Visual Studio Code as
 your editor:
 
 1. Install the editor using brew.
 2. Install the extension from the marketplace.
 
 ** Other Editors
-*** <<sec:editor-textmate>>TextMate
+:PROPERTIES:
+:CUSTOM_ID: impl:other-editors
+:END:
+
+*** TextMate
+:PROPERTIES:
+:CUSTOM_ID: impl:editor-textmate
+:END:
 
 TextMate is another popular editor, and it's in-built language descriptions have been adopted by other tools as a
 semi-standard mechanism for providing syntax highlighting. The SDML TextMate bundle includes a grammar file as well as a
@@ -596,21 +619,27 @@ as seen in figure [[fig:sc-tm-list]].
 #+CAPTION: Symbol List Integration
 [[file:./images/tm-list.png]]
 
-The installer script (section [[sec:tool-installation]]) performs the following steps if you select TextMate as your editor:
+The installer script (section [[#impl:installation]]) performs the following steps if you select TextMate as your editor:
 
 1. Install the editor using brew.
 2. Clone the language bundle into the editor's bundle folder.
 3. Have TextMate reload all bundles (on macos only).
 
-*** <<sec:editor-sublime>>Sublime Text
+*** Sublime Text
+:PROPERTIES:
+:CUSTOM_ID: impl:editor-sublime
+:END:
 
-The installer script (section [[sec:tool-installation]]) performs the following steps if you select Sublime Text as your
+The installer script (section [[#impl:installation]]) performs the following steps if you select Sublime Text as your
 editor:
 
 1. Install the editor using brew.
 2. Clone the language bundle into the editor's bundle folder.
 
-*** <<sec:editor-idea>>IntelliJ IDEA
+*** IntelliJ IDEA
+:PROPERTIES:
+:CUSTOM_ID: impl:editor-intellij
+:END:
 
 IntelliJ IDEA, and by extension most of the JetBrains tools, has a native plugin that acts as a bridge to use TextMate
 bundles as-is.
@@ -626,12 +655,15 @@ and you can enable/disable it with the checkbox next to it.
 
 Opening SDML files should now provide syntax highlighting.
 
-The installer script (section [[sec:tool-installation]]) performs the following steps if you select IDEA as your editor:
+The installer script (section [[#impl:installation]]) performs the following steps if you select IDEA as your editor:
 
 1. install the editor using brew.
 2. Point the user to next-step instructions.
    
-*** <<sec:editor-neovim>>Neovim
+*** Neovim
+:PROPERTIES:
+:CUSTOM_ID: impl:editor-neovim
+:END:
 
 [[https://neovim.io/][Neovim]] has some great tree-sitter support with the [[https://github.com/nvim-treesitter/nvim-treesitter][nvim-tree-sitter]] and a nice in-editor [[https://github.com/nvim-treesitter/playground][playground]]. Firstly, add the
 tree-sitter plugin, but don't install yet, as shown on the nvim-treesitter page (using [[https://github.com/junegunn/vim-plug][vim-plug]]):
@@ -745,12 +777,15 @@ require'nvim-treesitter.configs'.setup {
 }
 #+END_SRC
 
-The installer script (section [[sec:tool-installation]]) performs the following steps if you select Neovim as your editor:
+The installer script (section [[#impl:installation]]) performs the following steps if you select Neovim as your editor:
 
 1. install the editor using brew.
 2. Point the user to next-step instructions.
 
 ** Rust Libraries and Command-Line
+:PROPERTIES:
+:CUSTOM_ID: impl:rust-sdml
+:END:
 
 Crates:
   
@@ -765,6 +800,9 @@ Crates:
 The source is in the Github repository [[https://github.com/sdm-lang/rust-sdml][rust-sdml]].
 
 ** Tree-Sitter Parser Library
+:PROPERTIES:
+:CUSTOM_ID: impl:tree-sitter-sdml
+:END:
 
 - Source at [[https://github.com/sdm-lang/tree-sitter-sdml][Github]]
 
@@ -787,7 +825,10 @@ make build
 - Node binding, published to [[https://www.npmjs.com/package/tree-sitter-sdml][npm.js]]
 - Rust binding, published to [[https://crates.io/crates/tree-sitter-sdml][crates.io]]
 
-** <<sec:resolver-catalog>>Resolver Catalog File
+** Resolver Catalog File
+:PROPERTIES:
+:CUSTOM_ID: impl:resolver-catalog
+:END:
 
 The SDML catalog format is based on the OASIS [[https://www.oasis-open.org/committees/download.php/14809/xml-catalogs.html][XML Catalogs]] for XML namespace resolution for offline development. This
 format has a number of features that make no sense for SDML and so a simpler set of properties is included. Listing
@@ -815,6 +856,9 @@ RelativePath ::= String
 #+END_SRC
 
 *** Locating the Catalog
+:PROPERTIES:
+:CUSTOM_ID: impl:locating-the-catalog
+:END:
 
 As module files most likely exist as part of a larger project, or may be organized into folders, it is useful to be able
 to put the catalog file in the root of a project. Therefore, the resolver, if not provided an explicit location, will
@@ -833,6 +877,9 @@ we reach the file-system root.
 More TBD.
 
 *** Resolving File Paths
+:PROPERTIES:
+:CUSTOM_ID: impl:resolving-paths
+:END:
 
 The example in listing [[lst:catalog-example]] shows how to map the module identifier ~vehicle~ to a file and a base URL. The
 root of the catalog has a mapping named /entries/ which has identifiers as keys and either /groups/ or /items/ as values. The
@@ -860,6 +907,9 @@ resolver is executed. For example, if the resolver is executed in the =project= 
 result in =./src/vehicle-v1.sdm=.
 
 *** Resolving Module Base URLs
+:PROPERTIES:
+:CUSTOM_ID: impl:resolving-uris
+:END:
 
 Using the example from the previous section, if the resulting =./src/vehicle-v1.json= file contains a ~base~ attribute it
 will take precedent. If no base attribute is present, a URL will be constructed by resolving the /relative URL/ from the
@@ -868,6 +918,9 @@ item against the /base URL/ specified in the catalog root. In the case of our ex
 ~<https://example.org/rentals/> + "vehicle#" = <https://example.org/rentals/vehicle#>~
 
 *** Catalog Groups
+:PROPERTIES:
+:CUSTOM_ID: impl:catalog-groups
+:END:
 
 When a project becomes more complex it is useful to provide organization in the form of folder structures.
 

@@ -1,7 +1,10 @@
 #+LANGUAGE: en
 #+STARTUP: overview hidestars inlineimages entitiespretty
 
-* <<sec:surface-syntax>>The Surface Syntax
+* The Surface Syntax
+:PROPERTIES:
+:CUSTOM_ID: surface-syntax
+:END:
 
 This section describes the SDML surface syntax, a syntax intended to look and feel like a programming language but with
 extensibility provided by it's underlying RDF and OWL foundation. The goal of the following syntax is to allow for rapid
@@ -13,11 +16,14 @@ that has no short-form, or /incomplete/, model elements.
 The grammar, where possible, supports Unicode representations of keywords and operators that allow for formatting a
 source module with more compact expressions. This is to obviate the need for separate type-setting tools that typically
 perform a one-way transformation from source to some other format. See table [[tbl:unicode-characters]] in appendix
-[[app:unicode]] for details.
+[[#unicode-usage]] for details.
 
-For the complete grammar, and notes on BNF notation, see section [[sec:complete-grammar]].
+For the complete grammar, and notes on BNF notation, see section [[#surface-syntax-grammar]].
 
 ** Whitespace and Comments
+:PROPERTIES:
+:CUSTOM_ID: syn:whitespace-and-comments
+:END:
 
 This grammar chooses to use the JavaScript regular expression character class =\s= which includes the following values,
 including all Unicode whitespace.
@@ -62,6 +68,9 @@ end
 #+END_SRC
 
 ** Identifiers
+:PROPERTIES:
+:CUSTOM_ID: syn:identifiers
+:END:
 
 An identifier is a string of characters corresponding to the Unicode General Category[fn:ucgc] *Lu* (an uppercase letter),
 *Ll* (a lowercase letter), *Nd* (decimal digit), or the Unicode Low Line (underscore, "_", =U+005F=) character. Specifically
@@ -107,6 +116,9 @@ Naming Conventions:
 - *Enum and Union Variant Name* :: Upper Camel Case is the preferred, although SHOUTY CASE is acceptable.
 
 *** Qualified Identifier
+:PROPERTIES:
+:CUSTOM_ID: syn:qualified-identifiers
+:END:
 
 A qualified identifier comprises a module identifier followed by the Colon (":", =U+003A=) character and the identifier of
 a member within that module.
@@ -127,7 +139,10 @@ IdentifierReference
 
 [[./ebnf-diagram/IdentifierReference.svg]]
 
-** <<sec:modules-and-imports>> Module Definition and Imports
+** Module Definition and Imports
+:PROPERTIES:
+:CUSTOM_ID: syn:modules-and-imports
+:END:
 
 A module is the container for a set of type definitions and typically models a /Domain/ or /Sub-domain/. A single resource
 (in the web sense of some /thing/ identified by an IRI) may contain only a single module; therefore, the smallest valid
@@ -182,7 +197,7 @@ corresponding RDF resource(s). Our first problem is to determine the base URI fo
 
 1. If the module has a base specifier it MUST be used as the module URI.
 2. If the reader has access to an SDML catalog file (For details of the catalog file format see appendix
-   [[sec:resolver-catalog]]), a matching catalog entry MUST be used as the module URI.
+   [[#impl:resolver-catalog]]), a matching catalog entry MUST be used as the module URI.
 3. A URI is calculated for the module using the =file:= scheme and the file path relative to a /project root/.
 
 Considering the following simple module in the file =vehicle.sdm=.
@@ -310,8 +325,8 @@ Definition
 
 [[./ebnf-diagram/Definition.svg]]
 
-Data types are further described in section [[sec:datatypes]]; entities, enumerations, events, structures, and disjoint
-unions are described in section [[sec:structured-types]]; and properties are described in section [[sec:properties]].
+Data types are further described in section [[#syn:datatypes-and-values]]; entities, enumerations, events, structures, and disjoint
+unions are described in section [[#syn:structured-types]]; and annotation properties are described in section [[#syn:annotation-properties]].
 
 *** Type Model
 
@@ -387,7 +402,10 @@ this mathematically as follows.
 
    $$ \prod_{m \in T} |\tau_m| $$
 
-** <<sec:datatypes>>Data Types and Values
+** Data Types and Values
+:PROPERTIES:
+:CUSTOM_ID: syn:datatypes-and-values
+:END:
 
 A data type /individual/, or simply a /value/, is either a simple value, a value constructor, an identifier reference, a
 mapping value, or a list of values.
@@ -462,6 +480,9 @@ referenced explicitly.
 | ~sdml:i64~             | ~xsd:long~                       |
 
 *** Booleans
+:PROPERTIES:
+:CUSTOM_ID: syn:datatype-boolean
+:END:
 
 A /boolean/ value in SDML is either a truth value, or a falsity value. Other types are not coerced into boolean values as
 they may be in other languages.
@@ -491,6 +512,9 @@ Falsity
 [[./ebnf-diagram/Falsity.svg]]
 
 *** Unsigned Integers
+:PROPERTIES:
+:CUSTOM_ID: syn:datatype-unsigned
+:END:
 
 An /unsigned/ value in SDML is a string of ASCII decimal digits, without leading zeros; zero, =0=, is a valid value however
 =00= and =01= are not. The unsigned type corresponds to a 64-bit unsigned integer number (values $[0, 2^{64}-1]$).
@@ -511,6 +535,9 @@ NonZero
 [[./ebnf-diagram/NonZero.svg]]
 
 *** Signed Integers
+:PROPERTIES:
+:CUSTOM_ID: syn:datatype-integer
+:END:
 
 A /signed integer/ value in SDML consists of an optional a sign character (Hyphen Minus, "-", =U+002D= or Plus Sign, "+",
 =U+002B=) followed by a string of ASCII decimal digits, without leading zeros; zero, =0=, is a valid value however =00= and =01=
@@ -528,6 +555,9 @@ NumericSign
 [[./ebnf-diagram/NumericSign.svg]]
 
 *** Decimal Numbers
+:PROPERTIES:
+:CUSTOM_ID: syn:datatype-decimal
+:END:
 
 A /decimal/ (fixed point) value in SDML is an integer value, followed by the Full Stop (".", =U+002E=) character and another
 integer-like value although this second value allows any number of leading zeros. The decimal type corresponds to a
@@ -539,6 +569,9 @@ Decimal
 #+END_SRC
 
 *** Floating-Point Numbers
+:PROPERTIES:
+:CUSTOM_ID: syn:datatype-double
+:END:
 
 A /double/ value in SDML is a decimal-like value followed by a lower or upper case letter E (Latin Small Letter E, "e",
 =U+0065= or Latin Capital Letter E, "E", =U+0045=), a sign character (Hyphen Minus, "-", =U+002D= or Plus Sign, "+", =U+002B=)
@@ -557,6 +590,9 @@ ExponentChar
 [[./ebnf-diagram/ExponentChar.svg]]
 
 *** Character Strings
+:PROPERTIES:
+:CUSTOM_ID: syn:datatype-string
+:END:
 
 A /string/ value in SDML is a sequence of Unicode characters starting and ending with a Quotation Mark ('"', =U+0022=)
 character. While standard escape sequences allow for embedding non-printing characters. 
@@ -674,6 +710,9 @@ LanguageTagRegion
 [[./ebnf-diagram/LanguageTagRegion.svg]]
 
 *** IRI References
+:PROPERTIES:
+:CUSTOM_ID: syn:datatype-iri
+:END:
 
 An /IRI reference/ value in SDML is a value IRI value, either absolute or relative, between a Less-Than Sign ("<", =U+003C=)
 character and a Greater-Than Sign (">", =U+003E=) character. IRI references are more permissive in the SDML grammar than
@@ -689,6 +728,9 @@ Iri
 [[./ebnf-diagram/Iri.svg]]
 
 *** Binary Strings
+:PROPERTIES:
+:CUSTOM_ID: syn:datatype-binary
+:END:
 
 A /binary/ value in SDML is a compact list of bytes that allows for the encoding of values that may not be possible with
 the other built-in types. The representation of a binary string is a sequence of bytes in hex pairs; the opening bracket
@@ -719,6 +761,9 @@ end
 #+END_SRC
 
 *** Value Constructors
+:PROPERTIES:
+:CUSTOM_ID: syn:value-constructor
+:END:
 
 While the value =101= is defined to be an Integer literal, in the presence of sub-types how do you specify the type of a
 literal? To accomplish this a /value constructor/ allows for specifying the precise type, or casting a value to a specific
@@ -749,10 +794,13 @@ module example is
 end
 #+END_SRC
 
-You can ignore the syntax of ~@ex:thing~ which is an annotation, see section [[sec:annotations]], used to ensure the syntax is
+You can ignore the syntax of ~@ex:thing~ which is an annotation, see section [[#syn:annotations]], used to ensure the syntax is
 complete for all examples.
 
-*** <<sec:mapping-values>>Mapping Values
+*** Mapping Values
+:PROPERTIES:
+:CUSTOM_ID: syn:mapping-values
+:END:
 
 A mapping value denotes a /functional relationship/ between the /domain/ (left-hand value) and /range/ (right-hand value).  
 
@@ -782,8 +830,11 @@ end
 #+END_SRC
  
 *** Sequence Values
+:PROPERTIES:
+:CUSTOM_ID: syn:sequence-values
+:END:
 
-As stated in section [[sec:modules-and-imports]], sequences in SDML start with the Left Square Bracket ("[", =U+005B=)
+As stated in section [[#syn:modules-and-imports]], sequences in SDML start with the Left Square Bracket ("[", =U+005B=)
 character and end with the Right Square Bracket ("]", =U+005D=) character with no separator character between members of
 the list. Sequence values are, as one might expect, sequences of values and specifically of simple values. Sequence
 value may also by heterogeneous and therefore contain elements of different types.
@@ -828,6 +879,9 @@ end
 #+END_SRC
 
 *** Defining Data Types
+:PROPERTIES:
+:CUSTOM_ID: syn:defining-datatypes
+:END:
 
 A datatype definition introduces a new simple data type by /restriction/ of some existing base type.
 
@@ -934,7 +988,10 @@ From OWL 2 Web Ontology Language Quick Reference Guide[fn:owlqr]:
 | =xsd:pattern=                                                            | =xsd:string= literal as a regular expression | Strings, IRIs              | Restricts the value space to literals that match the regular expression                    |
 | =rdf:langRange=                                                          | =xsd:string= literal as a regular expression | =rdf:PlainLiteral=           | Restricts the value space to literals with language tags that match the regular expression |
 
-** <<sec:sequence-types>>Sequence Types
+** Sequence Types
+:PROPERTIES:
+:CUSTOM_ID: syn:sequence-types
+:END:
 
 When a structure member has a cardinality other than ~1..1~ it has to be represented by a /sequence type/. SDML bases it's
 sequence types on /cardinality constraints/ rather than the direct specification of a collection type. This allows you to
@@ -961,12 +1018,15 @@ type. See also section [[seq:library-sequence-types]] which describes the standa
 
 Note, any ordering or uniqueness constraint on the cardinality ~0..1~ is effectively ignored.
 
-A /dictionary/ or /map/ structure can be described in SDML as a sequence of mapping values (see section [[sec:mapping-values]]).
+A /dictionary/ or /map/ structure can be described in SDML as a sequence of mapping values (see section [[#syn:mapping-values]]).
 Specifically the sequence type ~{unique 0..} (string -> string)~ is mapping from string values to other strings where each mapping
 is unique, and for mapping types only the keys are considered in comparisons. The type ~{0..} (string -> string)~ does not
 enforce uniqueness and thus is a /multi-map/.
 
-** <<sec:annotations>>Annotations
+** Annotations
+:PROPERTIES:
+:CUSTOM_ID: syn:annotations
+:END:
 
 Annotations allow for the assertion of facts attached to model elements that go beyond what is possible to describe in
 the core syntax. Annotations are available in two forms, annotation properties, and constraints.
@@ -989,11 +1049,14 @@ AnnotationOnlyBody
 [[./ebnf-diagram/AnnotationOnlyBody.svg]]
 
 *** Annotation Properties
+:PROPERTIES:
+:CUSTOM_ID: syn:annotation-properties
+:END:
 
 Annotation Properties are an extension mechanism that interacts directly with the underlying RDF representation of the subject
 model element. While these may look like Java /annotations/, Python /decorators/, or Rust /attributes/ it is more powerful in
 that it can express arbitrary statements about the model element. An SDML annotation starts with the symbol "@" and then
-has an identifier that resolves to an OWL annotation property (see section [[sec:define-rdf]] for the detailed rules), and a
+has an identifier that resolves to an OWL annotation property (see section [[#syn:defining-rdf-classes-and-properties]] for the detailed rules), and a
 value for the corresponding property range.
 
 #+BEGIN_SRC ebnf
@@ -1066,8 +1129,11 @@ should be a triple:
 #+END_QUOTE
 
 *** Constraints
+:PROPERTIES:
+:CUSTOM_ID: syn:annotation-constraints
+:END:
 
-This section will only briefly introduce constraints as section [[sec:model-constraints]] provides a detailed description.
+This section will only briefly introduce constraints as section [[#model-constraints]] provides a detailed description.
 The first example, in listing [[lst:sdml-ex-constrained-module]], provides an informal constraint in that it is simply a
 string which is useful to readers but cannot be verified.
 
@@ -1104,7 +1170,10 @@ module rental is
 end
 #+END_SRC
 
-*** <<sec:define-rdf>> Defining RDF Classes and Properties
+*** Defining RDF Classes and Properties
+:PROPERTIES:
+:CUSTOM_ID: syn:defining-rdf-classes-and-properties
+:END:
 
 In general only properties that have an RDF type of =owl:AnnotationProperty=, or are sub-properties of such a property,
 may appear as annotations. This maintains the assertion that they are annotations of their subject and allows the use of
@@ -1188,7 +1257,10 @@ Commonly used annotation super-types
 - =owl:SymmetricProperty=
 - =owl:TransitiveProperty=
 
-** <<sec:structured-types>>Structured Types
+** Structured Types
+:PROPERTIES:
+:CUSTOM_ID: syn:structured-types
+:END:
 
 Structured types fall into two primary categories, /Product/ types and /Sum/ types. Product types have named and typed
 /Members/ and in SDML these are structures, entities and events. Sum types on the other hand have /Variants/ and in SDML
@@ -1196,6 +1268,9 @@ these are enumerations and disjoint unions. In the surface syntax product type b
 whereas sum type bodies are introduced by the keyword ~of~.
 
 *** Structures
+:PROPERTIES:
+:CUSTOM_ID: syn:structures
+:END:
 
 A structure is a product type that is composed of named and typed members. A structure is therefore akin to a record
 type, a table in data modeling, or a class in object modeling.
@@ -1262,6 +1337,9 @@ end
 #+END_SRC
 
 *** Entities
+:PROPERTIES:
+:CUSTOM_ID: syn:entities
+:END:
 
 #+BEGIN_SRC ebnf
 EntityDef
@@ -1305,7 +1383,7 @@ end
 #+END_SRC
 
 The ~identity~ member is a required part of the entity definition, it not only tells us what type represents the unique
-identifier for this entity but is also used in event sources (see section [[sec:entity-events]]).
+identifier for this entity but is also used in event sources (see section [[#syn:entity-events]]).
 
 #+NAME: lst:sdml-ex-entity-ref-member
 #+CAPTION: Entity with Reference Member
@@ -1324,7 +1402,10 @@ module example is
 end
 #+END_SRC
 
-*** <<sec:entity-events>>Entity Events
+*** Entity Events
+:PROPERTIES:
+:CUSTOM_ID: syn:entity-events
+:END:
 
 Entity Events, or simply Events, model notifications generated by an entity most often representing a state change in the entity.
 As such a ~source~ reference denotes the entity which generates this event. Any expansion of the event structure *must* include the
@@ -1381,6 +1462,9 @@ end
 #+END_SRC
 
 *** Enumerations
+:PROPERTIES:
+:CUSTOM_ID: syn:enums
+:END:
 
 An enumeration defines a set of unique constant values. The representation of these values is not defined by SDML,
 allowing users of the model to choose a scheme that matches their need.
@@ -1554,6 +1638,9 @@ end
 #+END_SRC
 
 *** Disjoint Unions
+:PROPERTIES:
+:CUSTOM_ID: syn:unions
+:END:
 
 A disjoint, or discriminated, union is a mechanism to allow for a selection of disjoint types to be treated as a single
 type. As such the /variants/ of the union are simply type references, although they do allow annotations. Note also that
@@ -1618,18 +1705,27 @@ module example is
 end
 #+END_SRC
 
-** <<sec:members>>Structure Members
+** Structure Members
+:PROPERTIES:
+:CUSTOM_ID: syn:members
+:END:
 
 Product type members should be familiar to anyone exposed to either programming languages or data definition languages
 such as SQL. A name is associated with a type, an optional inverse name, and may have annotations.
 
 #+BEGIN_SRC ebnf
 Member
-    ::= Identifier
-        ( PropertyReference | ( InverseName? TypeExpressionTo AnnotationOnlyBody? ) )
+    ::= MemberDef | PropertyRef
 #+END_SRC
 
 [[./ebnf-diagram/Member.svg]]
+
+#+BEGIN_SRC ebnf
+MemberDef
+    ::= Identifier TypeExpressionTo AnnotationOnlyBody?
+#+END_SRC
+
+[[./ebnf-diagram/MemberDef.svg]]
 
 #+NAME: lst:sdml-ex-min-member
 #+CAPTION: Example: Minimal Structure Member
@@ -1644,14 +1740,15 @@ end
 #+END_SRC
 
 *** Member Types
+:PROPERTIES:
+:CUSTOM_ID: syn:member-types
+:END:
 
 To allow for the capture of member names before the elaboration of all types the language allows for the
 target type to be replaced with the keyword ~unknown~. This marks the member, and by extension it's owning type, as
 /incomplete/. Note the grammar allows ASCII and Unicode representations of the /has type/ operator.
 
 #+BEGIN_SRC ebnf
-TypeExpression 
-    ::= HasType TypeReference
 TypeExpressionTo
     ::= HasType Cardinality? "features"? TypeReference
 HasType
@@ -1661,8 +1758,6 @@ TypeReference
 UnknownType
     ::= "unknown"
 #+END_SRC
-
-[[./ebnf-diagram/TypeExpression.svg]]
 
 [[./ebnf-diagram/TypeExpressionTo.svg]]
 
@@ -1677,13 +1772,16 @@ MappingType
 
 [[./ebnf-diagram/MappingType.svg]]
 
-The syntax for mapping values was previously described in section [[sec:mapping-values]].
+The syntax for mapping values was previously described in section [[#syn:mapping-values]].
 
 *** Member Cardinality
+:PROPERTIES:
+:CUSTOM_ID: syn:member-cardinality
+:END:
 
 The *cardinality* of a member is specified as a range operation with a minimum and maximum number of occurrences
 specified. Additionally cardinality constraints determine the ordering and uniqueness of the collection of member values
-in a sequence type (see section [[sec:sequence-types]]).
+in a sequence type (see section [[#syn:sequence-types]]).
 
 - The form ~{1..3}~ specifies a cardinality of 1 to 3 inclusive, or $[1,3]$ in interval notation.
 - The form ~{1..}~ specifies a minimum of 1 occurrences an unbounded maximum, or $[1,\infty]$ in interval notation.
@@ -1716,36 +1814,14 @@ SequenceUniqueness
 
 [[./ebnf-diagram/SequenceUniqueness.svg]]
 
-*** Inverse Names
-
-#+BEGIN_SRC ebnf
-InverseName
-    ::= "(" Identifier ")"
-#+END_SRC
-
-[[./ebnf-diagram/InverseName.svg]]
-
-#+NAME: lst:sdml-ex-inverse-name
-#+CAPTION: Example: Inverse Name
-#+BEGIN_SRC sdml :exports code :noeval
-module accounts is
-
-  import users
-
-  entity Account is
-    identity id -> AccountId
-    owner (owned_account) -> users:User
-  end
-
-end
-#+END_SRC
-
 *** Identity Members
+:PROPERTIES:
+:CUSTOM_ID: syn:entity-identity
+:END:
 
 #+BEGIN_SRC ebnf
 EntityIdentity
-    ::= "identity" Identifier
-        ( PropertyMember | ( TypeExpression AnnotationOnlyBody? ) )
+    ::= "identity" Member
 #+END_SRC
 
 [[./ebnf-diagram/EntityIdentity.svg]]
@@ -1765,10 +1841,13 @@ module accounts is
 end
 #+END_SRC
 *** Property Reference
+:PROPERTIES:
+:CUSTOM_ID: syn:property-reference
+:END:
 
 #+BEGIN_SRC ebnf
-PropertyReference
-    ::= "in" IdentifierReference
+PropertyRef
+    ::= "ref" IdentifierReference
 #+END_SRC
 
 [[./ebnf-diagram/PropertyReference.svg]]
@@ -1785,7 +1864,7 @@ module example is
   import accounts
 
   structure Record is
-    default in accounts:AccountId
+    ref accounts:accountId
     name -> string
   end
 
@@ -1793,8 +1872,16 @@ end
 #+END_SRC
 
 *** Feature Members
+:PROPERTIES:
+:CUSTOM_ID: syn:feature-members
+:END:
 
 ...
+
+#+BEGIN_SRC ebnf
+TypeExpressionTo
+    ::= HasType Cardinality? "features"? TypeReference
+#+END_SRC
 
 #+NAME: lst:sdml-ex-entity-features
 #+CAPTION: Example: Declaring Feature Member
@@ -1833,14 +1920,17 @@ module rentals is
 end
 #+END_SRC
 
-** <<sec:properties>>Property Definitions
+** Property Definitions
+:PROPERTIES:
+:CUSTOM_ID: syn:property-definitions
+:END:
 
 SDML provides for a data dictionary, or element-first, style of model capture where key properties of the domain are
 defined and annotated in a stand-alone form. These are often key identifiers and other shared properties 
 
 #+BEGIN_SRC ebnf
 PropertyDef
-    ::= "property" Identifier PropertyBody?
+    ::= "property" MemberDef
 #+END_SRC
 
 [[./ebnf-diagram/PropertyDef.svg]]
@@ -1850,7 +1940,7 @@ PropertyDef
 #+BEGIN_SRC sdml :exports code :noeval
 module example is
 
-  property account_id
+  property account_id -> unknown
 
 end
 #+END_SRC
@@ -1858,56 +1948,19 @@ end
 The property ~account_id~ in [[lst:sdml-ex-empty-property]] is valid but incomplete. Completion of the property requires the
 addition of a body with roles defined.
 
-#+BEGIN_SRC ebnf
-PropertyBody
-    ::= "is" Annotation* ( IdentityRole | MemberRole )+ "end"
-#+END_SRC
-
-[[./ebnf-diagram/PropertyBody.svg]]
-
-Note that the syntax of role definitions is a subset of the syntax for members (see section [[sec:members]]). In each case
-the choice between a property reference and a member definition is removed and only the definition part remains.
-
-#+BEGIN_SRC ebnf
-IdentityRole
-    ::= "identity" Identifier TypeExpression AnnotationOnlyBody?
-#+END_SRC
-
-[[./ebnf-diagram/IdentityRole.svg]]
-
-#+BEGIN_SRC ebnf
-MemberRole
-    ::= Identifier InverseName? TypeExpressionTo AnnotationOnlyBody?
-#+END_SRC
-
-[[./ebnf-diagram/MemberRole.svg]]
-
 The following is a valid /and/ complete example.
 
 #+NAME: lst:sdml-ex-property-role
-#+CAPTION: Example: Property Definition with Roles
+#+CAPTION: Example: Property Definition
 #+BEGIN_SRC sdml :exports code :noeval
 module account is
 
   datatype Accountid <- unsigned
 
-  property accountId is
-
-    identity identifier -> {1} AccountId is
-      @skos:definition =
-        "The identifier that denotes that this entity has a one-to-one relationship with a customer account."@en
-    end
-
-    account -> {1} Account is
-      @skos:definition =
-        "Refers to a customer account entity."@en
-    end
-
-    account_identifier -> AccountId is
-      @skos:definition =
-        "Refers to an entity that has a one-to-one relationship with a customer account."@en
-    end
-
+  property accountId -> {1} AccountId is
+    @skos:prefLabel = "account identifier"@en
+    @skos:definition =
+      "The identifier that denotes that this entity has a one-to-one relationship with a customer account."@en
   end
 
   entity Account

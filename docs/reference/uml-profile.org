@@ -1,13 +1,19 @@
 #+LANGUAGE: en
 #+STARTUP: overview hidestars inlineimages entitiespretty
 
-* <<app:uml-profile>>Appendix: UML Profile for SDML
+* Appendix: UML Profile for SDML
+:PROPERTIES:
+:CUSTOM_ID: uml-profile
+:END:
 
 This section describes a *non-normative* UML Profile for SDML that allows the diagrammatic presentation of an SDML model.
 
 Based upon the [[https://www.omg.org/spec/UML/2.5.1/About-UML][Unified Modeling Language 2.5.1]].
 
 ** The Profile
+:PROPERTIES:
+:CUSTOM_ID: uml:the-profile
+:END:
 
 A UML profile creates a specific sub-language that utilizes the structure and semantics of UML but constrained and
 tailored to a specific domain. In this case the profile creates a way to use UML to visualize the structure of an SDML
@@ -75,6 +81,9 @@ rentals .> sdml: <<apply>>
 [[file:uml-ex-profile-applied.svg]]
 
 ** Modules
+:PROPERTIES:
+:CUSTOM_ID: uml:modules
+:END:
 
 The SDML profile introduces a stereotype /module/ that may then be applied to a package within the model to denote a named
 module.
@@ -179,6 +188,9 @@ package rentals-model <<sdml>> {
 [[file:uml-ex-module.svg]]
 
 ** Imports
+:PROPERTIES:
+:CUSTOM_ID: uml:imports
+:END:
 
 Import statements in SDML target either a module, or members within a module by qualified name. UML on the other hand
 has two separate import relations, =ImportElement= and =ImportPackage=. Importing a package in UML brings all the public
@@ -305,10 +317,16 @@ rentals ..right..> description: <<import>>
 [[file:uml-ex-member-imports.svg]]
 
 ** Annotations
+:PROPERTIES:
+:CUSTOM_ID: uml:annotations
+:END:
 
 TBD
 
-** Data Type Definitions
+** Datatype Definitions
+:PROPERTIES:
+:CUSTOM_ID: uml:datatypes
+:END:
 
 The profile element =«datatype»= is a specialization of the UML =PrimitiveType= (section 10.2.3.2 of the UML specification)
 classifier.
@@ -376,6 +394,9 @@ package rentals <<module>> {
 [[file:uml-ex-datatype.svg]]
 
 ** Entity Definitions
+:PROPERTIES:
+:CUSTOM_ID: uml:entities
+:END:
 
 #+NAME: src:uml-profile-entity
 #+BEGIN_SRC plantuml :file uml-profile-entity.svg
@@ -496,7 +517,9 @@ package rentals <<module>> {
 [[file:uml-ex-entity.svg]]
 
 ** Enumeration Definitions
-
+:PROPERTIES:
+:CUSTOM_ID: uml:enumerations
+:END:
 
 #+NAME: src:uml-profile-enum
 #+BEGIN_SRC plantuml :file uml-profile-enum.svg
@@ -581,6 +604,9 @@ enum VehicleClass <<enum>> {
 [[file:uml-ex-enum.svg]]
 
 ** Event Definitions
+:PROPERTIES:
+:CUSTOM_ID: uml:events
+:END:
 
 The standard =Signal= (10.3.3.1) and =Dependency=
 
@@ -620,7 +646,7 @@ end note
 #+RESULTS: src:uml-profile-event
 [[file:uml-profile-event.svg]]
 
-For details on by-value members and groups see section [[sec:uml-structures]] below.
+For details on by-value members and groups see section [[#uml:structures]] below.
 
 *Example: An Example Event*
 
@@ -662,7 +688,10 @@ package rentals <<module>> {
 #+RESULTS: src:uml-ex-event
 [[file:uml-ex-event.svg]]
 
-** <<sec:uml-structures>>Structure Definitions
+** Structure Definitions
+:PROPERTIES:
+:CUSTOM_ID: uml:structures
+:END:
 
 TBD
 
@@ -671,6 +700,9 @@ TBD
 TBD
 
 ** Union Definitions
+:PROPERTIES:
+:CUSTOM_ID: uml:unions
+:END:
 
 Generalization Sets (9.7)
 
@@ -778,11 +810,16 @@ package rentals <<module>> {
 [[file:uml-ex-union.svg]]
 
 ** Property Definitions
+:PROPERTIES:
+:CUSTOM_ID: uml:properties
+:END:
 
 TBD
 
 ** Member Cardinality
-
+:PROPERTIES:
+:CUSTOM_ID: uml:cardinality
+:END:
 
 UML
 

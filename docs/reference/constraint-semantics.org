@@ -1,7 +1,10 @@
 #+LANGUAGE: en
 #+STARTUP: overview hidestars inlineimages entitiespretty
 
-* <<app:constraint-semantics>>Appendix: Constraint Semantics
+* Appendix: Constraint Semantics
+:PROPERTIES:
+:CUSTOM_ID: constraint-semantics
+:END:
 
 The embedded constraint language is purely functional and constraint assertions MUST return a single boolean value
 determining correctness. The constraint language follows the naming convention of Common Logic, and so a constraint
@@ -73,6 +76,9 @@ Semantically, sentences are formulas that can be /true/ (⊤) or /false/ (⊥), 
 occurrences of variables depends on the assignment of values to these variables.
 
 ** Simple Sentences
+:PROPERTIES:
+:CUSTOM_ID: csem:simple-sentences
+:END:
 
 An /atomic sentence/ takes the form of a predicate with a set of zero or more arguments.
 
@@ -100,6 +106,9 @@ lhs ≥ rhs
 #+END_EXAMPLE
   
 ** Boolean Sentences
+:PROPERTIES:
+:CUSTOM_ID: csem:boolean-sentences
+:END:
 
 The /negation/ of a sentence takes the form of a preceding logical /not/ operator.
 
@@ -157,6 +166,9 @@ L \iff R \equiv (L \implies R) \land (R \implies L)
 \end{equation}
     
 ** Quantified Sentences
+:PROPERTIES:
+:CUSTOM_ID: csem:quantified-sentences
+:END:
 
 The /universal quantification/ over a sequence says that "for all elements $e$ in the sequence $S$ the sentence $s$ must hold
 true".
@@ -175,6 +187,9 @@ exists e in Sequence s
 #+END_EXAMPLE
     
 ** Sequence Builders
+:PROPERTIES:
+:CUSTOM_ID: csem:sequence-builders
+:END:
 
 *Notation*
 
@@ -194,7 +209,7 @@ t ≔ \bigl\{ x_1, \cdots, x_n \mid \ldots \bigr\} \implies \forall x \in x_1, \
 \end{equation}
 
 #+BEGIN_COMMENT
-The expression from section [[sec:sequence-builders]] does not provide a domain for the variable $x$ and so will take on all
+The expression from the previous section does not provide a domain for the variable $x$ and so will take on all
 values from the domain of discourse, $\mathcal{D}$. We may then define a transform in the following manner.
 #+END_COMMENT
 
@@ -240,7 +255,9 @@ def constraints(anns - > {}  Annotation) -> {} Constraint
 #+END_EXAMPLE
 
 ** Quantified Sentences as Sequence Builders
-
+:PROPERTIES:
+:CUSTOM_ID: csem:quantified-sentences-as-sequence-builders
+:END:
 
 The existential qualifier specifically determines that there is /at least one/ element in the type or sequence where the
 sentence provided holds true. If you need to ensure a specific cardinality, for example that /exactly three/ elements in
@@ -276,7 +293,10 @@ is_empty({ e | e in Sequence not s}
 
 In this manner we can treat the quantified sentences as syntactic sugar over specific forms of sequence comprehensions.
 
-** <<app:common-logic>>Constraints to ISO/IEC Common Logic
+** Constraints to ISO/IEC Common Logic
+:PROPERTIES:
+:CUSTOM_ID: csem:common-logic
+:END:
 
 This appendix describes the *normative* mapping from SDML/Constraints to the ISO/IEC Common Logic standard.
 

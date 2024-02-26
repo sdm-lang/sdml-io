@@ -2,11 +2,17 @@
 #+STARTUP: overview hidestars inlineimages entitiespretty
 
 * Walk-Through Example
+:PROPERTIES:
+:CUSTOM_ID: walk-through
+:END:
 
 The following section walks through the process of model creation and iterative elaboration to add detail as domain
 experts provide more information. In our example we will build a domain model for a vehicle rental company.
 
 ** Starting with Core Entities
+:PROPERTIES:
+:CUSTOM_ID: ex:pass-1
+:END:
 
 So, as you might imagine we can start the model with some pretty obvious entities, but with no detail beyond their
 names. Listing [[lst:example-first-pass]] is this first-pass domain model.
@@ -44,6 +50,9 @@ sdml draw --diagram concepts \
 [[file:./rentals-concept-1.svg]]
 
 ** Adding Relationships
+:PROPERTIES:
+:CUSTOM_ID: ex:pass-2
+:END:
 
 Figure [[lst:example-second-pass]] is the second-pass at our model, adding relationships from the ~Booking~ entity to the
 ~Customer~, ~Location~, and  ~Vehicle~ entities. Adding a body to the ~Booking~ entity, between =is= … =end=, requires the entity
@@ -83,6 +92,9 @@ Re-running the =sdml= tool on listing [[lst:example-second-pass]] will result in
 [[file:./rentals-concept-2.svg]]
 
 ** Adding our first Properties
+:PROPERTIES:
+:CUSTOM_ID: ex:pass-3
+:END:
 
 In the next edit of our rentals model we see some additions:
 
@@ -137,6 +149,9 @@ As usual we generate the concept diagram in figure [[fig:example-third-pass]] fr
 [[file:./rentals-concept-3.svg]]
 
 ** More detail, and a new diagram
+:PROPERTIES:
+:CUSTOM_ID: ex:pass-4
+:END:
 
 #+NAME: lst:example-fourth-pass
 #+CAPTION: Rentals Non-Entity Detail
@@ -221,6 +236,9 @@ sdml draw --diagram entity-relationship \
 [[file:./rentals-erd-4.svg]]
 
 ** More detail, and yet another diagram
+:PROPERTIES:
+:CUSTOM_ID: ex:pass-5
+:END:
 
 #+NAME: lst:example-fifth-pass
 #+CAPTION: Rentals Structural Detail

@@ -14,7 +14,6 @@
 #+BEGIN_SRC emacs-lisp :exports none
 (require 'ob-dot) ;; builtin
 (require 'ob-sdml)
-(setq org-confirm-babel-evaluate nil)
 #+END_SRC
 
 #+NAME: img:sdml-logo
@@ -201,7 +200,7 @@ item or the same kind of item from /different manufacturers/.
 
 When we look at the italic text above we note the possible entities Kind, Variation, Size, Color, and Manufacturer.
 However, as we talk them through with the stakeholders we feel that they do not meet the criteria outlined in the
-section [[#where-to-start][Where do I start?]], except ~Manufacturer~.
+section [[#primer:where-to-start][Where do I start?]], except ~Manufacturer~.
 
 #+NAME: src:initial-retail-entities
 #+CAPTION: Initial Retail Entities
@@ -682,7 +681,7 @@ end
 #+END_SRC
 
 While this module has added a lot of detail, one structure at the end, ~PaymentInstrument~ is not yet complete. Be
-patient, we will come back to that in the section [[#add-unions]] later.
+patient, we will come back to that in the section [[#primer:add-unions]] later.
 
 #+BEGIN_ADVNOTE
 You can add a specific type of annotation, a constraint, to capture conditions that cannot be expressed by the model's
@@ -841,7 +840,7 @@ end
 #+END_SRC
 
 You will probably be thinking that all this detail is making the module quite large and possibly cumbersome. In the
-following section ([[#add-events]]) we will discuss approaches to organizing modules to allow not only ease of navigation
+following section ([[#primer:add-events]]) we will discuss approaches to organizing modules to allow not only ease of navigation
 but also parallel editing.
 
 #+BEGIN_ADVNOTE

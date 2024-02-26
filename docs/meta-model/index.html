@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-11-29 Wed 08:54 -->
+<!-- 2024-02-26 Mon 09:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SDML Meta-Model in UML</title>
@@ -15,28 +15,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
-<link rel="stylesheet" type="text/css" href="sdml-io.css"/>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+<link rel="stylesheet" type="text/css" href="../rtd-sdml.css"/>
 </head>
 <body>
 <div id="content" class="content">
@@ -45,165 +24,165 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0f4a4df">1. Introduction</a></li>
-<li><a href="#org312ecbd">2. Package Foundation</a>
+<li><a href="#mmodel:introduction">1. Introduction</a></li>
+<li><a href="#mmodel:foundation">2. Package Foundation</a>
 <ul>
-<li><a href="#org80a7101">2.1. Abstract Class Definition</a></li>
-<li><a href="#orgdf0b823">2.2. Class Name</a></li>
-<li><a href="#org701e15d">2.3. Abstract Class Named</a></li>
-<li><a href="#orgf020beb">2.4. Abstract Class Namespace</a></li>
-<li><a href="#org45ae1cb">2.5. Abstract Class Type</a></li>
-<li><a href="#org6594a0e">2.6. Abstract Class Typed</a></li>
+<li><a href="#mmodel:foundation-definition">2.1. Abstract Class Definition</a></li>
+<li><a href="#mmodel:foundation-name">2.2. Class Name</a></li>
+<li><a href="#mmodel:foundation-named">2.3. Abstract Class Named</a></li>
+<li><a href="#mmodel:foundation-namespace">2.4. Abstract Class Namespace</a></li>
+<li><a href="#mmodel:foundation-type">2.5. Abstract Class Type</a></li>
+<li><a href="#mmodel:foundation-typed">2.6. Abstract Class Typed</a></li>
 </ul>
 </li>
-<li><a href="#orgfc5757a">3. Package Modules</a>
+<li><a href="#mmodel:modules">3. Package Modules</a>
 <ul>
-<li><a href="#orgcb30c07">3.1. Abstract Class Import</a></li>
-<li><a href="#org2dc2475">3.2. Class Module</a></li>
-<li><a href="#org0842700">3.3. Abstract Class Module Definition</a></li>
-<li><a href="#org209d78b">3.4. Abstract Class Module Definition Import</a></li>
-<li><a href="#org30cb494">3.5. Abstract Class Module Import</a></li>
+<li><a href="#mmodel:mod-import">3.1. Abstract Class Import</a></li>
+<li><a href="#mmodel:mod-module">3.2. Class Module</a></li>
+<li><a href="#mmodel:mod-module-definition">3.3. Abstract Class Module Definition</a></li>
+<li><a href="#mmodel:mod-definition-import">3.4. Abstract Class Module Definition Import</a></li>
+<li><a href="#mmodel:mod-module-import">3.5. Abstract Class Module Import</a></li>
 </ul>
 </li>
-<li><a href="#orgff7451d">4. Package Annotations</a>
+<li><a href="#mmodel:annotations">4. Package Annotations</a>
 <ul>
-<li><a href="#orgf84a243">4.1. Abstract Class Annotated</a></li>
-<li><a href="#orgca6916a">4.2. Abstract Class Annotation</a></li>
-<li><a href="#orgb3fb52e">4.3. Class Annotation Property</a></li>
-<li><a href="#orgadf0b58">4.4. Abstract Class Constraint</a></li>
+<li><a href="#mmodel:ann-annotated">4.1. Abstract Class Annotated</a></li>
+<li><a href="#mmodel:ann-annotation">4.2. Abstract Class Annotation</a></li>
+<li><a href="#mmodel:ann-annotation-property">4.3. Class Annotation Property</a></li>
+<li><a href="#mmodel:ann-constraint">4.4. Abstract Class Constraint</a></li>
 </ul>
 </li>
-<li><a href="#org6c9ec5f">5. Package Datatypes</a>
+<li><a href="#mmodel:datatypes">5. Package Datatypes</a>
 <ul>
-<li><a href="#org32a03a1">5.1. Class Datatype</a></li>
-<li><a href="#org4efa51a">5.2. Class Binary</a></li>
-<li><a href="#orgf91e95e">5.3. Class Boolean</a></li>
-<li><a href="#org9fca6ef">5.4. Class Decimal</a></li>
-<li><a href="#org1a9b028">5.5. Class Double</a></li>
-<li><a href="#org98c35a5">5.6. Class Integer</a></li>
-<li><a href="#orgadbbed4">5.7. Class String</a></li>
-<li><a href="#org7c7e5df">5.8. Class Unsigned</a></li>
-<li><a href="#org0970d23">5.9. Class Uri</a></li>
-<li><a href="#org9caabbb">5.10. Class Language Tag</a></li>
-<li><a href="#org2306fc6">5.11. Class Language Tagged String</a></li>
+<li><a href="#mmodel:dt-datatype">5.1. Class Datatype</a></li>
+<li><a href="#mmodel:dt-binary">5.2. Class Binary</a></li>
+<li><a href="#mmodel:dt-boolean">5.3. Class Boolean</a></li>
+<li><a href="#mmodel:dt-decimal">5.4. Class Decimal</a></li>
+<li><a href="#mmodel:dt-double">5.5. Class Double</a></li>
+<li><a href="#mmodel:dt-integer">5.6. Class Integer</a></li>
+<li><a href="#mmodel:dt-string">5.7. Class String</a></li>
+<li><a href="#mmodel:dt-unsigned">5.8. Class Unsigned</a></li>
+<li><a href="#mmodel:dt-uri">5.9. Class Uri</a></li>
+<li><a href="#mmodel:dt-language-tag">5.10. Class Language Tag</a></li>
+<li><a href="#mmodel:dt-language-tagged-string">5.11. Class Language Tagged String</a></li>
 </ul>
 </li>
-<li><a href="#org6671598">6. Package Sequence Types</a>
+<li><a href="#mmodel:sequence-types">6. Package Sequence Types</a>
 <ul>
-<li><a href="#org9c7402a">6.1. Class Cardinality</a></li>
-<li><a href="#org9dc60e3">6.2. Enumeration Ordering</a></li>
-<li><a href="#org46269c1">6.3. Class SequenceType</a></li>
-<li><a href="#org0f33ffb">6.4. Enumeration Uniqueness</a></li>
+<li><a href="#mmodel:seq-cardinality">6.1. Class Cardinality</a></li>
+<li><a href="#mmodel:seq-ordering">6.2. Enumeration Ordering</a></li>
+<li><a href="#mmodel:seq-sequence-type">6.3. Class Sequence Type</a></li>
+<li><a href="#mmodel:seq-uniqueness">6.4. Enumeration Uniqueness</a></li>
 </ul>
 </li>
-<li><a href="#org5c48b75">7. Package Product Types</a>
+<li><a href="#mmodel:product-types">7. Package Product Types</a>
 <ul>
-<li><a href="#org193cbee">7.1. Class Entity</a></li>
-<li><a href="#orgc8b0554">7.2. Class Event</a></li>
-<li><a href="#org07d9904">7.3. Abstract Class Member</a></li>
-<li><a href="#org0426d18">7.4. Class Member Definition</a></li>
-<li><a href="#org05e94c1">7.5. Class Member Group</a></li>
-<li><a href="#org3fb0abc">7.6. Class Member Reference</a></li>
-<li><a href="#org614fc0b">7.7. Class Property</a></li>
-<li><a href="#orgbf9b79b">7.8. Class Role</a></li>
-<li><a href="#org6f4eb79">7.9. Class Structure</a></li>
+<li><a href="#mmodel:prod-entity">7.1. Class Entity</a></li>
+<li><a href="#mmodel:prod-event">7.2. Class Event</a></li>
+<li><a href="#mmodel:prod-member">7.3. Abstract Class Member</a></li>
+<li><a href="#mmodel:prod-definition">7.4. Class Member Definition</a></li>
+<li><a href="#mmodel:prod-member-group">7.5. Class Member Group</a></li>
+<li><a href="#mmodel:prod-member-reference">7.6. Class Member Reference</a></li>
+<li><a href="#mmodel:prod-property">7.7. Class Property</a></li>
+<li><a href="#mmodel:prod-role">7.8. Class Role</a></li>
+<li><a href="#mmodel:prod-structure">7.9. Class Structure</a></li>
 </ul>
 </li>
-<li><a href="#org2e962dc">8. Package Sum Types</a>
+<li><a href="#mmodel:sum-types">8. Package Sum Types</a>
 <ul>
-<li><a href="#orgbaddb16">8.1. Class Enum</a></li>
-<li><a href="#orgf1a8d35">8.2. Class Mapping Type</a></li>
-<li><a href="#org08ec000">8.3. Class Type Variant</a></li>
-<li><a href="#orgfdd1023">8.4. Class Union</a></li>
-<li><a href="#org505c918">8.5. Abstract Class Variant</a></li>
-<li><a href="#org61103ab">8.6. Class Value Variant</a></li>
+<li><a href="#mmodel:sum-enum">8.1. Class Enum</a></li>
+<li><a href="#mmodel:sum-mapping-type">8.2. Class Mapping Type</a></li>
+<li><a href="#mmodel:sum-type-variant">8.3. Class Type Variant</a></li>
+<li><a href="#mmodel:sum-union">8.4. Class Union</a></li>
+<li><a href="#mmodel:sum-variant">8.5. Abstract Class Variant</a></li>
+<li><a href="#mmodel:sum-value-variant">8.6. Class Value Variant</a></li>
 </ul>
 </li>
-<li><a href="#org6d9aca5">9. Package Values</a>
+<li><a href="#mmodel:values">9. Package Values</a>
 <ul>
-<li><a href="#orgdaeaf22">9.1. Class Binary Value</a></li>
-<li><a href="#orgcb7404a">9.2. Class Boolean Value</a></li>
-<li><a href="#org0cf4179">9.3. Class Decimal Value</a></li>
-<li><a href="#orgc7a8be8">9.4. Class Double Value</a></li>
-<li><a href="#orge25945e">9.5. Class Integer Value</a></li>
-<li><a href="#org36b32a8">9.6. Class Mapping Value</a></li>
-<li><a href="#org44094de">9.7. Class Sequence Value</a></li>
-<li><a href="#org476dc20">9.8. Abstract Class Simple Value</a></li>
-<li><a href="#orge93286a">9.9. Class String Value</a></li>
-<li><a href="#org6c68b2d">9.10. Class Unsigned Value</a></li>
-<li><a href="#org1f7a755">9.11. Class Uri Value</a></li>
-<li><a href="#orgcc324c7">9.12. Abstract Class Value</a></li>
+<li><a href="#mmodel:v-binary-value">9.1. Class Binary Value</a></li>
+<li><a href="#mmodel:v-boolean-value">9.2. Class Boolean Value</a></li>
+<li><a href="#mmodel:v-decimal-value">9.3. Class Decimal Value</a></li>
+<li><a href="#mmodel:v-double-value">9.4. Class Double Value</a></li>
+<li><a href="#mmodel:v-integer-value">9.5. Class Integer Value</a></li>
+<li><a href="#mmodel:v-mapping-value">9.6. Class Mapping Value</a></li>
+<li><a href="#mmodel:v-sequence-value">9.7. Class Sequence Value</a></li>
+<li><a href="#mmodel:v-simple-value">9.8. Abstract Class Simple Value</a></li>
+<li><a href="#mmodel:v-string-value">9.9. Class String Value</a></li>
+<li><a href="#mmodel:v-unsigned-value">9.10. Class Unsigned Value</a></li>
+<li><a href="#mmodel:v-uri-value">9.11. Class Uri Value</a></li>
+<li><a href="#mmodel:v-value">9.12. Abstract Class Value</a></li>
 </ul>
 </li>
-<li><a href="#org1a17b0d">10. Package Formal Constraints</a>
+<li><a href="#mmodel:formal-constraints">10. Package Formal Constraints</a>
 <ul>
-<li><a href="#org5321d34">10.1. Class Constraint Language Tag</a></li>
-<li><a href="#orgfd86dd3">10.2. Class Formal Constraint</a></li>
-<li><a href="#org216c79e">10.3. Class Informal Controlled Language Constraint</a></li>
-<li><a href="#org857feea">10.4. Class Informal Natural Language Constraint</a></li>
+<li><a href="#mmodel:fc-constraint-language-tag">10.1. Class Constraint Language Tag</a></li>
+<li><a href="#mmodel:fc-formal-constraint">10.2. Class Formal Constraint</a></li>
+<li><a href="#mmodel:fc-informal-controlled-language-constraint">10.3. Class Informal Controlled Language Constraint</a></li>
+<li><a href="#mmodel:fc-informal-natural-language-constraint">10.4. Class Informal Natural Language Constraint</a></li>
 </ul>
 </li>
-<li><a href="#org2085e46">11. Package Constraint Sentences</a>
+<li><a href="#mmodel:constraint-sentences">11. Package Constraint Sentences</a>
 <ul>
-<li><a href="#org4d74619">11.1. Class Atomic</a></li>
-<li><a href="#org5d5ff4a">11.2. Class Biconditional</a></li>
-<li><a href="#orgc6d4ccb">11.3. Abstract Class Binary</a></li>
-<li><a href="#orge564534">11.4. Abstract Class Boolean</a></li>
-<li><a href="#org97dc5f6">11.5. Class Conjunction</a></li>
-<li><a href="#org6fb4ad2">11.6. Class Disjunction</a></li>
-<li><a href="#org5d5bb8f">11.7. Class Equation</a></li>
-<li><a href="#org032d9a8">11.8. Class Exclusive Disjunction</a></li>
-<li><a href="#org4a6aaa9">11.9. Class Greater Than</a></li>
-<li><a href="#org020953b">11.10. Class Greater Than Or Equal</a></li>
-<li><a href="#orgfe96f56">11.11. Class Implication</a></li>
-<li><a href="#org2ce9391">11.12. Class Less Than</a></li>
-<li><a href="#org77ca934">11.13. Class Less Than Or Equal</a></li>
-<li><a href="#org78c0a7c">11.14. Class Negation</a></li>
-<li><a href="#orged8c2a2">11.15. Abstract Class Sentence</a></li>
-<li><a href="#org985581e">11.16. Class Quantified</a></li>
-<li><a href="#orgdce188c">11.17. Class Quantified Variable</a></li>
-<li><a href="#org420dea1">11.18. Class Quantified Variable Binding</a></li>
-<li><a href="#org9e0bbc7">11.19. Enum Quantifier</a></li>
-<li><a href="#org30ff813">11.20. Abstract Class Relational</a></li>
-<li><a href="#org040b884">11.21. Abstract Class Simple</a></li>
-<li><a href="#org408adcc">11.22. Class Strict Inequation</a></li>
-<li><a href="#org74fe102">11.23. Abstract Class Unary</a></li>
+<li><a href="#mmodel:cs-atomic">11.1. Class Atomic</a></li>
+<li><a href="#mmodel:cs-biconditional">11.2. Class Biconditional</a></li>
+<li><a href="#mmodel:cs-binary">11.3. Abstract Class Binary</a></li>
+<li><a href="#mmodel:cs-boolean">11.4. Abstract Class Boolean</a></li>
+<li><a href="#mmodel:cs-conjunction">11.5. Class Conjunction</a></li>
+<li><a href="#mmodel:cs-disjunction">11.6. Class Disjunction</a></li>
+<li><a href="#mmodel:cs-equation">11.7. Class Equation</a></li>
+<li><a href="#mmodel:cs-exclusive-disjunction">11.8. Class Exclusive Disjunction</a></li>
+<li><a href="#mmodel:cs-greater-than">11.9. Class Greater Than</a></li>
+<li><a href="#mmodel:cs-great-than-or-equal">11.10. Class Greater Than Or Equal</a></li>
+<li><a href="#mmodel:cs-implication">11.11. Class Implication</a></li>
+<li><a href="#mmodel:cs-less-than">11.12. Class Less Than</a></li>
+<li><a href="#mmodel:cs-less-than-or-equal">11.13. Class Less Than Or Equal</a></li>
+<li><a href="#mmodel:cs-negation">11.14. Class Negation</a></li>
+<li><a href="#mmodel:cs-sentence">11.15. Abstract Class Sentence</a></li>
+<li><a href="#mmodel:cs-quantified">11.16. Class Quantified</a></li>
+<li><a href="#mmodel:cs-quantified-variable">11.17. Class Quantified Variable</a></li>
+<li><a href="#mmodel:cs-quantified-variable-binding">11.18. Class Quantified Variable Binding</a></li>
+<li><a href="#mmodel:cs-quantifier">11.19. Enum Quantifier</a></li>
+<li><a href="#mmodel:cs-relational">11.20. Abstract Class Relational</a></li>
+<li><a href="#mmodel:cs-simple">11.21. Abstract Class Simple</a></li>
+<li><a href="#mmodel:cs-strict-inequation">11.22. Class Strict Inequation</a></li>
+<li><a href="#mmodel:cs-unary">11.23. Abstract Class Unary</a></li>
 </ul>
 </li>
-<li><a href="#orgc5790ed">12. Package Constraint Terms</a>
+<li><a href="#mmodel:constraint-terms">12. Package Constraint Terms</a>
 <ul>
-<li><a href="#org2d8e4d2">12.1. Class FunctionalTerm</a></li>
-<li><a href="#org0540af3">12.2. Class MappingSequenceVariables</a></li>
-<li><a href="#org71b53ba">12.3. Class SequenceBuilder</a></li>
-<li><a href="#org41e5dfc">12.4. Abstract Class SequenceVariables</a></li>
-<li><a href="#orgf104dd6">12.5. Class SequenceVariableSet</a></li>
-<li><a href="#orgcba61ed">12.6. Abstract Class Term</a></li>
+<li><a href="#mmodel:ct-functional-term">12.1. Class Functional Term</a></li>
+<li><a href="#mmodel:ct-mapping-sequence-variables">12.2. Class Mapping Sequence Variables</a></li>
+<li><a href="#mmodel:ct-sequence-builder">12.3. Class Sequence Builder</a></li>
+<li><a href="#mmodel:ct-sequence-variables">12.4. Abstract Class Sequence Variables</a></li>
+<li><a href="#mmodel:ct-sequence-variable-set">12.5. Class Sequence Variable Set</a></li>
+<li><a href="#mmodel:ct-term">12.6. Abstract Class Term</a></li>
 </ul>
 </li>
-<li><a href="#orge5f1aa3">13. Package Constraint Environments</a>
+<li><a href="#mmodel:constraint-environments">13. Package Constraint Environments</a>
 <ul>
-<li><a href="#orgf5c7436">13.1. Abstract Class Constant</a></li>
-<li><a href="#org3ac27bc">13.2. Abstract Class Environment Definition</a></li>
-<li><a href="#org3c5a04b">13.3. Class Function</a></li>
-<li><a href="#orgadb099b">13.4. Class Parameter</a></li>
+<li><a href="#mmodel:ce-constant">13.1. Abstract Class Constant</a></li>
+<li><a href="#mmodel:ce-environment-definition">13.2. Abstract Class Environment Definition</a></li>
+<li><a href="#mmodel:ce-function">13.3. Class Function</a></li>
+<li><a href="#mmodel:ce-parameter">13.4. Class Parameter</a></li>
 </ul>
 </li>
-<li><a href="#org77f0970">14. Package Type Classes</a>
+<li><a href="#mmodel:type-classes">14. Package Type Classes</a>
 <ul>
-<li><a href="#org467fcd3">14.1. Class Method</a></li>
-<li><a href="#orgeeaff81">14.2. Class Parameter</a></li>
-<li><a href="#org54c476b">14.3. Class Reference Argument</a></li>
-<li><a href="#org9785c2a">14.4. Class Reference List</a></li>
-<li><a href="#org5db6f3f">14.5. Class Reference Wildcard</a></li>
-<li><a href="#org75d91be">14.6. Class Type Class</a></li>
-<li><a href="#org712ce72">14.7. Class Type Variable</a></li>
-<li><a href="#orgc60e7a8">14.8. Class Type Class Reference</a></li>
+<li><a href="#mmodel:tc-method">14.1. Class Method</a></li>
+<li><a href="#mmodel:tc-parameter">14.2. Class Parameter</a></li>
+<li><a href="#mmodel:reference-argument">14.3. Class Reference Argument</a></li>
+<li><a href="#mmodel:tc-reference-list">14.4. Class Reference List</a></li>
+<li><a href="#mmodel:tc-reference-wildcard">14.5. Class Reference Wildcard</a></li>
+<li><a href="#mmodel:tc-type-class">14.6. Class Type Class</a></li>
+<li><a href="#mmodel:tc-type-variable">14.7. Class Type Variable</a></li>
+<li><a href="#mmodel:tc-type-class-ref">14.8. Class Type Class Reference</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div class="ABSTRACT" id="org5d64611">
+<div class="ABSTRACT" id="org05ea9da">
 <p>
 This document is a non-normative addition to the documentation for The Simple Domain Modeling Language (SDML) and
 describes a UML meta-model for the SDML language.
@@ -211,9 +190,9 @@ describes a UML meta-model for the SDML language.
 
 </div>
 
-<div id="outline-container-org0f4a4df" class="outline-2">
-<h2 id="org0f4a4df"><span class="section-number-2">1.</span> Introduction</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-mmodel:introduction" class="outline-2">
+<h2 id="mmodel:introduction"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-mmodel:introduction">
 <p>
 While the normative description of SDML exists in the main documentation at <a href="https://sdml.io">https://sdml.io</a> as an EBNF grammar and
 RDF/OWL Ontology. However, for tool makers, an object model is often more easily consumed and useful for <i>tool-to-tool</i>
@@ -223,11 +202,11 @@ elements are used here.
 
 <p>
 The model is organized into a set of separate packages and these are shown, with their dependencies in figure
-<a href="#orgda36989">1</a>.
+<a href="#org3f053f6">1</a>.
 </p>
 
 
-<div id="orgda36989" class="figure">
+<div id="org3f053f6" class="figure">
 <p><img src="./metamodel-overview.svg" alt="metamodel-overview.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Overview of Metamodel Packages</p>
@@ -235,25 +214,25 @@ The model is organized into a set of separate packages and these are shown, with
 </div>
 </div>
 
-<div id="outline-container-org312ecbd" class="outline-2">
-<h2 id="org312ecbd"><span class="section-number-2">2.</span> Package Foundation</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-mmodel:foundation" class="outline-2">
+<h2 id="mmodel:foundation"><span class="section-number-2">2.</span> Package Foundation</h2>
+<div class="outline-text-2" id="text-mmodel:foundation">
 <p>
 This package contains the basic semantic components from which the rest of the language is built. Certain classes here
 are <i>paired</i>, so <code>Type</code> and <code>Typed</code>, <code>Name</code> and <code>Named</code>, and <code>Named</code> and <code>Namespace</code>. 
 </p>
 
 
-<div id="org543474d" class="figure">
+<div id="org78a0c97" class="figure">
 <p><img src="./metamodel-foundation.svg" alt="metamodel-foundation.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 2: </span>The Foundation Package</p>
 </div>
 </div>
 
-<div id="outline-container-org80a7101" class="outline-3">
-<h3 id="org80a7101"><span class="section-number-3">2.1.</span> Abstract Class Definition</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-mmodel:foundation-definition" class="outline-3">
+<h3 id="mmodel:foundation-definition"><span class="section-number-3">2.1.</span> Abstract Class Definition</h3>
+<div class="outline-text-3" id="text-mmodel:foundation-definition">
 <p>
 Some element in the model that acts as a definition, i.e. a classifier.
 </p>
@@ -262,7 +241,7 @@ Some element in the model that acts as a definition, i.e. a classifier.
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org257c208">
+<div class="HIERARCHY" id="org82ed1a7">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i></li>
 <li>⏶ <i><code>Annotated</code></i>
@@ -278,9 +257,9 @@ Some element in the model that acts as a definition, i.e. a classifier.
 </div>
 </div>
 
-<div id="outline-container-orgdf0b823" class="outline-3">
-<h3 id="orgdf0b823"><span class="section-number-3">2.2.</span> Class Name</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-mmodel:foundation-name" class="outline-3">
+<h3 id="mmodel:foundation-name"><span class="section-number-3">2.2.</span> Class Name</h3>
+<div class="outline-text-3" id="text-mmodel:foundation-name">
 <p>
 The name of something in the model, names must be unique within any enclosing namespace.
 </p>
@@ -293,7 +272,7 @@ Syntax: <code>"/\p{Lu}\p{Ll}][\p{Lu}\p{Ll}\p{Nd}]*(_[\p{Lu}\p{Ll}\p{Nd}]+)*/"</c
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org777e433">
+<div class="HIERARCHY" id="org037d7d9">
 <ul class="org-ul">
 <li>⏶ <code>String</code>
 <ul class="org-ul">
@@ -305,9 +284,9 @@ Syntax: <code>"/\p{Lu}\p{Ll}][\p{Lu}\p{Ll}\p{Nd}]*(_[\p{Lu}\p{Ll}\p{Nd}]+)*/"</c
 </div>
 </div>
 
-<div id="outline-container-org701e15d" class="outline-3">
-<h3 id="org701e15d"><span class="section-number-3">2.3.</span> Abstract Class Named</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-mmodel:foundation-named" class="outline-3">
+<h3 id="mmodel:foundation-named"><span class="section-number-3">2.3.</span> Abstract Class Named</h3>
+<div class="outline-text-3" id="text-mmodel:foundation-named">
 <p>
 A base class for named model elements, often members of a namespace.
 </p>
@@ -316,7 +295,7 @@ A base class for named model elements, often members of a namespace.
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org75d7c61">
+<div class="HIERARCHY" id="orgfa0c2eb">
 <ul class="org-ul">
 <li>∘ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -327,7 +306,7 @@ A base class for named model elements, often members of a namespace.
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 1:</span> Properties on class Named</caption>
 
 <colgroup>
@@ -352,26 +331,26 @@ A base class for named model elements, often members of a namespace.
 <td class="org-left"><code>identity</code></td>
 <td class="org-left"><code>Name</code></td>
 <td class="org-right">1</td>
-<td class="org-left">The type of a model element's name.</td>
+<td class="org-left">The type of a model element&rsquo;s name.</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 
-<div id="outline-container-orgf020beb" class="outline-3">
-<h3 id="orgf020beb"><span class="section-number-3">2.4.</span> Abstract Class Namespace</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-mmodel:foundation-namespace" class="outline-3">
+<h3 id="mmodel:foundation-namespace"><span class="section-number-3">2.4.</span> Abstract Class Namespace</h3>
+<div class="outline-text-3" id="text-mmodel:foundation-namespace">
 <p>
 A base class for model elements that contain other, named, elements. This can be thought of as a hash map, or
-dictionary, where the name of the element becomes it's key.
+dictionary, where the name of the element becomes it&rsquo;s key.
 </p>
 
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org4f5bfb5">
+<div class="HIERARCHY" id="org00a51a1">
 <ul class="org-ul">
 <li>∘ <i><code>Namespace</code></i></li>
 </ul>
@@ -382,7 +361,7 @@ dictionary, where the name of the element becomes it's key.
 <b>Generic Parameters:</b> <code>T extends Named</code>
 </p>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 2:</span> Properties on class Namespace</caption>
 
 <colgroup>
@@ -414,9 +393,9 @@ dictionary, where the name of the element becomes it's key.
 </div>
 </div>
 
-<div id="outline-container-org45ae1cb" class="outline-3">
-<h3 id="org45ae1cb"><span class="section-number-3">2.5.</span> Abstract Class Type</h3>
-<div class="outline-text-3" id="text-2-5">
+<div id="outline-container-mmodel:foundation-type" class="outline-3">
+<h3 id="mmodel:foundation-type"><span class="section-number-3">2.5.</span> Abstract Class Type</h3>
+<div class="outline-text-3" id="text-mmodel:foundation-type">
 <p>
 The base class of all model elements that may be treated as types. All types are named.
 </p>
@@ -425,7 +404,7 @@ The base class of all model elements that may be treated as types. All types are
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org01209e6">
+<div class="HIERARCHY" id="org518f5e3">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -451,7 +430,7 @@ The base class of all model elements that may be treated as types. All types are
 <b>Super-Class:</b> <code>Named</code>
 </p>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 3:</span> Properties on class Type</caption>
 
 <colgroup>
@@ -490,22 +469,22 @@ The base class of all model elements that may be treated as types. All types are
 </div>
 </div>
 
-<div id="outline-container-org6594a0e" class="outline-3">
-<h3 id="org6594a0e"><span class="section-number-3">2.6.</span> Abstract Class Typed</h3>
-<div class="outline-text-3" id="text-2-6">
+<div id="outline-container-mmodel:foundation-typed" class="outline-3">
+<h3 id="mmodel:foundation-typed"><span class="section-number-3">2.6.</span> Abstract Class Typed</h3>
+<div class="outline-text-3" id="text-mmodel:foundation-typed">
 <p>
 A base class for model elements that are typed, and therefore have a association to a type.
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgd454ee4">
+<div class="HIERARCHY" id="orgcf8ae91">
 <ul class="org-ul">
 <li>∘ <i><code>Typed</code></i></li>
 </ul>
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 4:</span> Properties on class Typed</caption>
 
 <colgroup>
@@ -538,20 +517,20 @@ A base class for model elements that are typed, and therefore have a association
 </div>
 </div>
 
-<div id="outline-container-orgfc5757a" class="outline-2">
-<h2 id="orgfc5757a"><span class="section-number-2">3.</span> Package Modules</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-mmodel:modules" class="outline-2">
+<h2 id="mmodel:modules"><span class="section-number-2">3.</span> Package Modules</h2>
+<div class="outline-text-2" id="text-mmodel:modules">
 
-<div id="org79495d9" class="figure">
+<div id="org5bcbae1" class="figure">
 <p><img src="./metamodel-models.svg" alt="metamodel-models.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 3: </span>The Modules Package</p>
 </div>
 </div>
 
-<div id="outline-container-orgcb30c07" class="outline-3">
-<h3 id="orgcb30c07"><span class="section-number-3">3.1.</span> Abstract Class Import</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-mmodel:mod-import" class="outline-3">
+<h3 id="mmodel:mod-import"><span class="section-number-3">3.1.</span> Abstract Class Import</h3>
+<div class="outline-text-3" id="text-mmodel:mod-import">
 <p>
 A association from a module to another module, or module definition, to make it available for use.
 </p>
@@ -560,7 +539,7 @@ A association from a module to another module, or module definition, to make it 
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org791be4e">
+<div class="HIERARCHY" id="org3ff1748">
 <ul class="org-ul">
 <li>∘ <i><code>Import</code></i>
 <ul class="org-ul">
@@ -573,16 +552,16 @@ A association from a module to another module, or module definition, to make it 
 </div>
 </div>
 
-<div id="outline-container-org2dc2475" class="outline-3">
-<h3 id="org2dc2475"><span class="section-number-3">3.2.</span> Class Module</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-mmodel:mod-module" class="outline-3">
+<h3 id="mmodel:mod-module"><span class="section-number-3">3.2.</span> Class Module</h3>
+<div class="outline-text-3" id="text-mmodel:mod-module">
 <p>
 A named set of related definitions. The module is a namespace for top-level definitions that are therefore name-unique
 within the module.
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org34a30ef">
+<div class="HIERARCHY" id="orga2b7653">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i></li>
 <li>⏶ <i><code>Namespace&lt;T=ModuleDefinition&gt;</code></i></li>
@@ -597,7 +576,7 @@ within the module.
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 5:</span> Properties on class Module</caption>
 
 <colgroup>
@@ -629,9 +608,9 @@ within the module.
 </div>
 </div>
 
-<div id="outline-container-org0842700" class="outline-3">
-<h3 id="org0842700"><span class="section-number-3">3.3.</span> Abstract Class Module Definition</h3>
-<div class="outline-text-3" id="text-3-3">
+<div id="outline-container-mmodel:mod-module-definition" class="outline-3">
+<h3 id="mmodel:mod-module-definition"><span class="section-number-3">3.3.</span> Abstract Class Module Definition</h3>
+<div class="outline-text-3" id="text-mmodel:mod-module-definition">
 <p>
 A module-level, or top-level, definition is one that is directly a member of a module.
 </p>
@@ -640,7 +619,7 @@ A module-level, or top-level, definition is one that is directly a member of a m
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orga510073">
+<div class="HIERARCHY" id="org8ca3eed">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i></li>
 <li>⏶ <i><code>Annotated</code></i>
@@ -670,9 +649,9 @@ A module-level, or top-level, definition is one that is directly a member of a m
 </div>
 </div>
 
-<div id="outline-container-org209d78b" class="outline-3">
-<h3 id="org209d78b"><span class="section-number-3">3.4.</span> Abstract Class Module Definition Import</h3>
-<div class="outline-text-3" id="text-3-4">
+<div id="outline-container-mmodel:mod-definition-import" class="outline-3">
+<h3 id="mmodel:mod-definition-import"><span class="section-number-3">3.4.</span> Abstract Class Module Definition Import</h3>
+<div class="outline-text-3" id="text-mmodel:mod-definition-import">
 <p>
 A association from a module to an external module definition to make it available for use.
 </p>
@@ -681,7 +660,7 @@ A association from a module to an external module definition to make it availabl
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org4e545c3">
+<div class="HIERARCHY" id="orgacecc30">
 <ul class="org-ul">
 <li>⏶ <i><code>Import</code></i>
 <ul class="org-ul">
@@ -691,7 +670,7 @@ A association from a module to an external module definition to make it availabl
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 6:</span> Properties on class Module Definition Import</caption>
 
 <colgroup>
@@ -723,18 +702,18 @@ A association from a module to an external module definition to make it availabl
 </div>
 </div>
 
-<div id="outline-container-org30cb494" class="outline-3">
-<h3 id="org30cb494"><span class="section-number-3">3.5.</span> Abstract Class Module Import</h3>
-<div class="outline-text-3" id="text-3-5">
+<div id="outline-container-mmodel:mod-module-import" class="outline-3">
+<h3 id="mmodel:mod-module-import"><span class="section-number-3">3.5.</span> Abstract Class Module Import</h3>
+<div class="outline-text-3" id="text-mmodel:mod-module-import">
 <p>
-A association from a module to another module to make it's definitions available for use.
+A association from a module to another module to make it&rsquo;s definitions available for use.
 </p>
 
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org0e707c7">
+<div class="HIERARCHY" id="org69e3869">
 <ul class="org-ul">
 <li>⏶ <i><code>Import</code></i>
 <ul class="org-ul">
@@ -744,7 +723,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 7:</span> Properties on class Module Import</caption>
 
 <colgroup>
@@ -777,25 +756,25 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgff7451d" class="outline-2">
-<h2 id="orgff7451d"><span class="section-number-2">4.</span> Package Annotations</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-mmodel:annotations" class="outline-2">
+<h2 id="mmodel:annotations"><span class="section-number-2">4.</span> Package Annotations</h2>
+<div class="outline-text-2" id="text-mmodel:annotations">
 
-<div id="org0db89b3" class="figure">
+<div id="orgec3537d" class="figure">
 <p><img src="./metamodel-annotations.svg" alt="metamodel-annotations.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 4: </span>The Annotations Package</p>
 </div>
 </div>
 
-<div id="outline-container-orgf84a243" class="outline-3">
-<h3 id="orgf84a243"><span class="section-number-3">4.1.</span> Abstract Class Annotated</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-mmodel:ann-annotated" class="outline-3">
+<h3 id="mmodel:ann-annotated"><span class="section-number-3">4.1.</span> Abstract Class Annotated</h3>
+<div class="outline-text-3" id="text-mmodel:ann-annotated">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orge145522">
+<div class="HIERARCHY" id="org9f81d78">
 <ul class="org-ul">
 <li>∘ <i><code>Annotated</code></i>
 <ul class="org-ul">
@@ -805,7 +784,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 8:</span> Properties on class Annotated</caption>
 
 <colgroup>
@@ -837,14 +816,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgca6916a" class="outline-3">
-<h3 id="orgca6916a"><span class="section-number-3">4.2.</span> Abstract Class Annotation</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-mmodel:ann-annotation" class="outline-3">
+<h3 id="mmodel:ann-annotation"><span class="section-number-3">4.2.</span> Abstract Class Annotation</h3>
+<div class="outline-text-3" id="text-mmodel:ann-annotation">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org9e2c7d9">
+<div class="HIERARCHY" id="orga053c66">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -863,7 +842,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 9:</span> Properties on class Annotation</caption>
 
 <colgroup>
@@ -895,14 +874,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgb3fb52e" class="outline-3">
-<h3 id="orgb3fb52e"><span class="section-number-3">4.3.</span> Class Annotation Property</h3>
-<div class="outline-text-3" id="text-4-3">
+<div id="outline-container-mmodel:ann-annotation-property" class="outline-3">
+<h3 id="mmodel:ann-annotation-property"><span class="section-number-3">4.3.</span> Class Annotation Property</h3>
+<div class="outline-text-3" id="text-mmodel:ann-annotation-property">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org5ebc285">
+<div class="HIERARCHY" id="orgfacf553">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -916,7 +895,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 10:</span> Properties on class Annotation Property</caption>
 
 <colgroup>
@@ -948,14 +927,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgadf0b58" class="outline-3">
-<h3 id="orgadf0b58"><span class="section-number-3">4.4.</span> Abstract Class Constraint</h3>
-<div class="outline-text-3" id="text-4-4">
+<div id="outline-container-mmodel:ann-constraint" class="outline-3">
+<h3 id="mmodel:ann-constraint"><span class="section-number-3">4.4.</span> Abstract Class Constraint</h3>
+<div class="outline-text-3" id="text-mmodel:ann-constraint">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgd37482b">
+<div class="HIERARCHY" id="org72ecb23">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -977,32 +956,32 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org6c9ec5f" class="outline-2">
-<h2 id="org6c9ec5f"><span class="section-number-2">5.</span> Package Datatypes</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-mmodel:datatypes" class="outline-2">
+<h2 id="mmodel:datatypes"><span class="section-number-2">5.</span> Package Datatypes</h2>
+<div class="outline-text-2" id="text-mmodel:datatypes">
 
-<div id="orge3d9c2d" class="figure">
+<div id="org366d61a" class="figure">
 <p><img src="./metamodel-datatypes.svg" alt="metamodel-datatypes.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 5: </span>The Datatypes Package</p>
 </div>
 
 
-<div id="orgc467eb6" class="figure">
+<div id="org62beb19" class="figure">
 <p><img src="./metamodel-datatype-languages.svg" alt="metamodel-datatype-languages.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 6: </span>The Datatype Languages Tag Detail</p>
 </div>
 </div>
 
-<div id="outline-container-org32a03a1" class="outline-3">
-<h3 id="org32a03a1"><span class="section-number-3">5.1.</span> Class Datatype</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-mmodel:dt-datatype" class="outline-3">
+<h3 id="mmodel:dt-datatype"><span class="section-number-3">5.1.</span> Class Datatype</h3>
+<div class="outline-text-3" id="text-mmodel:dt-datatype">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org6842c6b">
+<div class="HIERARCHY" id="orge7fe1f6">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1024,14 +1003,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org4efa51a" class="outline-3">
-<h3 id="org4efa51a"><span class="section-number-3">5.2.</span> Class Binary</h3>
-<div class="outline-text-3" id="text-5-2">
+<div id="outline-container-mmodel:dt-binary" class="outline-3">
+<h3 id="mmodel:dt-binary"><span class="section-number-3">5.2.</span> Class Binary</h3>
+<div class="outline-text-3" id="text-mmodel:dt-binary">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org5365cfa">
+<div class="HIERARCHY" id="orgd14b917">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1056,14 +1035,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgf91e95e" class="outline-3">
-<h3 id="orgf91e95e"><span class="section-number-3">5.3.</span> Class Boolean</h3>
-<div class="outline-text-3" id="text-5-3">
+<div id="outline-container-mmodel:dt-boolean" class="outline-3">
+<h3 id="mmodel:dt-boolean"><span class="section-number-3">5.3.</span> Class Boolean</h3>
+<div class="outline-text-3" id="text-mmodel:dt-boolean">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org6f07798">
+<div class="HIERARCHY" id="orgcce5ae0">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1088,14 +1067,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org9fca6ef" class="outline-3">
-<h3 id="org9fca6ef"><span class="section-number-3">5.4.</span> Class Decimal</h3>
-<div class="outline-text-3" id="text-5-4">
+<div id="outline-container-mmodel:dt-decimal" class="outline-3">
+<h3 id="mmodel:dt-decimal"><span class="section-number-3">5.4.</span> Class Decimal</h3>
+<div class="outline-text-3" id="text-mmodel:dt-decimal">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgd8aabe3">
+<div class="HIERARCHY" id="org48b5c48">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1120,14 +1099,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org1a9b028" class="outline-3">
-<h3 id="org1a9b028"><span class="section-number-3">5.5.</span> Class Double</h3>
-<div class="outline-text-3" id="text-5-5">
+<div id="outline-container-mmodel:dt-double" class="outline-3">
+<h3 id="mmodel:dt-double"><span class="section-number-3">5.5.</span> Class Double</h3>
+<div class="outline-text-3" id="text-mmodel:dt-double">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgc42b88b">
+<div class="HIERARCHY" id="orgc8f2941">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1152,14 +1131,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org98c35a5" class="outline-3">
-<h3 id="org98c35a5"><span class="section-number-3">5.6.</span> Class Integer</h3>
-<div class="outline-text-3" id="text-5-6">
+<div id="outline-container-mmodel:dt-integer" class="outline-3">
+<h3 id="mmodel:dt-integer"><span class="section-number-3">5.6.</span> Class Integer</h3>
+<div class="outline-text-3" id="text-mmodel:dt-integer">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orge75df06">
+<div class="HIERARCHY" id="org047f1ae">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1184,14 +1163,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgadbbed4" class="outline-3">
-<h3 id="orgadbbed4"><span class="section-number-3">5.7.</span> Class String</h3>
-<div class="outline-text-3" id="text-5-7">
+<div id="outline-container-mmodel:dt-string" class="outline-3">
+<h3 id="mmodel:dt-string"><span class="section-number-3">5.7.</span> Class String</h3>
+<div class="outline-text-3" id="text-mmodel:dt-string">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org789000d">
+<div class="HIERARCHY" id="org3a39a8b">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1220,14 +1199,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org7c7e5df" class="outline-3">
-<h3 id="org7c7e5df"><span class="section-number-3">5.8.</span> Class Unsigned</h3>
-<div class="outline-text-3" id="text-5-8">
+<div id="outline-container-mmodel:dt-unsigned" class="outline-3">
+<h3 id="mmodel:dt-unsigned"><span class="section-number-3">5.8.</span> Class Unsigned</h3>
+<div class="outline-text-3" id="text-mmodel:dt-unsigned">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org8bd3a0c">
+<div class="HIERARCHY" id="org251710f">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1252,14 +1231,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org0970d23" class="outline-3">
-<h3 id="org0970d23"><span class="section-number-3">5.9.</span> Class Uri</h3>
-<div class="outline-text-3" id="text-5-9">
+<div id="outline-container-mmodel:dt-uri" class="outline-3">
+<h3 id="mmodel:dt-uri"><span class="section-number-3">5.9.</span> Class Uri</h3>
+<div class="outline-text-3" id="text-mmodel:dt-uri">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org29db47a">
+<div class="HIERARCHY" id="org6426e7c">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1284,21 +1263,21 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org9caabbb" class="outline-3">
-<h3 id="org9caabbb"><span class="section-number-3">5.10.</span> Class Language Tag</h3>
-<div class="outline-text-3" id="text-5-10">
+<div id="outline-container-mmodel:dt-language-tag" class="outline-3">
+<h3 id="mmodel:dt-language-tag"><span class="section-number-3">5.10.</span> Class Language Tag</h3>
+<div class="outline-text-3" id="text-mmodel:dt-language-tag">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgfdc4ce8">
+<div class="HIERARCHY" id="org6fc032e">
 <ul class="org-ul">
 <li>∘ <code>LanguageTag</code></li>
 </ul>
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 11:</span> Properties on class LanguageTag</caption>
 
 <colgroup>
@@ -1330,14 +1309,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org2306fc6" class="outline-3">
-<h3 id="org2306fc6"><span class="section-number-3">5.11.</span> Class Language Tagged String</h3>
-<div class="outline-text-3" id="text-5-11">
+<div id="outline-container-mmodel:dt-language-tagged-string" class="outline-3">
+<h3 id="mmodel:dt-language-tagged-string"><span class="section-number-3">5.11.</span> Class Language Tagged String</h3>
+<div class="outline-text-3" id="text-mmodel:dt-language-tagged-string">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org86cb7d7">
+<div class="HIERARCHY" id="org9e77ddd">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1363,7 +1342,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 12:</span> Properties on class LanguageTaggedString</caption>
 
 <colgroup>
@@ -1396,32 +1375,32 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org6671598" class="outline-2">
-<h2 id="org6671598"><span class="section-number-2">6.</span> Package Sequence Types</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-mmodel:sequence-types" class="outline-2">
+<h2 id="mmodel:sequence-types"><span class="section-number-2">6.</span> Package Sequence Types</h2>
+<div class="outline-text-2" id="text-mmodel:sequence-types">
 
-<div id="orgf0c4979" class="figure">
+<div id="org1f8bc76" class="figure">
 <p><img src="./metamodel-sequences.svg" alt="metamodel-sequences.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 7: </span>The Sequence Types Package</p>
 </div>
 </div>
 
-<div id="outline-container-org9c7402a" class="outline-3">
-<h3 id="org9c7402a"><span class="section-number-3">6.1.</span> Class Cardinality</h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-mmodel:seq-cardinality" class="outline-3">
+<h3 id="mmodel:seq-cardinality"><span class="section-number-3">6.1.</span> Class Cardinality</h3>
+<div class="outline-text-3" id="text-mmodel:seq-cardinality">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org315a38e">
+<div class="HIERARCHY" id="org2280707">
 <ul class="org-ul">
 <li>∘ <code>Cardinality</code></li>
 </ul>
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 13:</span> Properties on class Cardinality</caption>
 
 <colgroup>
@@ -1474,9 +1453,9 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org9dc60e3" class="outline-3">
-<h3 id="org9dc60e3"><span class="section-number-3">6.2.</span> Enumeration Ordering</h3>
-<div class="outline-text-3" id="text-6-2">
+<div id="outline-container-mmodel:seq-ordering" class="outline-3">
+<h3 id="mmodel:seq-ordering"><span class="section-number-3">6.2.</span> Enumeration Ordering</h3>
+<div class="outline-text-3" id="text-mmodel:seq-ordering">
 <p>
 <b>Variants</b>
 </p>
@@ -1488,14 +1467,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org46269c1" class="outline-3">
-<h3 id="org46269c1"><span class="section-number-3">6.3.</span> Class SequenceType</h3>
-<div class="outline-text-3" id="text-6-3">
+<div id="outline-container-mmodel:seq-sequence-type" class="outline-3">
+<h3 id="mmodel:seq-sequence-type"><span class="section-number-3">6.3.</span> Class Sequence Type</h3>
+<div class="outline-text-3" id="text-mmodel:seq-sequence-type">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org3766da6">
+<div class="HIERARCHY" id="org6fe3b74">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1519,7 +1498,7 @@ A association from a module to another module to make it's definitions available
 <b>Generic Parameters:</b> <code>T extends Type</code>
 </p>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 14:</span> Properties on class SequenceType</caption>
 
 <colgroup>
@@ -1558,9 +1537,9 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org0f33ffb" class="outline-3">
-<h3 id="org0f33ffb"><span class="section-number-3">6.4.</span> Enumeration Uniqueness</h3>
-<div class="outline-text-3" id="text-6-4">
+<div id="outline-container-mmodel:seq-uniqueness" class="outline-3">
+<h3 id="mmodel:seq-uniqueness"><span class="section-number-3">6.4.</span> Enumeration Uniqueness</h3>
+<div class="outline-text-3" id="text-mmodel:seq-uniqueness">
 <p>
 <b>Variants</b>
 </p>
@@ -1573,25 +1552,25 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org5c48b75" class="outline-2">
-<h2 id="org5c48b75"><span class="section-number-2">7.</span> Package Product Types</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-mmodel:product-types" class="outline-2">
+<h2 id="mmodel:product-types"><span class="section-number-2">7.</span> Package Product Types</h2>
+<div class="outline-text-2" id="text-mmodel:product-types">
 
-<div id="org9914882" class="figure">
+<div id="orgdcfb7f3" class="figure">
 <p><img src="./metamodel-product-types.svg" alt="metamodel-product-types.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 8: </span>The Product Types Package</p>
 </div>
 </div>
 
-<div id="outline-container-org193cbee" class="outline-3">
-<h3 id="org193cbee"><span class="section-number-3">7.1.</span> Class Entity</h3>
-<div class="outline-text-3" id="text-7-1">
+<div id="outline-container-mmodel:prod-entity" class="outline-3">
+<h3 id="mmodel:prod-entity"><span class="section-number-3">7.1.</span> Class Entity</h3>
+<div class="outline-text-3" id="text-mmodel:prod-entity">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org6a1779d">
+<div class="HIERARCHY" id="org4eff856">
 <ul class="org-ul">
 <li>⏶ <i><code>Namespace&lt;T=Member&gt;</code></i></li>
 <li>⏶ <i><code>Named</code></i>
@@ -1615,7 +1594,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 15:</span> Properties on class Entity</caption>
 
 <colgroup>
@@ -1647,14 +1626,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgc8b0554" class="outline-3">
-<h3 id="orgc8b0554"><span class="section-number-3">7.2.</span> Class Event</h3>
-<div class="outline-text-3" id="text-7-2">
+<div id="outline-container-mmodel:prod-event" class="outline-3">
+<h3 id="mmodel:prod-event"><span class="section-number-3">7.2.</span> Class Event</h3>
+<div class="outline-text-3" id="text-mmodel:prod-event">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgd2cdd5d">
+<div class="HIERARCHY" id="orgfb11409">
 <ul class="org-ul">
 <li>⏶ <i><code>Namespace&lt;T=Member&gt;</code></i></li>
 <li>⏶ <i><code>Named</code></i>
@@ -1678,7 +1657,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 16:</span> Properties on class Event</caption>
 
 <colgroup>
@@ -1710,14 +1689,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org07d9904" class="outline-3">
-<h3 id="org07d9904"><span class="section-number-3">7.3.</span> Abstract Class Member</h3>
-<div class="outline-text-3" id="text-7-3">
+<div id="outline-container-mmodel:prod-member" class="outline-3">
+<h3 id="mmodel:prod-member"><span class="section-number-3">7.3.</span> Abstract Class Member</h3>
+<div class="outline-text-3" id="text-mmodel:prod-member">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org1939b28">
+<div class="HIERARCHY" id="org3e31a9a">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1729,14 +1708,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org0426d18" class="outline-3">
-<h3 id="org0426d18"><span class="section-number-3">7.4.</span> Class Member Definition</h3>
-<div class="outline-text-3" id="text-7-4">
+<div id="outline-container-mmodel:prod-definition" class="outline-3">
+<h3 id="mmodel:prod-definition"><span class="section-number-3">7.4.</span> Class Member Definition</h3>
+<div class="outline-text-3" id="text-mmodel:prod-definition">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org19411d7">
+<div class="HIERARCHY" id="orgcf45404">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i></li>
 <li>⏶ <i><code>Typed</code></i></li>
@@ -1756,14 +1735,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org05e94c1" class="outline-3">
-<h3 id="org05e94c1"><span class="section-number-3">7.5.</span> Class Member Group</h3>
-<div class="outline-text-3" id="text-7-5">
+<div id="outline-container-mmodel:prod-member-group" class="outline-3">
+<h3 id="mmodel:prod-member-group"><span class="section-number-3">7.5.</span> Class Member Group</h3>
+<div class="outline-text-3" id="text-mmodel:prod-member-group">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgf8b4868">
+<div class="HIERARCHY" id="org5d8bab0">
 <ul class="org-ul">
 <li>⏶ <i><code>Annotated</code></i>
 <ul class="org-ul">
@@ -1773,7 +1752,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 17:</span> Properties on class MemberGroup</caption>
 
 <colgroup>
@@ -1805,14 +1784,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org3fb0abc" class="outline-3">
-<h3 id="org3fb0abc"><span class="section-number-3">7.6.</span> Class Member Reference</h3>
-<div class="outline-text-3" id="text-7-6">
+<div id="outline-container-mmodel:prod-member-reference" class="outline-3">
+<h3 id="mmodel:prod-member-reference"><span class="section-number-3">7.6.</span> Class Member Reference</h3>
+<div class="outline-text-3" id="text-mmodel:prod-member-reference">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgdcd4588">
+<div class="HIERARCHY" id="org084245b">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1825,7 +1804,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 18:</span> Properties on class MemberReference</caption>
 
 <colgroup>
@@ -1857,14 +1836,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org614fc0b" class="outline-3">
-<h3 id="org614fc0b"><span class="section-number-3">7.7.</span> Class Property</h3>
-<div class="outline-text-3" id="text-7-7">
+<div id="outline-container-mmodel:prod-property" class="outline-3">
+<h3 id="mmodel:prod-property"><span class="section-number-3">7.7.</span> Class Property</h3>
+<div class="outline-text-3" id="text-mmodel:prod-property">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org3d22f46">
+<div class="HIERARCHY" id="orgd58406e">
 <ul class="org-ul">
 <li>⏶ <i><code>Namespace&lt;T=Role&gt;</code></i></li>
 <li>⏶ <i><code>Named</code></i>
@@ -1887,14 +1866,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgbf9b79b" class="outline-3">
-<h3 id="orgbf9b79b"><span class="section-number-3">7.8.</span> Class Role</h3>
-<div class="outline-text-3" id="text-7-8">
+<div id="outline-container-mmodel:prod-role" class="outline-3">
+<h3 id="mmodel:prod-role"><span class="section-number-3">7.8.</span> Class Role</h3>
+<div class="outline-text-3" id="text-mmodel:prod-role">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org4424f29">
+<div class="HIERARCHY" id="org404012e">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -1911,7 +1890,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 19:</span> Properties on class Role</caption>
 
 <colgroup>
@@ -1943,14 +1922,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org6f4eb79" class="outline-3">
-<h3 id="org6f4eb79"><span class="section-number-3">7.9.</span> Class Structure</h3>
-<div class="outline-text-3" id="text-7-9">
+<div id="outline-container-mmodel:prod-structure" class="outline-3">
+<h3 id="mmodel:prod-structure"><span class="section-number-3">7.9.</span> Class Structure</h3>
+<div class="outline-text-3" id="text-mmodel:prod-structure">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org68f602b">
+<div class="HIERARCHY" id="org65f5894">
 <ul class="org-ul">
 <li>⏶ <i><code>Namespace&lt;T=Member&gt;</code></i></li>
 <li>⏶ <i><code>Named</code></i>
@@ -1975,7 +1954,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 20:</span> Properties on class Entity</caption>
 
 <colgroup>
@@ -2008,25 +1987,25 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org2e962dc" class="outline-2">
-<h2 id="org2e962dc"><span class="section-number-2">8.</span> Package Sum Types</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-mmodel:sum-types" class="outline-2">
+<h2 id="mmodel:sum-types"><span class="section-number-2">8.</span> Package Sum Types</h2>
+<div class="outline-text-2" id="text-mmodel:sum-types">
 
-<div id="orgbb8f816" class="figure">
+<div id="org3d9f192" class="figure">
 <p><img src="./metamodel-sum-types.svg" alt="metamodel-sum-types.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 9: </span>The Sum Types Package</p>
 </div>
 </div>
 
-<div id="outline-container-orgbaddb16" class="outline-3">
-<h3 id="orgbaddb16"><span class="section-number-3">8.1.</span> Class Enum</h3>
-<div class="outline-text-3" id="text-8-1">
+<div id="outline-container-mmodel:sum-enum" class="outline-3">
+<h3 id="mmodel:sum-enum"><span class="section-number-3">8.1.</span> Class Enum</h3>
+<div class="outline-text-3" id="text-mmodel:sum-enum">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org73b0deb">
+<div class="HIERARCHY" id="org278c039">
 <ul class="org-ul">
 <li>⏶ <i><code>Namespace&lt;T=TypeVariant&gt;</code></i></li>
 <li>⏶ <i><code>Named</code></i>
@@ -2049,14 +2028,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgf1a8d35" class="outline-3">
-<h3 id="orgf1a8d35"><span class="section-number-3">8.2.</span> Class Mapping Type</h3>
-<div class="outline-text-3" id="text-8-2">
+<div id="outline-container-mmodel:sum-mapping-type" class="outline-3">
+<h3 id="mmodel:sum-mapping-type"><span class="section-number-3">8.2.</span> Class Mapping Type</h3>
+<div class="outline-text-3" id="text-mmodel:sum-mapping-type">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgeeb52d3">
+<div class="HIERARCHY" id="orgc5dee4c">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -2073,7 +2052,7 @@ A association from a module to another module to make it's definitions available
 <b>Generic Parameters</b> <code>K extends SimpleType</code>, <code>V extends Type</code>
 </p>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 21:</span> Properties on class MappingType</caption>
 
 <colgroup>
@@ -2112,14 +2091,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org08ec000" class="outline-3">
-<h3 id="org08ec000"><span class="section-number-3">8.3.</span> Class Type Variant</h3>
-<div class="outline-text-3" id="text-8-3">
+<div id="outline-container-mmodel:sum-type-variant" class="outline-3">
+<h3 id="mmodel:sum-type-variant"><span class="section-number-3">8.3.</span> Class Type Variant</h3>
+<div class="outline-text-3" id="text-mmodel:sum-type-variant">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org5755575">
+<div class="HIERARCHY" id="orgf91f2ec">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i></li>
 <li>⏶ <i><code>Named</code></i>
@@ -2135,14 +2114,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgfdd1023" class="outline-3">
-<h3 id="orgfdd1023"><span class="section-number-3">8.4.</span> Class Union</h3>
-<div class="outline-text-3" id="text-8-4">
+<div id="outline-container-mmodel:sum-union" class="outline-3">
+<h3 id="mmodel:sum-union"><span class="section-number-3">8.4.</span> Class Union</h3>
+<div class="outline-text-3" id="text-mmodel:sum-union">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org614fa0e">
+<div class="HIERARCHY" id="org1442f64">
 <ul class="org-ul">
 <li>⏶ <i><code>Namespace&lt;T=TypeVariant&gt;</code></i></li>
 <li>⏶ <i><code>Named</code></i>
@@ -2165,14 +2144,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org505c918" class="outline-3">
-<h3 id="org505c918"><span class="section-number-3">8.5.</span> Abstract Class Variant</h3>
-<div class="outline-text-3" id="text-8-5">
+<div id="outline-container-mmodel:sum-variant" class="outline-3">
+<h3 id="mmodel:sum-variant"><span class="section-number-3">8.5.</span> Abstract Class Variant</h3>
+<div class="outline-text-3" id="text-mmodel:sum-variant">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgc5d4034">
+<div class="HIERARCHY" id="org1463abc">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -2184,14 +2163,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org61103ab" class="outline-3">
-<h3 id="org61103ab"><span class="section-number-3">8.6.</span> Class Value Variant</h3>
-<div class="outline-text-3" id="text-8-6">
+<div id="outline-container-mmodel:sum-value-variant" class="outline-3">
+<h3 id="mmodel:sum-value-variant"><span class="section-number-3">8.6.</span> Class Value Variant</h3>
+<div class="outline-text-3" id="text-mmodel:sum-value-variant">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org9dd33b4">
+<div class="HIERARCHY" id="org732472b">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -2207,25 +2186,25 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org6d9aca5" class="outline-2">
-<h2 id="org6d9aca5"><span class="section-number-2">9.</span> Package Values</h2>
-<div class="outline-text-2" id="text-9">
+<div id="outline-container-mmodel:values" class="outline-2">
+<h2 id="mmodel:values"><span class="section-number-2">9.</span> Package Values</h2>
+<div class="outline-text-2" id="text-mmodel:values">
 
-<div id="org9edbc7b" class="figure">
+<div id="orgb24aa71" class="figure">
 <p><img src="./metamodel-values.svg" alt="metamodel-values.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 10: </span>The Values Package</p>
 </div>
 </div>
 
-<div id="outline-container-orgdaeaf22" class="outline-3">
-<h3 id="orgdaeaf22"><span class="section-number-3">9.1.</span> Class Binary Value</h3>
-<div class="outline-text-3" id="text-9-1">
+<div id="outline-container-mmodel:v-binary-value" class="outline-3">
+<h3 id="mmodel:v-binary-value"><span class="section-number-3">9.1.</span> Class Binary Value</h3>
+<div class="outline-text-3" id="text-mmodel:v-binary-value">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org613df44">
+<div class="HIERARCHY" id="org61bcf07">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i>
 <ul class="org-ul">
@@ -2241,7 +2220,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 22:</span> Properties on class Binary Value</caption>
 
 <colgroup>
@@ -2273,14 +2252,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgcb7404a" class="outline-3">
-<h3 id="orgcb7404a"><span class="section-number-3">9.2.</span> Class Boolean Value</h3>
-<div class="outline-text-3" id="text-9-2">
+<div id="outline-container-mmodel:v-boolean-value" class="outline-3">
+<h3 id="mmodel:v-boolean-value"><span class="section-number-3">9.2.</span> Class Boolean Value</h3>
+<div class="outline-text-3" id="text-mmodel:v-boolean-value">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org6f66d57">
+<div class="HIERARCHY" id="org63621da">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i>
 <ul class="org-ul">
@@ -2296,7 +2275,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 23:</span> Properties on class Boolean Value</caption>
 
 <colgroup>
@@ -2328,14 +2307,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org0cf4179" class="outline-3">
-<h3 id="org0cf4179"><span class="section-number-3">9.3.</span> Class Decimal Value</h3>
-<div class="outline-text-3" id="text-9-3">
+<div id="outline-container-mmodel:v-decimal-value" class="outline-3">
+<h3 id="mmodel:v-decimal-value"><span class="section-number-3">9.3.</span> Class Decimal Value</h3>
+<div class="outline-text-3" id="text-mmodel:v-decimal-value">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org67d705b">
+<div class="HIERARCHY" id="orgf20b323">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i>
 <ul class="org-ul">
@@ -2351,7 +2330,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 24:</span> Properties on class Decimal alue</caption>
 
 <colgroup>
@@ -2383,14 +2362,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgc7a8be8" class="outline-3">
-<h3 id="orgc7a8be8"><span class="section-number-3">9.4.</span> Class Double Value</h3>
-<div class="outline-text-3" id="text-9-4">
+<div id="outline-container-mmodel:v-double-value" class="outline-3">
+<h3 id="mmodel:v-double-value"><span class="section-number-3">9.4.</span> Class Double Value</h3>
+<div class="outline-text-3" id="text-mmodel:v-double-value">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orge8cdada">
+<div class="HIERARCHY" id="org9f64cd8">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i>
 <ul class="org-ul">
@@ -2406,7 +2385,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 25:</span> Properties on class Double Value</caption>
 
 <colgroup>
@@ -2438,14 +2417,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orge25945e" class="outline-3">
-<h3 id="orge25945e"><span class="section-number-3">9.5.</span> Class Integer Value</h3>
-<div class="outline-text-3" id="text-9-5">
+<div id="outline-container-mmodel:v-integer-value" class="outline-3">
+<h3 id="mmodel:v-integer-value"><span class="section-number-3">9.5.</span> Class Integer Value</h3>
+<div class="outline-text-3" id="text-mmodel:v-integer-value">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org1c04697">
+<div class="HIERARCHY" id="org3a7c43b">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i>
 <ul class="org-ul">
@@ -2461,7 +2440,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 26:</span> Properties on class Integer Value</caption>
 
 <colgroup>
@@ -2493,14 +2472,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org36b32a8" class="outline-3">
-<h3 id="org36b32a8"><span class="section-number-3">9.6.</span> Class Mapping Value</h3>
-<div class="outline-text-3" id="text-9-6">
+<div id="outline-container-mmodel:v-mapping-value" class="outline-3">
+<h3 id="mmodel:v-mapping-value"><span class="section-number-3">9.6.</span> Class Mapping Value</h3>
+<div class="outline-text-3" id="text-mmodel:v-mapping-value">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org15f5792">
+<div class="HIERARCHY" id="orgd46d308">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i>
 <ul class="org-ul">
@@ -2513,7 +2492,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 27:</span> Properties on class Mapping Value</caption>
 
 <colgroup>
@@ -2545,14 +2524,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org44094de" class="outline-3">
-<h3 id="org44094de"><span class="section-number-3">9.7.</span> Class Sequence Value</h3>
-<div class="outline-text-3" id="text-9-7">
+<div id="outline-container-mmodel:v-sequence-value" class="outline-3">
+<h3 id="mmodel:v-sequence-value"><span class="section-number-3">9.7.</span> Class Sequence Value</h3>
+<div class="outline-text-3" id="text-mmodel:v-sequence-value">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org28c8c2b">
+<div class="HIERARCHY" id="org317962e">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i>
 <ul class="org-ul">
@@ -2565,7 +2544,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 28:</span> Properties on class Sequence Value</caption>
 
 <colgroup>
@@ -2597,14 +2576,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org476dc20" class="outline-3">
-<h3 id="org476dc20"><span class="section-number-3">9.8.</span> Abstract Class Simple Value</h3>
-<div class="outline-text-3" id="text-9-8">
+<div id="outline-container-mmodel:v-simple-value" class="outline-3">
+<h3 id="mmodel:v-simple-value"><span class="section-number-3">9.8.</span> Abstract Class Simple Value</h3>
+<div class="outline-text-3" id="text-mmodel:v-simple-value">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgc65f66c">
+<div class="HIERARCHY" id="orgf6da81d">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i>
 <ul class="org-ul">
@@ -2619,14 +2598,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orge93286a" class="outline-3">
-<h3 id="orge93286a"><span class="section-number-3">9.9.</span> Class String Value</h3>
-<div class="outline-text-3" id="text-9-9">
+<div id="outline-container-mmodel:v-string-value" class="outline-3">
+<h3 id="mmodel:v-string-value"><span class="section-number-3">9.9.</span> Class String Value</h3>
+<div class="outline-text-3" id="text-mmodel:v-string-value">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgbce143f">
+<div class="HIERARCHY" id="org9044104">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i>
 <ul class="org-ul">
@@ -2642,7 +2621,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 29:</span> Properties on class String Value</caption>
 
 <colgroup>
@@ -2674,14 +2653,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org6c68b2d" class="outline-3">
-<h3 id="org6c68b2d"><span class="section-number-3">9.10.</span> Class Unsigned Value</h3>
-<div class="outline-text-3" id="text-9-10">
+<div id="outline-container-mmodel:v-unsigned-value" class="outline-3">
+<h3 id="mmodel:v-unsigned-value"><span class="section-number-3">9.10.</span> Class Unsigned Value</h3>
+<div class="outline-text-3" id="text-mmodel:v-unsigned-value">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgf4d59a6">
+<div class="HIERARCHY" id="org5b408c3">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i>
 <ul class="org-ul">
@@ -2697,7 +2676,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 30:</span> Properties on class Unsigned Value</caption>
 
 <colgroup>
@@ -2729,14 +2708,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org1f7a755" class="outline-3">
-<h3 id="org1f7a755"><span class="section-number-3">9.11.</span> Class Uri Value</h3>
-<div class="outline-text-3" id="text-9-11">
+<div id="outline-container-mmodel:v-uri-value" class="outline-3">
+<h3 id="mmodel:v-uri-value"><span class="section-number-3">9.11.</span> Class Uri Value</h3>
+<div class="outline-text-3" id="text-mmodel:v-uri-value">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org35e1508">
+<div class="HIERARCHY" id="org8818c47">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i>
 <ul class="org-ul">
@@ -2752,7 +2731,7 @@ A association from a module to another module to make it's definitions available
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 31:</span> Properties on class Uri Value</caption>
 
 <colgroup>
@@ -2784,14 +2763,14 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgcc324c7" class="outline-3">
-<h3 id="orgcc324c7"><span class="section-number-3">9.12.</span> Abstract Class Value</h3>
-<div class="outline-text-3" id="text-9-12">
+<div id="outline-container-mmodel:v-value" class="outline-3">
+<h3 id="mmodel:v-value"><span class="section-number-3">9.12.</span> Abstract Class Value</h3>
+<div class="outline-text-3" id="text-mmodel:v-value">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org776cb48">
+<div class="HIERARCHY" id="org39d9b8c">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i>
 <ul class="org-ul">
@@ -2804,32 +2783,32 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-org1a17b0d" class="outline-2">
-<h2 id="org1a17b0d"><span class="section-number-2">10.</span> Package Formal Constraints</h2>
-<div class="outline-text-2" id="text-10">
+<div id="outline-container-mmodel:formal-constraints" class="outline-2">
+<h2 id="mmodel:formal-constraints"><span class="section-number-2">10.</span> Package Formal Constraints</h2>
+<div class="outline-text-2" id="text-mmodel:formal-constraints">
 
-<div id="org80e1022" class="figure">
+<div id="org1c5b485" class="figure">
 <p><img src="./metamodel-constraints.svg" alt="metamodel-constraints.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 11: </span>The Constraints Package</p>
 </div>
 </div>
 
-<div id="outline-container-org5321d34" class="outline-3">
-<h3 id="org5321d34"><span class="section-number-3">10.1.</span> Class Constraint Language Tag</h3>
-<div class="outline-text-3" id="text-10-1">
+<div id="outline-container-mmodel:fc-constraint-language-tag" class="outline-3">
+<h3 id="mmodel:fc-constraint-language-tag"><span class="section-number-3">10.1.</span> Class Constraint Language Tag</h3>
+<div class="outline-text-3" id="text-mmodel:fc-constraint-language-tag">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgd1a1d52">
+<div class="HIERARCHY" id="org0c30549">
 <ul class="org-ul">
 <li>∘ <code>ConstraintLanguageTag</code></li>
 </ul>
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 32:</span> Properties on class Formal Constraint</caption>
 
 <colgroup>
@@ -2868,9 +2847,9 @@ A association from a module to another module to make it's definitions available
 </div>
 </div>
 
-<div id="outline-container-orgfd86dd3" class="outline-3">
-<h3 id="orgfd86dd3"><span class="section-number-3">10.2.</span> Class Formal Constraint</h3>
-<div class="outline-text-3" id="text-10-2">
+<div id="outline-container-mmodel:fc-formal-constraint" class="outline-3">
+<h3 id="mmodel:fc-formal-constraint"><span class="section-number-3">10.2.</span> Class Formal Constraint</h3>
+<div class="outline-text-3" id="text-mmodel:fc-formal-constraint">
 <p>
 This is a constraint described using a structured expression language based on ISO Common Logic.
 </p>
@@ -2879,7 +2858,7 @@ This is a constraint described using a structured expression language based on I
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org3c73398">
+<div class="HIERARCHY" id="orgfc26f70">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -2895,7 +2874,7 @@ This is a constraint described using a structured expression language based on I
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 33:</span> Properties on class Formal Constraint</caption>
 
 <colgroup>
@@ -2927,9 +2906,9 @@ This is a constraint described using a structured expression language based on I
 </div>
 </div>
 
-<div id="outline-container-org216c79e" class="outline-3">
-<h3 id="org216c79e"><span class="section-number-3">10.3.</span> Class Informal Controlled Language Constraint</h3>
-<div class="outline-text-3" id="text-10-3">
+<div id="outline-container-mmodel:fc-informal-controlled-language-constraint" class="outline-3">
+<h3 id="mmodel:fc-informal-controlled-language-constraint"><span class="section-number-3">10.3.</span> Class Informal Controlled Language Constraint</h3>
+<div class="outline-text-3" id="text-mmodel:fc-informal-controlled-language-constraint">
 <p>
 This is a constraint described informally using a controlled natural language (CNL).
 </p>
@@ -2938,7 +2917,7 @@ This is a constraint described informally using a controlled natural language (C
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org74aa0cf">
+<div class="HIERARCHY" id="org2dbe2b0">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -2954,7 +2933,7 @@ This is a constraint described informally using a controlled natural language (C
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 34:</span> Properties on class Informal Controlled Language Constraint</caption>
 
 <colgroup>
@@ -2986,9 +2965,9 @@ This is a constraint described informally using a controlled natural language (C
 </div>
 </div>
 
-<div id="outline-container-org857feea" class="outline-3">
-<h3 id="org857feea"><span class="section-number-3">10.4.</span> Class Informal Natural Language Constraint</h3>
-<div class="outline-text-3" id="text-10-4">
+<div id="outline-container-mmodel:fc-informal-natural-language-constraint" class="outline-3">
+<h3 id="mmodel:fc-informal-natural-language-constraint"><span class="section-number-3">10.4.</span> Class Informal Natural Language Constraint</h3>
+<div class="outline-text-3" id="text-mmodel:fc-informal-natural-language-constraint">
 <p>
 This is a constraint described informally using plain language.
 </p>
@@ -2997,7 +2976,7 @@ This is a constraint described informally using plain language.
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org080a30c">
+<div class="HIERARCHY" id="org937ca95">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -3013,7 +2992,7 @@ This is a constraint described informally using plain language.
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 35:</span> Properties on class Informal Natural Language Constraint</caption>
 
 <colgroup>
@@ -3046,46 +3025,46 @@ This is a constraint described informally using plain language.
 </div>
 </div>
 
-<div id="outline-container-org2085e46" class="outline-2">
-<h2 id="org2085e46"><span class="section-number-2">11.</span> Package Constraint Sentences</h2>
-<div class="outline-text-2" id="text-11">
+<div id="outline-container-mmodel:constraint-sentences" class="outline-2">
+<h2 id="mmodel:constraint-sentences"><span class="section-number-2">11.</span> Package Constraint Sentences</h2>
+<div class="outline-text-2" id="text-mmodel:constraint-sentences">
 
-<div id="orgedd8401" class="figure">
+<div id="orge40e518" class="figure">
 <p><img src="./metamodel-constraint-sentences-overview.svg" alt="metamodel-constraint-sentences-overview.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 12: </span>The Constraint Sentences Package Overview</p>
 </div>
 
 
-<div id="orgc3526e6" class="figure">
+<div id="orgb6d49bc" class="figure">
 <p><img src="./metamodel-constraint-sentences-simple.svg" alt="metamodel-constraint-sentences-simple.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 13: </span>Constraint Simple Sentences</p>
 </div>
 
 
-<div id="org7d18bec" class="figure">
+<div id="org2f8013f" class="figure">
 <p><img src="./metamodel-constraint-sentences-boolean.svg" alt="metamodel-constraint-sentences-boolean.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 14: </span>Constraint Boolean Sentences</p>
 </div>
 
 
-<div id="org79836bf" class="figure">
+<div id="orgaffbc03" class="figure">
 <p><img src="./metamodel-constraint-sentences-quantified.svg" alt="metamodel-constraint-sentences-quantified.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 15: </span>Constraint Quantified Sentences</p>
 </div>
 </div>
 
-<div id="outline-container-org4d74619" class="outline-3">
-<h3 id="org4d74619"><span class="section-number-3">11.1.</span> Class Atomic</h3>
-<div class="outline-text-3" id="text-11-1">
+<div id="outline-container-mmodel:cs-atomic" class="outline-3">
+<h3 id="mmodel:cs-atomic"><span class="section-number-3">11.1.</span> Class Atomic</h3>
+<div class="outline-text-3" id="text-mmodel:cs-atomic">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org009f6e2">
+<div class="HIERARCHY" id="org076d197">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3098,7 +3077,7 @@ This is a constraint described informally using plain language.
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 36:</span> Properties on class Atomic</caption>
 
 <colgroup>
@@ -3137,9 +3116,9 @@ This is a constraint described informally using plain language.
 </div>
 </div>
 
-<div id="outline-container-org5d5ff4a" class="outline-3">
-<h3 id="org5d5ff4a"><span class="section-number-3">11.2.</span> Class Biconditional</h3>
-<div class="outline-text-3" id="text-11-2">
+<div id="outline-container-mmodel:cs-biconditional" class="outline-3">
+<h3 id="mmodel:cs-biconditional"><span class="section-number-3">11.2.</span> Class Biconditional</h3>
+<div class="outline-text-3" id="text-mmodel:cs-biconditional">
 <p>
 Corresponds the expression to <code>A &lt;==&gt; B</code>, or \(A \iff B\).
 </p>
@@ -3148,7 +3127,7 @@ Corresponds the expression to <code>A &lt;==&gt; B</code>, or \(A \iff B\).
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgb72f8c7">
+<div class="HIERARCHY" id="org3ec6bd9">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3166,14 +3145,14 @@ Corresponds the expression to <code>A &lt;==&gt; B</code>, or \(A \iff B\).
 </div>
 </div>
 
-<div id="outline-container-orgc6d4ccb" class="outline-3">
-<h3 id="orgc6d4ccb"><span class="section-number-3">11.3.</span> Abstract Class Binary</h3>
-<div class="outline-text-3" id="text-11-3">
+<div id="outline-container-mmodel:cs-binary" class="outline-3">
+<h3 id="mmodel:cs-binary"><span class="section-number-3">11.3.</span> Abstract Class Binary</h3>
+<div class="outline-text-3" id="text-mmodel:cs-binary">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org4dba1d3">
+<div class="HIERARCHY" id="org6466ba1">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3193,7 +3172,7 @@ Corresponds the expression to <code>A &lt;==&gt; B</code>, or \(A \iff B\).
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 37:</span> Properties on class Binary</caption>
 
 <colgroup>
@@ -3232,14 +3211,14 @@ Corresponds the expression to <code>A &lt;==&gt; B</code>, or \(A \iff B\).
 </div>
 </div>
 
-<div id="outline-container-orge564534" class="outline-3">
-<h3 id="orge564534"><span class="section-number-3">11.4.</span> Abstract Class Boolean</h3>
-<div class="outline-text-3" id="text-11-4">
+<div id="outline-container-mmodel:cs-boolean" class="outline-3">
+<h3 id="mmodel:cs-boolean"><span class="section-number-3">11.4.</span> Abstract Class Boolean</h3>
+<div class="outline-text-3" id="text-mmodel:cs-boolean">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orge9e61b7">
+<div class="HIERARCHY" id="org8e940e9">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3265,14 +3244,14 @@ Corresponds the expression to <code>A &lt;==&gt; B</code>, or \(A \iff B\).
 </div>
 </div>
 
-<div id="outline-container-org97dc5f6" class="outline-3">
-<h3 id="org97dc5f6"><span class="section-number-3">11.5.</span> Class Conjunction</h3>
-<div class="outline-text-3" id="text-11-5">
+<div id="outline-container-mmodel:cs-conjunction" class="outline-3">
+<h3 id="mmodel:cs-conjunction"><span class="section-number-3">11.5.</span> Class Conjunction</h3>
+<div class="outline-text-3" id="text-mmodel:cs-conjunction">
 <p>
 Corresponds the expression to <code>A and B</code>, or \(A \land B\).
 </p>
 
-<div class="HIERARCHY" id="org065f829">
+<div class="HIERARCHY" id="org458de3c">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3290,14 +3269,14 @@ Corresponds the expression to <code>A and B</code>, or \(A \land B\).
 </div>
 </div>
 
-<div id="outline-container-org6fb4ad2" class="outline-3">
-<h3 id="org6fb4ad2"><span class="section-number-3">11.6.</span> Class Disjunction</h3>
-<div class="outline-text-3" id="text-11-6">
+<div id="outline-container-mmodel:cs-disjunction" class="outline-3">
+<h3 id="mmodel:cs-disjunction"><span class="section-number-3">11.6.</span> Class Disjunction</h3>
+<div class="outline-text-3" id="text-mmodel:cs-disjunction">
 <p>
 Corresponds the expression to <code>A or B</code>, or \(A \lor B\).
 </p>
 
-<div class="HIERARCHY" id="org1965ce8">
+<div class="HIERARCHY" id="orgb3378cc">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3315,9 +3294,9 @@ Corresponds the expression to <code>A or B</code>, or \(A \lor B\).
 </div>
 </div>
 
-<div id="outline-container-org5d5bb8f" class="outline-3">
-<h3 id="org5d5bb8f"><span class="section-number-3">11.7.</span> Class Equation</h3>
-<div class="outline-text-3" id="text-11-7">
+<div id="outline-container-mmodel:cs-equation" class="outline-3">
+<h3 id="mmodel:cs-equation"><span class="section-number-3">11.7.</span> Class Equation</h3>
+<div class="outline-text-3" id="text-mmodel:cs-equation">
 <p>
 Corresponds the expression to <code>A = B</code>, or \(A = B\).
 </p>
@@ -3326,7 +3305,7 @@ Corresponds the expression to <code>A = B</code>, or \(A = B\).
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org9754ae1">
+<div class="HIERARCHY" id="org6a84a42">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3345,9 +3324,9 @@ Corresponds the expression to <code>A = B</code>, or \(A = B\).
 </div>
 </div>
 
-<div id="outline-container-org032d9a8" class="outline-3">
-<h3 id="org032d9a8"><span class="section-number-3">11.8.</span> Class Exclusive Disjunction</h3>
-<div class="outline-text-3" id="text-11-8">
+<div id="outline-container-mmodel:cs-exclusive-disjunction" class="outline-3">
+<h3 id="mmodel:cs-exclusive-disjunction"><span class="section-number-3">11.8.</span> Class Exclusive Disjunction</h3>
+<div class="outline-text-3" id="text-mmodel:cs-exclusive-disjunction">
 <p>
 Corresponds the expression to <code>A xor B</code>, or \(A \veebar B\).
 </p>
@@ -3356,7 +3335,7 @@ Corresponds the expression to <code>A xor B</code>, or \(A \veebar B\).
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgddecc57">
+<div class="HIERARCHY" id="org225d3ab">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3374,9 +3353,9 @@ Corresponds the expression to <code>A xor B</code>, or \(A \veebar B\).
 </div>
 </div>
 
-<div id="outline-container-org4a6aaa9" class="outline-3">
-<h3 id="org4a6aaa9"><span class="section-number-3">11.9.</span> Class Greater Than</h3>
-<div class="outline-text-3" id="text-11-9">
+<div id="outline-container-mmodel:cs-greater-than" class="outline-3">
+<h3 id="mmodel:cs-greater-than"><span class="section-number-3">11.9.</span> Class Greater Than</h3>
+<div class="outline-text-3" id="text-mmodel:cs-greater-than">
 <p>
 Corresponds the expression to <code>A &gt; B</code>, or \(A \gt B\).
 </p>
@@ -3385,7 +3364,7 @@ Corresponds the expression to <code>A &gt; B</code>, or \(A \gt B\).
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org88c78cb">
+<div class="HIERARCHY" id="org6da50f5">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3404,9 +3383,9 @@ Corresponds the expression to <code>A &gt; B</code>, or \(A \gt B\).
 </div>
 </div>
 
-<div id="outline-container-org020953b" class="outline-3">
-<h3 id="org020953b"><span class="section-number-3">11.10.</span> Class Greater Than Or Equal</h3>
-<div class="outline-text-3" id="text-11-10">
+<div id="outline-container-mmodel:cs-great-than-or-equal" class="outline-3">
+<h3 id="mmodel:cs-great-than-or-equal"><span class="section-number-3">11.10.</span> Class Greater Than Or Equal</h3>
+<div class="outline-text-3" id="text-mmodel:cs-great-than-or-equal">
 <p>
 Corresponds the expression to <code>A &gt;= B</code>, or \(A \geq B\).
 </p>
@@ -3415,7 +3394,7 @@ Corresponds the expression to <code>A &gt;= B</code>, or \(A \geq B\).
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgdee4e3e">
+<div class="HIERARCHY" id="org672ffe1">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3434,9 +3413,9 @@ Corresponds the expression to <code>A &gt;= B</code>, or \(A \geq B\).
 </div>
 </div>
 
-<div id="outline-container-orgfe96f56" class="outline-3">
-<h3 id="orgfe96f56"><span class="section-number-3">11.11.</span> Class Implication</h3>
-<div class="outline-text-3" id="text-11-11">
+<div id="outline-container-mmodel:cs-implication" class="outline-3">
+<h3 id="mmodel:cs-implication"><span class="section-number-3">11.11.</span> Class Implication</h3>
+<div class="outline-text-3" id="text-mmodel:cs-implication">
 <p>
 Corresponds the expression to <code>A implies B</code>, or \(A \implies B\).
 </p>
@@ -3445,7 +3424,7 @@ Corresponds the expression to <code>A implies B</code>, or \(A \implies B\).
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org3121fdc">
+<div class="HIERARCHY" id="org8d0dc9b">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3463,9 +3442,9 @@ Corresponds the expression to <code>A implies B</code>, or \(A \implies B\).
 </div>
 </div>
 
-<div id="outline-container-org2ce9391" class="outline-3">
-<h3 id="org2ce9391"><span class="section-number-3">11.12.</span> Class Less Than</h3>
-<div class="outline-text-3" id="text-11-12">
+<div id="outline-container-mmodel:cs-less-than" class="outline-3">
+<h3 id="mmodel:cs-less-than"><span class="section-number-3">11.12.</span> Class Less Than</h3>
+<div class="outline-text-3" id="text-mmodel:cs-less-than">
 <p>
 Corresponds the expression to <code>A &lt;= B</code>, or \(A \lt B\).
 </p>
@@ -3474,7 +3453,7 @@ Corresponds the expression to <code>A &lt;= B</code>, or \(A \lt B\).
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orge509ac3">
+<div class="HIERARCHY" id="org4963eb9">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3493,9 +3472,9 @@ Corresponds the expression to <code>A &lt;= B</code>, or \(A \lt B\).
 </div>
 </div>
 
-<div id="outline-container-org77ca934" class="outline-3">
-<h3 id="org77ca934"><span class="section-number-3">11.13.</span> Class Less Than Or Equal</h3>
-<div class="outline-text-3" id="text-11-13">
+<div id="outline-container-mmodel:cs-less-than-or-equal" class="outline-3">
+<h3 id="mmodel:cs-less-than-or-equal"><span class="section-number-3">11.13.</span> Class Less Than Or Equal</h3>
+<div class="outline-text-3" id="text-mmodel:cs-less-than-or-equal">
 <p>
 Corresponds the expression to <code>A &lt;= B</code>, or \(A \leq B\).
 </p>
@@ -3504,7 +3483,7 @@ Corresponds the expression to <code>A &lt;= B</code>, or \(A \leq B\).
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org54401ac">
+<div class="HIERARCHY" id="org9dbd16b">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3523,9 +3502,9 @@ Corresponds the expression to <code>A &lt;= B</code>, or \(A \leq B\).
 </div>
 </div>
 
-<div id="outline-container-org78c0a7c" class="outline-3">
-<h3 id="org78c0a7c"><span class="section-number-3">11.14.</span> Class Negation</h3>
-<div class="outline-text-3" id="text-11-14">
+<div id="outline-container-mmodel:cs-negation" class="outline-3">
+<h3 id="mmodel:cs-negation"><span class="section-number-3">11.14.</span> Class Negation</h3>
+<div class="outline-text-3" id="text-mmodel:cs-negation">
 <p>
 Corresponds the expression to <code>not A</code>, or \(\neg A\).
 </p>
@@ -3534,7 +3513,7 @@ Corresponds the expression to <code>not A</code>, or \(\neg A\).
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org25e58cf">
+<div class="HIERARCHY" id="org5aa4900">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3552,14 +3531,14 @@ Corresponds the expression to <code>not A</code>, or \(\neg A\).
 </div>
 </div>
 
-<div id="outline-container-orged8c2a2" class="outline-3">
-<h3 id="orged8c2a2"><span class="section-number-3">11.15.</span> Abstract Class Sentence</h3>
-<div class="outline-text-3" id="text-11-15">
+<div id="outline-container-mmodel:cs-sentence" class="outline-3">
+<h3 id="mmodel:cs-sentence"><span class="section-number-3">11.15.</span> Abstract Class Sentence</h3>
+<div class="outline-text-3" id="text-mmodel:cs-sentence">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org1513d1e">
+<div class="HIERARCHY" id="org28a236c">
 <ul class="org-ul">
 <li>∘ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3597,7 +3576,7 @@ Corresponds the expression to <code>not A</code>, or \(\neg A\).
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 38:</span> Properties on class Sentence</caption>
 
 <colgroup>
@@ -3636,14 +3615,14 @@ Corresponds the expression to <code>not A</code>, or \(\neg A\).
 </div>
 </div>
 
-<div id="outline-container-org985581e" class="outline-3">
-<h3 id="org985581e"><span class="section-number-3">11.16.</span> Class Quantified</h3>
-<div class="outline-text-3" id="text-11-16">
+<div id="outline-container-mmodel:cs-quantified" class="outline-3">
+<h3 id="mmodel:cs-quantified"><span class="section-number-3">11.16.</span> Class Quantified</h3>
+<div class="outline-text-3" id="text-mmodel:cs-quantified">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgb8363c4">
+<div class="HIERARCHY" id="org8dfa650">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3653,7 +3632,7 @@ Corresponds the expression to <code>not A</code>, or \(\neg A\).
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 39:</span> Properties on class Quantified</caption>
 
 <colgroup>
@@ -3692,14 +3671,14 @@ Corresponds the expression to <code>not A</code>, or \(\neg A\).
 </div>
 </div>
 
-<div id="outline-container-orgdce188c" class="outline-3">
-<h3 id="orgdce188c"><span class="section-number-3">11.17.</span> Class Quantified Variable</h3>
-<div class="outline-text-3" id="text-11-17">
+<div id="outline-container-mmodel:cs-quantified-variable" class="outline-3">
+<h3 id="mmodel:cs-quantified-variable"><span class="section-number-3">11.17.</span> Class Quantified Variable</h3>
+<div class="outline-text-3" id="text-mmodel:cs-quantified-variable">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgf243aa7">
+<div class="HIERARCHY" id="org342957c">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -3709,7 +3688,7 @@ Corresponds the expression to <code>not A</code>, or \(\neg A\).
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 40:</span> Properties on class Quantified Variable</caption>
 
 <colgroup>
@@ -3741,17 +3720,17 @@ Corresponds the expression to <code>not A</code>, or \(\neg A\).
 </div>
 </div>
 
-<div id="outline-container-org420dea1" class="outline-3">
-<h3 id="org420dea1"><span class="section-number-3">11.18.</span> Class Quantified Variable Binding</h3>
-<div class="outline-text-3" id="text-11-18">
-<div class="HIERARCHY" id="orgd1cacb1">
+<div id="outline-container-mmodel:cs-quantified-variable-binding" class="outline-3">
+<h3 id="mmodel:cs-quantified-variable-binding"><span class="section-number-3">11.18.</span> Class Quantified Variable Binding</h3>
+<div class="outline-text-3" id="text-mmodel:cs-quantified-variable-binding">
+<div class="HIERARCHY" id="orgc4f2ac4">
 <ul class="org-ul">
 <li>∘ <code>QuantifiedVariableBinding</code></li>
 </ul>
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 41:</span> Properties on class Quantified Variable Binding</caption>
 
 <colgroup>
@@ -3790,9 +3769,9 @@ Corresponds the expression to <code>not A</code>, or \(\neg A\).
 </div>
 </div>
 
-<div id="outline-container-org9e0bbc7" class="outline-3">
-<h3 id="org9e0bbc7"><span class="section-number-3">11.19.</span> Enum Quantifier</h3>
-<div class="outline-text-3" id="text-11-19">
+<div id="outline-container-mmodel:cs-quantifier" class="outline-3">
+<h3 id="mmodel:cs-quantifier"><span class="section-number-3">11.19.</span> Enum Quantifier</h3>
+<div class="outline-text-3" id="text-mmodel:cs-quantifier">
 <dl class="org-dl">
 <dt>Universal</dt><dd>Corresponds to the keyword <code>forall</code> or the operator ∀.</dd>
 <dt>Existential</dt><dd>Corresponds to the keyword <code>exists</code> or the operator ∃</dd>
@@ -3800,14 +3779,14 @@ Corresponds the expression to <code>not A</code>, or \(\neg A\).
 </div>
 </div>
 
-<div id="outline-container-org30ff813" class="outline-3">
-<h3 id="org30ff813"><span class="section-number-3">11.20.</span> Abstract Class Relational</h3>
-<div class="outline-text-3" id="text-11-20">
+<div id="outline-container-mmodel:cs-relational" class="outline-3">
+<h3 id="mmodel:cs-relational"><span class="section-number-3">11.20.</span> Abstract Class Relational</h3>
+<div class="outline-text-3" id="text-mmodel:cs-relational">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org4da2abf">
+<div class="HIERARCHY" id="orgdf8298b">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3829,7 +3808,7 @@ Corresponds the expression to <code>not A</code>, or \(\neg A\).
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 42:</span> Properties on class Relational</caption>
 
 <colgroup>
@@ -3868,14 +3847,14 @@ Corresponds the expression to <code>not A</code>, or \(\neg A\).
 </div>
 </div>
 
-<div id="outline-container-org040b884" class="outline-3">
-<h3 id="org040b884"><span class="section-number-3">11.21.</span> Abstract Class Simple</h3>
-<div class="outline-text-3" id="text-11-21">
+<div id="outline-container-mmodel:cs-simple" class="outline-3">
+<h3 id="mmodel:cs-simple"><span class="section-number-3">11.21.</span> Abstract Class Simple</h3>
+<div class="outline-text-3" id="text-mmodel:cs-simple">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgdec74ef">
+<div class="HIERARCHY" id="org64964e4">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3899,9 +3878,9 @@ Corresponds the expression to <code>not A</code>, or \(\neg A\).
 </div>
 </div>
 
-<div id="outline-container-org408adcc" class="outline-3">
-<h3 id="org408adcc"><span class="section-number-3">11.22.</span> Class Strict Inequation</h3>
-<div class="outline-text-3" id="text-11-22">
+<div id="outline-container-mmodel:cs-strict-inequation" class="outline-3">
+<h3 id="mmodel:cs-strict-inequation"><span class="section-number-3">11.22.</span> Class Strict Inequation</h3>
+<div class="outline-text-3" id="text-mmodel:cs-strict-inequation">
 <p>
 Corresponds the expression to <code>A /= B</code>, or \(A \ne B\).
 </p>
@@ -3910,7 +3889,7 @@ Corresponds the expression to <code>A /= B</code>, or \(A \ne B\).
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orge330e43">
+<div class="HIERARCHY" id="orgbfa3c31">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3929,14 +3908,14 @@ Corresponds the expression to <code>A /= B</code>, or \(A \ne B\).
 </div>
 </div>
 
-<div id="outline-container-org74fe102" class="outline-3">
-<h3 id="org74fe102"><span class="section-number-3">11.23.</span> Abstract Class Unary</h3>
-<div class="outline-text-3" id="text-11-23">
+<div id="outline-container-mmodel:cs-unary" class="outline-3">
+<h3 id="mmodel:cs-unary"><span class="section-number-3">11.23.</span> Abstract Class Unary</h3>
+<div class="outline-text-3" id="text-mmodel:cs-unary">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org309465d">
+<div class="HIERARCHY" id="org59c0f09">
 <ul class="org-ul">
 <li>⏶ <i><code>Sentence</code></i>
 <ul class="org-ul">
@@ -3952,7 +3931,7 @@ Corresponds the expression to <code>A /= B</code>, or \(A \ne B\).
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 43:</span> Properties on class Unary</caption>
 
 <colgroup>
@@ -3985,20 +3964,20 @@ Corresponds the expression to <code>A /= B</code>, or \(A \ne B\).
 </div>
 </div>
 
-<div id="outline-container-orgc5790ed" class="outline-2">
-<h2 id="orgc5790ed"><span class="section-number-2">12.</span> Package Constraint Terms</h2>
-<div class="outline-text-2" id="text-12">
+<div id="outline-container-mmodel:constraint-terms" class="outline-2">
+<h2 id="mmodel:constraint-terms"><span class="section-number-2">12.</span> Package Constraint Terms</h2>
+<div class="outline-text-2" id="text-mmodel:constraint-terms">
 
-<div id="orgb8b7289" class="figure">
+<div id="org1f15acf" class="figure">
 <p><img src="./metamodel-constraint-terms.svg" alt="metamodel-constraint-terms.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 16: </span>The Constraint Terms Package</p>
 </div>
 </div>
 
-<div id="outline-container-org2d8e4d2" class="outline-3">
-<h3 id="org2d8e4d2"><span class="section-number-3">12.1.</span> Class FunctionalTerm</h3>
-<div class="outline-text-3" id="text-12-1">
+<div id="outline-container-mmodel:ct-functional-term" class="outline-3">
+<h3 id="mmodel:ct-functional-term"><span class="section-number-3">12.1.</span> Class Functional Term</h3>
+<div class="outline-text-3" id="text-mmodel:ct-functional-term">
 <p>
 Corresponds to <code>function(...arguments)</code> or \(f(a_0,\cdots, a_n)\)
 </p>
@@ -4007,7 +3986,7 @@ Corresponds to <code>function(...arguments)</code> or \(f(a_0,\cdots, a_n)\)
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgbb89847">
+<div class="HIERARCHY" id="orgfda9dfc">
 <ul class="org-ul">
 <li>⏶ <i><code>Term</code></i>
 <ul class="org-ul">
@@ -4017,7 +3996,7 @@ Corresponds to <code>function(...arguments)</code> or \(f(a_0,\cdots, a_n)\)
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 44:</span> Properties on class FunctionalTerm</caption>
 
 <colgroup>
@@ -4056,14 +4035,14 @@ Corresponds to <code>function(...arguments)</code> or \(f(a_0,\cdots, a_n)\)
 </div>
 </div>
 
-<div id="outline-container-org0540af3" class="outline-3">
-<h3 id="org0540af3"><span class="section-number-3">12.2.</span> Class MappingSequenceVariables</h3>
-<div class="outline-text-3" id="text-12-2">
+<div id="outline-container-mmodel:ct-mapping-sequence-variables" class="outline-3">
+<h3 id="mmodel:ct-mapping-sequence-variables"><span class="section-number-3">12.2.</span> Class Mapping Sequence Variables</h3>
+<div class="outline-text-3" id="text-mmodel:ct-mapping-sequence-variables">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgf916eff">
+<div class="HIERARCHY" id="org01597ef">
 <ul class="org-ul">
 <li>⏶ <i><code>SequenceVariables</code></i>
 <ul class="org-ul">
@@ -4077,7 +4056,7 @@ Corresponds to <code>function(...arguments)</code> or \(f(a_0,\cdots, a_n)\)
 <b>Super Class:</b> <code>SequenceVariables</code>
 </p>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 45:</span> Properties on class MappingSequenceVariables</caption>
 
 <colgroup>
@@ -4116,9 +4095,9 @@ Corresponds to <code>function(...arguments)</code> or \(f(a_0,\cdots, a_n)\)
 </div>
 </div>
 
-<div id="outline-container-org71b53ba" class="outline-3">
-<h3 id="org71b53ba"><span class="section-number-3">12.3.</span> Class SequenceBuilder</h3>
-<div class="outline-text-3" id="text-12-3">
+<div id="outline-container-mmodel:ct-sequence-builder" class="outline-3">
+<h3 id="mmodel:ct-sequence-builder"><span class="section-number-3">12.3.</span> Class Sequence Builder</h3>
+<div class="outline-text-3" id="text-mmodel:ct-sequence-builder">
 <p>
 Corresponds to <code>{a | forall a, id(a)}</code>
 or \(\left\{ a | \forall a id(a) \right\}\)
@@ -4128,7 +4107,7 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org4658a6f">
+<div class="HIERARCHY" id="org89e1bc1">
 <ul class="org-ul">
 <li>⏶ <i><code>Term</code></i>
 <ul class="org-ul">
@@ -4138,7 +4117,7 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 46:</span> Properties on class SequenceBuilder</caption>
 
 <colgroup>
@@ -4177,14 +4156,14 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-org41e5dfc" class="outline-3">
-<h3 id="org41e5dfc"><span class="section-number-3">12.4.</span> Abstract Class SequenceVariables</h3>
-<div class="outline-text-3" id="text-12-4">
+<div id="outline-container-mmodel:ct-sequence-variables" class="outline-3">
+<h3 id="mmodel:ct-sequence-variables"><span class="section-number-3">12.4.</span> Abstract Class Sequence Variables</h3>
+<div class="outline-text-3" id="text-mmodel:ct-sequence-variables">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgbedcd3e">
+<div class="HIERARCHY" id="orgf08a8b1">
 <ul class="org-ul">
 <li>∘ <i><code>SequenceVariables</code></i></li>
 </ul>
@@ -4193,14 +4172,14 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-orgf104dd6" class="outline-3">
-<h3 id="orgf104dd6"><span class="section-number-3">12.5.</span> Class SequenceVariableSet</h3>
-<div class="outline-text-3" id="text-12-5">
+<div id="outline-container-mmodel:ct-sequence-variable-set" class="outline-3">
+<h3 id="mmodel:ct-sequence-variable-set"><span class="section-number-3">12.5.</span> Class Sequence Variable Set</h3>
+<div class="outline-text-3" id="text-mmodel:ct-sequence-variable-set">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orga7de049">
+<div class="HIERARCHY" id="org1732100">
 <ul class="org-ul">
 <li>⏶ <i><code>SequenceVariables</code></i>
 <ul class="org-ul">
@@ -4210,7 +4189,7 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 47:</span> Properties on class SequenceVariableSet</caption>
 
 <colgroup>
@@ -4242,14 +4221,14 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-orgcba61ed" class="outline-3">
-<h3 id="orgcba61ed"><span class="section-number-3">12.6.</span> Abstract Class Term</h3>
-<div class="outline-text-3" id="text-12-6">
+<div id="outline-container-mmodel:ct-term" class="outline-3">
+<h3 id="mmodel:ct-term"><span class="section-number-3">12.6.</span> Abstract Class Term</h3>
+<div class="outline-text-3" id="text-mmodel:ct-term">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org2411207">
+<div class="HIERARCHY" id="orgac13463">
 <ul class="org-ul">
 <li>∘ <i><code>Term</code></i>
 <ul class="org-ul">
@@ -4265,25 +4244,25 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-orge5f1aa3" class="outline-2">
-<h2 id="orge5f1aa3"><span class="section-number-2">13.</span> Package Constraint Environments</h2>
-<div class="outline-text-2" id="text-13">
+<div id="outline-container-mmodel:constraint-environments" class="outline-2">
+<h2 id="mmodel:constraint-environments"><span class="section-number-2">13.</span> Package Constraint Environments</h2>
+<div class="outline-text-2" id="text-mmodel:constraint-environments">
 
-<div id="orgeba4978" class="figure">
+<div id="org112f896" class="figure">
 <p><img src="./metamodel-constraint-environments.svg" alt="metamodel-constraint-environments.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 17: </span>The Constraint Environments Package</p>
 </div>
 </div>
 
-<div id="outline-container-orgf5c7436" class="outline-3">
-<h3 id="orgf5c7436"><span class="section-number-3">13.1.</span> Abstract Class Constant</h3>
-<div class="outline-text-3" id="text-13-1">
+<div id="outline-container-mmodel:ce-constant" class="outline-3">
+<h3 id="mmodel:ce-constant"><span class="section-number-3">13.1.</span> Abstract Class Constant</h3>
+<div class="outline-text-3" id="text-mmodel:ce-constant">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org5f6c3f7">
+<div class="HIERARCHY" id="orge1f1704">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i></li>
 <li>⏶ <i><code>Named</code></i>
@@ -4299,14 +4278,14 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-org3ac27bc" class="outline-3">
-<h3 id="org3ac27bc"><span class="section-number-3">13.2.</span> Abstract Class Environment Definition</h3>
-<div class="outline-text-3" id="text-13-2">
+<div id="outline-container-mmodel:ce-environment-definition" class="outline-3">
+<h3 id="mmodel:ce-environment-definition"><span class="section-number-3">13.2.</span> Abstract Class Environment Definition</h3>
+<div class="outline-text-3" id="text-mmodel:ce-environment-definition">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org84c76fc">
+<div class="HIERARCHY" id="org4480747">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -4326,14 +4305,14 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-org3c5a04b" class="outline-3">
-<h3 id="org3c5a04b"><span class="section-number-3">13.3.</span> Class Function</h3>
-<div class="outline-text-3" id="text-13-3">
+<div id="outline-container-mmodel:ce-function" class="outline-3">
+<h3 id="mmodel:ce-function"><span class="section-number-3">13.3.</span> Class Function</h3>
+<div class="outline-text-3" id="text-mmodel:ce-function">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org12a0943">
+<div class="HIERARCHY" id="org344dbb5">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -4346,7 +4325,7 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 48:</span> Properties on class Function</caption>
 
 <colgroup>
@@ -4385,14 +4364,14 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-orgadb099b" class="outline-3">
-<h3 id="orgadb099b"><span class="section-number-3">13.4.</span> Class Parameter</h3>
-<div class="outline-text-3" id="text-13-4">
+<div id="outline-container-mmodel:ce-parameter" class="outline-3">
+<h3 id="mmodel:ce-parameter"><span class="section-number-3">13.4.</span> Class Parameter</h3>
+<div class="outline-text-3" id="text-mmodel:ce-parameter">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org964810e">
+<div class="HIERARCHY" id="orgf4efce4">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i></li>
 <li>⏶ <i><code>Typed</code></i>
@@ -4406,25 +4385,25 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-org77f0970" class="outline-2">
-<h2 id="org77f0970"><span class="section-number-2">14.</span> Package Type Classes</h2>
-<div class="outline-text-2" id="text-14">
+<div id="outline-container-mmodel:type-classes" class="outline-2">
+<h2 id="mmodel:type-classes"><span class="section-number-2">14.</span> Package Type Classes</h2>
+<div class="outline-text-2" id="text-mmodel:type-classes">
 
-<div id="org87903d8" class="figure">
+<div id="orgc018c11" class="figure">
 <p><img src="./metamodel-type-classes.svg" alt="metamodel-type-classes.svg" class="org-svg" />
 </p>
 <p><span class="figure-number">Figure 18: </span>The Type Classes Package</p>
 </div>
 </div>
 
-<div id="outline-container-org467fcd3" class="outline-3">
-<h3 id="org467fcd3"><span class="section-number-3">14.1.</span> Class Method</h3>
-<div class="outline-text-3" id="text-14-1">
+<div id="outline-container-mmodel:tc-method" class="outline-3">
+<h3 id="mmodel:tc-method"><span class="section-number-3">14.1.</span> Class Method</h3>
+<div class="outline-text-3" id="text-mmodel:tc-method">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org2a43cba">
+<div class="HIERARCHY" id="org8fd47f1">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i></li>
 <li>⏶ <i><code>Named</code></i></li>
@@ -4439,7 +4418,7 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 49:</span> Properties on class Method</caption>
 
 <colgroup>
@@ -4478,14 +4457,14 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-orgeeaff81" class="outline-3">
-<h3 id="orgeeaff81"><span class="section-number-3">14.2.</span> Class Parameter</h3>
-<div class="outline-text-3" id="text-14-2">
+<div id="outline-container-mmodel:tc-parameter" class="outline-3">
+<h3 id="mmodel:tc-parameter"><span class="section-number-3">14.2.</span> Class Parameter</h3>
+<div class="outline-text-3" id="text-mmodel:tc-parameter">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgaa3e5f8">
+<div class="HIERARCHY" id="org6ed6de0">
 <ul class="org-ul">
 <li>⏶ <i><code>Typed</code></i></li>
 <li>⏶ <i><code>Named</code></i>
@@ -4498,14 +4477,14 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-org54c476b" class="outline-3">
-<h3 id="org54c476b"><span class="section-number-3">14.3.</span> Class Reference Argument</h3>
-<div class="outline-text-3" id="text-14-3">
+<div id="outline-container-mmodel:reference-argument" class="outline-3">
+<h3 id="mmodel:reference-argument"><span class="section-number-3">14.3.</span> Class Reference Argument</h3>
+<div class="outline-text-3" id="text-mmodel:reference-argument">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org92d3b0a">
+<div class="HIERARCHY" id="orga9a1a37">
 <ul class="org-ul">
 <li>∘ <i><code>ReferenceArgument</code></i>
 <ul class="org-ul">
@@ -4518,14 +4497,14 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-org9785c2a" class="outline-3">
-<h3 id="org9785c2a"><span class="section-number-3">14.4.</span> Class Reference List</h3>
-<div class="outline-text-3" id="text-14-4">
+<div id="outline-container-mmodel:tc-reference-list" class="outline-3">
+<h3 id="mmodel:tc-reference-list"><span class="section-number-3">14.4.</span> Class Reference List</h3>
+<div class="outline-text-3" id="text-mmodel:tc-reference-list">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org6c20fb9">
+<div class="HIERARCHY" id="org3ca1b2f">
 <ul class="org-ul">
 <li>⏶ <i><code>ReferenceArgument</code></i>
 <ul class="org-ul">
@@ -4535,7 +4514,7 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 50:</span> Properties on class Type Class Reference</caption>
 
 <colgroup>
@@ -4567,14 +4546,14 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-org5db6f3f" class="outline-3">
-<h3 id="org5db6f3f"><span class="section-number-3">14.5.</span> Class Reference Wildcard</h3>
-<div class="outline-text-3" id="text-14-5">
+<div id="outline-container-mmodel:tc-reference-wildcard" class="outline-3">
+<h3 id="mmodel:tc-reference-wildcard"><span class="section-number-3">14.5.</span> Class Reference Wildcard</h3>
+<div class="outline-text-3" id="text-mmodel:tc-reference-wildcard">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org9050bd6">
+<div class="HIERARCHY" id="org9f4e75d">
 <ul class="org-ul">
 <li>⏶ <i><code>ReferenceArgument</code></i>
 <ul class="org-ul">
@@ -4586,14 +4565,14 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-org75d91be" class="outline-3">
-<h3 id="org75d91be"><span class="section-number-3">14.6.</span> Class Type Class</h3>
-<div class="outline-text-3" id="text-14-6">
+<div id="outline-container-mmodel:tc-type-class" class="outline-3">
+<h3 id="mmodel:tc-type-class"><span class="section-number-3">14.6.</span> Class Type Class</h3>
+<div class="outline-text-3" id="text-mmodel:tc-type-class">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org63c0103">
+<div class="HIERARCHY" id="orgd0b1c52">
 <ul class="org-ul">
 <li>⏶ <i><code>Namespace&lt;T=Method&gt;</code></i></li>
 <li>⏶ <i><code>Named</code></i></li>
@@ -4611,7 +4590,7 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 51:</span> Properties on class Type Class</caption>
 
 <colgroup>
@@ -4650,14 +4629,14 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-org712ce72" class="outline-3">
-<h3 id="org712ce72"><span class="section-number-3">14.7.</span> Class Type Variable</h3>
-<div class="outline-text-3" id="text-14-7">
+<div id="outline-container-mmodel:tc-type-variable" class="outline-3">
+<h3 id="mmodel:tc-type-variable"><span class="section-number-3">14.7.</span> Class Type Variable</h3>
+<div class="outline-text-3" id="text-mmodel:tc-type-variable">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="org631a80d">
+<div class="HIERARCHY" id="org9a54920">
 <ul class="org-ul">
 <li>⏶ <i><code>Named</code></i>
 <ul class="org-ul">
@@ -4667,7 +4646,7 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 52:</span> Properties on class Type Variable</caption>
 
 <colgroup>
@@ -4699,21 +4678,21 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 </div>
 
-<div id="outline-container-orgc60e7a8" class="outline-3">
-<h3 id="orgc60e7a8"><span class="section-number-3">14.8.</span> Class Type Class Reference</h3>
-<div class="outline-text-3" id="text-14-8">
+<div id="outline-container-mmodel:tc-type-class-ref" class="outline-3">
+<h3 id="mmodel:tc-type-class-ref"><span class="section-number-3">14.8.</span> Class Type Class Reference</h3>
+<div class="outline-text-3" id="text-mmodel:tc-type-class-ref">
 <p>
 <b>Hierarchy</b>
 </p>
 
-<div class="HIERARCHY" id="orgeb7df71">
+<div class="HIERARCHY" id="org2db4e54">
 <ul class="org-ul">
 <li>∘ <code>TypeClassReference</code></li>
 </ul>
 
 </div>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 53:</span> Properties on class Type Class Reference</caption>
 
 <colgroup>
@@ -4755,8 +4734,7 @@ or \(\left\{ a | \forall a id(a) \right\}\)
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-11-29 Wed 08:54</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2024-02-26 Mon 09:22</p>
 </div>
 </body>
 </html>

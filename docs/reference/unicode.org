@@ -1,7 +1,10 @@
 #+LANGUAGE: en
 #+STARTUP: overview hidestars inlineimages entitiespretty
 
-* <<app:unicode>>Appendix: Unicode Usage
+* Appendix: Unicode Usage
+:PROPERTIES:
+:CUSTOM_ID: unicode-usage
+:END:
 
 The grammar for SDML uses a number of Unicode alternative characters for operators, relations, and keywords. Table
 [[tbl:unicode-characters]] lists these with their ASCII equivalents. In the case of the /type-of/ relation there are two

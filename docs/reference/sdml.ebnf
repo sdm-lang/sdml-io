@@ -74,10 +74,7 @@ EventDef
         StructuredBody?
 
 PropertyDef
-    ::= "property" Identifier PropertyBody?
-
-PropertyBody
-    ::= "is" Annotation* ( IdentityRole | MemberRole )+ "end"
+    ::= "property" MemberDef
 
 StructureDef
     ::= "structure" Identifier StructuredBody?
@@ -104,12 +101,6 @@ RdfThingDef
 
 RdfTypes
     ::= "type" ( IdentifierReference | "[" IdentiferReference "]" )
-
-IdentityRole
-    ::= "identity" Identifier TypeExpression AnnotationOnlyBody?
-
-MemberRole
-    ::= Identifier InverseName? TypeExpressionTo AnnotationOnlyBody?
 
 TypeClassDef
     ::= "class" Identifier TypeClassParameters TypeClassBody?
@@ -138,22 +129,17 @@ TypeClassBody
 MethodDef
     ::= "def" Identifier FunctionSignature FunctionBody? AnnotationOnlyBody?
 
-PropertyReference
-    ::= "in" IdentifierReference
-
 EntityIdentity
-    ::= "identity" Identifier
-        ( PropertyReference | ( TypeExpression AnnotationOnlyBody? ) )
+    ::= "identity" Member
 
 Member
-    ::= Identifier
-        ( PropertyReference | ( InverseName? TypeExpressionTo AnnotationOnlyBody? ) )
+    ::= MemberDef | PropertyRef
 
-InverseName
-    ::= "(" Identifier ")"
+MemberDef
+    ::= Identifier TypeExpressionTo AnnotationOnlyBody?
 
-TypeExpression
-    ::= HasType TypeReference
+PropertyRef
+    ::= "ref" IdentifierReference
 
 TypeExpressionTo
     ::= HasType Cardinality? "features"? TypeReference

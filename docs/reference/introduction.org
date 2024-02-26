@@ -7,10 +7,10 @@
 :END:
 
 The Simple Domain Modeling Language[fn:sdml] is a small data-oriented language for constructing, documenting, and
-reasoning about a conceptual domain model. For a background on domain modeling see section [[sec:domain-modeling]]. At it's
+reasoning about a conceptual domain model. For a background on domain modeling see section [[#intro:what-is-domain-modeling]]. At it's
 core SDML comprises *1.* a /Semantic Model/ whose structure and semantics are described in RDF[fn:rdf] by an OWL[fn:owl]
-ontology (see section [[sec:rdf-semantic-model]] for more details), *2.* a /surface syntax/ for editing and sharing model
-artifacts (see section [[sec:surface-syntax]] for more details), *3.* a /constraint language/ to capture model invariants not
+ontology (see section [[#surface-syntax-to-rdf]] for more details), *2.* a /surface syntax/ for editing and sharing model
+artifacts (see section [[#surface-syntax]] for more details), *3.* a /constraint language/ to capture model invariants not
 covered by the data descriptions in the surface syntax. Figure [[fig:sdml-overview]] shows the relationship between
 these high-level components. This book covers both the surface syntax and semantic model as well as the correspondence
 between them. If you are looking for a quick introduction to the language you may prefer the [[./primer.org][SDML Primer]].
@@ -62,9 +62,9 @@ The SDML language also takes some of the concepts from Domain-Driven Design (DDD
 attributes but has no conceptual identity/), simply termed structures in SDML. This model does not include the following
 DDD first-class concepts: /aggregates/, /repositories/, /factories/, or /services/.
 
-** <<sec:domain-modeling>>What is Domain Modeling?
+** What is Domain Modeling?
 :PROPERTIES:
-:CUSTOM_ID: intro-what-is-domain-modeling
+:CUSTOM_ID: intro:what-is-domain-modeling
 :END:
 
 Domain modeling is the process by which we develop a model of our business domain. In particular, we model /what/ our
@@ -79,6 +79,9 @@ efforts are undertaken. This is not intended as an exhaustive review of modellin
 and neither does it make any judgement as to the usefulness of any approach or technology.
 
 *** Model Terminology
+:PROPERTIES:
+:CUSTOM_ID: intro:model-terminology
+:END:
 
 A model is an informative representation of an object, person or system. The term originally denoted the plans of a
 building in late 16th-century English, and derived via French and Italian ultimately from Latin modulus, a measure. As
@@ -100,7 +103,7 @@ For now we will use the following classification to partition the major purpose 
   automated.
 
 A common framework for defining the /level/ of abstraction inherent to a model are the three /perspectives/
-introduced by ANSI in 1975 (introduced in section [[sec:sdml-role]].
+introduced by ANSI in 1975 (introduced in section [[#intro:domain-modeling-role]].
 
 - *Conceptual*: In the field of computer science a conceptual model aims to express the meaning of terms and concepts used
   by domain experts to discuss the problem, and to find the correct relationships between different concepts. The
@@ -125,6 +128,9 @@ ModelReference = Perspective, Scope "model"
 #+END_SRC
 
 *** Modeling Language/Notation
+:PROPERTIES:
+:CUSTOM_ID: intro:modeling-languages
+:END:
 
 There have been a number of modeling techniques, notations, and languages over the years. The following table describes
 those in common use today. It is worth noting that after OMG standardization there are common meta-model underpinnings
@@ -146,6 +152,9 @@ UML has a built-in extension mechanism with /stereotypes/ and /profiles/ and dat
 with specific extensions such as stereotypes for different key types. 
 
 *** Modeling Themes
+:PROPERTIES:
+:CUSTOM_ID: intro:modeling-themes
+:END:
 
 The reasons for embarking on a domain modeling exercise vary from informational to transformational. However, there are
 a number of 
@@ -163,6 +172,9 @@ Variability
 Scope: Breadth and Depth
 
 *** Domain-Driven Design
+:PROPERTIES:
+:CUSTOM_ID: intro:domain-drive-design
+:END:
 
 Domain-driven design (DDD) is a software design approach focusing on modeling software to match a domain according to
 input from that domain's experts. Under domain-driven design, the structure and language of software code (class names,
@@ -187,7 +199,7 @@ the Universal API where the model will represent our business model in different
 
 ** Domain-Related Models
 :PROPERTIES:
-:CUSTOM_ID: intro-domain-related-models
+:CUSTOM_ID: intro:domain-related-models
 :END:
 
 Domain modeling is often an isolated activity in that the created model is applied in a singular fashion. However,
@@ -206,7 +218,7 @@ logical data models.
 
 Table [[tbl:domain-related-models]] contains a summary of characteristics of these two artifacts compared to a domain model.
 Note that the column "Open/Closed"captures the /World Assumption/ of typical artifacts/processes/products in each row
--- see section [[sec:rdf-semantic-model]] for more information. 
+-- see section [[#rdf-semantics]] for more information. 
 
 #+NAME: tbl:domain-related-models
 #+CAPTION: Domain-Related Model Summary
@@ -266,9 +278,9 @@ digraph G {
 #+RESULTS: src:sdml-foundation
 [[file:./images/sdml-foundation.svg]]
 
-** <<sec:sdml-role>>Domain Modeling's Role in Development
+** Domain Modeling's Role in Development
 :PROPERTIES:
-:CUSTOM_ID: intro-domain-modeling-role
+:CUSTOM_ID: intro:domain-modeling-role
 :END:
 
 The software development process may be described as the management of abstraction; requirements are an abstraction
@@ -448,7 +460,7 @@ developer) and there is *no* expectation that the compiler will put your changes
 C
 ** SDML as a Domain Modeling Language
 :PROPERTIES:
-:CUSTOM_ID: sdml-as-dml
+:CUSTOM_ID: intro:sdml-as-dml
 :END:
 
 TBD
@@ -485,7 +497,7 @@ the surface syntax is the canonical authoring form.
 
 ** Acknowledgments
 :PROPERTIES:
-:CUSTOM_ID: intro-acknowledgments
+:CUSTOM_ID: intro:acknowledgments
 :END:
 
 Obviously this work relies on the decades of prior art in domain modeling and modeling languages in general; in

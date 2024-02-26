@@ -2,18 +2,30 @@
 #+STARTUP: overview hidestars inlineimages entitiespretty
 
 * Appendix: Surface Syntax to RDF
+:PROPERTIES:
+:CUSTOM_ID: surface-syntax-to-rdf
+:END:
 
 This appendix describes the *normative* mapping from the SDML surface syntax into RDF and OWL.
 
 ** Whitespace
+:PROPERTIES:
+:CUSTOM_ID: map:whitespace
+:END:
 
 Whitespace present in the surface syntax has *no* effect on the corresponding RDF.
 
 ** Comments
+:PROPERTIES:
+:CUSTOM_ID: map:comments
+:END:
 
 Comments present in the surface syntax are *not* translated into the corresponding RDF.
  
 ** Identifiers 
+:PROPERTIES:
+:CUSTOM_ID: map:identifiers
+:END:
 
 Identifiers for modules and type definitions are appended to the base IRI of the module resource, making individual
 types within a module directly addressable.
@@ -38,11 +50,17 @@ end
 The module named =example= within this resource now has the absolute IRI identifier =https://example.org/langs/Example#example=.
 
 ** Values
+:PROPERTIES:
+:CUSTOM_ID: map:values
+:END:
 
 Value Literals are necessary for the specification of annotation values. Literals fall into two categories, simple
 values and lists with an additional non-literal form the value constructor.
 
-*** <<sec:mapping-values>> Simple Value Literals
+*** Simple Value Literals
+:PROPERTIES:
+:CUSTOM_ID: map:simple-values
+:END:
 
 #+NAME: tbl:value-literals
 #+CAPTION: Summary of Value Literals
@@ -56,6 +74,9 @@ values and lists with an additional non-literal form the value constructor.
 | =string=    | =rdf:langString=  | A string value with optional language-tag.                    | [[https://www.w3.org/TR/rdf11-concepts/#section-Graph-Literal][RDF]]            |
 
 *** List Literals
+:PROPERTIES:
+:CUSTOM_ID: map:list-literals
+:END:
 
 *Example:*
 
@@ -93,6 +114,9 @@ which constructs a list using the =rdf:first= and =rdf:rest= predicates. This wo
 #+END_SRC
 
 *** Value Constructors
+:PROPERTIES:
+:CUSTOM_ID: map:value-constructors
+:END:
 
 A value constructor allows for the precise specification of a datatype for a literal.
 
@@ -111,6 +135,9 @@ end
 #+END_SRC
 
 ** Modules
+:PROPERTIES:
+:CUSTOM_ID: map:modules
+:END:
 
 Each module is transformed as follows:
 
@@ -160,6 +187,9 @@ end
 #+END_SRC
 
 ** Imports
+:PROPERTIES:
+:CUSTOM_ID: map:imports
+:END:
 
 Each imported module is transformed as follows:
 
@@ -194,7 +224,10 @@ end
 
 ** Annotations
 ** Constraints
-** Data Type Definitions
+** Datatype Definitions
+:PROPERTIES:
+:CUSTOM_ID: map:datatypes
+:END:
 
 *Example:*
 
@@ -238,6 +271,9 @@ end
 #+END_SRC
 
 ** Entity Definitions
+:PROPERTIES:
+:CUSTOM_ID: map:entities
+:END:
 
 *Example Empty Entity:*
 
@@ -369,6 +405,9 @@ _:G01 rdf:type sdml:Group ;
 #+END_SRC
 
 ** Enumeration Definitions
+:PROPERTIES:
+:CUSTOM_ID: map:enumerations
+:END:
 
 *Example Empty Enumeration:*
 
@@ -453,6 +492,9 @@ end
 #+END_SRC
 
 ** Event Definitions
+:PROPERTIES:
+:CUSTOM_ID: map:events
+:END:
 
 *Example Empty Event:*
 
@@ -501,6 +543,9 @@ end
 #+END_SRC
 
 ** Structure Definitions
+:PROPERTIES:
+:CUSTOM_ID: map:structures
+:END:
 
 *Example Empty Structure:*
 
@@ -592,6 +637,9 @@ end
 #+END_SRC
 
 ** Union Definitions
+:PROPERTIES:
+:CUSTOM_ID: map:unions
+:END:
 
 *Example Empty Union:*
 
@@ -686,6 +734,9 @@ end
 #+END_SRC
 
 ** Property Definitions
+:PROPERTIES:
+:CUSTOM_ID: map:properties
+:END:
 
 TBD
 

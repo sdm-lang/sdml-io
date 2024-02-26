@@ -55,10 +55,16 @@
 #+INCLUDE: "./uml-profile.org" :minlevel 1
 
 * License
+:PROPERTIES:
+:CUSTOM_ID: top:license
+:END:
 
-#+INCLUDE: ../LICENSE example
+#+INCLUDE: ../../LICENSE example
 
 * Tables of Other Content
+:PROPERTIES:
+:CUSTOM_ID: top:toc-other
+:END:
 
 #+TOC: figures
 

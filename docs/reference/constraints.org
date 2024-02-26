@@ -1,7 +1,10 @@
 #+LANGUAGE: en
 #+STARTUP: overview hidestars inlineimages entitiespretty
 
-* <<sec:model-constraints>>Capturing Model Constraints
+* Capturing Model Constraints
+:PROPERTIES:
+:CUSTOM_ID: model-constraints
+:END:
 
 In developing any data, domain, or information  model there are certain constraints between model elements that are
 either difficult to represent in the model language itself. This is particularly true of visual languages or those with
@@ -36,6 +39,9 @@ end
 #+END_SRC
 
 ** Informal Constraints
+:PROPERTIES:
+:CUSTOM_ID: con:informal-constraints
+:END:
 
 Informal constraints, much like regular string values, have an optional language specifier. However, unlike regular
 strings this specifier has a more limited range as it's purpose is to identify a /controlled natural language/ used for
@@ -101,6 +107,9 @@ table [[tbl:informal-constraint-schemes]].
 | Common Logic Controlled English | ~CLCE~       |           | ISO Common Logic |
 
 ** Formal Constraints
+:PROPERTIES:
+:CUSTOM_ID: con:formal-constraints
+:END:
 
 Formal constraints have their own embedded constraint language whose semantics are a subset of ISO Common
 Logic[fn:isocl]. ISO Common Logic is most easily understood as an abstract language that allows for the interchange of
@@ -191,6 +200,9 @@ ConstraintSentence
 [[./ebnf-diagram/ConstraintSentence.svg]]
 
 *** Simple Sentences
+:PROPERTIES:
+:CUSTOM_ID: con:simple-sentences
+:END:
 
 #+BEGIN_SRC ebnf
 SimpleSentence
@@ -242,6 +254,9 @@ InequationRelation
 [[./ebnf-diagram/InequationRelation.svg]]
 
 *** Boolean Sentences
+:PROPERTIES:
+:CUSTOM_ID: con:boolean-sentences
+:END:
 
 Boolean sentences allow for the logical composition of sentences. 
 
@@ -303,6 +318,9 @@ BiconditionalOperator
 [[./ebnf-diagram/BiconditionalOperator.svg]]
 
 *** Quantified Sentences
+:PROPERTIES:
+:CUSTOM_ID: con:quantified-sentences
+:END:
 
 SDML supports, as shown in listing [[lst:ex-tagged-constraint-2]] sentences that range over values using the universal ($\forall$)
 or existential ($\exists$) quantifiers. A quantified sentence is therefore a sentence body with a set of variables bound to these
@@ -347,6 +365,9 @@ MembershipOperator
 [[./ebnf-diagram/MembershipOperator.svg]]
 
 *** Terms
+:PROPERTIES:
+:CUSTOM_ID: con:terms
+:END:
 
 #+BEGIN_SRC ebnf
 Term
@@ -408,7 +429,10 @@ ReservedSelf
     ::= "self"
 #+END_SRC
 
-*** <<sec:sequence-builders>>Sequence Builders
+*** Sequence Builders
+:PROPERTIES:
+:CUSTOM_ID: con:sequence-builders
+:END:
 
 A sequence builder uses /set-builder/ notation to allow both specific selection of elements from sequences and
 values from types. A sequence builder expression describes a sequence as a selection of values from existing sequences
@@ -464,6 +488,9 @@ SequenceBuilderBody
 [[./ebnf-diagram/SequenceBuilderBody.svg]]
 
 *** Constraint Environment
+:PROPERTIES:
+:CUSTOM_ID: con:constraint-environment
+:END:
 
 A formal constraint may start with an /environment/ that includes one or more /definitions/ that are then used in the
 constraint body. A definition introduces a new /function/ or /constant/ -- a constant is effectively a 0-arity function --
@@ -565,12 +592,18 @@ end
 #+END_SRC
 
 *** Optional Types
+:PROPERTIES:
+:CUSTOM_ID: con:optional-types
+:END:
 
 The introduction of optional types, that it a type name preceded by the operator "?" may be considered a convenience
 over the same type specified with a cardinality of ~{0..1}~. However, this greatly simplifies the implementation of
 constraints over possibly missing values.  
 
-** <<sec:type-classes>>Type Classes
+** Type Classes
+:PROPERTIES:
+:CUSTOM_ID: con:type-classes
+:END:
 
 TBD
 
@@ -582,6 +615,9 @@ TypeClassDef
 [[./ebnf-diagram/TypeClassDef.svg]]
 
 *** Type Parameters
+:PROPERTIES:
+:CUSTOM_ID: con:type-class-parameters
+:END:
 
 #+BEGIN_SRC ebnf
 TypeClassParameters
@@ -619,6 +655,9 @@ TypeClassBody
 [[./ebnf-diagram/TypeClassBody.svg]]
 
 *** Methods
+:PROPERTIES:
+:CUSTOM_ID: con:type-class-methods
+:END:
 
 #+BEGIN_SRC ebnf
 MethodDef
@@ -628,7 +667,9 @@ MethodDef
 [[./ebnf-diagram/MethodDef.svg]]
 
 *** Library Functions
-
+:PROPERTIES:
+:CUSTOM_ID: con:library-functions
+:END:
 
 #+BEGIN_EXAMPLE
 def predicate(Type) -> boolean
