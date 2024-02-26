@@ -14,6 +14,7 @@
 #+BEGIN_SRC emacs-lisp :exports none
 (require 'ob-dot) ;; builtin
 (require 'ob-sdml)
+(setq org-confirm-babel-evaluate nil)
 #+END_SRC
 
 #+NAME: img:sdml-logo
@@ -31,7 +32,7 @@ So, let's start...
 
 * Why do I want a Domain Model?
 :PROPERTIES:
-:CUSTOM_ID: why-domain-model
+:CUSTOM_ID: primer:why-domain-model
 :END:
 
 Modeling in software development has had a difficult history, in some technical domains it is considered an essential
@@ -69,7 +70,7 @@ common domain model to help facilitate the understanding of the standards themse
 
 ** Where do I start?
 :PROPERTIES:
-:CUSTOM_ID: where-to-start
+:CUSTOM_ID: primer:where-to-start
 :END:
 
 One answer to that question is whether existing domain models already exist for your industry, often from standards
@@ -118,7 +119,7 @@ An Entity is:
 
 * What is SDML?
 :PROPERTIES:
-:CUSTOM_ID: what-is-sdml
+:CUSTOM_ID: primer:what-is-sdml
 :END:
 
 SDML is a textual language that allows you to describe a domain model in a /relatively/ simple structured manner. We say
@@ -157,6 +158,9 @@ The SDML /project/, which is more than just the language definition, provides ed
 for drawing and documentation. It also produces this primer and the main documentation.
 
 ** What it isn't
+:PROPERTIES:
+:CUSTOM_ID: primer:what-sdml-is-not
+:END:
 
 - SDML is not, as we said above, a graphical language. It relies on a defined mapping to the UML language that allows
   the core elements of the textual language to be represented visually in UML.
@@ -167,7 +171,7 @@ for drawing and documentation. It also produces this primer and the main documen
 
 * What can I do with it?
 :PROPERTIES:
-:CUSTOM_ID: what-can-it-do
+:CUSTOM_ID: primer:what-can-it-do
 :END:
 
 The value of a domain model is in being able to describe the domain in an unambiguous way, so that it can become a
@@ -180,7 +184,7 @@ Hospitality, and Logistics.
 
 ** Capture Entities
 :PROPERTIES:
-:CUSTOM_ID: capture-entities
+:CUSTOM_ID: primer:capture-entities
 :END:
 
 Let's add the entities from the previous natural language description to our module. In each of the following sections
@@ -398,7 +402,7 @@ introduces a language tag that identifies the natural language used in the strin
 
 ** Add details with Structures and Enums
 :PROPERTIES:
-:CUSTOM_ID: add-structures-and-enums
+:CUSTOM_ID: primer:add-structures-and-enums
 :END:
 
 Now that you have the key elements of your domain model in place, you can start to see how this becomes the core
@@ -860,7 +864,7 @@ contain a combination of coded materials each code appears only once.
 
 ** Describe Events emitted by Entities
 :PROPERTIES:
-:CUSTOM_ID: add-events
+:CUSTOM_ID: primer:add-events
 :END:
 
 SDML does not have a language for describing behavior, so no sequence, activity, state machine, or other diagrams. Given
@@ -1067,7 +1071,7 @@ end
 
 ** Describe "This or That" with Unions
 :PROPERTIES:
-:CUSTOM_ID: add-unions
+:CUSTOM_ID: primer:add-unions
 :END:
 
 So far we have ween entities, structures, events, and enumerations.
@@ -1140,13 +1144,22 @@ end
 
 * How do I use it?
 :PROPERTIES:
-:CUSTOM_ID: how-to-use
+:CUSTOM_ID: primer:how-to-use
 :END:
 
 DDD
 
 ** Editing SDML Source
+:PROPERTIES:
+:CUSTOM_ID: primer:how-to-edit
+:END:
+
+TBD
+
 ** Drawing Diagrams
+:PROPERTIES:
+:CUSTOM_ID: primer:how-to-draw-diagrams
+:END:
 
 #+NAME: src:initial-hospitality-drawings
 #+BEGIN_SRC sdml :exports none :noeval
@@ -1305,21 +1318,39 @@ end
 [[file:./images/primer-hospitality-uml.svg]]
 
 ** Document Modules
+:PROPERTIES:
+:CUSTOM_ID: primer:how-to-document-modules
+:END:
+
+TBD
 
 * What do I do next?
 :PROPERTIES:
-:CUSTOM_ID: what-next
+:CUSTOM_ID: primer:what-next
 :END:
 
 TBD
 
 ** For Authors
+:PROPERTIES:
+:CUSTOM_ID: primer:for-authors
+:END:
+
+TBD
 
 ** For Tool Builders
+:PROPERTIES:
+:CUSTOM_ID: primer:for-tool-builders
+:END:
+
+TBD
 
 ** More Reading
+:PROPERTIES:
+:CUSTOM_ID: primer:more-reading
+:END:
 
-- [[https://sdml.io#intro-what-is-domain-modeling][What is Domain Modeling?]] in the SDML documentation.
+- [[https://sdml.io#intro-what-is-domain-modeling][What is Domain Modeling?]] in the SDML reference.
 - [[https://www.thoughtworks.com/en-us/insights/blog/agile-project-management/domain-modeling-what-you-need-to-know-before-coding][Domain Modeling: What you need to know before coding]], Norberto Rodríguez (Norbs). Thoughtworks.
 - [[https://olegchursin.medium.com/a-brief-introduction-to-domain-modeling-862a30b38353][A Brief Introduction to Domain Modeling]], Oleg Chursin.
 - [[https://simplea.com/Articles/domain-model][What is a Domain Model?]], [A].
@@ -1327,7 +1358,7 @@ TBD
 
 * A Brief Glossary
 :PROPERTIES:
-:CUSTOM_ID: glossary
+:CUSTOM_ID: primer:glossary
 :END:
 
 - Annotation :: A /property/ or /constraint/ attached to a definition that may document, classify, or constrain the
