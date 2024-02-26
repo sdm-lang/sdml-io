@@ -9,12 +9,20 @@
 #+LATEX_HEADER: \makeindex
 #+OPTIONS: toc:3 ^:{}
 
+#+BEGIN_SRC emacs-lisp :exports none
+(require 'ob-plantuml) ;; builtin
+(setq org-confirm-babel-evaluate nil)
+#+END_SRC
+
 #+BEGIN_ABSTRACT
 This document is a non-normative addition to the documentation for The Simple Domain Modeling Language (SDML) and
 describes a UML meta-model for the SDML language.
 #+END_ABSTRACT
 
 * Introduction
+:PROPERTIES:
+:CUSTOM_ID: mmodel:introduction
+:END:
 
 While the normative description of SDML exists in the main documentation at [[https://sdml.io]] as an EBNF grammar and
 RDF/OWL Ontology. However, for tool makers, an object model is often more easily consumed and useful for /tool-to-tool/
@@ -91,6 +99,9 @@ Values ..> SumTypes: <<import>>
 [[file:./metamodel-overview.svg]]
 
 * Package Foundation
+:PROPERTIES:
+:CUSTOM_ID: mmodel:foundation
+:END:
 
 This package contains the basic semantic components from which the rest of the language is built. Certain classes here
 are /paired/, so ~Type~ and ~Typed~, ~Name~ and ~Named~, and ~Named~ and ~Namespace~. 
@@ -132,6 +143,9 @@ package Foundation {
 [[file:./metamodel-foundation.svg]]
 
 ** Abstract Class Definition
+:PROPERTIES:
+:CUSTOM_ID: mmodel:foundation-definition
+:END:
 
 Some element in the model that acts as a definition, i.e. a classifier.
 
@@ -145,6 +159,9 @@ Some element in the model that acts as a definition, i.e. a classifier.
 #+END_HIERARCHY
     
 ** Class Name
+:PROPERTIES:
+:CUSTOM_ID: mmodel:foundation-name
+:END:
 
 The name of something in the model, names must be unique within any enclosing namespace.
 
@@ -158,6 +175,9 @@ Syntax: ="/\p{Lu}\p{Ll}][\p{Lu}\p{Ll}\p{Nd}]*(_[\p{Lu}\p{Ll}\p{Nd}]+)*/"=
 #+END_HIERARCHY
 
 ** Abstract Class Named
+:PROPERTIES:
+:CUSTOM_ID: mmodel:foundation-named
+:END:
 
 A base class for named model elements, often members of a namespace.
 
@@ -175,6 +195,9 @@ A base class for named model elements, often members of a namespace.
 | =identity= | =Name= |           1 | The type of a model element's name. |
 
 ** Abstract Class Namespace
+:PROPERTIES:
+:CUSTOM_ID: mmodel:foundation-namespace
+:END:
 
 A base class for model elements that contain other, named, elements. This can be thought of as a hash map, or
 dictionary, where the name of the element becomes it's key.
@@ -193,6 +216,9 @@ dictionary, where the name of the element becomes it's key.
 | =members= | =T=    | 0..*        | members must have unique names within the namespace. |
 
 ** Abstract Class Type
+:PROPERTIES:
+:CUSTOM_ID: mmodel:foundation-type
+:END:
 
 The base class of all model elements that may be treated as types. All types are named.
 
@@ -220,6 +246,9 @@ The base class of all model elements that may be treated as types. All types are
 |         |       |             |                                             |
 
 ** Abstract Class Typed
+:PROPERTIES:
+:CUSTOM_ID: mmodel:foundation-typed
+:END:
 
 A base class for model elements that are typed, and therefore have a association to a type.
 *Hierarchy*
@@ -234,6 +263,9 @@ A base class for model elements that are typed, and therefore have a association
 | =type= | =Type= | 1..*        | The type, or types, of this model element. |
 
 * Package Modules
+:PROPERTIES:
+:CUSTOM_ID: mmodel:modules
+:END:
 
 #+NAME: src:metamodel-models
 #+BEGIN_SRC plantuml :file ./metamodel-models.svg
@@ -280,6 +312,9 @@ Modules .up.> Foundation: <<import>>
 [[file:./metamodel-models.svg]]
 
 ** Abstract Class Import
+:PROPERTIES:
+:CUSTOM_ID: mmodel:mod-import
+:END:
 
 A association from a module to another module, or module definition, to make it available for use.
 
@@ -292,6 +327,9 @@ A association from a module to another module, or module definition, to make it 
 #+END_HIERARCHY
 
 ** Class Module
+:PROPERTIES:
+:CUSTOM_ID: mmodel:mod-module
+:END:
 
 A named set of related definitions. The module is a namespace for top-level definitions that are therefore name-unique
 within the module.
@@ -311,6 +349,9 @@ within the module.
 | =+imports= | =Import= | =0..*=      | The set of imported definitions. |
 
 ** Abstract Class Module Definition
+:PROPERTIES:
+:CUSTOM_ID: mmodel:mod-module-definition
+:END:
 
 A module-level, or top-level, definition is one that is directly a member of a module.
 
@@ -334,6 +375,9 @@ A module-level, or top-level, definition is one that is directly a member of a m
 #+END_HIERARCHY
 
 ** Abstract Class Module Definition Import
+:PROPERTIES:
+:CUSTOM_ID: mmodel:mod-definition-import
+:END:
 
 A association from a module to an external module definition to make it available for use.
 
@@ -350,6 +394,9 @@ A association from a module to an external module definition to make it availabl
 | =+import= | =ModuleDefinition= | =1=           | An imported module definition. |
 
 ** Abstract Class Module Import
+:PROPERTIES:
+:CUSTOM_ID: mmodel:mod-module-import
+:END:
 
 A association from a module to another module to make it's definitions available for use.
 
@@ -366,6 +413,9 @@ A association from a module to another module to make it's definitions available
 | =+import= | =Module= | =1=           | An imported module. |
 
 * Package Annotations
+:PROPERTIES:
+:CUSTOM_ID: mmodel:annotations
+:END:
 
 #+NAME: src:metamodel-annotations
 #+BEGIN_SRC plantuml :file ./metamodel-annotations.svg
@@ -421,6 +471,9 @@ Annotations .left.> Values: <<import>>
 [[file:./metamodel-annotations.svg]]
 
 ** Abstract Class Annotated
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ann-annotated
+:END:
 
 *Hierarchy*
 
@@ -435,6 +488,9 @@ Annotations .left.> Values: <<import>>
 | =annotations= | =Annotation= | 0..*        |         |
 
 ** Abstract Class Annotation
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ann-annotation
+:END:
 
 *Hierarchy*
 
@@ -454,6 +510,9 @@ Annotations .left.> Values: <<import>>
 | =subject= | =Annotated= |           1 |         |
 
 ** Class Annotation Property
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ann-annotation-property
+:END:
 
 *Hierarchy*
 
@@ -470,6 +529,9 @@ Annotations .left.> Values: <<import>>
 | =value= | =Value= |           1 |         |
 
 ** Abstract Class Constraint
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ann-constraint
+:END:
 
 *Hierarchy*
 
@@ -484,6 +546,9 @@ Annotations .left.> Values: <<import>>
 #+END_HIERARCHY
 
 * Package Datatypes
+:PROPERTIES:
+:CUSTOM_ID: mmodel:datatypes
+:END:
 
 #+NAME: src:metamodel-datatypes
 #+BEGIN_SRC plantuml :file ./metamodel-datatypes.svg
@@ -605,6 +670,9 @@ Datatypes .down.> un_m49: <<import>>
 [[file:./metamodel-datatype-languages.svg]]
 
 ** Class Datatype
+:PROPERTIES:
+:CUSTOM_ID: mmodel:dt-datatype
+:END:
 
 *Hierarchy*
 
@@ -618,6 +686,9 @@ Datatypes .down.> un_m49: <<import>>
 #+END_HIERARCHY
 
 ** Class Binary
+:PROPERTIES:
+:CUSTOM_ID: mmodel:dt-binary
+:END:
 
 *Hierarchy*
 
@@ -632,6 +703,9 @@ Datatypes .down.> un_m49: <<import>>
 #+END_HIERARCHY
 
 ** Class Boolean
+:PROPERTIES:
+:CUSTOM_ID: mmodel:dt-boolean
+:END:
 
 *Hierarchy*
 
@@ -646,6 +720,9 @@ Datatypes .down.> un_m49: <<import>>
 #+END_HIERARCHY
 
 ** Class Decimal
+:PROPERTIES:
+:CUSTOM_ID: mmodel:dt-decimal
+:END:
 
 *Hierarchy*
 
@@ -660,6 +737,9 @@ Datatypes .down.> un_m49: <<import>>
 #+END_HIERARCHY
 
 ** Class Double
+:PROPERTIES:
+:CUSTOM_ID: mmodel:dt-double
+:END:
 
 *Hierarchy*
 
@@ -674,6 +754,9 @@ Datatypes .down.> un_m49: <<import>>
 #+END_HIERARCHY
 
 ** Class Integer
+:PROPERTIES:
+:CUSTOM_ID: mmodel:dt-integer
+:END:
 
 *Hierarchy*
 
@@ -688,6 +771,9 @@ Datatypes .down.> un_m49: <<import>>
 #+END_HIERARCHY
 
 ** Class String
+:PROPERTIES:
+:CUSTOM_ID: mmodel:dt-string
+:END:
 
 *Hierarchy*
 
@@ -704,6 +790,9 @@ Datatypes .down.> un_m49: <<import>>
 #+END_HIERARCHY
 
 ** Class Unsigned
+:PROPERTIES:
+:CUSTOM_ID: mmodel:dt-unsigned
+:END:
 
 *Hierarchy*
 
@@ -718,6 +807,9 @@ Datatypes .down.> un_m49: <<import>>
 #+END_HIERARCHY
 
 ** Class Uri
+:PROPERTIES:
+:CUSTOM_ID: mmodel:dt-uri
+:END:
 
 *Hierarchy*
 
@@ -732,6 +824,9 @@ Datatypes .down.> un_m49: <<import>>
 #+END_HIERARCHY
 
 ** Class Language Tag
+:PROPERTIES:
+:CUSTOM_ID: mmodel:dt-language-tag
+:END:
 
 *Hierarchy*
 
@@ -745,6 +840,9 @@ Datatypes .down.> un_m49: <<import>>
 | =language= | =String=    |        1    |         |
 
 ** Class Language Tagged String
+:PROPERTIES:
+:CUSTOM_ID: mmodel:dt-language-tagged-string
+:END:
 
 *Hierarchy*
 
@@ -765,6 +863,9 @@ Datatypes .down.> un_m49: <<import>>
 | =tag=   | =LanguageTag=          |        1    |         |
 
 * Package Sequence Types
+:PROPERTIES:
+:CUSTOM_ID: mmodel:sequence-types
+:END:
 
 #+NAME: src:metamodel-sequences
 #+BEGIN_SRC plantuml :file ./metamodel-sequences.svg
@@ -828,6 +929,9 @@ SequenceTypes .down.> Values: <<import>>
 [[file:./metamodel-sequences.svg]]
 
 ** Class Cardinality
+:PROPERTIES:
+:CUSTOM_ID: mmodel:seq-cardinality
+:END:
 
 *Hierarchy*
 
@@ -844,13 +948,19 @@ SequenceTypes .down.> Values: <<import>>
 | =max_length= | =Unsigned=   |        0..1 |           |
 
 ** Enumeration Ordering
+:PROPERTIES:
+:CUSTOM_ID: mmodel:seq-ordering
+:END:
 
 *Variants*
 
 - Ordered :: ...
 - Unordered :: ...
 
-** Class SequenceType
+** Class Sequence Type
+:PROPERTIES:
+:CUSTOM_ID: mmodel:seq-sequence-type
+:END:
 
 *Hierarchy*
 
@@ -872,6 +982,9 @@ SequenceTypes .down.> Values: <<import>>
 | =values=      | =T=           | 0..*        |         |
 
 ** Enumeration Uniqueness
+:PROPERTIES:
+:CUSTOM_ID: mmodel:seq-uniqueness
+:END:
 
 *Variants*
 
@@ -879,6 +992,9 @@ SequenceTypes .down.> Values: <<import>>
 - Unique :: ...
 
 * Package Product Types
+:PROPERTIES:
+:CUSTOM_ID: mmodel:product-types
+:END:
 
 #+NAME: src:metamodel-product-types
 #+BEGIN_SRC plantuml :file ./metamodel-product-types.svg
@@ -959,6 +1075,9 @@ ProductTypes .up.> Modules: <<import>>
 [[file:./metamodel-product-types.svg]]
 
 ** Class Entity
+:PROPERTIES:
+:CUSTOM_ID: mmodel:prod-entity
+:END:
 
 *Hierarchy*
 
@@ -979,6 +1098,9 @@ ProductTypes .up.> Modules: <<import>>
 | =identity= | =Member= |           1 |         |
 
 ** Class Event
+:PROPERTIES:
+:CUSTOM_ID: mmodel:prod-event
+:END:
 
 *Hierarchy*
 
@@ -999,6 +1121,9 @@ ProductTypes .up.> Modules: <<import>>
 | =source= | =Event= |           1 |         |
 
 ** Abstract Class Member
+:PROPERTIES:
+:CUSTOM_ID: mmodel:prod-member
+:END:
 
 *Hierarchy*
 
@@ -1008,6 +1133,9 @@ ProductTypes .up.> Modules: <<import>>
 #+END_HIERARCHY
 
 ** Class Member Definition
+:PROPERTIES:
+:CUSTOM_ID: mmodel:prod-definition
+:END:
 
 *Hierarchy*
 
@@ -1021,6 +1149,9 @@ ProductTypes .up.> Modules: <<import>>
 #+END_HIERARCHY
 
 ** Class Member Group
+:PROPERTIES:
+:CUSTOM_ID: mmodel:prod-member-group
+:END:
 
 *Hierarchy*
 
@@ -1035,6 +1166,9 @@ ProductTypes .up.> Modules: <<import>>
 | =members= | =Member= | unique 1..* |         |
 
 ** Class Member Reference
+:PROPERTIES:
+:CUSTOM_ID: mmodel:prod-member-reference
+:END:
 
 *Hierarchy*
 
@@ -1050,6 +1184,9 @@ ProductTypes .up.> Modules: <<import>>
 | =+role= | =Role= |           1 |         |
 
 ** Class Property
+:PROPERTIES:
+:CUSTOM_ID: mmodel:prod-property
+:END:
 
 *Hierarchy*
 
@@ -1064,6 +1201,9 @@ ProductTypes .up.> Modules: <<import>>
 #+END_HIERARCHY
 
 ** Class Role
+:PROPERTIES:
+:CUSTOM_ID: mmodel:prod-role
+:END:
 
 *Hierarchy*
 
@@ -1081,6 +1221,9 @@ ProductTypes .up.> Modules: <<import>>
 | =+is_identity= | =boolean= |           1 | =false=   |
 
 ** Class Structure
+:PROPERTIES:
+:CUSTOM_ID: mmodel:prod-structure
+:END:
 
 *Hierarchy*
 
@@ -1102,6 +1245,9 @@ ProductTypes .up.> Modules: <<import>>
 | =+groups= | =MemberGroup= | unique 0..* |         |
 
 * Package Sum Types
+:PROPERTIES:
+:CUSTOM_ID: mmodel:sum-types
+:END:
 
 #+NAME: src:metamodel-sum-types
 #+BEGIN_SRC plantuml :file ./metamodel-sum-types.svg
@@ -1169,6 +1315,9 @@ SumTypes .down.> Modules: <<import>>
 [[file:./metamodel-sum-types.svg]]
 
 ** Class Enum
+:PROPERTIES:
+:CUSTOM_ID: mmodel:sum-enum
+:END:
 
 *Hierarchy*
 
@@ -1183,6 +1332,9 @@ SumTypes .down.> Modules: <<import>>
 #+END_HIERARCHY
 
 ** Class Mapping Type
+:PROPERTIES:
+:CUSTOM_ID: mmodel:sum-mapping-type
+:END:
 
 *Hierarchy*
 
@@ -1201,6 +1353,9 @@ SumTypes .down.> Modules: <<import>>
 | =value= | =V=    |           1 |         |
 
 ** Class Type Variant
+:PROPERTIES:
+:CUSTOM_ID: mmodel:sum-type-variant
+:END:
 
 *Hierarchy*
 
@@ -1212,6 +1367,9 @@ SumTypes .down.> Modules: <<import>>
 #+END_HIERARCHY
 
 ** Class Union
+:PROPERTIES:
+:CUSTOM_ID: mmodel:sum-union
+:END:
 
 *Hierarchy*
 
@@ -1226,6 +1384,9 @@ SumTypes .down.> Modules: <<import>>
 #+END_HIERARCHY
 
 ** Abstract Class Variant
+:PROPERTIES:
+:CUSTOM_ID: mmodel:sum-variant
+:END:
 
 *Hierarchy*
 
@@ -1235,6 +1396,9 @@ SumTypes .down.> Modules: <<import>>
 #+END_HIERARCHY
 
 ** Class Value Variant
+:PROPERTIES:
+:CUSTOM_ID: mmodel:sum-value-variant
+:END:
 
 *Hierarchy*
 
@@ -1245,6 +1409,9 @@ SumTypes .down.> Modules: <<import>>
 #+END_HIERARCHY
 
 * Package Values
+:PROPERTIES:
+:CUSTOM_ID: mmodel:values
+:END:
 
 #+NAME: src:metamodel-values
 #+BEGIN_SRC plantuml :file ./metamodel-values.svg
@@ -1360,6 +1527,9 @@ Values .down.> SumTypes: <<import>>
 [[file:./metamodel-values.svg]]
 
 ** Class Binary Value
+:PROPERTIES:
+:CUSTOM_ID: mmodel:v-binary-value
+:END:
 
 *Hierarchy*
 
@@ -1376,6 +1546,9 @@ Values .down.> SumTypes: <<import>>
 | ={subsets} +domain= | =Binary= |           1 |         |
 
 ** Class Boolean Value
+:PROPERTIES:
+:CUSTOM_ID: mmodel:v-boolean-value
+:END:
 
 *Hierarchy*
 
@@ -1392,6 +1565,9 @@ Values .down.> SumTypes: <<import>>
 | ={subsets} +domain= | =Boolean=      |           1 |         |
 
 ** Class Decimal Value
+:PROPERTIES:
+:CUSTOM_ID: mmodel:v-decimal-value
+:END:
 
 *Hierarchy*
 
@@ -1408,6 +1584,9 @@ Values .down.> SumTypes: <<import>>
 | ={subsets} +domain= | =Decimal=      |           1 |         |
 
 ** Class Double Value
+:PROPERTIES:
+:CUSTOM_ID: mmodel:v-double-value
+:END:
 
 *Hierarchy*
 
@@ -1424,6 +1603,9 @@ Values .down.> SumTypes: <<import>>
 | ={subsets} +domain= | =Double=      |           1 |         |
 
 ** Class Integer Value
+:PROPERTIES:
+:CUSTOM_ID: mmodel:v-integer-value
+:END:
 
 *Hierarchy*
 
@@ -1440,6 +1622,9 @@ Values .down.> SumTypes: <<import>>
 | ={subsets} +domain= | =Integer=      |           1 |         |
 
 ** Class Mapping Value
+:PROPERTIES:
+:CUSTOM_ID: mmodel:v-mapping-value
+:END:
 
 *Hierarchy*
 
@@ -1455,6 +1640,9 @@ Values .down.> SumTypes: <<import>>
 | ={subsets} +domain= | =MappingType= |           1 |         |
 
 ** Class Sequence Value
+:PROPERTIES:
+:CUSTOM_ID: mmodel:v-sequence-value
+:END:
 
 *Hierarchy*
 
@@ -1470,6 +1658,9 @@ Values .down.> SumTypes: <<import>>
 | ={subsets} +domain= | =SequenceType= |           1 |         |
 
 ** Abstract Class Simple Value
+:PROPERTIES:
+:CUSTOM_ID: mmodel:v-simple-value
+:END:
 
 *Hierarchy*
 
@@ -1480,6 +1671,9 @@ Values .down.> SumTypes: <<import>>
 #+END_HIERARCHY
 
 ** Class String Value
+:PROPERTIES:
+:CUSTOM_ID: mmodel:v-string-value
+:END:
 
 *Hierarchy*
 
@@ -1496,6 +1690,9 @@ Values .down.> SumTypes: <<import>>
 | ={subsets} +domain= | =String=      |           1 |         |
 
 ** Class Unsigned Value
+:PROPERTIES:
+:CUSTOM_ID: mmodel:v-unsigned-value
+:END:
 
 *Hierarchy*
 
@@ -1512,6 +1709,9 @@ Values .down.> SumTypes: <<import>>
 | ={subsets} +domain= | =Unsigned= |           1 |         |
 
 ** Class Uri Value
+:PROPERTIES:
+:CUSTOM_ID: mmodel:v-uri-value
+:END:
 
 *Hierarchy*
 
@@ -1528,6 +1728,9 @@ Values .down.> SumTypes: <<import>>
 | ={subsets} +domain= | =Uri=      |           1 |         |
 
 ** Abstract Class Value
+:PROPERTIES:
+:CUSTOM_ID: mmodel:v-value
+:END:
 
 *Hierarchy*
 
@@ -1537,6 +1740,9 @@ Values .down.> SumTypes: <<import>>
 #+END_HIERARCHY
 
 * Package Formal Constraints
+:PROPERTIES:
+:CUSTOM_ID: mmodel:formal-constraints
+:END:
 
 #+NAME: src:metamodel-constraints
 #+BEGIN_SRC plantuml :file ./metamodel-constraints.svg
@@ -1598,6 +1804,9 @@ Constraints .up.> Datatypes: "<<import>>"
 [[file:./metamodel-constraints.svg]]
 
 ** Class Constraint Language Tag
+:PROPERTIES:
+:CUSTOM_ID: mmodel:fc-constraint-language-tag
+:END:
 
 *Hierarchy*
 
@@ -1612,6 +1821,9 @@ Constraints .up.> Datatypes: "<<import>>"
 | =controlled_language= | =String= |        0..1 |         |
 
 ** Class Formal Constraint
+:PROPERTIES:
+:CUSTOM_ID: mmodel:fc-formal-constraint
+:END:
 
 This is a constraint described using a structured expression language based on ISO Common Logic.
 
@@ -1630,6 +1842,9 @@ This is a constraint described using a structured expression language based on I
 | =sentence= | =Sentence= |           1 |         |
 
 ** Class Informal Controlled Language Constraint
+:PROPERTIES:
+:CUSTOM_ID: mmodel:fc-informal-controlled-language-constraint
+:END:
 
 This is a constraint described informally using a controlled natural language (CNL).
 
@@ -1648,6 +1863,9 @@ This is a constraint described informally using a controlled natural language (C
 | =text= | =String= |           1 |         |
 
 ** Class Informal Natural Language Constraint
+:PROPERTIES:
+:CUSTOM_ID: mmodel:fc-informal-natural-language-constraint
+:END:
 
 This is a constraint described informally using plain language.
 
@@ -1666,6 +1884,9 @@ This is a constraint described informally using plain language.
 | =text= | =String= |           1 |         |
 
 * Package Constraint Sentences
+:PROPERTIES:
+:CUSTOM_ID: mmodel:constraint-sentences
+:END:
 
 #+NAME: src:metamodel-constraint-sentences-overview
 #+BEGIN_SRC plantuml :file ./metamodel-constraint-sentences-overview.svg
@@ -1861,6 +2082,9 @@ package Constraints {
 [[file:./metamodel-constraint-sentences-quantified.svg]]
 
 ** Class Atomic
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-atomic
+:END:
 
 *Hierarchy*
 
@@ -1877,6 +2101,9 @@ package Constraints {
 | =arguments= | =Term= | ordered 0..* |         |
 
 ** Class Biconditional
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-biconditional
+:END:
 
 Corresponds the expression to =A <==> B=, or $A \iff B$.
 
@@ -1890,6 +2117,9 @@ Corresponds the expression to =A <==> B=, or $A \iff B$.
 #+END_HIERARCHY
 
 ** Abstract Class Binary
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-binary
+:END:
 
 *Hierarchy*
 
@@ -1911,6 +2141,10 @@ Corresponds the expression to =A <==> B=, or $A \iff B$.
 | =rhs=  | =Sentence= |           1 | Subsets the association =nested=. |
 
 ** Abstract Class Boolean
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-boolean
+:END:
+
 *Hierarchy*
 
 #+BEGIN_HIERARCHY
@@ -1927,6 +2161,9 @@ Corresponds the expression to =A <==> B=, or $A \iff B$.
 #+END_HIERARCHY
 
 ** Class Conjunction
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-conjunction
+:END:
 
 Corresponds the expression to =A and B=, or $A \land B$.
 
@@ -1938,6 +2175,9 @@ Corresponds the expression to =A and B=, or $A \land B$.
 #+END_HIERARCHY
  
 ** Class Disjunction
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-disjunction
+:END:
 
 Corresponds the expression to =A or B=, or $A \lor B$.
 
@@ -1949,6 +2189,9 @@ Corresponds the expression to =A or B=, or $A \lor B$.
 #+END_HIERARCHY
  
 ** Class Equation
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-equation
+:END:
 
 Corresponds the expression to =A = B=, or $A = B$.
 
@@ -1963,6 +2206,9 @@ Corresponds the expression to =A = B=, or $A = B$.
 #+END_HIERARCHY
 
 ** Class Exclusive Disjunction
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-exclusive-disjunction
+:END:
 
 Corresponds the expression to =A xor B=, or $A \veebar B$.
 
@@ -1976,6 +2222,9 @@ Corresponds the expression to =A xor B=, or $A \veebar B$.
 #+END_HIERARCHY
 
 ** Class Greater Than
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-greater-than
+:END:
 
 Corresponds the expression to =A > B=, or $A \gt B$.
 
@@ -1990,6 +2239,9 @@ Corresponds the expression to =A > B=, or $A \gt B$.
 #+END_HIERARCHY
 
 ** Class Greater Than Or Equal
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-great-than-or-equal
+:END:
 
 Corresponds the expression to ~A >= B~, or $A \geq B$.
 
@@ -2004,6 +2256,9 @@ Corresponds the expression to ~A >= B~, or $A \geq B$.
 #+END_HIERARCHY
 
 ** Class Implication
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-implication
+:END:
 
 Corresponds the expression to =A implies B=, or $A \implies B$.
 
@@ -2017,6 +2272,9 @@ Corresponds the expression to =A implies B=, or $A \implies B$.
 #+END_HIERARCHY
 
 ** Class Less Than
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-less-than
+:END:
 
 Corresponds the expression to ~A <= B~, or $A \lt B$.
 
@@ -2031,6 +2289,9 @@ Corresponds the expression to ~A <= B~, or $A \lt B$.
 #+END_HIERARCHY
 
 ** Class Less Than Or Equal
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-less-than-or-equal
+:END:
 
 Corresponds the expression to ~A <= B~, or $A \leq B$.
 
@@ -2045,6 +2306,9 @@ Corresponds the expression to ~A <= B~, or $A \leq B$.
 #+END_HIERARCHY
 
 ** Class Negation
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-negation
+:END:
 
 Corresponds the expression to =not A=, or $\neg A$.
 
@@ -2058,6 +2322,9 @@ Corresponds the expression to =not A=, or $\neg A$.
 #+END_HIERARCHY
 
 ** Abstract Class Sentence
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-sentence
+:END:
 
 *Hierarchy*
 
@@ -2091,6 +2358,9 @@ Corresponds the expression to =not A=, or $\neg A$.
 | =+parent= | =Sentence= | 0..1        | The parent of this sentence, if nested.             |
 
 ** Class Quantified
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-quantified
+:END:
 
 *Hierarchy*
 
@@ -2106,6 +2376,9 @@ Corresponds the expression to =not A=, or $\neg A$.
 | =+body=    | =Sentence=                  | =1=           |       |
 
 ** Class Quantified Variable
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-quantified-variable
+:END:
 
 *Hierarchy*
 
@@ -2120,6 +2393,9 @@ Corresponds the expression to =not A=, or $\neg A$.
 | =+sequence= | =Term= |           =1= | Identifies a term that yields a sequence to be iterated over. |
 
 ** Class Quantified Variable Binding
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-quantified-variable-binding
+:END:
 
 #+BEGIN_HIERARCHY
 - ∘ =QuantifiedVariableBinding=
@@ -2132,11 +2408,17 @@ Corresponds the expression to =not A=, or $\neg A$.
 | =+variable=   | =QuantifiedVariable= | =1=         |       |
 
 ** Enum Quantifier
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-quantifier
+:END:
 
 - Universal :: Corresponds to the keyword ~forall~ or the operator ∀.
 - Existential ::  Corresponds to the keyword ~exists~ or the operator ∃
 
 ** Abstract Class Relational
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-relational
+:END:
 
 *Hierarchy*
 
@@ -2160,6 +2442,9 @@ Corresponds the expression to =not A=, or $\neg A$.
 | =rhs=  | =Term= |           1 |   Subsets the association =nested=.       |
 
 ** Abstract Class Simple
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-simple
+:END:
 
 *Hierarchy*
 
@@ -2177,6 +2462,9 @@ Corresponds the expression to =not A=, or $\neg A$.
 #+END_HIERARCHY
 
 ** Class Strict Inequation
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-strict-inequation
+:END:
 
 Corresponds the expression to ~A /= B~, or $A \ne B$.
 
@@ -2191,6 +2479,9 @@ Corresponds the expression to ~A /= B~, or $A \ne B$.
 #+END_HIERARCHY
 
 ** Abstract Class Unary
+:PROPERTIES:
+:CUSTOM_ID: mmodel:cs-unary
+:END:
 
 *Hierarchy*
 
@@ -2207,6 +2498,9 @@ Corresponds the expression to ~A /= B~, or $A \ne B$.
 | =+rhs= | =Sentence= | =1=           | Subsets the association =nested=. |
 
 * Package Constraint Terms
+:PROPERTIES:
+:CUSTOM_ID: mmodel:constraint-terms
+:END:
 
 #+NAME: src:metamodel-constraint-terms
 #+BEGIN_SRC plantuml :file ./metamodel-constraint-terms.svg
@@ -2267,7 +2561,10 @@ package Constraints {
 #+RESULTS: src:metamodel-constraint-terms
 [[file:./metamodel-constraint-terms.svg]]
 
-** Class FunctionalTerm
+** Class Functional Term
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ct-functional-term
+:END:
 
 Corresponds to ~function(...arguments)~ or $f(a_0,\cdots, a_n)$
 
@@ -2284,7 +2581,10 @@ Corresponds to ~function(...arguments)~ or $f(a_0,\cdots, a_n)$
 | =function=  | =Term= | 1           |         |
 | =arguments= | =Term= | 0..*        |         |
 
-** Class MappingSequenceVariables
+** Class Mapping Sequence Variables
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ct-mapping-sequence-variables
+:END:
 
 *Hierarchy*
 
@@ -2301,7 +2601,10 @@ Corresponds to ~function(...arguments)~ or $f(a_0,\cdots, a_n)$
 | =key= | =Name= |           1 |         |
 | =value= | =Name= |           1 |         |
 
-** Class SequenceBuilder
+** Class Sequence Builder
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ct-sequence-builder
+:END:
 
 Corresponds to ~{a | forall a, id(a)}~
 or $\left\{ a | \forall a id(a) \right\}$
@@ -2319,7 +2622,10 @@ or $\left\{ a | \forall a id(a) \right\}$
 | =variables= | =SequenceVariables=    |           1 |         |
 | =body=      | =QuantifiedSentence= |           1 |         |
 
-** Abstract Class SequenceVariables
+** Abstract Class Sequence Variables
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ct-sequence-variables
+:END:
 
 *Hierarchy*
 
@@ -2327,7 +2633,10 @@ or $\left\{ a | \forall a id(a) \right\}$
 - ∘ /=SequenceVariables=/
 #+END_HIERARCHY
 
-** Class SequenceVariableSet
+** Class Sequence Variable Set
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ct-sequence-variable-set
+:END:
 
 *Hierarchy*
 
@@ -2342,6 +2651,9 @@ or $\left\{ a | \forall a id(a) \right\}$
 | =names= | =Name= | unique  1..* |         |
 
 ** Abstract Class Term
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ct-term
+:END:
 
 *Hierarchy*
 
@@ -2354,6 +2666,9 @@ or $\left\{ a | \forall a id(a) \right\}$
 #+END_HIERARCHY
 
 * Package Constraint Environments
+:PROPERTIES:
+:CUSTOM_ID: mmodel:constraint-environments
+:END:
 
 #+NAME: src:metamodel-constraint-environments
 #+BEGIN_SRC plantuml :file ./metamodel-constraint-environments.svg
@@ -2410,6 +2725,9 @@ Constraints .up.> Values: "<<import>>"
 [[file:./metamodel-constraint-environments.svg]]
 
 ** Abstract Class Constant
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ce-constant
+:END:
 
 *Hierarchy*
 
@@ -2421,6 +2739,9 @@ Constraints .up.> Values: "<<import>>"
 #+END_HIERARCHY
 
 ** Abstract Class Environment Definition
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ce-environment-definition
+:END:
 
 *Hierarchy*
 
@@ -2434,6 +2755,9 @@ Constraints .up.> Values: "<<import>>"
 #+END_HIERARCHY
 
 ** Class Function
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ce-function
+:END:
 
 *Hierarchy*
 
@@ -2450,6 +2774,9 @@ Constraints .up.> Values: "<<import>>"
 | =+parameters= | =Parameter= | 0..*        |         |
 
 ** Class Parameter
+:PROPERTIES:
+:CUSTOM_ID: mmodel:ce-parameter
+:END:
  
 *Hierarchy*
 
@@ -2460,6 +2787,9 @@ Constraints .up.> Values: "<<import>>"
 #+END_HIERARCHY
 
 * Package Type Classes
+:PROPERTIES:
+:CUSTOM_ID: mmodel:type-classes
+:END:
 
 #+NAME: src:metamodel-type-classes
 #+BEGIN_SRC plantuml :file ./metamodel-type-classes.svg
@@ -2534,6 +2864,9 @@ TypeClasses .right.> Sentences: <<import>>
 [[file:./metamodel-type-classes.svg]]
 
 ** Class Method
+:PROPERTIES:
+:CUSTOM_ID: mmodel:tc-method
+:END:
 
 *Hierarchy*
 
@@ -2552,6 +2885,9 @@ TypeClasses .right.> Sentences: <<import>>
 | =+body=       | =Sentence=  | 0..1        |         |
 
 ** Class Parameter
+:PROPERTIES:
+:CUSTOM_ID: mmodel:tc-parameter
+:END:
 
 *Hierarchy*
 
@@ -2562,6 +2898,9 @@ TypeClasses .right.> Sentences: <<import>>
 #+END_HIERARCHY
 
 ** Class Reference Argument
+:PROPERTIES:
+:CUSTOM_ID: mmodel:reference-argument
+:END:
 
 *Hierarchy*
 
@@ -2572,6 +2911,9 @@ TypeClasses .right.> Sentences: <<import>>
 #+END_HIERARCHY
 
 ** Class Reference List
+:PROPERTIES:
+:CUSTOM_ID: mmodel:tc-reference-list
+:END:
 
 *Hierarchy*
 
@@ -2586,6 +2928,9 @@ TypeClasses .right.> Sentences: <<import>>
 | =+classes=   | =TypeClassReference=         | 1..*      |         |
 
 ** Class Reference Wildcard
+:PROPERTIES:
+:CUSTOM_ID: mmodel:tc-reference-wildcard
+:END:
 
 *Hierarchy*
 
@@ -2595,6 +2940,9 @@ TypeClasses .right.> Sentences: <<import>>
 #+END_HIERARCHY
 
 ** Class Type Class
+:PROPERTIES:
+:CUSTOM_ID: mmodel:tc-type-class
+:END:
 
 *Hierarchy*
 
@@ -2614,6 +2962,9 @@ TypeClasses .right.> Sentences: <<import>>
 | =+methods=   | =Method=       | 0..*        |         |
 
 ** Class Type Variable
+:PROPERTIES:
+:CUSTOM_ID: mmodel:tc-type-variable
+:END:
 
 *Hierarchy*
 
@@ -2628,6 +2979,9 @@ TypeClasses .right.> Sentences: <<import>>
 | =+restrictions= | =TypeClassReference= | 0..*        |         |
 
 ** Class Type Class Reference
+:PROPERTIES:
+:CUSTOM_ID: mmodel:tc-type-class-ref
+:END:
 
 *Hierarchy*
 
