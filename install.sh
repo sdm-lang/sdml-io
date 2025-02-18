@@ -67,13 +67,14 @@ install_package brew dot graphviz GraphViz
 install_package brew git Git
 
 if [[ $OSTYPE = darwin* ]]; then
-    if ! xcrun 2>&1 >/dev/null; then
+    xcode_path=$(xcode-select --print-path 2>/dev/null)
+    if [[ $? -ne 0 ]] || [[ -z "$xcode_path" ]]; then
         if ! xcode-select --install; then
-            echo "${ERROR} ${installer} failed to install package ${package} for ${display_name}"
+            echo "${ERROR} failed to install xcode command-line tools"
             exit 3
         fi
     fi
-    echo "${SUCCESS} xcode command-line installed"
+    echo "${SUCCESS} xcode command-line tools installed"
 fi
 
 if ! command -v cargo 2>&1 >/dev/null; then
