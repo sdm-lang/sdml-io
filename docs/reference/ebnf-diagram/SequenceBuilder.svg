@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="557" height="81">
+<svg xmlns="http://www.w3.org/2000/svg" width="477" height="53">
    <defs>
       <style type="text/css">
     @namespace "http://www.w3.org/2000/svg";
@@ -29,55 +29,48 @@
     polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
   </style>
    </defs>
-   <polygon points="9 17 1 13 1 21"/>
-   <polygon points="17 17 9 13 9 21"/>
-   <rect x="31" y="3" width="28" height="32" rx="10"/>
+   <polygon points="9 33 1 29 1 37"/>
+   <polygon points="17 33 9 29 9 37"/>
+   <rect x="31" y="19" width="28" height="32" rx="10"/>
    <rect x="29"
-          y="1"
-          width="28"
-          height="32"
-          class="terminal"
-          rx="10"/>
-   <text class="terminal" x="39" y="21">{</text>
+         y="17"
+         width="28"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="39" y="37">{</text>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
-       xlink:href="#NamedVariableSet"
-       xlink:title="NamedVariableSet">
-      <rect x="99" y="3" width="138" height="32"/>
-      <rect x="97" y="1" width="138" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="107" y="21">NamedVariableSet</text>
+      xlink:href="#Variable"
+      xlink:title="Variable">
+      <rect x="99" y="19" width="72" height="32"/>
+      <rect x="97" y="17" width="72" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="107" y="37">Variable</text>
    </a>
+   <rect x="211" y="19" width="26" height="32" rx="10"/>
+   <rect x="209"
+         y="17"
+         width="26"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="219" y="37">|</text>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
-       xlink:href="#MappingVariable"
-       xlink:title="MappingVariable">
-      <rect x="99" y="47" width="124" height="32"/>
-      <rect x="97" y="45" width="124" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="107" y="65">MappingVariable</text>
+      xlink:href="#QuantifiedSentence"
+      xlink:title="QuantifiedSentence">
+      <rect x="257" y="19" width="144" height="32"/>
+      <rect x="255" y="17" width="144" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="265" y="37">QuantifiedSentence</text>
    </a>
-   <rect x="277" y="3" width="26" height="32" rx="10"/>
-   <rect x="275"
-          y="1"
-          width="26"
-          height="32"
-          class="terminal"
-          rx="10"/>
-   <text class="terminal" x="285" y="21">|</text>
-   <a xmlns:xlink="http://www.w3.org/1999/xlink"
-       xlink:href="#SequenceBuilderBody"
-       xlink:title="SequenceBuilderBody">
-      <rect x="323" y="3" width="158" height="32"/>
-      <rect x="321" y="1" width="158" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="331" y="21">SequenceBuilderBody</text>
-   </a>
-   <rect x="501" y="3" width="28" height="32" rx="10"/>
-   <rect x="499"
-          y="1"
-          width="28"
-          height="32"
-          class="terminal"
-          rx="10"/>
-   <text class="terminal" x="509" y="21">}</text>
+   <rect x="421" y="19" width="28" height="32" rx="10"/>
+   <rect x="419"
+         y="17"
+         width="28"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="429" y="37">}</text>
    <path class="line"
-          d="m17 17 h2 m0 0 h10 m28 0 h10 m20 0 h10 m138 0 h10 m-178 0 h20 m158 0 h20 m-198 0 q10 0 10 10 m178 0 q0 -10 10 -10 m-188 10 v24 m178 0 v-24 m-178 24 q0 10 10 10 m158 0 q10 0 10 -10 m-168 10 h10 m124 0 h10 m0 0 h14 m20 -44 h10 m26 0 h10 m0 0 h10 m158 0 h10 m0 0 h10 m28 0 h10 m3 0 h-3"/>
-   <polygon points="547 17 555 13 555 21"/>
-   <polygon points="547 17 539 13 539 21"/>
+         d="m17 33 h2 m0 0 h10 m28 0 h10 m20 0 h10 m72 0 h10 m-112 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -12 q0 -10 10 -10 m92 32 l20 0 m-20 0 q10 0 10 -10 l0 -12 q0 -10 -10 -10 m-92 0 h10 m0 0 h82 m20 32 h10 m26 0 h10 m0 0 h10 m144 0 h10 m0 0 h10 m28 0 h10 m3 0 h-3"/>
+   <polygon points="467 33 475 29 475 37"/>
+   <polygon points="467 33 459 29 459 37"/>
 </svg>

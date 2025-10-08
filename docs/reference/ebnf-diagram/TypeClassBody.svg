@@ -33,36 +33,36 @@
    <polygon points="17 51 9 47 9 55"/>
    <rect x="31" y="37" width="30" height="32" rx="10"/>
    <rect x="29"
-          y="35"
-          width="30"
-          height="32"
-          class="terminal"
-          rx="10"/>
+         y="35"
+         width="30"
+         height="32"
+         class="terminal"
+         rx="10"/>
    <text class="terminal" x="39" y="55">is</text>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
-       xlink:href="#Annotation"
-       xlink:title="Annotation">
+      xlink:href="#Annotation"
+      xlink:title="Annotation">
       <rect x="101" y="3" width="90" height="32"/>
       <rect x="99" y="1" width="90" height="32" class="nonterminal"/>
       <text class="nonterminal" x="109" y="21">Annotation</text>
    </a>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
-       xlink:href="#MethodDef"
-       xlink:title="MethodDef">
-      <rect x="251" y="37" width="88" height="32"/>
-      <rect x="249" y="35" width="88" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="259" y="55">MethodDef</text>
+      xlink:href="#ClassFunctionDef"
+      xlink:title="ClassFunctionDef">
+      <rect x="231" y="37" width="128" height="32"/>
+      <rect x="229" y="35" width="128" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="239" y="55">ClassFunctionDef</text>
    </a>
    <rect x="379" y="37" width="44" height="32" rx="10"/>
    <rect x="377"
-          y="35"
-          width="44"
-          height="32"
-          class="terminal"
-          rx="10"/>
+         y="35"
+         width="44"
+         height="32"
+         class="terminal"
+         rx="10"/>
    <text class="terminal" x="387" y="55">end</text>
    <path class="line"
-          d="m17 51 h2 m0 0 h10 m30 0 h10 m20 0 h10 m0 0 h100 m-130 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -14 q0 -10 10 -10 m110 34 l20 0 m-20 0 q10 0 10 -10 l0 -14 q0 -10 -10 -10 m-110 0 h10 m90 0 h10 m40 34 h10 m88 0 h10 m-128 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -12 q0 -10 10 -10 m108 32 l20 0 m-20 0 q10 0 10 -10 l0 -12 q0 -10 -10 -10 m-108 0 h10 m0 0 h98 m20 32 h10 m44 0 h10 m3 0 h-3"/>
+         d="m17 51 h2 m0 0 h10 m30 0 h10 m20 0 h10 m0 0 h100 m-130 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -14 q0 -10 10 -10 m110 34 l20 0 m-20 0 q10 0 10 -10 l0 -14 q0 -10 -10 -10 m-110 0 h10 m90 0 h10 m20 34 h10 m128 0 h10 m0 0 h10 m44 0 h10 m3 0 h-3"/>
    <polygon points="441 51 449 47 449 55"/>
    <polygon points="441 51 433 47 433 55"/>
 </svg>

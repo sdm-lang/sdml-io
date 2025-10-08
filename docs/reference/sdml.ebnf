@@ -1,494 +1,477 @@
-Module
-    ::= "module" Identifier ModuleLocations? ModuleBody
+Module                  ::= 'module' Identifier Iri? ModuleVersion? ModuleBody
 
-ModuleLocations
-    ::= Iri ( "version" QuotedString? Iri )?
+ModuleVersion           ::= "version" QuotedString? Iri
 
-ModuleBody
-    ::= "is"
-        ImportStatement* Annotation* Definition*
-        "end"
+ModuleBody              ::= 'is' ImportStatement* Annotation* Definition* 'end'
 
-ImportStatement
-    ::= "import" ( Import | "[" Import+ "]" )
+ImportStatement         ::= ImportFromClause? 'import' ( Import | '[' Import+ ']' )
 
-Import
-    ::= MemberImport | ModuleImport
+ImportFromClause        ::= 'from' ( AbsoluteModulePath | RelativeModulePath )
 
-ModuleImport
-    ::= Identifer Iri?
+AbsoluteModulePath      ::= '::' RelativeModulePath?
 
-MemberImport
-    ::= QualifiedIdentifier
+RelativeModulePath      ::= Identifier ( '::' Identifier )*
 
-Annotation
-    ::= AnnotationProperty | Constraint
+Import                  ::= ( MemberImport | ModuleImport ) ImportRenameClause?
 
-AnnotationProperty
-    ::= "@" IdentiferReference "=" Value
+ModuleImport            ::= Identifer Iri?
 
-Definition
-    ::= DataTypeDef
-        | EntityDef
-        | EnumDef
-        | EventDef
-        | PropertyDef
-        | StructureDef
-        | TypeClassDef
-        | UnionDef
-        | RdfThingDef
+MemberImport            ::= QualifiedIdentifier
 
-DataTypeDef
-    ::= "datatype" Identifier
-        TypeRestriction "opaque"? DataTypeBase AnnotationOnlyBody?
+ImportRenameClause      ::= 'as' Identifier
 
-TypeRestriction
-    ::= "<-" | "←"
+Annotation              ::= AnnotationProperty | Constraint
 
-DataTypeBase
-    ::= IdentifierReference | BuiltinSimpleType
+AnnotationProperty      ::= '@' IdentiferReference '=' Value
 
-AnnotationOnlyBody
-    ::= "is" Annotation+ "end"
+Definition              ::= ClassDef
+                            | DatatypeDef
+                            | DimensionDef
+                            | EntityDef
+                            | EnumDef
+                            | EventDef
+                            | MetricDef
+                            | MetricGroupDef
+                            | PropertyDef
+                            | RdfDef
+                            | StructureDef
+                            | UnionDef
 
-EntityDef
-    ::= "entity" Identifier EntityBody?
+DatatypeDef             ::= 'datatype' Identifier
+                            TypeRestriction 'opaque'? DatatypeBase DatatypeRestriction? 
+                            AnnotationOnlyBody?
 
-EntityBody
-    ::= "is"
-        Annotation* EntityIdentity Member*
-        "end"
+TypeRestriction         ::= "<-" | "←"
 
-EnumDef
-    ::= "enum" Identifier EnumBody?
+DatatypeBase            ::= IdentifierReference | BuiltinTypes
 
-EnumBody
-    ::= "of" Annotation* ValueVariant+ "end"
+DatatypeRestriction     ::= '{' ( LengthRestricion 
+                                  | DigitRestriction 
+                                  | ValueRestriction 
+                                  | TimezoneRestriction 
+                                  | PatternRestriction )* '}'
 
-ValueVariant
-    ::= Identifier AnnotationOnlyBody?
+LengthRestricion        ::= ( 'length' | 'maxLength' | 'minLength' )
+                            '=' 'fixed'? Unsigned
 
-EventDef
-    ::= "event" Identifier
-        "source" IdentifierReference
-        StructuredBody?
+DigitRestriction        ::= ( 'fractionDigits' | 'totalDigits' )
+                            '=' 'fixed'? Unsigned
 
-PropertyDef
-    ::= "property" MemberDef
+ValueRestriction        ::= ( 'maxExclusive' | 'maxInclusive' | 'minExclusive' | 'minInclusive' )
+                            '=' 'fixed'? (SimpleValue | ValueConstructor)
 
-StructureDef
-    ::= "structure" Identifier StructuredBody?
+TimezoneRestriction     ::= 'explicitTimezone' 
+                            '=' 'fixed'? ( 'required' | 'prohibited' | 'optional' )
 
-StructuredBody
-    ::= "is" Annotation* Member+ "end"
+PatternRestriction      ::= 'pattern' '=' ( QuotedString | '[' QuotedString+']' )
 
-UnionDef
-    ::= "union" Identifier UnionBody?
+AnnotationOnlyBody      ::= 'is' Annotation+ 'end'
 
-UnionBody
-    ::= "of"
-        Annotation* TypeVariant+
-        "end"
+DimensionDef            ::= 'dimension' Identifier DefinitionFromClause? DimensionBody?
 
-TypeVariant
-    ::= IdentifierReference TypeVariantRename? AnnotationOnlyBody?
+DefinitionFromClause    ::= 'from' IdentifierReference 
+                            ( DefinitionFromClauseWith | DefinitionFromClauseWithout )
 
-TypeVariantRename
-    ::= "as" Identifier
+DefinitionFromClauseWith::= 'with' ( '_' | IdentifierOrSequence )
 
-RdfThingDef
-    ::= "rdf" Identifier RdfTypes? AnnotationOnlyBody
+DefinitionFromClauseWithout ::=
+                            'without' IdentifierOrSequence
 
-RdfTypes
-    ::= "type" ( IdentifierReference | "[" IdentiferReference "]" )
+IdentifierOrSequence    ::= Identifier | '[' Identifier+ ']'
 
-TypeClassDef
-    ::= "class" Identifier TypeClassParameters TypeClassBody?
+DimensionBody           ::= 'is' Annotation* DimensionIdentity DimensionParent* Member* 'end'
 
-TypeClassParameters
-    ::= "(" TypeVariable+ ")"
+DimensionIdentity       ::= SourceEntity | EntityIdentity
 
-TypeVariable
-    ::= FunctionCardinality? Identifier TypeVariableRestriction?
+DimensionParent         ::= 'parent' Identifier HasType IdentiferReference AnnotationOnlyBody?
 
-TypeVariableRestriction
-    ::= HasType TypeClassReference ( "+" TypeClassReference )*
+SourceEntity            ::= 'source' IdentiferReference SourceMembers?
 
-TypeClassReference
-    ::= IdentiferReference TypeClassArguments?
+SourceMembers           ::= 'with' IdentifierOrSequence
 
-TypeClassArguments
-    ::= "(" ( Wildcard | TypeClassReference+ ) ")"
+EntityDef               ::= 'entity' Identifier DefinitionFromClause? EntityBody?
 
-Wildcard
-    ::= "_"
+EntityBody              ::= 'is' Annotation* EntityIdentity Member* 'end'
 
-TypeClassBody
-    ::= "is" Annotation* MethodDef+ "end"
+EnumDef                 ::= 'enum' Identifier DefinitionFromClause? EnumBody?
 
-MethodDef
-    ::= "def" Identifier FunctionSignature FunctionBody? AnnotationOnlyBody?
+EnumBody                ::= 'of' Annotation* ValueVariant* 'end'
 
-EntityIdentity
-    ::= "identity" Member
+ValueVariant            ::= Identifier AnnotationOnlyBody?
 
-Member
-    ::= MemberDef | PropertyRef
+EventDef                ::= 'event' Identifier DefinitionFromClause? EventBody?
 
-MemberDef
-    ::= Identifier TypeExpressionTo AnnotationOnlyBody?
+EventBody               ::= 'is' Annotation* SourceEntity Member* 'end'
 
-PropertyRef
-    ::= "ref" IdentifierReference
+MetricDef               ::= 'metric' MetricFunctionSignature AnnorationOnlyBody?
 
-TypeExpressionTo
-    ::= HasType Cardinality? "features"? TypeReference
+MetricFunctionSignature ::= Identifier ( '('  FunctionParameter+ ')' )? FunctionType
 
-HasType
-    ::= "->" | "→"
+MetricGroupsDef         ::= 'metric' 'group' Identifier MetricEventBinding MetricGroupBody?
 
-TypeReference
-    ::=  UnknownType | IdentifierReference | BuiltinSimpleType | MappingType
+MetricEventBinding      ::= 'on' ( Identifier  HasType )? IdentifierReference
 
-UnknownType
-    ::= "unknown"
+MetricGroupBody         ::= 'is' Annotation* ( InlineMetricDef | MetricRef )*
 
-MappingType
-    ::= "(" TypeReference HasType TypeReference ")"
+InlineMetricDef         ::= ClassFunctionDef
 
-Cardinality
-    ::= "{" SequenceOrdering? SequenceUniqueness? CardinalityInner "}"
+MetricRef               ::= 'ref' IdentifierReference AnnotationOnlyBody?
 
-CardinalityInner
-    ::= Unsigned CardinalityRange?
+PropertyDef             ::= 'property' ( MemberDef |AnnotationMemberDef )
 
-CardinalityRange
-    ::= ".." Unsigned?
+RdfDef                  ::= 'rdf' Identifier RdfTypes? AnnotationOnlyBody
 
-SequenceOrdering
-    ::= ( "ordered" | "unordered" )
+RdfTypes                ::= ( 'a' | 'type' ) IdentifierRefOrSequence
 
-SequenceUniqueness
-    ::= ( "unique" | "nonunique" )
+IdentifierRefOrSequence ::= IdentifierReference | '[' IdentifierReference+ ']'
 
-Value
-    ::=  SimpleValue
-        | ValueConstructor
-        | IdentifierReference
-        | MappingValue
-        | SequenceOfValues
+StructureDef            ::= 'structure' Identifier DefinitionFromClause? StructuredBody?
 
-SimpleValue
-    ::= Boolean
-        | Unsigned | Integer | Decimal| Double
-        | String | Iri | Binary
+StructuredBody          ::= 'is' Annotation* Member* 'end'
 
-BuiltinSimpleType
-    ::= "boolean"
-        | "unsigned" | "integer"| "decimal"| "double"
-        | "string" | "iri" | "binary"
+UnionDef                ::= 'union' Identifier DefinitionFromClause? UnionBody?
 
-Boolean
-    ::= Truth | Falsity
+UnionBody               ::= 'of' Annotation* TypeVariant* 'end'
 
-Truth
-    ::= ( "true" | "⊤" )
+TypeVariant             ::= IdentifierReference TypeVariantRename? AnnotationOnlyBody?
 
-Falsity
-    ::= ( "false" | "⊥" )
+TypeVariantRename       ::= 'as' Identifier
 
-NumericSign
-    ::= [+-]
+ClassDef                ::= 'class' Identifier ClassTypeParameters? DefinitionFromClause? 
+                            TypeClassBody?
 
-Zero
-    ::= [0]
+ClassTypeParameters     ::= '(' TypeParameter+ ')'
 
-NonZero
-    ::= [1-9]
+TypeParameter           ::= Identifier ( TypeRestriction TypeRestrictionParameters )?
 
-Unsigned
-    ::= Zero | NonZero ASCII_DIGIT*
+TypeRestrictionParameters ::=
+                            TypeRestrictionParameter ( '+' TypeRestrictionParameter )*
 
-Integer
-    ::= NumericSign? Unsigned
+TypeRestrictionParameter::= CardinalityReference? IdentifierReference 
+                            '(' TypeRestrictionArgument+ ')'
 
-Decimal
-    ::= Integer "." ASCII_DIGIT+
+TypeRestrictionArgument ::= '_' | TypeClassReference
 
-ExponentChar
-    ::= [eE]
+TypeClassBody           ::= 'is' Annotation* ClassFunctionDef 'end'
 
-Double
-    ::= Decimal ExponentChar NumericSign? Integer
+ClassFunctionDef        ::= FunctionSignature FunctionBody? AnnotationOnlyBody?
 
-String
-    ::= QuotedString LanguageTag?
+EntityIdentity          ::= 'identity' Member
 
-QuotedString
-    ::= '"' ( Escape | NotAllowed )* '"'
+Member                  ::= MemberDef | PropertyRef
 
-NotAllowed
-    ::= [^\"\#x00-#x08#x0B-#x1F#x7F]
+MemberDef               ::= Identifier TypeExpression AnnotationOnlyBody?
 
-Escape
-    ::= "\\" ( CharacterEscape | UnicodeEscape )
+AnnotationMemberDef     ::= '@' MemberDef
 
-CharacterEscape
-    ::= [\"\\/abefnrtv]
+PropertyRef             ::= 'ref' IdentifierReference
 
-UnicodeEscape
-    ::= "u{" HexPair ( HexPair ( HexPair )? )? "}"
+TypeExpression          ::= HasType Cardinality? TypeReference
 
-HexPair
-    ::= ASCII_HEX_DIGIT ASCII_HEX_DIGIT
+HasType                 ::= "->" | "→"
 
-LanguageTag
-    ::= "@"
-        LanguageTagPrimary
-        LanguageTagExtended?
-        LanguageTagScript?
-        LanguageTagRegion?
+TypeReference           ::=  UnknownType | IdentifierReference | BuiltinTypes | MappingType
 
-LanguageTagPrimary
-    ::= ASCII_LETTER_LOWER ASCII_LETTER_LOWER ASCII_LETTER_LOWER?
+UnknownType             ::= 'unknown'
 
-LanguageTagExtended
-    ::= "-"
-        ASCII_LETTER_UPPER ASCII_LETTER_UPPER ASCII_LETTER_UPPER
+MappingType             ::= '(' TypeReference HasType TypeReference ')'
 
-LanguageTagScript
-    ::= "-"
-        ASCII_LETTER_UPPER ASCII_LETTER_LOWER
-        ASCII_LETTER_LOWER ASCII_LETTER_LOWER
+Cardinality             ::= '{' SequenceOrdering? SequenceUniqueness? CardinalityInner '}'
 
-LanguageTagRegion
-    ::= "-"
-        ( ( ASCII_LETTER_UPPER ASCII_LETTER_UPPER )
-          | ( ASCII_DIGIT ASCII_DIGIT ASCII_DIGIT ) )
+CardinalityReference    ::= '{' SequenceOrdering? SequenceUniqueness? CardinalityInner?'}'
 
-Iri
-    ::= "<"
-        ( [^<>\"{}|^`\#x00-#x20] | UnicodeEscape )*
-        ">"
+CardinalityInner        ::= Unsigned CardinalityRange?
 
-Binary
-    ::= "#[" HexPair* "]"
+CardinalityRange        ::= '..' Unsigned?
 
-ValueConstructor
-    ::= IdentifierReference "(" SimpleValue ")"
+SequenceOrdering        ::= 'ordered' | 'unordered'
 
-MappingValue
-    ::= SimpleValue HasType Value
+SequenceUniqueness      ::= 'unique' | 'nonunique'
 
-SequenceOfValues
-    ::= SequenceValueConstraint? "["
-        ( SimpleValue | ValueConstructor | IdentifierReference )+
-        "]"
+Value                   ::=  SimpleValue
+                             | ValueConstructor
+                             | IdentifierReference
+                             | MappingValue
+                             | SequenceOfValues
 
-SequenceValueConstraint
-    ::= "{"
-        ( SequenceOrdering? SequenceUniqueness? )
-        "}"
+SimpleValue             ::= Boolean
+                            | Unsigned 
+                            | Integer 
+                            | Rational 
+                            | Decimal 
+                            | Double
+                            | String 
+                            | Iri 
+                            | Binary
 
-IdentifierInitial
-    ::= UC_LETTER_UPPER | UC_LETTER_LOWER
+BuiltinTypes            ::= OwlTypes | XsdTypes | SdmlTypes
 
-IdentifierChar
-    ::= IdentifierInitial | UC_NUMBER_DECIMAL
+Boolean                 ::= Truth | Falsity
 
-Identifier
-    ::= IdentifierInitial
-        IdentifierChar* ( "_" IdentifierChar+ )*
+Truth                   ::= ( 'true' | '⊤' )
 
-QualifiedIdentifier
-    ::= Identifier ":" Identifier
+Falsity                 ::= ( 'false' | '⊥' )
 
-IdentifierReference
-    ::= QualifiedIdentifier | Identifier
+NumericSign             ::= '+' | '-'
 
-LineComment
-    ::= ";" [^\r\n]*
+PositiveUnsigned        ::= [1-9] ASCII_DIGIT*
 
-Whitespace
-    ::= [^\f\n\r\t\v#x20#xa0#x1680#x2000#x200a#x2028#x2029#x202f#x205f#x3000#xfeff]
+Unsigned                ::= '0' | PositiveUnsigned
+
+Integer                 ::= NumericSign? Unsigned
+
+Rational                ::= Integer ( '/' | '⁄' ) PositiveUnsigned
+
+Decimal                 ::= Integer '.' ASCII_DIGIT+
+
+double                  ::= Decimal ( 'e' | 'E' ) NumericSign? Integer
+
+String                  ::= QuotedString LanguageTag?
+
+QuotedString            ::= '"' ( Escape | NotAllowed )* '"'
+
+NotAllowed              ::= [^\"#x00-#x08#x0B-#x1F#x7F]
+
+UnicodeEscape           ::= '\\' ( CharacterEscape | UnicodeEscape )
+
+CharacterEscape         ::= [\"\\/abefnrtv]
+
+UnicodeEscape           ::= 'u{' HexPair ( HexPair ( HexPair )? )? '}'
+
+HexPair                 ::= ASCII_HEX_DIGIT ASCII_HEX_DIGIT
+
+LanguageTag             ::= '@' LanguageTagPrimary
+                            LanguageTagExtended?
+                            LanguageTagScript?
+                            LanguageTagRegion?
+
+LanguageTagPrimary      ::= ASCII_LETTER_LOWER ASCII_LETTER_LOWER ASCII_LETTER_LOWER?
+
+LanguageTagExtended     ::= '-' ASCII_LETTER_UPPER ASCII_LETTER_UPPER ASCII_LETTER_UPPER
+
+LanguageTagScript       ::= '-'
+                            ASCII_LETTER_UPPER ASCII_LETTER_LOWER
+                            ASCII_LETTER_LOWER ASCII_LETTER_LOWER
+
+LanguageTagRegion       ::= '-'
+                            ( ( ASCII_LETTER_UPPER ASCII_LETTER_UPPER )
+                            | ( ASCII_DIGIT ASCII_DIGIT ASCII_DIGIT ) )
+
+iri                     ::= '<'
+                            ( [^<>\"{}|^`\#x00-#x20] | UnicodeEscape )*
+                            '>'
+
+binary                  ::= '#[' HexPair* ']'
+
+ValueConstructor        ::= IdentifierReference '(' SimpleValue ')'
+
+MappingValue            ::= SimpleValue HasType Value
+
+SequenceOfValues        ::= SequenceValueConstraint? '['
+                            ( SimpleValue | ValueConstructor | IdentifierReference )+
+                            ']'
+
+SequenceValueConstraint ::= '{' ( SequenceOrdering? SequenceUniqueness? ) '}'
+
+IdentifierInitial       ::= UC_LETTER_UPPER | UC_LETTER_LOWER
+
+IdentifierChar          ::= IdentifierInitial | UC_NUMBER_DECIMAL
+
+Identifier              ::= IdentifierInitial IdentifierChar* ( '_' IdentifierChar+ )*
+
+QualifiedIdentifier     ::= Identifier ':' Identifier
+
+IdentifierReference     ::= QualifiedIdentifier | Identifier
+
+LineComment             ::= CommentAligned | CommentLocal | CommentPage
+
+CommentAligned          ::= ';' [^;] [^\r\n]*
+
+CommentLocal            ::= ';;' [^;] [^\r\n]*
+
+CommentPage             ::= ';;;' [^\r\n]*
+
+Whitespace              ::= 
+                  [^\f\n\r\t\v#x20#xa0#x1680#x2000#x200a#x2028#x2029#x202f#x205f#x3000#xfeff]
 
 /* --------------------------------------------------------------------------- */
 
-Constraint
-    ::= "assert" Identifier ( InformalConstraint | FormalConstraint )
+Constraint              ::= 'assert' Identifier ( InformalConstraint | FormalConstraint )
 
-InformalConstraint
-    ::= "=" QuotedString ControlledLanguageTag?
+InformalConstraint      ::= '=' QuotedString ControlledLanguageTag?
 
-ControlledLanguageTag
-    ::= "@" LanguageTagPrimary ControlledLanguageScheme?
+ControlledLanguageTag   ::= '@' LanguageTagPrimary ControlledLanguageScheme?
 
-ControlledLanguageScheme
-    ::= "-"
-        ASCII_LETTER  ASCII_LETTER  ASCII_LETTER
-        ASCII_LETTER? ASCII_LETTER? ASCII_LETTER?
-        ASCII_LETTER? ASCII_LETTER? ASCII_LETTER?
+ControlledLanguageScheme::= '-'
+                            ASCII_LETTER  ASCII_LETTER  ASCII_LETTER
+                            ASCII_LETTER? ASCII_LETTER? ASCII_LETTER?
+                            ASCII_LETTER? ASCII_LETTER? ASCII_LETTER?
 
-FormalConstraint
-    ::= "is"
-        ConstraintEnvironment? ConstraintSentence
-        "end"
+FormalConstraint        ::= ConstraintEnvironment? 'is' ConstraintSentence 'end'
 
-ConstraintSentence
-    ::= SimpleSentence
-        | BooleanSentence
-        | QuantifiedSentence
-        | "(" ConstraintSentence ")"
+ConstraintSentence      ::= SimpleSentence
+                            | BooleanSentence
+                            | ExpressionSentence
+                            | QuantifiedSentence
+                            | '(' ConstraintSentence ')'
 
-SimpleSentence
-    ::= Atomic | Equation | Inequation
+SimpleSentence          ::= Atomic | Equation | Inequation
 
-Atomic
-    ::= Term ActualArguments
+Atomic                  ::= Term ActualArguments
 
-ActualArguments
-    ::= "(" Term* ")"
+ActualArguments         ::='(' Term* ')'
 
-Equation
-    ::= Term "=" Term
+Equation                ::= Term '=' Term
 
-Inequation
-    ::= Term InequationRelation Term
+Inequation              ::= Term ( InequalityOperator
+                                   | GreaterThanOperator
+                                   | GreaterThanEqOperator
+                                   | LessThanOperator
+                                   | LessThanEqOperator ) Term
 
-InequationRelation
-    ::= ( '/=' | '≠' | '<' | '>' | '<=' | '≤' | '>=' | '≥' )
+InequalityOperator      ::= '/=' | '≠'
 
-BooleanSentence
-    ::= UnaryBooleanSentence | BinaryBooleanSentence
+GreaterThanOperator     ::= '>'
 
-UnaryBooleanSentence
-    ::= NegationOperator ConstraintSentence
+GreaterThanEqOperator   ::= '>=' | '≥'
 
-BinaryBooleanSentence
-    ::= ConstraintSentence LogicalConnective ConstraintSentence
+LessThanOperator        ::= '<'
 
-LogicalConnective
-    ::= ConjunctionOperator
-        | DisjunctionOperator
-        | ExclusiveDisjunctionOperator
-        | ImplicationOperator
-        | BiconditionalOperator
+LessThanEqOperator      ::= '<=' | '≤'
 
-NegationOperator
-    ::= ( "not" | "¬" )
+BooleanSentence         ::= UnaryBooleanSentence | BinaryBooleanSentence
 
-ConjunctionOperator
-    ::= ( "and" | "∧" )
+UnaryBooleanSentence    ::= NegationOperator ConstraintSentence
 
-DisjunctionOperator
-    ::= ( "or" | "∨" )
+BinaryBooleanSentence   ::= ConstraintSentence (LogicalConjunction
+                                                | LogicalDisjunction
+                                                | LogicalExclDisjunction
+                                                | LogicalImplication
+                                                | LogicalBiconditional ) ConstraintSentence
 
-ExclusiveDisjunctionOperator
-    ::= ( "xor" | "⊻" )
+LogicalNegation         ::= 'not' | '¬'
 
-ImplicationOperator
-    ::= ( "implies" | "⇒" )
+LogicalConjunction      ::= 'and' | '∧'
 
-BiconditionalOperator
-    ::= ( "iff" | "⇔" )
+LogicalDisjunction      ::= 'or' | '∨'
 
-QuantifiedSentence
-    ::= QuantifiedVariableBinding+ ","? ConstraintSentence
+LogicalExclDisjunction  ::= 'xor' | '⊻'
 
-QuantifiedVariableBinding
-    ::= ( UniversalQuantifier | ExistentialQuantifier ) QuantifiedVariable
+LogicalImplication      ::= 'implies' | '==>' | '⇒'
 
-UniversalQuantifier
-    ::= "forall" | "∀"
+LogicalBiconditional    ::= 'iff' | '<==>' | '⇔'
 
-ExistentialQuantifier
-    ::= "exists" | "∃"
+ExpressionSentence      ::= SetExpressionSentence | ArithmeticExpressionSentence
 
-QuantifiedVariable
-    ::= ReservedSelf | Identifer MembershipOperator Term
+SetExpressionSentence   ::= Term ( IsMemberOperator 
+                                   | IsNotMemberOperator
+                                   | SetComplementOperator 
+                                   | SetIntersectionOperator
+                                   | SetProductOperator 
+                                   | SetSubsetOperator 
+                                   | SetSubsetEqOperator 
+                                   | SetSupsetOperator 
+                                   | SetSupsetEqOperator 
+                                   | SetUnionOperator ) Term
 
-MembershipOperator
-    ::= ( "in" | "∈" )
+SetComplementOperator   ::= 'complement' | '∖'
 
-Term
-    ::= SequenceBuilder
-        | FunctionalTerm
-        | FunctionComposition
-        | IdentifierReference
-        | ReservedSelf
-        | PredicateValue
+SetIntersectionOperator ::= 'intersects' | '∩'
 
-FunctionalTerm
-    ::= Term ActualArguments
+SetUnionOperator        ::= 'union' | '∪'
 
-FunctionComposition
-    ::= ( "self" | Identifier ) ( "." Identifier )+
+SetSubsetOperator       ::= 'subset' | '⊂'
 
-PredicateValue
-    ::= SimpleValue | SequenceOfPredicateValues
+SetSubsetEqOperator     ::= 'subseteq' | '⊆'
 
-SequenceOfPredicateValues
-    ::= "∅"
-        | SequenceValueConstraint?
-          "[" ( SimpleValue | IdentifierReference )* "]"
+SetSupsetOperator       ::= 'supset' | '⊃'
 
-ReservedSelf
-    ::= "self"
+SetSupsetEqOperator     ::= 'supseteq ' | '⊇'
+
+SetProductOperator      ::= 'product' | '⨉'
+
+IsMemberOperator        ::= 'in' | '∈'
+
+IsMemberNotOperator     ::= (LogicalNegation IsMemberOperator) | '∉'
+
+ArithmeticExpressionSentence ::= 
+                            Term ( AdditionOperator 
+                                   | SubtractionOperator 
+                                   | MultiplicationOperator 
+                                   | DivisionOperator 
+                                   | ModuloOperator ) Term
+
+AdditionOperator        ::= '+'
+
+SubtractionOperator     ::= '-'
+
+MultiplicationOperator  ::= '*' | '×'
+
+DivisionOperator        ::= '/' | '÷'
+
+ModuloOperator          ::= 'mod' | '%'
+
+QuantifiedSentence      ::= QuantifiedVariableBinding+ ","? ConstraintSentence
+
+QuantifiedVariableBinding ::= 
+                            ( UniversalQuantifier 
+                              | ExistentialQuantifier 
+                              | ExistentialOneQuantifier
+                              | ExistentialNotQuantifier ) QuantifiedVariable
+
+UniversalQuantifier     ::= 'forall' | '∀'
+
+ExistentialQuantifier   ::= 'exists' | '∃'
+
+ExistentialOneQuantifier::= 'exists!' | '∃!'
+
+ExistentialNotQuantifier::= LogicalNegation ExistentialQuantifier | '∄'
+
+QuantifiedVariable      ::= Variable MembershipOperator Term
+
+Variable                ::= Identifier ( HasType IdentiferReference )?
+
+MembershipOperator      ::= IsMemberOperator | IsNotMemberOperator
+
+IsMemberOperator        ::= 'in' | '∈'
+
+IsMemberNotOperator     ::= (NegationOperator IsMemberOperator) | '∉'
+
+Term                     ::= SequenceBuilder
+                            | FunctionalTerm
+                            | FunctionComposition
+                            | IdentifierReference
+                            | 'self'
+                            | PredicateValue
+
+SequenceBuilder         ::= '{' Variable+ '|' QuantifiedSentence '}'
+
+FunctionalTerm          ::= Term ActualArguments
+
+FunctionComposition     ::= ( 'self' | Identifier ) ( CompositionOperator Identifier )+
+
+CompositionOperator     ::= '.' | '∘'
+
+PredicateValue          ::= SimpleValue | SequenceOfPredicateValues
+
+SequenceOfPredicateValues ::= 
+                            '∅' | SequenceValueConstraint?
+                            '[' ( SimpleValue | IdentifierReference )* ']'
 
 /* --------------------------------------------------------------------------- */
 
-ConstraintEnvironment
-    ::= EnvironmentDef+ "in"
+ConstraintEnvironment   ::= 'with' EnvironmentDef+
 
-EnvironmentDef
-    ::= "def" Identifier ( FunctionDef | ConstantDef )
+FunctionDef             ::= FunctionSignature FunctionBody
 
-FunctionDef
-    ::= FunctionSignature FunctionBody
+FunctionSignature       ::= 'def' Identifier ( '(' FunctionParameter+ ')' )? FunctionType
 
-FunctionSignature
-    ::= ( "(" FunctionParameter+ ")" )? FunctionType
+FunctionParameter       ::= Identifier FunctionType
 
-FunctionParameter
-    ::= Identifier FunctionType
+FunctionType            ::= HasType CardinalityReference? FunctionTypeRef
 
-FunctionType
-    ::= HasType FunctionCardinality? FunctionTypeRef
+FunctionTypeRef         ::= IdentiferReference | BuiltinTypes | MappingType
 
-FunctionCardinality
-    ::= "{"
-        SequenceOrdering? SequenceUniqueness? CardinalityInner?
-        "}"
+FunctionBody            ::= ByDefinition ( ConstraintSentence | Term )
 
-FunctionTypeRef
-    ::= Optional? ( IdentiferReference | BuiltinSimpleType | MappingType )
-
-Optional
-    ::= "?"
-
-FunctionBody
-    ::= ByDefinition ConstraintSentence
-
-ConstantDef
-    ::= ByDefinition ( PredicateValue | ConstraintSentence )
-
-ByDefinition
-    ::= ( ":=" | "≔" )
-
-/* --------------------------------------------------------------------------- */
-
-SequenceBuilder
-    ::= "{"
-        ( NamedVariableSet | MappingVariable )
-        "|"
-        SequenceBuilderBody
-        "}"
-
-NamedVariableSet
-    ::= Identifier+
-
-MappingVariable
-    ::= "(" Identifier HasType Identifier ")"
-
-SequenceBuilderBody
-    ::= QuantifiedSentence | "(" QuantifiedSentence ")"
+ByDefinition            ::= ':=' | '≔'

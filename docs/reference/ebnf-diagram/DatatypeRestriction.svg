@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="343" height="247">
+   <defs>
+      <style type="text/css">
+    @namespace "http://www.w3.org/2000/svg";
+    .line                 {fill: none; stroke: #332900; stroke-width: 1;}
+    .bold-line            {stroke: #141000; shape-rendering: crispEdges; stroke-width: 2;}
+    .thin-line            {stroke: #1F1800; shape-rendering: crispEdges}
+    .filled               {fill: #332900; stroke: none;}
+    text.terminal         {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #141000;
+                            font-weight: bold;
+                          }
+    text.nonterminal      {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1A1400;
+                            font-weight: normal;
+                          }
+    text.regexp           {font-family: Verdana, Sans-serif;
+                            font-size: 12px;
+                            fill: #1F1800;
+                            font-weight: normal;
+                          }
+    rect, circle, polygon {fill: #332900; stroke: #332900;}
+    rect.terminal         {fill: #FFDB4D; stroke: #332900; stroke-width: 1;}
+    rect.nonterminal      {fill: #FFEC9E; stroke: #332900; stroke-width: 1;}
+    rect.text             {fill: none; stroke: none;}
+    polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
+  </style>
+   </defs>
+   <polygon points="9 227 1 223 1 231"/>
+   <polygon points="17 227 9 223 9 231"/>
+   <rect x="31" y="213" width="28" height="32" rx="10"/>
+   <rect x="29"
+         y="211"
+         width="28"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="39" y="231">{</text>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#LengthRestricion"
+      xlink:title="LengthRestricion">
+      <rect x="99" y="179" width="126" height="32"/>
+      <rect x="97" y="177" width="126" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="107" y="197">LengthRestricion</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#DigitRestriction"
+      xlink:title="DigitRestriction">
+      <rect x="99" y="135" width="116" height="32"/>
+      <rect x="97" y="133" width="116" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="107" y="153">DigitRestriction</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#ValueRestriction"
+      xlink:title="ValueRestriction">
+      <rect x="99" y="91" width="122" height="32"/>
+      <rect x="97" y="89" width="122" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="107" y="109">ValueRestriction</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#TimezoneRestriction"
+      xlink:title="TimezoneRestriction">
+      <rect x="99" y="47" width="148" height="32"/>
+      <rect x="97" y="45" width="148" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="107" y="65">TimezoneRestriction</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#PatternRestriction"
+      xlink:title="PatternRestriction">
+      <rect x="99" y="3" width="134" height="32"/>
+      <rect x="97" y="1" width="134" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="107" y="21">PatternRestriction</text>
+   </a>
+   <rect x="287" y="213" width="28" height="32" rx="10"/>
+   <rect x="285"
+         y="211"
+         width="28"
+         height="32"
+         class="terminal"
+         rx="10"/>
+   <text class="terminal" x="295" y="231">}</text>
+   <path class="line"
+         d="m17 227 h2 m0 0 h10 m28 0 h10 m20 0 h10 m0 0 h158 m-188 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -14 q0 -10 10 -10 m168 34 l20 0 m-20 0 q10 0 10 -10 l0 -14 q0 -10 -10 -10 m-168 0 h10 m126 0 h10 m0 0 h22 m-178 10 l0 -44 q0 -10 10 -10 m178 54 l0 -44 q0 -10 -10 -10 m-168 0 h10 m116 0 h10 m0 0 h32 m-178 10 l0 -44 q0 -10 10 -10 m178 54 l0 -44 q0 -10 -10 -10 m-168 0 h10 m122 0 h10 m0 0 h26 m-178 10 l0 -44 q0 -10 10 -10 m178 54 l0 -44 q0 -10 -10 -10 m-168 0 h10 m148 0 h10 m-178 10 l0 -44 q0 -10 10 -10 m178 54 l0 -44 q0 -10 -10 -10 m-168 0 h10 m134 0 h10 m0 0 h14 m20 210 h10 m28 0 h10 m3 0 h-3"/>
+   <polygon points="333 227 341 223 341 231"/>
+   <polygon points="333 227 325 223 325 231"/>
+</svg>
