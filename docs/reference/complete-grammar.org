@@ -70,14 +70,14 @@ EntityDef
 
 EntityBody
     ::= "is"
-        Annotation* EntityIdentity StructuredBodyInner
+        Annotation* EntityIdentity Member*
         "end"
 
 EnumDef
     ::= "enum" Identifier EnumBody?
 
 EnumBody
-    ::= "of" Annotation* ValueVariant+ "end"
+    ::= "of" Annotation* ValueVariant* "end"
 
 ValueVariant
     ::= Identifier AnnotationOnlyBody?
@@ -87,24 +87,27 @@ EventDef
         "source" IdentifierReference
         StructuredBody?
 
+PropertyDef
+    ::= "property" MemberDef
+
+RdfThingDef
+    ::= "rdf" Identifier RdfTypes? AnnotationOnlyBody
+
+RdfTypes
+    ::= "type" ( IdentifierReference | "[" IdentiferReference "]" )
+
 StructureDef
     ::= "structure" Identifier StructuredBody?
 
 StructuredBody
-    ::= "is" Annotation* StructuredBodyInner "end"
-
-StructuredBodyInner
-    ::= ( MemberGroup | Member )+
-
-MemberGroup
-    ::= "group" Annotation* Member+ "end"
+    ::= "is" Annotation* Member* "end"
 
 UnionDef
     ::= "union" Identifier UnionBody?
 
 UnionBody
     ::= "of"
-        Annotation* TypeVariant+
+        Annotation* TypeVariant*
         "end"
 
 TypeVariant
@@ -112,18 +115,6 @@ TypeVariant
 
 TypeVariantRename
     ::= "as" Identifier
-
-PropertyDef
-    ::= "property" Identifier PropertyBody?
-
-PropertyBody
-    ::= "is" Annotation* ( IdentityRole | MemberRole )+ "end"
-
-IdentityRole
-    ::= "identity" Identifier TypeExpression AnnotationOnlyBody?
-
-MemberRole
-    ::= Identifier InverseName? TypeExpressionTo AnnotationOnlyBody?
 
 TypeClassDef
     ::= "class" Identifier TypeClassParameters TypeClassBody?
@@ -156,18 +147,16 @@ PropertyReference
     ::= "in" IdentifierReference
 
 EntityIdentity
-    ::= "identity" Identifier
-        ( PropertyReference | ( TypeExpression AnnotationOnlyBody? ) )
+    ::= "identity" Member
 
 Member
-    ::= Identifier
-        ( PropertyReference | ( InverseName? TypeExpressionTo AnnotationOnlyBody? ) )
+    ::= MemberDef | PropertyRef
 
-InverseName
-    ::= "(" Identifier ")"
+MemberDef
+    ::= Identifier TypeExpressionTo AnnotationOnlyBody?
 
-TypeExpression
-    ::= HasType TypeReference
+PropertyRef
+    ::= "ref" IdentifierReference
 
 TypeExpressionTo
     ::= HasType Cardinality? "features"? TypeReference

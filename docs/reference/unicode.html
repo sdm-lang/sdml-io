@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-11-17 Fri 13:02 -->
+<!-- 2025-10-08 Wed 09:51 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -193,27 +193,6 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { }
 </style>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="content" class="content">
@@ -221,25 +200,29 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org5e868ed">1. Appendix: Unicode Usage</a></li>
+<li><a href="#unicode-usage">1. Appendix: Unicode Usage</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org5e868ed" class="outline-2">
-<h2 id="org5e868ed"><span class="section-number-2">1.</span> <a id="orgc7f1e72"></a>Appendix: Unicode Usage</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-unicode-usage" class="outline-2">
+<h2 id="unicode-usage"><span class="section-number-2">1.</span> Appendix: Unicode Usage</h2>
+<div class="outline-text-2" id="text-unicode-usage">
 <p>
 The grammar for SDML uses a number of Unicode alternative characters for operators, relations, and keywords. Table
-<a href="#org611e649">1</a> lists these with their ASCII equivalents. In the case of the <i>type-of</i> relation there are two
+<a href="#orge7dc4fc">1</a> lists these with their ASCII equivalents. In the case of the <i>type-of</i> relation there are two
 Unicode choices where the character <code>→</code> is usually used for expressing the type of members and function parameters and the
 character <code>↦</code> is usually reserved for mapping types and mapping values.
 </p>
 
-<table id="org611e649" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="orge7dc4fc" border="0" cellspacing="0" cellpadding="6" rules="none" frame="none">
 <caption class="t-above"><span class="table-number">Table 1:</span> Unicode Characters in Grammar</caption>
 
 <colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
 <col  class="org-left" />
 
 <col  class="org-left" />
@@ -256,119 +239,89 @@ character <code>↦</code> is usually reserved for mapping types and mapping val
 <th scope="col" class="org-left">ASCII</th>
 <th scope="col" class="org-left">Unicode</th>
 <th scope="col" class="org-left">Unicode Codepoint</th>
+<th scope="col" class="org-left">Unicode Name</th>
 <th scope="col" class="org-left">LaTeX</th>
+<th scope="col" class="org-left">LaTeX Code</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="org-left">Type-of</td>
-<td class="org-left"><code>-&gt;</code></td>
-<td class="org-left"><code>→</code> or <code>↦</code></td>
-<td class="org-left"><code>U+2192</code> or <code>U+21A6</code></td>
-<td class="org-left"><code>rightarrow</code> or <code>mapsto</code></td>
+<td class="org-left">Domain of discource.</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">𝔻</td>
+<td class="org-left"><code>U+1D53B</code></td>
+<td class="org-left">Mathematical double-struck capital D</td>
+<td class="org-left">\(\mathbb{D}\)</td>
+<td class="org-left"><code>mathbb{D}</code></td>
 </tr>
 
 <tr>
-<td class="org-left">Type Restriction</td>
+<td class="org-left">Type-of (1)</td>
+<td class="org-left"><code>-&gt;</code></td>
+<td class="org-left"><code>→</code></td>
+<td class="org-left"><code>U+2192</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">\(\rightarrow\)</td>
+<td class="org-left"><code>rightarrow</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Type restriction</td>
 <td class="org-left"><code>&lt;-</code></td>
 <td class="org-left"><code>←</code></td>
 <td class="org-left"><code>U+2190</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">\(\leftarrow\)</td>
 <td class="org-left"><code>leftarrow</code></td>
 </tr>
 
 <tr>
-<td class="org-left">Defined-as</td>
+<td class="org-left">Equal by Definition (1)</td>
 <td class="org-left"><code>:=</code></td>
 <td class="org-left"><code>≔</code></td>
 <td class="org-left"><code>U+2254</code></td>
-<td class="org-left">see notes.</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">\(\coloneqq\)</td>
+<td class="org-left"><code>coloneqq</code> see notes.</td>
 </tr>
 
 <tr>
-<td class="org-left">Universal Quantifier</td>
-<td class="org-left"><code>forall</code></td>
-<td class="org-left"><code>∀</code></td>
-<td class="org-left"><code>U+2200</code></td>
-<td class="org-left"><code>forall</code></td>
-</tr>
-
-<tr>
-<td class="org-left">Existential Quantifier</td>
-<td class="org-left"><code>exists</code></td>
-<td class="org-left"><code>∃</code></td>
-<td class="org-left"><code>U+2203</code></td>
-<td class="org-left"><code>exists</code></td>
-</tr>
-
-<tr>
-<td class="org-left">Sequence Membership</td>
-<td class="org-left"><code>in</code></td>
-<td class="org-left"><code>∈</code></td>
-<td class="org-left"><code>U+2208</code></td>
-<td class="org-left"><code>in</code></td>
-</tr>
-
-<tr>
-<td class="org-left">Inequation Relation</td>
+<td class="org-left">Inequation</td>
 <td class="org-left"><code>/=</code></td>
 <td class="org-left"><code>≠</code></td>
 <td class="org-left"><code>U+2260</code></td>
+<td class="org-left">Not equal to</td>
+<td class="org-left">\(\neq\)</td>
 <td class="org-left"><code>neq</code></td>
 </tr>
 
 <tr>
-<td class="org-left">Less-than or Equal Relation</td>
-<td class="org-left"><code>&lt;=</code></td>
-<td class="org-left"><code>≤</code></td>
-<td class="org-left"><code>U+2264</code></td>
-<td class="org-left"><code>leq</code></td>
-</tr>
-
-<tr>
-<td class="org-left">Greater-than or Equal Relation</td>
+<td class="org-left">Greater-than or equal</td>
 <td class="org-left"><code>&gt;=</code></td>
 <td class="org-left"><code>≥</code></td>
 <td class="org-left"><code>U+2265</code></td>
+<td class="org-left">Greater-than or equal to</td>
+<td class="org-left">\(\geq\)</td>
 <td class="org-left"><code>geq</code></td>
 </tr>
 
 <tr>
-<td class="org-left">Negation</td>
-<td class="org-left"><code>not</code></td>
-<td class="org-left"><code>¬</code></td>
-<td class="org-left"><code>U+00A5</code></td>
-<td class="org-left"><code>neg</code></td>
+<td class="org-left">Less-than or equal</td>
+<td class="org-left"><code>&lt;=</code></td>
+<td class="org-left"><code>≤</code></td>
+<td class="org-left"><code>U+2264</code></td>
+<td class="org-left">Less-than or equal to</td>
+<td class="org-left">\(\leq\)</td>
+<td class="org-left"><code>leq</code></td>
 </tr>
 
 <tr>
-<td class="org-left">Conjunction</td>
-<td class="org-left"><code>and</code></td>
-<td class="org-left"><code>∧</code></td>
-<td class="org-left"><code>U+2227</code></td>
-<td class="org-left"><code>land</code></td>
-</tr>
-
-<tr>
-<td class="org-left">Disjunction</td>
-<td class="org-left"><code>or</code></td>
-<td class="org-left"><code>∨</code></td>
-<td class="org-left"><code>U+2228</code></td>
-<td class="org-left"><code>lor</code></td>
-</tr>
-
-<tr>
-<td class="org-left">Exclusive Disjunction</td>
-<td class="org-left"><code>xor</code></td>
-<td class="org-left"><code>⊻</code></td>
-<td class="org-left"><code>U+22BB</code></td>
-<td class="org-left"><code>veebar</code></td>
-</tr>
-
-<tr>
-<td class="org-left">Implication (Conditional)</td>
+<td class="org-left">Implication</td>
 <td class="org-left"><code>implies</code> or <code>==&gt;</code></td>
 <td class="org-left"><code>⇒</code></td>
 <td class="org-left"><code>U+21D2</code></td>
+<td class="org-left">Rightwards double arrow</td>
+<td class="org-left">\(\implies\)</td>
 <td class="org-left"><code>implies</code></td>
 </tr>
 
@@ -377,31 +330,400 @@ character <code>↦</code> is usually reserved for mapping types and mapping val
 <td class="org-left"><code>iff</code> or <code>&lt;==&gt;</code></td>
 <td class="org-left"><code>⇔</code></td>
 <td class="org-left"><code>U+21D4</code></td>
+<td class="org-left">Left right double arrow</td>
+<td class="org-left">\(\iff\)</td>
 <td class="org-left"><code>iff</code></td>
 </tr>
 
 <tr>
-<td class="org-left">Empty Sequence</td>
-<td class="org-left"><code>[]</code></td>
-<td class="org-left"><code>∅</code></td>
-<td class="org-left"><code>U+2205</code></td>
-<td class="org-left"><code>emptyset</code> or <code>varnothing</code></td>
+<td class="org-left">Universal quantifier</td>
+<td class="org-left"><code>forall</code></td>
+<td class="org-left"><code>∀</code></td>
+<td class="org-left"><code>U+2200</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">\(\forall\)</td>
+<td class="org-left"><code>forall</code></td>
 </tr>
 
 <tr>
-<td class="org-left">Truth Value</td>
+<td class="org-left">Existential quantifier</td>
+<td class="org-left"><code>exists</code></td>
+<td class="org-left"><code>∃</code></td>
+<td class="org-left"><code>U+2203</code></td>
+<td class="org-left">There exists</td>
+<td class="org-left">\(\exists\)</td>
+<td class="org-left"><code>exists</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Negative existential quantifier</td>
+<td class="org-left"><code>not exists</code></td>
+<td class="org-left"><code>∄</code></td>
+<td class="org-left"><code>U+2203</code></td>
+<td class="org-left">There does not exists</td>
+<td class="org-left">\(\nexists\)</td>
+<td class="org-left"><code>nexists</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Singular Existential quantifier</td>
+<td class="org-left"><code>exists!</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">\(\exist1\)</td>
+<td class="org-left"><code>exists1</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Sequence membership</td>
+<td class="org-left"><code>in</code></td>
+<td class="org-left"><code>∈</code></td>
+<td class="org-left"><code>U+2208</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">\(\in\)</td>
+<td class="org-left"><code>in</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Sequence non-membership</td>
+<td class="org-left"><code>not in</code></td>
+<td class="org-left"><code>∉</code></td>
+<td class="org-left"><code>U+2208</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">\(\notin\)</td>
+<td class="org-left"><code>notin</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Negation</td>
+<td class="org-left"><code>not</code></td>
+<td class="org-left"><code>¬</code></td>
+<td class="org-left"><code>U+00A5</code></td>
+<td class="org-left">Not sign</td>
+<td class="org-left">\(\not\)</td>
+<td class="org-left"><code>lnot</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Conjunction</td>
+<td class="org-left"><code>and</code></td>
+<td class="org-left"><code>∧</code></td>
+<td class="org-left"><code>U+2227</code></td>
+<td class="org-left">Logical and</td>
+<td class="org-left">\(\land\)</td>
+<td class="org-left"><code>land</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Disjunction</td>
+<td class="org-left"><code>or</code></td>
+<td class="org-left"><code>∨</code></td>
+<td class="org-left"><code>U+2228</code></td>
+<td class="org-left">Logical or</td>
+<td class="org-left">\(\lor\)</td>
+<td class="org-left"><code>lor</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Exclusive disjunction (1)</td>
+<td class="org-left"><code>xor</code></td>
+<td class="org-left"><code>⊻</code></td>
+<td class="org-left"><code>U+22BB</code></td>
+<td class="org-left">Xor</td>
+<td class="org-left">\(\veebar\)</td>
+<td class="org-left"><code>veebar</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Set complement</td>
+<td class="org-left"><code>complement</code></td>
+<td class="org-left"><code>∖</code></td>
+<td class="org-left"><code>U+2216</code></td>
+<td class="org-left">SET MINUS</td>
+<td class="org-left">\(\setminus\)</td>
+<td class="org-left"><code>setminus</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Set intersection</td>
+<td class="org-left"><code>intersects</code></td>
+<td class="org-left"><code>∩</code></td>
+<td class="org-left"><code>U+2229</code></td>
+<td class="org-left">INTERSECTION</td>
+<td class="org-left">\(\cap\)</td>
+<td class="org-left"><code>cap</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Set product (1)</td>
+<td class="org-left"><code>product</code></td>
+<td class="org-left"><code>⨉</code></td>
+<td class="org-left"><code>U+2A09</code></td>
+<td class="org-left">N-ARY TIMES OPERATOR</td>
+<td class="org-left">\(\bigtimes\)</td>
+<td class="org-left"><code>bigtimes</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Division</td>
+<td class="org-left"><code>/</code></td>
+<td class="org-left"><code>÷</code></td>
+<td class="org-left"><code>U+00F7</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">\(\div\)</td>
+<td class="org-left"><code>div</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Multiplication (1)</td>
+<td class="org-left"><code>*</code></td>
+<td class="org-left"><code>×</code></td>
+<td class="org-left"><code>U+00D7</code></td>
+<td class="org-left">Multiplication sign</td>
+<td class="org-left">\(\times\)</td>
+<td class="org-left"><code>times</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Function composition</td>
+<td class="org-left"><code>.</code></td>
+<td class="org-left"><code>∘</code></td>
+<td class="org-left"><code>U+2218</code></td>
+<td class="org-left">Ring operator</td>
+<td class="org-left">\(\circ\)</td>
+<td class="org-left"><code>circ</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Empty sequence</td>
+<td class="org-left"><code>[]</code></td>
+<td class="org-left"><code>∅</code></td>
+<td class="org-left"><code>U+2205</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">\(\emptyset\)</td>
+<td class="org-left"><code>emptyset</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Truth value</td>
 <td class="org-left"><code>true</code></td>
 <td class="org-left"><code>⊤</code></td>
 <td class="org-left"><code>U+22A4</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">\(\top\)</td>
 <td class="org-left"><code>top</code></td>
 </tr>
 
 <tr>
-<td class="org-left">False Value</td>
+<td class="org-left">False value</td>
 <td class="org-left"><code>false</code></td>
 <td class="org-left"><code>⊥</code></td>
 <td class="org-left"><code>U+22A5</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">\(\bot\)</td>
 <td class="org-left"><code>bot</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">Type-of (2)</td>
+<td class="org-left"><code>-&gt;</code></td>
+<td class="org-left"><code>↦</code></td>
+<td class="org-left"><code>U+21A6</code></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">\(\mapsto\)</td>
+<td class="org-left"><code>mapsto</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Equal by definition (2)</td>
+<td class="org-left"><code>:=</code></td>
+<td class="org-left"><code>≝</code></td>
+<td class="org-left"><code>U+225D</code></td>
+<td class="org-left">Equal to by definition</td>
+<td class="org-left">\(stackrel\scriptscriptstyle\mathrm{def}}{=}\)</td>
+<td class="org-left"><code>stackrel\scriptscriptstyle\mathrm{def}}{</code>}=</td>
+</tr>
+
+<tr>
+<td class="org-left">Equal by definition (3)</td>
+<td class="org-left"><code>:=</code></td>
+<td class="org-left"><code>≜</code></td>
+<td class="org-left"><code>U+225C</code></td>
+<td class="org-left">Delta equal to</td>
+<td class="org-left">\(\triangleeq\)</td>
+<td class="org-left"><code>triangleeq</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Parent</td>
+<td class="org-left"><code>^</code></td>
+<td class="org-left"><code>↑</code></td>
+<td class="org-left"><code>U+2191</code></td>
+<td class="org-left">Upwards arrow</td>
+<td class="org-left">\(\uparrow\)</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Logical nand</td>
+<td class="org-left"><code>nand</code></td>
+<td class="org-left"><code>⊼</code></td>
+<td class="org-left"><code>U+22BC</code></td>
+<td class="org-left">Nand</td>
+<td class="org-left">\(\barwedge\)</td>
+<td class="org-left"><code>barwedge</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Logical nor</td>
+<td class="org-left"><code>nor</code></td>
+<td class="org-left"><code>⊽</code></td>
+<td class="org-left"><code>U+22BD</code></td>
+<td class="org-left">Nor</td>
+<td class="org-left">\(\barvee\)</td>
+<td class="org-left"><code>barvee</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Multiplication (2)</td>
+<td class="org-left"><code>*</code></td>
+<td class="org-left"><code>⋅</code></td>
+<td class="org-left"><code>U+22C5</code></td>
+<td class="org-left">Dot operator</td>
+<td class="org-left">\(\cdot\)</td>
+<td class="org-left"><code>cdot</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Multiplication (3)</td>
+<td class="org-left"><code>*</code></td>
+<td class="org-left"><code>✕</code></td>
+<td class="org-left"><code>U+22C5</code></td>
+<td class="org-left">Multiplication X</td>
+<td class="org-left">\(\times\)</td>
+<td class="org-left"><code>times</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Multiplication (4)</td>
+<td class="org-left"><code>*</code></td>
+<td class="org-left"><code>⁢</code></td>
+<td class="org-left"><code>U+2062</code></td>
+<td class="org-left">Invisible times</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Set disjoint union</td>
+<td class="org-left"><code>disunion</code></td>
+<td class="org-left"><code>⊔</code></td>
+<td class="org-left"><code>U+2294</code></td>
+<td class="org-left">Square cup</td>
+<td class="org-left">\(\sqcup\)</td>
+<td class="org-left"><code>sqcup</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Set symmetric difference (1)</td>
+<td class="org-left"><code>difference</code></td>
+<td class="org-left"><code>△</code></td>
+<td class="org-left"><code>U+25B3</code></td>
+<td class="org-left">White up-pointing triangle</td>
+<td class="org-left">\(\triangle\)</td>
+<td class="org-left"><code>triangle</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Set symmetric difference (2)</td>
+<td class="org-left"><code>difference</code></td>
+<td class="org-left"><code>⊖</code></td>
+<td class="org-left"><code>U+2296</code></td>
+<td class="org-left">Circled minus</td>
+<td class="org-left">\(\ominus\)</td>
+<td class="org-left"><code>ominus</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Exclusive disjunction (2)</td>
+<td class="org-left"><code>xor</code></td>
+<td class="org-left"><code>⊕</code></td>
+<td class="org-left"><code>U+2295</code></td>
+<td class="org-left">Circled plus</td>
+<td class="org-left">\(\oplus\)</td>
+<td class="org-left"><code>oplus</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Cardinality range</td>
+<td class="org-left">Display only</td>
+<td class="org-left"><code>⋯</code></td>
+<td class="org-left"><code>U+22EF</code></td>
+<td class="org-left">Midline horizontal ellipsis</td>
+<td class="org-left">\(\cdots\)</td>
+<td class="org-left"><code>cdots</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Unbounded cardinality (1..∞)</td>
+<td class="org-left">Display only</td>
+<td class="org-left"><code>∞</code></td>
+<td class="org-left"><code>U+221E</code></td>
+<td class="org-left">Infinity</td>
+<td class="org-left">\(\infty\)</td>
+<td class="org-left"><code>infty</code></td>
+</tr>
+
+<tr>
+<td class="org-left">End of formal constraint</td>
+<td class="org-left">Display only</td>
+<td class="org-left"><code>□</code></td>
+<td class="org-left"><code>U+25A1</code></td>
+<td class="org-left">White square</td>
+<td class="org-left">\(\Box\)</td>
+<td class="org-left"><code>Box</code></td>
+</tr>
+
+<tr>
+<td class="org-left">(Meta) Equivalent</td>
+<td class="org-left">Documentation only</td>
+<td class="org-left">-</td>
+<td class="org-left">-</td>
+<td class="org-left">-</td>
+<td class="org-left">\(\stackrel\scriptscriptstyle\mathrm{ref}}{=}\)</td>
+<td class="org-left"><code>stackrel\scriptscriptstyle\mathrm{ref}}{</code>}=</td>
+</tr>
+
+<tr>
+<td class="org-left">Equivalent</td>
+<td class="org-left">Documentation only</td>
+<td class="org-left"><code>≡</code></td>
+<td class="org-left"><code>U+2261</code></td>
+<td class="org-left">Identical to</td>
+<td class="org-left">\(\equiv\)</td>
+<td class="org-left"><code>equiv</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Not Equivalent</td>
+<td class="org-left">Documentation only</td>
+<td class="org-left"><code>≢</code></td>
+<td class="org-left"><code>U+2262</code></td>
+<td class="org-left">Not identical to</td>
+<td class="org-left">\(\nequiv\)</td>
+<td class="org-left"><code>not equiv</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Strictly Equivalent</td>
+<td class="org-left">Documentation only</td>
+<td class="org-left"><code>≣</code></td>
+<td class="org-left"><code>U+2263</code></td>
+<td class="org-left">Strictly equivalent to</td>
+<td class="org-left">\(\Equiv\)</td>
+<td class="org-left"><code>Equiv</code></td>
 </tr>
 </tbody>
 </table>
@@ -434,7 +756,7 @@ restriction.
 <ul class="org-ul">
 <li>In languages that support sub-type polymorphism the expression is commonly \(T_2 \sqsubseteq T_1\) or \(T_2 \leq: T_1\).</li>
 </ul></li>
-<li>The <i>inequation</i> operator uses the slashed equation symbol \(v_1 \neq v_2\), or it's ASCII equivalent <code>/=</code>, while some
+<li>The <i>inequation</i> operator uses the slashed equation symbol \(v_1 \neq v_2\), or it&rsquo;s ASCII equivalent <code>/=</code>, while some
 programming languages use <code>!=</code>, <code>~=</code>, or <code>&lt;&gt;</code>.</li>
 <li>The unary logical connective <i>negation</i> does not introduce an ASCII symbol such as <code>!</code> or <code>~</code> as in some programming
 languages, only the logic symbol \(\neg v\).</li>
@@ -447,8 +769,7 @@ programming languages.</li>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Simon Johnston</p>
-<p class="date">Created: 2023-11-17 Fri 13:02</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2025-10-08 Wed 09:51</p>
 </div>
 </body>
 </html>

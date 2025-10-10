@@ -72,14 +72,20 @@ with the name of the node found.
 
 *** Example
 
-#+CAPTION: Example Module
-#+NAME: lst:b0003-module
-#+BEGIN_SRC sdml :exports code :eval never
-#+END_SRC
-
 #+CAPTION: Validation Output
 #+NAME: lst:b0003-output
 #+BEGIN_EXAMPLE
+bug[B0002]: encountered an unexpected tree-sitter node
+  ┌─ /Users/simonjo/Projects/sdm-lang/rust-sdml/sdml-tests/corpus/type_class_methods.sdm:4:27
+  │
+4 │     def is_structure(v -> T) -> boolean
+  │                           ^
+  │                           │
+  │                           actual node kind: ⁨function_type_reference⁩
+  │                           expecting one of node kinds: ⁨wildcard | identifier_reference | builtin_simple_type | mapping_type⁩
+  │
+  = help: for more details, see <⁨https://sdml.io/errors/#B0002⁩>
+  = in grammar rule: `⁨function_type_reference⁩`
 #+END_EXAMPLE
 
 ** B0003: Tree-Sitter Missing Node
@@ -154,6 +160,13 @@ error[E0101]: module not found
 
 An attempt to load a module listed in another module's import statement failed.
 
+By default imported modules are loaded from the same directory as the importing module's file. This behavior can be
+influenced by the search path environment variable =SDML_PATH=. This provides a list of folders which the loader will look
+in (after the current directory) before failing.
+
+Additionally the tooling provides resolver configuration files that allow for even more customization This file,
+=sdml-catalog.json,= is documented in the SDML reference online.
+
 *** Example
 
 #+CAPTION: Example Module
@@ -169,12 +182,13 @@ end
 #+CAPTION: Validation Output
 #+NAME: lst:e0101-output
 #+BEGIN_EXAMPLE
-error[E0101]: module named in import statement not found
+error[E0101]: module included in an import statement was not found
   ┌─ examples/errors/e0101.sdm:3:10
   │
 3 │   import other
   │          ^^^^^ this import
   │
+  = help: check your resolver path to ensure you are loading from expected locations
   = help: for more details, see <https://sdml.io/errors/#E0101>  
 
 error: parser generated 1  errors.
@@ -768,9 +782,10 @@ error[E0118]: an RDF definition is not compatible in this location
 error: module `example` generated 1  errors
 #+END_EXAMPLE
 
-** E0119: Feature Set Not a Union
+** E0119: Feature Set Not a Union (deprecated)
 :PROPERTIES:
 :CUSTOM_ID: E0119
+:STATUS: DEPRECATED
 :END:
 
 When defining a member as a feature extension point, the name after the keyword =features= *must* be a union definition.
@@ -839,6 +854,57 @@ error[E0120]: member references a non-property as a property
   = help: A type reference in this position must refer to a property definition
   = help: for more details, see <⁨https://sdml.io/errors/#E0120⁩>  
 #+END_EXAMPLE
+
+** E0121: Library Definition Not Allowed
+
+TBD
+
+** E0122: Dimension Parent Not Entity
+
+Definition type not allowed in non-library module.
+
+** E0123: Source Entity Not Entity
+
+Source target type is not an entity definition.
+
+*** Example
+
+#+CAPTION: Example Module
+#+NAME: lst:e0123-module
+#+BEGIN_SRC sdml :exports code :eval never
+module example is
+
+  structure Foo
+
+  dimension Bar is
+    source Foo
+  end
+
+end
+#+END_SRC
+
+** E0124: Source Entity Missing Member
+
+Source member is not a member of the target entity.
+
+*** Example
+
+#+CAPTION: Example Module
+#+NAME: lst:e0124-module
+#+BEGIN_SRC sdml :exports code :eval never
+module example is
+
+  entity Foo is
+    identity id -> long
+    name -> string
+  end
+
+  dimension Bar is
+    source Foo with [ name title ]
+  end
+
+end
+#+END_SRC
 
 
 * Warnings

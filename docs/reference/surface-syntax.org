@@ -40,7 +40,13 @@ comments within the model, relevant annotation properties may be attached to the
 
 #+BEGIN_SRC ebnf
 LineComment
-    ::= ";" [^\r\n]*
+    ::= CommentAligned | CommentLocal | CommentPage
+CommentAligned
+    ::= ';' [^;] [^\r\n]*
+CommentLocal
+    ::= ';;' [^;] [^\r\n]*
+CommentPage
+    ::= ';;;' [^\r\n]*
 #+END_SRC
 
 [[./ebnf-diagram/LineComment.svg]]
@@ -80,9 +86,9 @@ an identifer *must* start with and *must* begin and end with a letter such that 
 The following is the BNF description of the identifier syntax.
 
 #+BEGIN_SRC ebnf
-Identifier
-    ::= IdentifierInitial
-        IdentifierChar* ( "_" IdentifierChar+ )*
+identifier
+    ::= IdentifierInitial 
+          IdentifierChar* ( '_' IdentifierChar+ )*
 #+END_SRC
 
 [[./ebnf-diagram/Identifier.svg]]
@@ -125,7 +131,7 @@ a member within that module.
 
 #+BEGIN_SRC ebnf
 QualifiedIdentifier
-    ::= Identifier ":" Identifier
+    ::= Identifier ':' Identifier
 #+END_SRC
 
 [[./ebnf-diagram/QualifiedIdentifier.svg]]
@@ -150,7 +156,9 @@ resource is one with an empty module.
 
 #+BEGIN_SRC ebnf
 Module
-    ::= "module" Identifier ModuleBase? ModuleBody
+    ::= 'module' Identifier Iri?
+          ModuleVerion?
+          ModuleBody
 #+END_SRC
 
 [[./ebnf-diagram/Module.svg]]
@@ -164,14 +172,14 @@ An empty module (listing [[lst:sdml-ex-empty-module]]) is any module with an emp
 module example is end
 #+END_SRC
 
-*** The base Specifier
+*** Module Locations and Versions
 
 #+BEGIN_SRC ebnf
-ModuleBase
-    ::= "base" IriReference
+ModuleVersion
+    ::= 'version' QuotedString? Iri
 #+END_SRC
 
-[[./ebnf-diagram/ModuleBase.svg]]
+[[./ebnf-diagram/ModuleVersion.svg]]
 
 The keyword *~base~* provides the base IRI for the module and corresponding RDF schema or OWL ontology. This corresponds
 to the use of the ~xml:base~ attribute in RDF/XML and the ~@base~ directive in Turtle and SPARQL[fn:sparql]. This IRI is
@@ -181,7 +189,7 @@ used as a prefix for defined type names so that each type has a unique IRI. The 
 #+NAME: lst:sdml-ex-module-base
 #+CAPTION: Example: Empty Module with Base
 #+BEGIN_SRC sdml :exports code :noeval
-module example base <https://example.org/rdf/example#> is
+module example <https://example.org/rdf/example#> is
 
   structure Thing
   ;; IRI: https://example.org/rdf/example#Thing
@@ -226,9 +234,9 @@ If the following file is in the same directory as the vehicle module it is possi
 
 #+BEGIN_SRC ebnf
 ModuleBody
-    ::= "is"
+    ::= 'is'
         ImportStatement* Annotation* Definition*
-        "end"
+        'end'
 #+END_SRC
 
 [[./ebnf-diagram/ModuleBody.svg]]
@@ -238,7 +246,7 @@ reference one or more module names or the qualified name of a type within a modu
 
 #+BEGIN_SRC ebnf
 ImportStatement
-    ::= "import" ( Import | "[" Import+ "]" )
+    ::= ImportFromClause? 'import' ( Import | '[' Import+ ']' )
 Import
     ::= MemberImport | ModuleImport
 #+END_SRC
@@ -252,7 +260,7 @@ module ~sdml~ allows the reference of core types as ~sdml:string~ or ~sdml:decim
 
 #+BEGIN_SRC ebnf
 ModuleImport
-    ::= Identifer
+    ::= Identifer Iri?
 #+END_SRC
 
 [[./ebnf-diagram/ModuleImport.svg]]
@@ -308,17 +316,39 @@ module example is
 end
 #+END_SRC
 
+Importing from a path ... (TBD)
+
+#+BEGIN_SRC ebnf
+ImportFromClause
+  ::= 'from' ( AbsoluteModulePath | RelativeModulePath )
+
+AbsoluteModulePath
+  ::= '::' RelativeModulePath?
+
+RelativeModulePath
+  ::= Identifier ( '::' Identifier )*
+#+END_SRC
+
+[[./ebnf-diagram/ImportFromClause.svg]]
+
+[[./ebnf-diagram/AbsoluteModulePath.svg]]
+
+[[./ebnf-diagram/RelativeModulePath.svg]]
+
 *** Definitions
 
 The members of a module are a set of definitions that may be combined to develop a domain model.
 
 #+BEGIN_SRC ebnf
 Definition
-    ::= DataTypeDef
+    ::= ClassDef
+        | DatatypeDef
+        | DimensionDef
         | EntityDef
         | EnumDef
         | EventDef
         | PropertyDef
+        | RdfDef
         | StructureDef
         | UnionDef
 #+END_SRC
@@ -326,7 +356,11 @@ Definition
 [[./ebnf-diagram/Definition.svg]]
 
 Data types are further described in section [[#syn:datatypes-and-values]]; entities, enumerations, events, structures, and disjoint
-unions are described in section [[#syn:structured-types]]; and annotation properties are described in section [[#syn:annotation-properties]].
+unions are described in section [[#syn:structured-types]]; and annotation properties are described in section
+[[#syn:annotation-properties]].
+
+Type Classes are *only* allowed in library modules, and as such they are described in the Standard Library documentation
+in [[#lib:type-classes]].
 
 *** Type Model
 
@@ -356,12 +390,12 @@ strict digraph {
    edge [arrowhead=onormal; fontname="Helvetica,Arial,sans-serif"; fontsize=9; fontcolor="darkgrey"];
    
    Type [color="grey"; fontcolor="grey"; label="Any\n(⊤)"];
-   Scalar -> Type;
    Scalar [color="grey"; fontcolor="grey"];
    Datatype -> Scalar;
+   Enumeration -> Scalar;
    Sum [color="grey"; fontcolor="grey"];
    Sum -> Type;
-   Enumeration -> Scalar;
+   Scalar -> Sum;
    Union -> Sum;
    Product [color="grey"; fontcolor="grey"];
    Product -> Type;
@@ -370,6 +404,7 @@ strict digraph {
    Structure -> Product;
    Unknown [label="Unknown"];
    Unknown -> Type;
+   TypeClass -> Type;
         
    None [color="grey"; fontcolor="grey"; label="None\n(⊥)"];
    None -> Datatype;
@@ -378,6 +413,8 @@ strict digraph {
    None -> Entity;
    None -> Event;
    None -> Structure;
+   None -> Unknown;
+   None -> TypeClass;
 }
 #+END_SRC
 
@@ -412,7 +449,7 @@ mapping value, or a list of values.
 
 #+BEGIN_SRC ebnf
 Value
-    ::=  SimpleValue
+    ::= SimpleValue
         | ValueConstructor
         | IdentifierReference
         | MappingValue
@@ -1302,7 +1339,7 @@ structure, between ~is~ and ~end~, makes it complete even if it has no actual me
 
 #+BEGIN_SRC ebnf
 StructuredBody
-    ::= "is" Annotation* Member+ "end"
+    ::= "is" Annotation* Member* "end"
 #+END_SRC
 
 [[./ebnf-diagram/StructuredBody.svg]]
@@ -1394,7 +1431,7 @@ module example is
   
     identity id -> PersonId
 
-    emergency_contact (emergency_contact_for) -> {0..2} Person is
+    emergency_contact -> {0..2} Person is
       @dc:description = "Emergency contact person"
     end
   
@@ -1469,6 +1506,12 @@ end
 An enumeration defines a set of unique constant values. The representation of these values is not defined by SDML,
 allowing users of the model to choose a scheme that matches their need.
 
+#+BEGIN_NOTE
+enumerations are defined in a very different way to programming languages where the enum is a container of names. In
+SDML the variant names become themselves members of the enclosing module and instances of the enum type The enum is
+defined as the type containing the set of named individuals.
+#+END_NOTE
+
 Note that the keyword =of= and not =is= starts an enumeration body.
 
 #+BEGIN_SRC ebnf
@@ -1493,7 +1536,7 @@ the addition of a body with enumeration variants.
 
 #+BEGIN_SRC ebnf
 EnumBody
-    ::= "of" Annotation* ValueVariant+ "end"
+    ::= "of" Annotation* ValueVariant* "end"
 #+END_SRC
 
 [[./ebnf-diagram/EnumBody.svg]]
@@ -1646,6 +1689,12 @@ A disjoint, or discriminated, union is a mechanism to allow for a selection of d
 type. As such the /variants/ of the union are simply type references, although they do allow annotations. Note also that
 the keyword =of= and not =is= starts a union body.
 
+#+BEGIN_NOTE
+unions are defined in a very different way to programming languages where the enum is a container of names.
+In SDML the variant names become themselves are, and remain, definition names and where a type is renamed the new name
+becomes an /equivalent/ type to the original. Each variant type is a subtype of the union type..
+#+END_NOTE
+
 #+BEGIN_SRC ebnf
 UnionDef
     ::= "union" Identifier UnionBody?
@@ -1669,7 +1718,7 @@ of a body with type variants.
 #+BEGIN_SRC ebnf
 UnionBody
     ::= "of"
-        Annotation* TypeVariant+
+        Annotation* TypeVariant*
         "end"
 #+END_SRC
 

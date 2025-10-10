@@ -6,6 +6,28 @@
 #+STARTUP: overview hidestars inlineimages entitiespretty
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../rtd-sdml.css"/>
+#+HTML_HEAD: <script nomodule
+#+HTML_HEAD:         defer
+#+HTML_HEAD:         src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.js"
+#+HTML_HEAD:         integrity="sha384-ImWHyYvDPlRzwFnvLhG9Jcpm/7qL4SVIuJK0C6Rj+Mf7fpeNJCLCynC+EVz4kCSA"
+#+HTML_HEAD:         crossorigin="anonymous"></script>
+#+HTML_HEAD: <script nomodule
+#+HTML_HEAD:         defer
+#+HTML_HEAD:         src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+#+HTML_HEAD:         integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+#+HTML_HEAD:         crossorigin="anonymous"></script>
+#+HTML_HEAD: <link rel="stylesheet"
+#+HTML_HEAD:       href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+#+HTML_HEAD:       integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+#+HTML_HEAD:       crossorigin="anonymous">
+#+HTML_HEAD: <script type="module" type="text/javascript">
+#+HTML_HEAD:     import renderMathInElement from 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.mjs';
+#+HTML_HEAD:     
+#+HTML_HEAD:     document.addEventListener("DOMContentLoaded", function() {
+#+HTML_HEAD:         renderMathInElement(document.body, { /* options */ });
+#+HTML_HEAD:     });
+#+HTML_HEAD:     
+#+HTML_HEAD: </script>
 #+OPTIONS: toc:3
 
 
@@ -20,39 +42,38 @@
 #+NAME: img:sdml-logo
 #+ATTR_HTML: :width 75% :height 75%
 [[../logo/svg/square-dark.svg]]
+# #+INCLUDE: "./introduction.org" :minlevel 1
 
-#+INCLUDE: "./introduction.org" :minlevel 1
+# #+INCLUDE: "./surface-syntax.org" :minlevel 1
 
-#+INCLUDE: "./surface-syntax.org" :minlevel 1
+# #+INCLUDE: "./modeling-topics.org" :minlevel 1
 
-#+INCLUDE: "./modeling-topics.org" :minlevel 1
+# #+INCLUDE: "./constraints.org" :minlevel 1
 
-#+INCLUDE: "./constraints.org" :minlevel 1
+# #+INCLUDE: "./walk-through.org" :minlevel 1
 
-#+INCLUDE: "./walk-through.org" :minlevel 1
+# #+INCLUDE: "./implementation.org" :minlevel 1
 
-#+INCLUDE: "./implementation.org" :minlevel 1
-
-#+INCLUDE: "./rdf-model.org" :minlevel 1
+# #+INCLUDE: "./rdf-model.org" :minlevel 1
 
 # --------------- Appendices ---------------
 
 #+INCLUDE: "./unicode.org" :minlevel 1
 
 # A List of modules and top-level definitions only.
-#+INCLUDE: "./std-library.org" :minlevel 1
+# #+INCLUDE: "./std-library.org" :minlevel 1
 
 # Normative specification
-#+INCLUDE: "./complete-grammar.org" :minlevel 1
+# #+INCLUDE: "./complete-grammar.org" :minlevel 1
 
 # Normative mapping
-#+INCLUDE: "./surface-to-rdf.org" :minlevel 1
+# #+INCLUDE: "./surface-to-rdf.org" :minlevel 1
 
 # Non-normative mapping
-#+INCLUDE: "./constraint-semantics.org" :minlevel 1
+# #+INCLUDE: "./constraint-semantics.org" :minlevel 1
 
 # Non-normative reference used by tooling
-#+INCLUDE: "./uml-profile.org" :minlevel 1
+# #+INCLUDE: "./uml-profile.org" :minlevel 1
 
 * License
 :PROPERTIES:

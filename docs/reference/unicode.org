@@ -13,26 +13,40 @@ character ~↦~ is usually reserved for mapping types and mapping values.
 
 #+NAME: tbl:unicode-characters
 #+CAPTION: Unicode Characters in Grammar
-| Operator, Relation, or Keyword | ASCII          | Unicode | Unicode Codepoint | LaTeX                  |
-|--------------------------------+----------------+---------+-------------------+------------------------|
-| Type-of                        | ~->~             | ~→~ or ~↦~  | =U+2192= or =U+21A6=  | =rightarrow= or =mapsto=   |
-| Type Restriction               | ~<-~             | ~←~       | =U+2190=            | =leftarrow=              |
-| Defined-as                     | ~:=~             | ~≔~       | =U+2254=            | see notes.             |
-| Universal Quantifier           | ~forall~         | ~∀~       | =U+2200=            | =forall=                 |
-| Existential Quantifier         | ~exists~         | ~∃~       | =U+2203=            | =exists=                 |
-| Sequence Membership            | ~in~             | ~∈~       | =U+2208=            | =in=                     |
-| Inequation Relation            | ~/=~             | ~≠~       | =U+2260=            | =neq=                    |
-| Less-than or Equal Relation    | ~<=~             | ~≤~       | =U+2264=            | =leq=                    |
-| Greater-than or Equal Relation | ~>=~             | ~≥~       | =U+2265=            | =geq=                    |
-| Negation                       | ~not~            | ~¬~       | =U+00A5=            | =neg=                    |
-| Conjunction                    | ~and~            | ~∧~       | =U+2227=            | =land=                   |
-| Disjunction                    | ~or~             | ~∨~       | =U+2228=            | =lor=                    |
-| Exclusive Disjunction          | ~xor~            | ~⊻~       | =U+22BB=            | =veebar=                 |
-| Implication (Conditional)      | ~implies~ or ~==>~ | ~⇒~       | =U+21D2=            | =implies=                |
-| Biconditional                  | ~iff~ or ~<==>~    | ~⇔~       | =U+21D4=            | =iff=                    |
-| Empty Sequence                 | ~[]~             | ~∅~       | =U+2205=            | =emptyset= or =varnothing= |
-| Truth Value                    | ~true~           | ~⊤~       | =U+22A4=            | =top=                    |
-| False Value                    | ~false~          | ~⊥~       | =U+22A5=            | =bot=                    |
+| Operator, Relation, or Keyword  | ASCII          | Unicode | Unicode Codepoint | Unicode Name                         |
+|---------------------------------+----------------+---------+-------------------+--------------------------------------|
+| Domain of discource.            |                | 𝔻       | =U+1D53B=           | Mathematical double-struck capital D |
+| Type-of (1)                     | ~->~             | ~→~       | =U+2192=            | Rightwards arrow                     |
+| Type restriction (1)            | ~<-~             | ~←~       | =U+2190=            | Leftwards arrow                      |
+| Equal by Definition (1)         | ~:=~             | ~≔~       | =U+2254=            | Colon equals                         |
+| Inequation                      | ~/=~             | ~≠~       | =U+2260=            | Not equal to                         |
+| Greater-than or equal           | ~>=~             | ~≥~       | =U+2265=            | Greater-than or equal to             |
+| Less-than or equal              | ~<=~             | ~≤~       | =U+2264=            | Less-than or equal to                |
+| Implication                     | ~implies~ or ~==>~ | ~⇒~       | =U+21D2=            | Rightwards double arrow              |
+| Biconditional                   | ~iff~ or ~<==>~    | ~⇔~       | =U+21D4=            | Left right double arrow              |
+| Universal quantifier            | ~forall~         | ~∀~       | =U+2200=            | For all                              |
+| Existential quantifier          | ~exists~         | ~∃~       | =U+2203=            | There exists                         |
+| Negative existential quantifier | ~not exists~     | ~∄~       | =U+2203=            | There does not exists                |
+| Sequence membership             | ~in~             | ~∈~       | =U+2208=            | Element of                           |
+| Sequence non-membership         | ~not in~         | ~∉~       | =U+2208=            | Not an element of                    |
+| Negation                        | ~not~            | ~¬~       | =U+00A5=            | Not sign                             |
+| Conjunction                     | ~and~            | ~∧~       | =U+2227=            | Logical and                          |
+| Disjunction                     | ~or~             | ~∨~       | =U+2228=            | Logical or                           |
+| Exclusive disjunction (1)       | ~xor~            | ~⊻~       | =U+22BB=            | Xor                                  |
+| Set complement                  | ~complement~     | ~∖~        | =U+2216=            | Set minus                            |
+| Set intersection                | ~intersects~     | ~∩~       | =U+2229=            | Intersection                         |
+| Set product (1)                 | ~product~        | ~∏~       | =U+220F=            | N-ary product                        |
+| Set union                       | ~union~          | ~∪~       | =U+222A=            | Union                                |
+| Subset                          | ~subset~         | ~⊂~       | =U+2282=            | Subset of                            |
+| Subset or equal                 | ~subseteq~       | ~⊆~       | =U+2286=            | Subset of or equal to                |
+| Superset                        | ~supset~         | ~⊃~       | =U+2283=            | Superset of                          |
+| Superset or equal               | ~supseteq~       | ~⊇~       | =U+2287=            | Superset of or equal to              |
+| Division                        | ~/~              | ~÷~       | =U+00F7=            | Solidus                              |
+| Multiplication (1)              | ~*~              | ~×~       | =U+00D7=            | Multiplication sign                  |
+| Function composition            | ~.~              | ~∘~        | =U+2218=            | Ring operator                        |
+| Empty sequence                  | ~[]~             | ~∅~       | =U+2205=            | Empty set                            |
+| Truth value                     | ~true~           | ~⊤~       | =U+22A4=            | Down tack                            |
+| False value                     | ~false~          | ~⊥~       | =U+22A5=            | Up tack                              |
 
 *Notes*
 
@@ -57,4 +71,113 @@ value $v$ represents some valid member of the type $T$.
   languages, only the logic symbol $\neg v$.
 - Similarly, the binary logical connectives $\{\land,\lor,\veebar,\implies,\iff\}$ do not introduce ASCII symbols from
   programming languages.
-- Rendering the /equal by definition/ in LaTeX is best done by using the command =coloneqq= in the =mathtools= package.
+
+** Additional Unicode Characters
+
+The following characters are used in this documentation as examples or alternatives to those in table
+[[tbl:unicode-characters]].
+
+#+NAME: tbl:unicode-characters-ex
+#+CAPTION: Additional Unicode Characters
+| Operator, Relation, or Keyword | ASCII              | Unicode | Unicode Codepoint | Unicode Name                |
+|--------------------------------+--------------------+---------+-------------------+-----------------------------|
+| Type-of (2)                    | ~->~                 | ~↦~       | =U+21A6=            | Rightwards arrow from bar   |
+| Type restriction (2)           | ~<-~                 | ~⊑~       | =U+2291=            | Square image of or equal to |
+| Equal by definition (2)        | ~:=~                 | ~≝~       | =U+225D=            | Equal to by definition      |
+| Equal by definition (3)        | ~:=~                 | ~≜~       | =U+225C=            | Delta equal to              |
+| Parent                         | ~^~                  | ~↑~       | =U+2191=            | Upwards arrow               |
+| Logical nand                   | ~nand~               | ~⊼~       | =U+22BC=            | Nand                        |
+| Logical nor                    | ~nor~                | ~⊽~       | =U+22BD=            | Nor                         |
+| Multiplication (2)             | ~*~                  | ~⋅~        | =U+22C5=            | Dot operator                |
+| Multiplication (3)             | ~*~                  | ~✕~       | =U+22C5=            | Multiplication X            |
+| Multiplication (4)             | ~*~                  | ~⁢~        | =U+2062=            | Invisible times             |
+| Set disjoint union             | ~disunion~           | ~⊔~        | =U+2294=            | Square cup                  |
+| Set product (2)                | ~product~            | ~⨉~       | =U+2A09=            | N-ary times operator        |
+| Set symmetric difference (1)   | ~difference~         | ~△~       | =U+25B3=            | White up-pointing triangle  |
+| Set symmetric difference (2)   | ~difference~         | ~⊖~       | =U+2296=            | Circled minus               |
+| Exclusive disjunction (2)      | ~xor~                | ~⊕~       | =U+2295=            | Circled plus                |
+| Cardinality range              | Display only       | ~⋯~       | =U+22EF=            | Midline horizontal ellipsis |
+| Unbounded cardinality (1..∞)   | Display only       | ~∞~       | =U+221E=            | Infinity                    |
+| End of formal constraint       | Display only       | ~□~       | =U+25A1=            | White square                |
+| Equivalent                     | Documentation only | ~≡~       | =U+2261=            | Identical to                |
+| Not Equivalent                 | Documentation only | ~≢~       | =U+2262=            | Not identical to            |
+| Strictly Equivalent            | Documentation only | ~≣~       | =U+2263=            | Strictly equivalent to      |
+
+** Equivalent LaTeX Math
+  
+#+NAME: tbl:latex-characters
+#+CAPTION: LaTeX Equivalent Characters in Grammar
+| Operator, Relation, or Keyword  | ASCII          | LaTeX        | LaTeX Code                       |
+|---------------------------------+----------------+--------------+----------------------------------|
+| Domain of discource.            |                | $\mathbb{D}$ | =mathbb{D}= in =amsfonts= or =amssymb= |
+| Type-of (1)                     | ~->~             | $\rightarrow$          | =rightarrow=                       |
+| Type restriction (1)            | ~<-~             | $\leftarrow$          | =leftarrow=                        |
+| Equal by Definition (1)         | ~:=~             | $\coloneqq$  | =coloneqq= in =mathtools=          |
+| Inequation                      | ~/=~             | $\neq$          | =neq=                              |
+| Greater-than or equal           | ~>=~             | $\geq$          | =geq=                              |
+| Less-than or equal              | ~<=~             | $\leq$          | =leq=                              |
+| Implication                     | ~implies~ or ~==>~ | $\implies$   | =implies=                          |
+| Biconditional                   | ~iff~ or ~<==>~    | $\iff$       | =iff=                              |
+| Universal quantifier            | ~forall~         | $\forall$          | =forall=                           |
+| Existential quantifier          | ~exists~         | $\exists$          | =exists=                           |
+| Negative existential quantifier | ~not exists~     | $\nexists$          | =nexists=                          |
+| Singular Existential quantifier | ~exists!~        | $\exist!$         | =exists!=                          |
+| Sequence membership             | ~in~             | $\in$          | =in=                               |
+| Sequence non-membership         | ~not in~         | $\notin$          | =notin=                            |
+| Negation                        | ~not~            | $\not$          | =lnot=                             |
+| Conjunction                     | ~and~            | $\land$          | =land=                             |
+| Disjunction                     | ~or~             | $\lor$          | =lor=                              |
+| Exclusive disjunction (1)       | ~xor~            | $\veebar$    | =veebar=                           |
+| Set complement                  | ~complement~     | $\setminus$           | =setminus=                         |
+| Set intersection                | ~intersects~     | $\cap$          | =cap=                              |
+| Set product (1)                 | ~product~        | $\prod$          | =prod=                             |
+| Set union                       | ~union~          | $\cup$          | =cup=                              |
+| Subset                          | ~subset~         | $\subset$          | =subset=                           |
+| Subset or equal                 | ~subseteq~       | $\subseteq$  | =subseteq=                         |
+| Superset                        | ~supset~         | $\supset$          | =supset=                           |
+| Superset or equal               | ~supseteq~       | $\supseteq$  | =supseteq=                         |
+| Division                        | ~/~              | $\div$          | =div=                              |
+| Multiplication (1)              | ~*~              | $\times$          | =times=                            |
+| Modulo Division                 | ~mod~ or ~%~       | $\bmod$      | =bmod=                             |
+| Function composition            | ~.~              | $\circ$           | =circ=                             |
+| Empty sequence                  | ~[]~             | $\emptyset$          | =emptyset=                         |
+| Truth value                     | ~true~           | $\top$       | =top=                              |
+| False value                     | ~false~          | $\bot$       | =bot=                              |
+
+#+NAME: tbl:latex-characters-ex
+#+CAPTION: Additional LaTeX Equivalent Characters
+| Operator, Relation, or Keyword | ASCII              | LaTeX                                          | LaTeX Code                                   |
+|--------------------------------+--------------------+------------------------------------------------+----------------------------------------------|
+| Type-of (2)                    | ~->~                 | $\mapsto$                                      | =mapsto=                                       |
+| Type restriction (2)           | ~<-~                 | $\sqsubseteq$                                  | =sqsubseteq=                                   |
+| Equal by definition (2)        | ~:=~                 | $\stackrel{\scriptscriptstyle\mathrm{def}}{=}$ | =stackrel= ={\scriptscriptstyle\mathrm{def}}= ={​=}= |
+| Equal by definition (3)        | ~:=~                 | $\triangleq$                                            | =triangleq=                                    |
+| Parent                         | ~^~                  | $\uparrow$                                            | =uparrow=                                      |
+| Logical nand                   | ~nand~               | $\barwedge$                                    | =barwedge=                                     |
+| Logical nor                    | ~nor~                | $\char"22BD$                                   | =barvee= in =unicode-math=                       |
+| Multiplication (2)             | ~*~                  | $\cdot$                                             | =cdot=                                         |
+| Multiplication (3)             | ~*~                  | $\times$                                            | =times=                                        |
+| Set disjoint union             | ~disunion~           | $\sqcup$                                       | =sqcup=                                        |
+| Set symmetric difference (1)   | ~difference~         | $\triangle$                                    | =triangle=                                     |
+| Set symmetric difference (2)   | ~difference~         | $\ominus$                                      | =ominus=                                       |
+| Exclusive disjunction (2)      | ~xor~                | $\oplus$                                            | =oplus=                                        |
+| Cardinality range              | Display only       | $\cdots$                                            | =cdots=                                        |
+| Unbounded cardinality (1..∞)   | Display only       | $\infty$                                            | =infty=                                        |
+| End of formal constraint       | Display only       | $\Box$                                         | =Box= in =latexsym=                              |
+| (Meta) Equivalent              | Documentation only | $\stackrel{\scriptscriptstyle\mathrm{ref}}{=}$ | =stackrel= ={\scriptscriptstyle\mathrm{ref}}= ={​=}= |
+| Equivalent                     | Documentation only | $\equiv$                                            | =equiv=                                        |
+| Not Equivalent                 | Documentation only | $\not\equiv$                                           | =not equiv=                                    |
+| Strictly Equivalent            | Documentation only | $\char"2263$                                   | =Equiv= in =unicode-math=                        |
+
+#+BEGIN_COMMENT
+,** LaTeX Layout Notes
+
+LaTeX layout hints:
+
+Sequence builders: ~\Set{ x | x<\frac 1 2 }~ use the ~\Set~ or ~\set~ prefix, see https://katex.org/docs/supported.html
+
+~\stackrel~ from =amsmath=
+
+~\newcommand{\defeq}{\stackrel{\scriptscriptstyle\mathrm{def}}{=}}~
+~\newcommand{\refeq}{\stackrel{\scriptscriptstyle\mathrm{ref}}{=}}~
+#+END_COMMENT

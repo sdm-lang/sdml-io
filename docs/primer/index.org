@@ -1141,6 +1141,171 @@ module gs1 is
 end
 #+END_SRC
 
+** "Lifts" or refactors for consistency
+:PROPERTIES:
+:CUSTOM_ID: primer:lifting
+:END:
+
+When modeling it is common to start with capturing a lot of detail then sorting through it to make not only sense of the
+content but also to identify commonality and /more importantly/ where commonality /should/ exist. This form of refactoring
+is extremely useful in domain modeling where a commonly-cited goal of the end model is consistency and once-only common
+definition of concepts. Lifting a common structure, property, or datatype out of a model where multiple source elements
+exist allows the attachment of annotations such as labels, descriptions, examples, and so on to a single model element. 
+
+*** Lifting Common Structures
+
+Where there exist multiple fields with the same relationship to each other in multiple entities or structures consider
+lifting them up into their own structure. For example, in listing [[src:ex-multiple-price-currency-fields]] we see that the
+structures ~Item~ and ~InvoiceItem~ both contain a pair of fields holding the monetary value and currency code for a price. 
+
+#+NAME: src:ex-multiple-price-currency-fields
+#+CAPTION: Multiple Price/Currency Fields
+#+BEGIN_SRC sdml :exports code :eval never
+module example is
+
+  import iso_4217:AlphaCode as CurrencyCode
+
+  structure Item is
+    ;; ...
+    list_price -> decimal
+    list_price_currency -> CurrencyCode
+  end
+
+  structure InvoiceItem is
+    ;; ...
+    sale_price -> decimal
+    sale_price_currency -> CurrencyCode
+  end
+
+end
+#+END_SRC
+
+Creating a new ~CurrencyValue~ structure encapsulates these two and provides us the ability to refer to this common
+structure in both ~Item~ and ~InvoiceItem~, as shown in listing [[src:ex-curency-value]].
+
+#+NAME: src:ex-curency-value
+#+CAPTION:Common Currency Value Structure
+#+BEGIN_SRC sdml :exports code :eval never
+module example is
+
+  import iso_4217:AlphaCode as CurrencyCode
+
+  structure CurrencyValue is
+    value -> decimal
+    currency -> CurrencyCode
+  end
+
+  structure Item is
+    ;; ...
+    list_price -> CurrencyValue
+  end
+  structure InvoiceItem is
+    ;; ...
+    sale_price -> CurrencyValue
+  end
+
+end
+#+END_SRC
+
+*** Lifting Common Properties
+
+Looking back at listing [[src:ex-curency-value]] we have simplified our two original structures and may now use
+~CurrencyValue~ for any field other than list and sales prices. But what if we want to enforce some specific details
+regarding prices as opposed to tax values? One want to do this is to provide property definitions for recurring field
+types, as shown in listing [[src:ex-common-price-property]] where the field definitions have been replaced by property
+references.
+
+#+NAME: src:ex-common-price-property
+#+CAPTION:A Common Price Property
+#+BEGIN_SRC sdml :exports code :eval never
+module example is
+
+  import iso_4217:AlphaCode as CurrencyCode
+  import dc
+
+  structure CurrencyValue is
+    value -> decimal
+    code -> CurrencyCode
+  end
+
+  property price -> CurrencyValue is
+    @dc:description =
+      "Captures the price of some thing; one of listing, offer, sale, or purchase price."@en
+  end
+
+  structure Item is
+    ;; ...
+    ref price
+  end
+  structure InvoiceItem is
+    ;; ...
+    ref price
+  end
+
+end
+#+END_SRC
+
+It is possible to go further and introduce sub-properties, i.e. properties that denote the specific role a price plays,
+using the RDF Schema =subPropertyOf= annotation property.
+
+#+NAME: src:ex-common-price-properties
+#+CAPTION:Common Price Properties
+#+BEGIN_SRC sdml :exports code :eval never
+module example is
+  ;; ...
+  property price -> CurrencyValue
+  property listPrice -> CurrencyValue is
+    @rdfs:subPropertyOf = price
+  end
+  property offerPrice -> CurrencyValue is
+    @rdfs:subPropertyOf = price
+  end
+  property salePrice -> CurrencyValue is
+    @rdfs:subPropertyOf = price
+  end
+  property purchasePrice -> CurrencyValue is
+    @rdfs:subPropertyOf = price
+  end
+
+  structure Item is
+    ;; ...
+    ref listPrice
+  end
+  structure InvoiceItem is
+    ;; ...
+    ref salePrice
+  end
+
+end
+#+END_SRC
+
+*** Lifting Common Datatypes
+
+One issue with the examples so far is that they do not readily constrain the ~value~ field within ~CurrencyValue~ in any
+way. Any while it is likely that a monetary value does not need to specify a minimum or maximum value, it is common to
+specify the number of digits denoting the fractional part of the number. In listing [[src:ex-common-value-datatype]] we
+introduce a datatype definition, ~monetaryValue~, that constrains the base decimal type to have only 2 fraction digits.
+
+#+NAME: src:ex-common-value-datatype
+#+CAPTION:A Common Monetary Value Datatype
+#+BEGIN_SRC sdml :exports code :eval never
+module example is
+
+  import iso_4217:AlphaCode as CurrencyCode
+  import xsd
+
+  datatype monetaryValue <- xsd:decimal is
+    @xsd:fractionDigits = xsd:nonNegativeInteger(2)
+  end
+
+  structure CurrencyValue is
+    value -> monetaryValue
+    code -> CurrencyCode
+  end
+
+end
+#+END_SRC
+
 * How do I use it?
 :PROPERTIES:
 :CUSTOM_ID: primer:how-to-use
