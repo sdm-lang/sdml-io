@@ -50,7 +50,7 @@
     owl:onDatatype xsd:string ;
     owl:withRestrictions (
         [
-            xsd:pattern "[\p{Lu}\p{Ll}][\p{Lu}\p{Ll}\p{Nd}]*(_[\p{Lu}\p{Ll}\p{Nd}]+)*"
+            xsd:pattern "[\\p{Lu}\\p{Ll}][\\p{Lu}\\p{Ll}\\p{Nd}]*(_[\\p{Lu}\\p{Ll}\\p{Nd}]+)*"
         ]
     ) ;
     rdfs:isDefinedBy : ;
@@ -483,10 +483,13 @@
 
 :variantTransform rdf:type owl:AnnotationProperty ;
     rdfs:domain :EnumerationVariant ;
-    rdfs:range owl:oneOf (
-        "anonymous"^^xsd:string
-        "named"^^xsd:string
-    ) ;
+    rdfs:range [
+        a owl:DataRange ;
+        owl:oneOf (
+            "anonymous"^^xsd:string
+            "named"^^xsd:string
+        )
+    ] ;
     rdfs:isDefinedBy : ;
     skos:prefLabel "transformation form"@en ;
     skos:definition
@@ -512,7 +515,7 @@
     rdfs:isDefinedBy : ;
     skos:prefLabel "A semvar-like version string."@en .
 
-:deprecatedSince rdf:type owl:DatatypeProperty owl:AnnotationProperty ;
+:deprecatedSince rdf:type owl:DatatypeProperty, owl:AnnotationProperty ;
     rdfs:domain :ModelElement ;
     rdfs:range :versionString ;
     rdfs:isDefinedBy : ;
@@ -520,7 +523,7 @@
     skos:definition
         "The specific version at which this model element was deprecated."@en .
 
-:introducedIn rdf:type owl:DatatypeProperty owl:AnnotationProperty ;
+:introducedIn rdf:type owl:DatatypeProperty, owl:AnnotationProperty ;
     rdfs:domain :ModelElement ;
     rdfs:range :versionString ;
     rdfs:isDefinedBy : ;

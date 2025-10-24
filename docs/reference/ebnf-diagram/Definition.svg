@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="207" height="433">
+<svg xmlns="http://www.w3.org/2000/svg" width="217" height="521">
    <defs>
       <style type="text/css">
     @namespace "http://www.w3.org/2000/svg";
@@ -74,35 +74,49 @@
       <text class="nonterminal" x="59" y="241">EventDef</text>
    </a>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#MetricDef"
+      xlink:title="MetricDef">
+      <rect x="51" y="267" width="78" height="32"/>
+      <rect x="49" y="265" width="78" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="59" y="285">MetricDef</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
+      xlink:href="#MetricGroupDef"
+      xlink:title="MetricGroupDef">
+      <rect x="51" y="311" width="118" height="32"/>
+      <rect x="49" y="309" width="118" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="59" y="329">MetricGroupDef</text>
+   </a>
+   <a xmlns:xlink="http://www.w3.org/1999/xlink"
       xlink:href="#PropertyDef"
       xlink:title="PropertyDef">
-      <rect x="51" y="267" width="96" height="32"/>
-      <rect x="49" y="265" width="96" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="59" y="285">PropertyDef</text>
+      <rect x="51" y="355" width="96" height="32"/>
+      <rect x="49" y="353" width="96" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="59" y="373">PropertyDef</text>
    </a>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
       xlink:href="#RdfDef"
       xlink:title="RdfDef">
-      <rect x="51" y="311" width="62" height="32"/>
-      <rect x="49" y="309" width="62" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="59" y="329">RdfDef</text>
+      <rect x="51" y="399" width="62" height="32"/>
+      <rect x="49" y="397" width="62" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="59" y="417">RdfDef</text>
    </a>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
       xlink:href="#StructureDef"
       xlink:title="StructureDef">
-      <rect x="51" y="355" width="100" height="32"/>
-      <rect x="49" y="353" width="100" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="59" y="373">StructureDef</text>
+      <rect x="51" y="443" width="100" height="32"/>
+      <rect x="49" y="441" width="100" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="59" y="461">StructureDef</text>
    </a>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
       xlink:href="#UnionDef"
       xlink:title="UnionDef">
-      <rect x="51" y="399" width="78" height="32"/>
-      <rect x="49" y="397" width="78" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="59" y="417">UnionDef</text>
+      <rect x="51" y="487" width="78" height="32"/>
+      <rect x="49" y="485" width="78" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="59" y="505">UnionDef</text>
    </a>
    <path class="line"
-         d="m17 17 h2 m20 0 h10 m76 0 h10 m0 0 h32 m-148 0 h20 m128 0 h20 m-168 0 q10 0 10 10 m148 0 q0 -10 10 -10 m-158 10 v24 m148 0 v-24 m-148 24 q0 10 10 10 m128 0 q10 0 10 -10 m-138 10 h10 m100 0 h10 m0 0 h8 m-138 -10 v20 m148 0 v-20 m-148 20 v24 m148 0 v-24 m-148 24 q0 10 10 10 m128 0 q10 0 10 -10 m-138 10 h10 m108 0 h10 m-138 -10 v20 m148 0 v-20 m-148 20 v24 m148 0 v-24 m-148 24 q0 10 10 10 m128 0 q10 0 10 -10 m-138 10 h10 m78 0 h10 m0 0 h30 m-138 -10 v20 m148 0 v-20 m-148 20 v24 m148 0 v-24 m-148 24 q0 10 10 10 m128 0 q10 0 10 -10 m-138 10 h10 m76 0 h10 m0 0 h32 m-138 -10 v20 m148 0 v-20 m-148 20 v24 m148 0 v-24 m-148 24 q0 10 10 10 m128 0 q10 0 10 -10 m-138 10 h10 m78 0 h10 m0 0 h30 m-138 -10 v20 m148 0 v-20 m-148 20 v24 m148 0 v-24 m-148 24 q0 10 10 10 m128 0 q10 0 10 -10 m-138 10 h10 m96 0 h10 m0 0 h12 m-138 -10 v20 m148 0 v-20 m-148 20 v24 m148 0 v-24 m-148 24 q0 10 10 10 m128 0 q10 0 10 -10 m-138 10 h10 m62 0 h10 m0 0 h46 m-138 -10 v20 m148 0 v-20 m-148 20 v24 m148 0 v-24 m-148 24 q0 10 10 10 m128 0 q10 0 10 -10 m-138 10 h10 m100 0 h10 m0 0 h8 m-138 -10 v20 m148 0 v-20 m-148 20 v24 m148 0 v-24 m-148 24 q0 10 10 10 m128 0 q10 0 10 -10 m-138 10 h10 m78 0 h10 m0 0 h30 m23 -396 h-3"/>
-   <polygon points="197 17 205 13 205 21"/>
-   <polygon points="197 17 189 13 189 21"/>
+         d="m17 17 h2 m20 0 h10 m76 0 h10 m0 0 h42 m-158 0 h20 m138 0 h20 m-178 0 q10 0 10 10 m158 0 q0 -10 10 -10 m-168 10 v24 m158 0 v-24 m-158 24 q0 10 10 10 m138 0 q10 0 10 -10 m-148 10 h10 m100 0 h10 m0 0 h18 m-148 -10 v20 m158 0 v-20 m-158 20 v24 m158 0 v-24 m-158 24 q0 10 10 10 m138 0 q10 0 10 -10 m-148 10 h10 m108 0 h10 m0 0 h10 m-148 -10 v20 m158 0 v-20 m-158 20 v24 m158 0 v-24 m-158 24 q0 10 10 10 m138 0 q10 0 10 -10 m-148 10 h10 m78 0 h10 m0 0 h40 m-148 -10 v20 m158 0 v-20 m-158 20 v24 m158 0 v-24 m-158 24 q0 10 10 10 m138 0 q10 0 10 -10 m-148 10 h10 m76 0 h10 m0 0 h42 m-148 -10 v20 m158 0 v-20 m-158 20 v24 m158 0 v-24 m-158 24 q0 10 10 10 m138 0 q10 0 10 -10 m-148 10 h10 m78 0 h10 m0 0 h40 m-148 -10 v20 m158 0 v-20 m-158 20 v24 m158 0 v-24 m-158 24 q0 10 10 10 m138 0 q10 0 10 -10 m-148 10 h10 m78 0 h10 m0 0 h40 m-148 -10 v20 m158 0 v-20 m-158 20 v24 m158 0 v-24 m-158 24 q0 10 10 10 m138 0 q10 0 10 -10 m-148 10 h10 m118 0 h10 m-148 -10 v20 m158 0 v-20 m-158 20 v24 m158 0 v-24 m-158 24 q0 10 10 10 m138 0 q10 0 10 -10 m-148 10 h10 m96 0 h10 m0 0 h22 m-148 -10 v20 m158 0 v-20 m-158 20 v24 m158 0 v-24 m-158 24 q0 10 10 10 m138 0 q10 0 10 -10 m-148 10 h10 m62 0 h10 m0 0 h56 m-148 -10 v20 m158 0 v-20 m-158 20 v24 m158 0 v-24 m-158 24 q0 10 10 10 m138 0 q10 0 10 -10 m-148 10 h10 m100 0 h10 m0 0 h18 m-148 -10 v20 m158 0 v-20 m-158 20 v24 m158 0 v-24 m-158 24 q0 10 10 10 m138 0 q10 0 10 -10 m-148 10 h10 m78 0 h10 m0 0 h40 m23 -484 h-3"/>
+   <polygon points="207 17 215 13 215 21"/>
+   <polygon points="207 17 199 13 199 21"/>
 </svg>

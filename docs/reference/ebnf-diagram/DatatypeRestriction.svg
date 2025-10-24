@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="343" height="247">
+<svg xmlns="http://www.w3.org/2000/svg" width="383" height="229">
    <defs>
       <style type="text/css">
     @namespace "http://www.w3.org/2000/svg";
@@ -29,61 +29,61 @@
     polygon.regexp        {fill: #FFF4C7; stroke: #332900; stroke-width: 1;}
   </style>
    </defs>
-   <polygon points="9 227 1 223 1 231"/>
-   <polygon points="17 227 9 223 9 231"/>
-   <rect x="31" y="213" width="28" height="32" rx="10"/>
+   <polygon points="9 33 1 29 1 37"/>
+   <polygon points="17 33 9 29 9 37"/>
+   <rect x="31" y="19" width="28" height="32" rx="10"/>
    <rect x="29"
-         y="211"
+         y="17"
          width="28"
          height="32"
          class="terminal"
          rx="10"/>
-   <text class="terminal" x="39" y="231">{</text>
+   <text class="terminal" x="39" y="37">{</text>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
       xlink:href="#LengthRestricion"
       xlink:title="LengthRestricion">
-      <rect x="99" y="179" width="126" height="32"/>
-      <rect x="97" y="177" width="126" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="107" y="197">LengthRestricion</text>
+      <rect x="119" y="19" width="126" height="32"/>
+      <rect x="117" y="17" width="126" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="127" y="37">LengthRestricion</text>
    </a>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
       xlink:href="#DigitRestriction"
       xlink:title="DigitRestriction">
-      <rect x="99" y="135" width="116" height="32"/>
-      <rect x="97" y="133" width="116" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="107" y="153">DigitRestriction</text>
+      <rect x="119" y="63" width="116" height="32"/>
+      <rect x="117" y="61" width="116" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="127" y="81">DigitRestriction</text>
    </a>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
       xlink:href="#ValueRestriction"
       xlink:title="ValueRestriction">
-      <rect x="99" y="91" width="122" height="32"/>
-      <rect x="97" y="89" width="122" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="107" y="109">ValueRestriction</text>
+      <rect x="119" y="107" width="122" height="32"/>
+      <rect x="117" y="105" width="122" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="127" y="125">ValueRestriction</text>
    </a>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
       xlink:href="#TimezoneRestriction"
       xlink:title="TimezoneRestriction">
-      <rect x="99" y="47" width="148" height="32"/>
-      <rect x="97" y="45" width="148" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="107" y="65">TimezoneRestriction</text>
+      <rect x="119" y="151" width="148" height="32"/>
+      <rect x="117" y="149" width="148" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="127" y="169">TimezoneRestriction</text>
    </a>
    <a xmlns:xlink="http://www.w3.org/1999/xlink"
       xlink:href="#PatternRestriction"
       xlink:title="PatternRestriction">
-      <rect x="99" y="3" width="134" height="32"/>
-      <rect x="97" y="1" width="134" height="32" class="nonterminal"/>
-      <text class="nonterminal" x="107" y="21">PatternRestriction</text>
+      <rect x="119" y="195" width="134" height="32"/>
+      <rect x="117" y="193" width="134" height="32" class="nonterminal"/>
+      <text class="nonterminal" x="127" y="213">PatternRestriction</text>
    </a>
-   <rect x="287" y="213" width="28" height="32" rx="10"/>
-   <rect x="285"
-         y="211"
+   <rect x="327" y="19" width="28" height="32" rx="10"/>
+   <rect x="325"
+         y="17"
          width="28"
          height="32"
          class="terminal"
          rx="10"/>
-   <text class="terminal" x="295" y="231">}</text>
+   <text class="terminal" x="335" y="37">}</text>
    <path class="line"
-         d="m17 227 h2 m0 0 h10 m28 0 h10 m20 0 h10 m0 0 h158 m-188 0 l20 0 m-1 0 q-9 0 -9 -10 l0 -14 q0 -10 10 -10 m168 34 l20 0 m-20 0 q10 0 10 -10 l0 -14 q0 -10 -10 -10 m-168 0 h10 m126 0 h10 m0 0 h22 m-178 10 l0 -44 q0 -10 10 -10 m178 54 l0 -44 q0 -10 -10 -10 m-168 0 h10 m116 0 h10 m0 0 h32 m-178 10 l0 -44 q0 -10 10 -10 m178 54 l0 -44 q0 -10 -10 -10 m-168 0 h10 m122 0 h10 m0 0 h26 m-178 10 l0 -44 q0 -10 10 -10 m178 54 l0 -44 q0 -10 -10 -10 m-168 0 h10 m148 0 h10 m-178 10 l0 -44 q0 -10 10 -10 m178 54 l0 -44 q0 -10 -10 -10 m-168 0 h10 m134 0 h10 m0 0 h14 m20 210 h10 m28 0 h10 m3 0 h-3"/>
-   <polygon points="333 227 341 223 341 231"/>
-   <polygon points="333 227 325 223 325 231"/>
+         d="m17 33 h2 m0 0 h10 m28 0 h10 m40 0 h10 m126 0 h10 m0 0 h22 m-188 0 h20 m168 0 h20 m-208 0 q10 0 10 10 m188 0 q0 -10 10 -10 m-198 10 v24 m188 0 v-24 m-188 24 q0 10 10 10 m168 0 q10 0 10 -10 m-178 10 h10 m116 0 h10 m0 0 h32 m-178 -10 v20 m188 0 v-20 m-188 20 v24 m188 0 v-24 m-188 24 q0 10 10 10 m168 0 q10 0 10 -10 m-178 10 h10 m122 0 h10 m0 0 h26 m-178 -10 v20 m188 0 v-20 m-188 20 v24 m188 0 v-24 m-188 24 q0 10 10 10 m168 0 q10 0 10 -10 m-178 10 h10 m148 0 h10 m-178 -10 v20 m188 0 v-20 m-188 20 v24 m188 0 v-24 m-188 24 q0 10 10 10 m168 0 q10 0 10 -10 m-178 10 h10 m134 0 h10 m0 0 h14 m-208 -176 l20 0 m-1 0 q-9 0 -9 -10 l0 -12 q0 -10 10 -10 m208 32 l20 0 m-20 0 q10 0 10 -10 l0 -12 q0 -10 -10 -10 m-208 0 h10 m0 0 h198 m20 32 h10 m28 0 h10 m3 0 h-3"/>
+   <polygon points="373 33 381 29 381 37"/>
+   <polygon points="373 33 365 29 365 37"/>
 </svg>

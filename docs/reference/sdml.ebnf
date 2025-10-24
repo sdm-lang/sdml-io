@@ -1,477 +1,794 @@
-Module                  ::= 'module' Identifier Iri? ModuleVersion? ModuleBody
+/* ---------------------------------------------------------------------------------------------- */
+/* Module and Imports                                                                             */
+/* ---------------------------------------------------------------------------------------------- */
 
-ModuleVersion           ::= "version" QuotedString? Iri
+module ::=
+    'module' identifier iri? module_version? module_body
 
-ModuleBody              ::= 'is' ImportStatement* Annotation* Definition* 'end'
+module_version ::=
+    'version' quoted_string? iri
 
-ImportStatement         ::= ImportFromClause? 'import' ( Import | '[' Import+ ']' )
+module_body ::=
+    'is' import_statement* annotation* definition* 'end'
 
-ImportFromClause        ::= 'from' ( AbsoluteModulePath | RelativeModulePath )
+import_statement ::=
+    from_clause? 'import'
+    ( single_import | '[' single_import+ ']' )
 
-AbsoluteModulePath      ::= '::' RelativeModulePath?
+import_from_clause ::=
+    'from' ( absolute_module_path | relative_module_path )
 
-RelativeModulePath      ::= Identifier ( '::' Identifier )*
+absolute_module_path ::=
+    '::' relative_module_path?
 
-Import                  ::= ( MemberImport | ModuleImport ) ImportRenameClause?
+relative_module_path ::=
+    identifier ( '::' identifier )*
 
-ModuleImport            ::= Identifer Iri?
+single_import ::=
+    ( member_import | module_import ) rename_as_clause?
 
-MemberImport            ::= QualifiedIdentifier
+module_import ::=
+    identifer iri?
 
-ImportRenameClause      ::= 'as' Identifier
+member_import ::=
+    qualified_identifier
 
-Annotation              ::= AnnotationProperty | Constraint
+rename_as_clause ::=
+    'as' identifier
 
-AnnotationProperty      ::= '@' IdentiferReference '=' Value
+/* ---------------------------------------------------------------------------------------------- */
+/* Identifiers                                                                                    */
+/* ---------------------------------------------------------------------------------------------- */
 
-Definition              ::= ClassDef
-                            | DatatypeDef
-                            | DimensionDef
-                            | EntityDef
-                            | EnumDef
-                            | EventDef
-                            | MetricDef
-                            | MetricGroupDef
-                            | PropertyDef
-                            | RdfDef
-                            | StructureDef
-                            | UnionDef
+IDENTIFIER_INITIAL ::=
+    UC_LETTER_UPPER | UC_LETTER_LOWER
 
-DatatypeDef             ::= 'datatype' Identifier
-                            TypeRestriction 'opaque'? DatatypeBase DatatypeRestriction? 
-                            AnnotationOnlyBody?
+IDENTIFIER_REST ::=
+    IDENTIFIER_INITIAL | UC_UNICODE_NUMBER_DIGIT
 
-TypeRestriction         ::= "<-" | "←"
+identifier ::=
+    IDENTIFIER_INITIAL IDENTIFIER_REST* ( '_' IDENTIFIER_REST+ )*
 
-DatatypeBase            ::= IdentifierReference | BuiltinTypes
+qualified_identifier ::=
+    identifier ':' identifier
 
-DatatypeRestriction     ::= '{' ( LengthRestricion 
-                                  | DigitRestriction 
-                                  | ValueRestriction 
-                                  | TimezoneRestriction 
-                                  | PatternRestriction )* '}'
+identifier_reference ::=
+    qualified_identifier | identifier
 
-LengthRestricion        ::= ( 'length' | 'maxLength' | 'minLength' )
-                            '=' 'fixed'? Unsigned
+/* ---------------------------------------------------------------------------------------------- */
+/* Annotations (Properties)                                                                       */
+/* ---------------------------------------------------------------------------------------------- */
 
-DigitRestriction        ::= ( 'fractionDigits' | 'totalDigits' )
-                            '=' 'fixed'? Unsigned
+annotation ::=
+    annotation_property | constraint
 
-ValueRestriction        ::= ( 'maxExclusive' | 'maxInclusive' | 'minExclusive' | 'minInclusive' )
-                            '=' 'fixed'? (SimpleValue | ValueConstructor)
+annotation_property ::=
+    '@' identifer_reference '=' value
 
-TimezoneRestriction     ::= 'explicitTimezone' 
-                            '=' 'fixed'? ( 'required' | 'prohibited' | 'optional' )
+/* ---------------------------------------------------------------------------------------------- */
+/* Definitions & Members                                                                          */
+/* ---------------------------------------------------------------------------------------------- */
 
-PatternRestriction      ::= 'pattern' '=' ( QuotedString | '[' QuotedString+']' )
+definition ::=
+    datatype_def
+    | dimension_def
+    | entity_def
+    | enum_def
+    | event_def
+    | metric_def
+    | metricGroup_def
+    | property_def
+    | rdf_def
+    | structure_def
+    | type_class_def
+    | union_def
 
-AnnotationOnlyBody      ::= 'is' Annotation+ 'end'
+from_definition_clause ::=
+    'from' mixin_clause
 
-DimensionDef            ::= 'dimension' Identifier DefinitionFromClause? DimensionBody?
+mixin_clause ::=
+    identifier_reference mixin_member_choice
 
-DefinitionFromClause    ::= 'from' IdentifierReference 
-                            ( DefinitionFromClauseWith | DefinitionFromClauseWithout )
+mixin_optional_clause ::=
+    identifier_reference mixin_member_choice?
 
-DefinitionFromClauseWith::= 'with' ( '_' | IdentifierOrSequence )
+mixin_member_choice ::=
+    mixin_with_members | mixin_without_members
 
-DefinitionFromClauseWithout ::=
-                            'without' IdentifierOrSequence
+mixin_with_members ::=
+    'with' ( '_' | mixin_member_sequence )
 
-IdentifierOrSequence    ::= Identifier | '[' Identifier+ ']'
+mixin_without_members ::=
+    'without' mixin_member_sequence
 
-DimensionBody           ::= 'is' Annotation* DimensionIdentity DimensionParent* Member* 'end'
+mixin_member_sequence ::=
+    ( mixin_member | '[' mixin_member+ ']' )
 
-DimensionIdentity       ::= SourceEntity | EntityIdentity
+mixin_member ::=
+    identifier rename_as_clause?
 
-DimensionParent         ::= 'parent' Identifier HasType IdentiferReference AnnotationOnlyBody?
+datatype_def ::=
+    'datatype' identifier datatype_derivation
+     annotation_only_body?
 
-SourceEntity            ::= 'source' IdentiferReference SourceMembers?
+datatype_derivation ::=
+    type_op_restriction 'opaque'? datatype_base_type_reference
+    datatype_restriction?
 
-SourceMembers           ::= 'with' IdentifierOrSequence
+datatype_base_type_reference ::=
+    identifier_reference | builtin_types
 
-EntityDef               ::= 'entity' Identifier DefinitionFromClause? EntityBody?
+datatype_restriction ::=
+    '{' restriction_facet+ '}'
 
-EntityBody              ::= 'is' Annotation* EntityIdentity Member* 'end'
+restriction_facet ::=
+    length_restriction_facet
+    | digit_restriction_facet
+    | value_restriction_facet
+    | timezone_restriction_facet
+    | pattern_restriction_facet
 
-EnumDef                 ::= 'enum' Identifier DefinitionFromClause? EnumBody?
+length_restriction_facet ::=
+    ( 'length' | 'maxLength' | 'minLength' )
+                            '=' 'fixed'? unsigned
 
-EnumBody                ::= 'of' Annotation* ValueVariant* 'end'
+digit_restriction_facet ::=
+    ( 'fractionDigits' | 'totalDigits' )
+    '=' 'fixed'? unsigned
 
-ValueVariant            ::= Identifier AnnotationOnlyBody?
+value_restriction_facet ::=
+    ( 'maxExclusive' | 'maxInclusive' | 'minExclusive' | 'minInclusive' )
+    '=' 'fixed'? (simple_value | value_constructor)
 
-EventDef                ::= 'event' Identifier DefinitionFromClause? EventBody?
+timezone_restriction_facet ::=
+    'explicitTimezone'
+    '=' 'fixed'? ( 'required' | 'prohibited' | 'optional' )
 
-EventBody               ::= 'is' Annotation* SourceEntity Member* 'end'
+pattern_restriction_facet ::=
+    'pattern' '=' ( quoted_string | '[' quoted_string+ ']' )
 
-MetricDef               ::= 'metric' MetricFunctionSignature AnnorationOnlyBody?
+annotation_only_body ::=
+    'is' annotation+ 'end'
 
-MetricFunctionSignature ::= Identifier ( '('  FunctionParameter+ ')' )? FunctionType
+dimension_def ::=
+    'dimension' identifier from_definition_clause? dimension_body?
 
-MetricGroupsDef         ::= 'metric' 'group' Identifier MetricEventBinding MetricGroupBody?
+dimension_body ::=
+    'is' annotation* dimension_identity dimension_parent* member* 'end'
 
-MetricEventBinding      ::= 'on' ( Identifier  HasType )? IdentifierReference
+dimension_identity ::=
+    source_entity | entity_identity
 
-MetricGroupBody         ::= 'is' Annotation* ( InlineMetricDef | MetricRef )*
+source_entity ::=
+    'source' mixin_optional_clause
 
-InlineMetricDef         ::= ClassFunctionDef
+dimension_parent ::=
+    'parent' identifier type_op_has_type identifer_reference annotation_only_body?
 
-MetricRef               ::= 'ref' IdentifierReference AnnotationOnlyBody?
+entity_def ::=
+    'entity' identifier from_definition_clause? entity_body?
 
-PropertyDef             ::= 'property' ( MemberDef |AnnotationMemberDef )
+entity_body ::=
+    'is' annotation* entity_identity member* 'end'
 
-RdfDef                  ::= 'rdf' Identifier RdfTypes? AnnotationOnlyBody
+enum_def ::=
+    'enum' identifier from_definition_clause? enum_body?
 
-RdfTypes                ::= ( 'a' | 'type' ) IdentifierRefOrSequence
+enum_body ::=
+    'of' annotation* value_variant* 'end'
 
-IdentifierRefOrSequence ::= IdentifierReference | '[' IdentifierReference+ ']'
+event_def ::=
+    'event' identifier from_definition_clause? event_body?
 
-StructureDef            ::= 'structure' Identifier DefinitionFromClause? StructuredBody?
+event_body ::=
+    'is' annotation* source_entity member* 'end'
 
-StructuredBody          ::= 'is' Annotation* Member* 'end'
+metric_def ::=
+    'metric' function_def
 
-UnionDef                ::= 'union' Identifier DefinitionFromClause? UnionBody?
+metric_groups_def ::=
+    'metric' 'group' identifier metric_event_binding from_definition?
+    metric_group_body?
 
-UnionBody               ::= 'of' Annotation* TypeVariant* 'end'
+metric_event_binding ::=
+    'on' ( identifier_reference | '[' identifier_reference+ ']' )
 
-TypeVariant             ::= IdentifierReference TypeVariantRename? AnnotationOnlyBody?
+metric_group_body ::=
+    'is' annotation* ( metric_def | metric_ref )*
 
-TypeVariantRename       ::= 'as' Identifier
+metric_ref ::=
+    'ref' identifier_reference function_body?
 
-ClassDef                ::= 'class' Identifier ClassTypeParameters? DefinitionFromClause? 
-                            TypeClassBody?
+property_def ::=
+    'property' ( annotation_member_def | member_def )
 
-ClassTypeParameters     ::= '(' TypeParameter+ ')'
+rdf_def ::=
+    'rdf' identifier rdf_types? annotation_only_body
 
-TypeParameter           ::= Identifier ( TypeRestriction TypeRestrictionParameters )?
+rdf_types ::=
+    type_op_rdf_has_type
+    ( identifier_reference | '[' identifier_reference+ ']' )
 
-TypeRestrictionParameters ::=
-                            TypeRestrictionParameter ( '+' TypeRestrictionParameter )*
+structure_def ::=
+    'structure' identifier from_definition_clause? structure_body?
 
-TypeRestrictionParameter::= CardinalityReference? IdentifierReference 
-                            '(' TypeRestrictionArgument+ ')'
+structure_body ::=
+    'is' annotation* member* 'end'
 
-TypeRestrictionArgument ::= '_' | TypeClassReference
+type_class_def ::=
+    'class' identifier class_type_parameters? from_definition_clause?
+    type_class_body?
 
-TypeClassBody           ::= 'is' Annotation* ClassFunctionDef 'end'
+class_type_parameters ::=
+    '(' type_parameter+ ')'
 
-ClassFunctionDef        ::= FunctionSignature FunctionBody? AnnotationOnlyBody?
+type_parameter ::=
+    identifier type_parameter_restrictions?
 
-EntityIdentity          ::= 'identity' Member
+type_parameter_restrictions ::=
+    type_op_restriction type_parameter_restriction
+    ( type_op_combiner type_parameter_restriction )*
 
-Member                  ::= MemberDef | PropertyRef
+type_parameter_restriction ::=
+    cardinality_reference_expression? identifier_reference
+    ( '(' type_restriction_argument+ ')' )?
 
-MemberDef               ::= Identifier TypeExpression AnnotationOnlyBody?
+type_restriction_argument ::=
+    wildcard | identifier
 
-AnnotationMemberDef     ::= '@' MemberDef
+wildcard ::=
+    '_'
 
-PropertyRef             ::= 'ref' IdentifierReference
+type_class_body ::=
+    'is' annotation* keyword_function_def 'end'
 
-TypeExpression          ::= HasType Cardinality? TypeReference
+union_def ::=
+    'union' identifier from_definition_clause? union_body?
 
-HasType                 ::= "->" | "→"
+union_body ::=
+    'of' annotation* type_variant* 'end'
 
-TypeReference           ::=  UnknownType | IdentifierReference | BuiltinTypes | MappingType
+/* ---------------------------------------------------------------------------------------------- */
 
-UnknownType             ::= 'unknown'
+entity_identity ::=
+    'identity' member
 
-MappingType             ::= '(' TypeReference HasType TypeReference ')'
+member ::=
+    member_def | property_ref
 
-Cardinality             ::= '{' SequenceOrdering? SequenceUniqueness? CardinalityInner '}'
+member_def ::=
+    identifier _type_expression annotation_only_body?
 
-CardinalityReference    ::= '{' SequenceOrdering? SequenceUniqueness? CardinalityInner?'}'
+annotation_member_def ::=
+    '@' member_def
 
-CardinalityInner        ::= Unsigned CardinalityRange?
+property_ref ::=
+    'ref' identifier_reference
 
-CardinalityRange        ::= '..' Unsigned?
+type_variant ::=
+    identifier_reference rename_as_clause? annotation_only_body?
 
-SequenceOrdering        ::= 'ordered' | 'unordered'
+value_variant ::=
+    identifier annotation_only_body?
 
-SequenceUniqueness      ::= 'unique' | 'nonunique'
+/* ---------------------------------------------------------------------------------------------- */
 
-Value                   ::=  SimpleValue
-                             | ValueConstructor
-                             | IdentifierReference
-                             | MappingValue
-                             | SequenceOfValues
+keyword_function_def ::=
+    'def' function_def
 
-SimpleValue             ::= Boolean
-                            | Unsigned 
-                            | Integer 
-                            | Rational 
-                            | Decimal 
-                            | Double
-                            | String 
-                            | Iri 
-                            | Binary
+function_def ::=
+    function_signature function_body? annotation_only_body?
 
-BuiltinTypes            ::= OwlTypes | XsdTypes | SdmlTypes
+function_signature ::=
+    identifier ( '(' function_parameter+ ')' )? function_type
 
-Boolean                 ::= Truth | Falsity
+function_parameter ::=
+    identifier function_type
 
-Truth                   ::= ( 'true' | '⊤' )
+function_type ::=
+    type_op_has_type cardinality_reference? function_type_ref
 
-Falsity                 ::= ( 'false' | '⊥' )
+function_type_ref ::=
+    identifer_reference | builtin_types | mapping_type
 
-NumericSign             ::= '+' | '-'
+function_body ::=
+    function_op_by_definition ( constraint_sentence | term )
 
-PositiveUnsigned        ::= [1-9] ASCII_DIGIT*
+/* ---------------------------------------------------------------------------------------------- */
+/* Types & Type References                                                                        */
+/* ---------------------------------------------------------------------------------------------- */
 
-Unsigned                ::= '0' | PositiveUnsigned
+type_expression ::=
+    type_op_has_type cardinality_expression? type_reference
 
-Integer                 ::= NumericSign? Unsigned
+type_reference ::=
+    unknown_type | identifier_reference | builtin_types | mapping_type
 
-Rational                ::= Integer ( '/' | '⁄' ) PositiveUnsigned
+unknown_type ::=
+    'unknown'
 
-Decimal                 ::= Integer '.' ASCII_DIGIT+
+builtin_types ::=
+    owl_types | xsd_types | sdml_types
 
-double                  ::= Decimal ( 'e' | 'E' ) NumericSign? Integer
+owl_types ::=
+    'Nothing' | 'Thing' | 'rational' | 'real'
 
-String                  ::= QuotedString LanguageTag?
+xsd_types ::=
+    'anyURI'            | 'base64Binary'       | 'boolean'
+    | 'date'            | 'dateTime'           | 'decimal'
+    | 'double'          | 'duration'           | 'float'
+    | 'gDay'            | 'gMonth'             | 'gMonthDay'
+    | 'gYear'           | 'gYearMonth'         | 'hexBinary'
+    | 'string'          | 'time'               | 'dateTimeStamp'
+    | 'dayTimeDuration' | 'yearMonthDuration'  | 'integer'
+    | 'long'            | 'int'                | 'short'
+    | 'byte'            | 'nonNegativeInteger' | 'positiveInteger'
+    | 'unsignedLong'    | 'unsignedInt'        | 'unsigned'
+    | 'unsignedShort'   | 'unsignedByte'       | 'nonPositiveInteger'
+    | 'negativeInteger' | 'normalizedString'   | 'token'
+    | 'language'
 
-QuotedString            ::= '"' ( Escape | NotAllowed )* '"'
+mapping_type ::=
+    '(' type_reference type_op_has_type type_reference ')'
 
-NotAllowed              ::= [^\"#x00-#x08#x0B-#x1F#x7F]
+cardinality_expression ::=
+    '{'
+    sequence_ordering? sequence_uniqueness? cardinality_inner
+    '}'
 
-UnicodeEscape           ::= '\\' ( CharacterEscape | UnicodeEscape )
+cardinality_reference_expression ::=
+    '{'
+    sequence_ordering? sequence_uniqueness? cardinality_inner?
+    '}'
 
-CharacterEscape         ::= [\"\\/abefnrtv]
+cardinality_inner ::=
+    unsigned cardinality_range?
 
-UnicodeEscape           ::= 'u{' HexPair ( HexPair ( HexPair )? )? '}'
+cardinality_range ::=
+    '..' unsigned?
 
-HexPair                 ::= ASCII_HEX_DIGIT ASCII_HEX_DIGIT
+sequence_ordering ::=
+    'ordered' | 'unordered'
 
-LanguageTag             ::= '@' LanguageTagPrimary
-                            LanguageTagExtended?
-                            LanguageTagScript?
-                            LanguageTagRegion?
+sequence_uniqueness ::=
+    'unique' | 'nonunique'
 
-LanguageTagPrimary      ::= ASCII_LETTER_LOWER ASCII_LETTER_LOWER ASCII_LETTER_LOWER?
+/* ---------------------------------------------------------------------------------------------- */
+/* Values, atomic and sequence                                                                    */
+/* ---------------------------------------------------------------------------------------------- */
 
-LanguageTagExtended     ::= '-' ASCII_LETTER_UPPER ASCII_LETTER_UPPER ASCII_LETTER_UPPER
+value ::=
+    simple_value
+    | value_constructor
+    | identifier_reference
+    | mapping_value
+    | sequence_of_values
 
-LanguageTagScript       ::= '-'
-                            ASCII_LETTER_UPPER ASCII_LETTER_LOWER
-                            ASCII_LETTER_LOWER ASCII_LETTER_LOWER
+simple_value ::=
+    boolean
+    | unsigned
+    | integer
+    | rational
+    | decimal
+    | double
+    | string
+    | iri
+    | binary
 
-LanguageTagRegion       ::= '-'
-                            ( ( ASCII_LETTER_UPPER ASCII_LETTER_UPPER )
-                            | ( ASCII_DIGIT ASCII_DIGIT ASCII_DIGIT ) )
+boolean ::=
+    boolean_truth | boolean_falsity
 
-iri                     ::= '<'
-                            ( [^<>\"{}|^`\#x00-#x20] | UnicodeEscape )*
-                            '>'
+boolean_truth ::=
+    'true' | '⊤'
 
-binary                  ::= '#[' HexPair* ']'
+boolean_falsity ::=
+    'false' | '⊥'
 
-ValueConstructor        ::= IdentifierReference '(' SimpleValue ')'
+NUMERIC_SIGN ::=
+    '+' | '-'
 
-MappingValue            ::= SimpleValue HasType Value
+POSITIVE_UNSIGNED ::=
+    [1-9] ASCII_DIGIT*
 
-SequenceOfValues        ::= SequenceValueConstraint? '['
-                            ( SimpleValue | ValueConstructor | IdentifierReference )+
-                            ']'
+unsigned ::=
+    '0' | POSITIVE_UNSIGNED
 
-SequenceValueConstraint ::= '{' ( SequenceOrdering? SequenceUniqueness? ) '}'
+integer ::=
+    NUMERIC_SIGN? unsigned
 
-IdentifierInitial       ::= UC_LETTER_UPPER | UC_LETTER_LOWER
+rational ::=
+    integer ( '/' | '⁄' ) POSITIVE_UNSIGNED
 
-IdentifierChar          ::= IdentifierInitial | UC_NUMBER_DECIMAL
+decimal ::=
+    integer '.' ASCII_DIGIT+
 
-Identifier              ::= IdentifierInitial IdentifierChar* ( '_' IdentifierChar+ )*
+double ::=
+    decimal ( 'e' | 'E' ) NUMERIC_SIGN? integer
 
-QualifiedIdentifier     ::= Identifier ':' Identifier
+string ::=
+    quoted_string language_tag?
 
-IdentifierReference     ::= QualifiedIdentifier | Identifier
+quoted_string ::=
+    '"' ( CHAR_PRINTABLE | character_esc | unicode_esc )* '"'
 
-LineComment             ::= CommentAligned | CommentLocal | CommentPage
+CHAR_PRINTABLE ::=
+    [^\x00-\x08\x0B-\x1F\x7F\"]
 
-CommentAligned          ::= ';' [^;] [^\r\n]*
+CHAR_ESCAPED ::=
+    [abefnrtv/"]
 
-CommentLocal            ::= ';;' [^;] [^\r\n]*
+character_esc ::=
+    '\\' CHAR_ESCAPED
 
-CommentPage             ::= ';;;' [^\r\n]*
+unicode_esc ::=
+    '\\u{' HEX_DIGIT_PAIR HEX_DIGIT_PAIR?
+           HEX_DIGIT_PAIR? HEX_DIGIT_PAIR? '}'
 
-Whitespace              ::= 
-                  [^\f\n\r\t\v#x20#xa0#x1680#x2000#x200a#x2028#x2029#x202f#x205f#x3000#xfeff]
+HEX_DIGIT_PAIR ::=
+    ASCII_HEX_DIGIT ASCII_HEX_DIGIT
 
-/* --------------------------------------------------------------------------- */
+language_tag ::=
+    LANGUAGE_TAG_PRIMARY
+    LANGUAGE_TAG_EXTENDED?
+    LANGUAGE_TAG_SCRIPT?
+    LANGUAGE_TAG_REGION?
 
-Constraint              ::= 'assert' Identifier ( InformalConstraint | FormalConstraint )
+LANGUAGE_TAG_PRIMARY ::=
+    '@' ASCII_LETTER_LOWER ASCII_LETTER_LOWER
+        ASCII_LETTER_LOWER?
 
-InformalConstraint      ::= '=' QuotedString ControlledLanguageTag?
+LANGUAGE_TAG_EXTENDED ::=
+    '-' ASCII_LETTER_UPPER
+        ASCII_LETTER_UPPER ASCII_LETTER_UPPER
 
-ControlledLanguageTag   ::= '@' LanguageTagPrimary ControlledLanguageScheme?
+LANGUAGE_TAG_SCRIPT ::=
+    '-' ASCII_LETTER_UPPER ASCII_LETTER_LOWER
+        ASCII_LETTER_LOWER ASCII_LETTER_LOWER
 
-ControlledLanguageScheme::= '-'
-                            ASCII_LETTER  ASCII_LETTER  ASCII_LETTER
-                            ASCII_LETTER? ASCII_LETTER? ASCII_LETTER?
-                            ASCII_LETTER? ASCII_LETTER? ASCII_LETTER?
+LANGUAGE_TAG_REGION ::=
+    '-' ( ( ASCII_LETTER_UPPER ASCII_LETTER_UPPER )
+          | ( ASCII_DIGIT ASCII_DIGIT ASCII_DIGIT ) )
 
-FormalConstraint        ::= ConstraintEnvironment? 'is' ConstraintSentence 'end'
+iri ::=
+    '<'
+    ( IRI_CHAR_ALLOWED | unicode_esc )*
+    '>'
 
-ConstraintSentence      ::= SimpleSentence
-                            | BooleanSentence
-                            | ExpressionSentence
-                            | QuantifiedSentence
-                            | '(' ConstraintSentence ')'
+IRI_CHAR_ALLOWED ::=
+    [^<>\"{}|^`\\\x00-\x20]
 
-SimpleSentence          ::= Atomic | Equation | Inequation
+binary ::=
+    '#[' hex_byte* ']'
 
-Atomic                  ::= Term ActualArguments
+hex_byte ::=
+    HEX_DIGIT_PAIR
 
-ActualArguments         ::='(' Term* ')'
+value_constructor ::=
+    identifier_reference '(' simple_value ')'
 
-Equation                ::= Term '=' Term
+mapping_value ::=
+    simple_value type_op_has_type value
 
-Inequation              ::= Term ( InequalityOperator
-                                   | GreaterThanOperator
-                                   | GreaterThanEqOperator
-                                   | LessThanOperator
-                                   | LessThanEqOperator ) Term
+sequence_of_values ::=
+    sequence_value_constraint?
+    ( value_empty_sequence | '[' sequence_member* ']' )
 
-InequalityOperator      ::= '/=' | '≠'
+sequence_value_constraint ::=
+    '{'
+    ( ( sequence_ordering sequence_uniqueness? )
+    | ( sequence_ordering? sequence_uniqueness ) )
+    '}'
 
-GreaterThanOperator     ::= '>'
+sequence_member ::=
+    simple_value
+    | value_constructor
+    | mapping_value
+    | identifier_reference
+    
+value_empty_sequence ::=
+    '∅'
 
-GreaterThanEqOperator   ::= '>=' | '≥'
+/* ---------------------------------------------------------------------------------------------- */
+/* Constraints, formal and informal                                                               */
+/* ---------------------------------------------------------------------------------------------- */
 
-LessThanOperator        ::= '<'
+constraint ::=
+    'assert' identifier
+    ( informal_constraint | formal_constraint )
 
-LessThanEqOperator      ::= '<=' | '≤'
+informal_constraint ::=
+    '=' quoted_string controlled_language_tag?
 
-BooleanSentence         ::= UnaryBooleanSentence | BinaryBooleanSentence
+controlled_language_tag ::=
+    LANGUAGE_TAG_PRIMARY CONTROLLED_LANGUAGE_SCHEME?
 
-UnaryBooleanSentence    ::= NegationOperator ConstraintSentence
+controlled_language_scheme ::=
+    '-' ASCII_LETTER  ASCII_LETTER  ASCII_LETTER
+        ASCII_LETTER? ASCII_LETTER? ASCII_LETTER?
+        ASCII_LETTER? ASCII_LETTER? ASCII_LETTER?
 
-BinaryBooleanSentence   ::= ConstraintSentence (LogicalConjunction
-                                                | LogicalDisjunction
-                                                | LogicalExclDisjunction
-                                                | LogicalImplication
-                                                | LogicalBiconditional ) ConstraintSentence
+formal_constraint ::=
+    'is' constraint_sentence 'end'
 
-LogicalNegation         ::= 'not' | '¬'
+constraint_sentence ::=
+    simple_sentence
+    | boolean_sentence
+    | expression_sentence
+    | quantified_sentence
+    | sentence_with_environment
+    | '(' constraint_sentence ')'
 
-LogicalConjunction      ::= 'and' | '∧'
+sentence_with_environment ::=
+    'with' keyword_function_def+
+    'for' constraint_sentence 'end'
 
-LogicalDisjunction      ::= 'or' | '∨'
+simple_sentence ::=
+    atomic | equation | inequation
 
-LogicalExclDisjunction  ::= 'xor' | '⊻'
+atomic ::=
+    term _actual_arguments
 
-LogicalImplication      ::= 'implies' | '==>' | '⇒'
+_actual_arguments ::=
+    '(' term* ')'
 
-LogicalBiconditional    ::= 'iff' | '<==>' | '⇔'
+equation ::=
+    term op_equality term
 
-ExpressionSentence      ::= SetExpressionSentence | ArithmeticExpressionSentence
+inequation ::=
+    term inequality_relation term
 
-SetExpressionSentence   ::= Term ( IsMemberOperator 
-                                   | IsNotMemberOperator
-                                   | SetComplementOperator 
-                                   | SetIntersectionOperator
-                                   | SetProductOperator 
-                                   | SetSubsetOperator 
-                                   | SetSubsetEqOperator 
-                                   | SetSupsetOperator 
-                                   | SetSupsetEqOperator 
-                                   | SetUnionOperator ) Term
+boolean_sentence ::=
+    unary_boolean_sentence | binary_boolean_sentence
 
-SetComplementOperator   ::= 'complement' | '∖'
+unary_boolean_sentence ::=
+    logical_op_negation constraint_sentence
 
-SetIntersectionOperator ::= 'intersects' | '∩'
+binary_boolean_sentence ::=
+    constraint_sentence logical_connective constraint_sentence
 
-SetUnionOperator        ::= 'union' | '∪'
+expression_sentence ::=
+    set_expression_sentence | arithmetic_expression_sentence
 
-SetSubsetOperator       ::= 'subset' | '⊂'
+set_expression_sentence ::=
+    term set_operator term
 
-SetSubsetEqOperator     ::= 'subseteq' | '⊆'
+arithmetic_expression_sentence ::=
+    term math_operator term
 
-SetSupsetOperator       ::= 'supset' | '⊃'
+quantified_sentence ::=
+    quantified_variable_binding+ ',' constraint_sentence
 
-SetSupsetEqOperator     ::= 'supseteq ' | '⊇'
+quantified_variable_binding ::=
+    logical_quantifier quantified_variable
 
-SetProductOperator      ::= 'product' | '⨉'
+quantified_variable ::=
+    variable membership_operator term
 
-IsMemberOperator        ::= 'in' | '∈'
+variable ::=
+    identifier ( type_op_has_type identifer_reference )?
 
-IsMemberNotOperator     ::= (LogicalNegation IsMemberOperator) | '∉'
+term ::=
+    sequence_builder
+    | functional_term
+    | function_composition
+    | identifier_reference
+    | reserved_self
+    | reserved_event
+    | predicate_value
 
-ArithmeticExpressionSentence ::= 
-                            Term ( AdditionOperator 
-                                   | SubtractionOperator 
-                                   | MultiplicationOperator 
-                                   | DivisionOperator 
-                                   | ModuloOperator ) Term
+sequence_builder ::=
+    '{' variable+ '|' quantified_sentence '}'
 
-AdditionOperator        ::= '+'
+functional_term ::=
+    term _actual_arguments
 
-SubtractionOperator     ::= '-'
+function_composition ::=
+    ( reserved_self | reserved_event | identifier )
+    ( function_op_composition identifier )+
 
-MultiplicationOperator  ::= '*' | '×'
+predicate_value ::=
+    simple_value | sequence_of_predicate_values
 
-DivisionOperator        ::= '/' | '÷'
+sequence_of_predicate_values ::=
+    sequence_value_constraint?
+    ( value_empty_sequence | '[' predicate_sequence_member* ']' )
 
-ModuloOperator          ::= 'mod' | '%'
+predicate_sequence_member ::=
+    predicate_value
+    | value_constructor
+    | mapping_value
+    | identifier_reference
 
-QuantifiedSentence      ::= QuantifiedVariableBinding+ ","? ConstraintSentence
+reserved_self ::=
+    'self'
 
-QuantifiedVariableBinding ::= 
-                            ( UniversalQuantifier 
-                              | ExistentialQuantifier 
-                              | ExistentialOneQuantifier
-                              | ExistentialNotQuantifier ) QuantifiedVariable
+reserved_event ::=
+    'event'
 
-UniversalQuantifier     ::= 'forall' | '∀'
+/* ---------------------------------------------------------------------------------------------- */
+/* Operators -- All                                                                               */
+/* ---------------------------------------------------------------------------------------------- */
 
-ExistentialQuantifier   ::= 'exists' | '∃'
+op_equality ::=
+    term '=' term
 
-ExistentialOneQuantifier::= 'exists!' | '∃!'
+inequality_relation ::=
+    term
+    ( op_inequality
+      | op_greater_than
+      | op_greater_than_or_equal
+      | op_less_than
+      | op_less_than_or_equal )
+    term
 
-ExistentialNotQuantifier::= LogicalNegation ExistentialQuantifier | '∄'
+op_inequality ::=
+    '/=' | '≠'
 
-QuantifiedVariable      ::= Variable MembershipOperator Term
+op_greater_than ::=
+    '>'
 
-Variable                ::= Identifier ( HasType IdentiferReference )?
+op_greater_than_or_equal ::=
+    '>=' | '≥'
 
-MembershipOperator      ::= IsMemberOperator | IsNotMemberOperator
+op_less_than ::=
+    '<'
 
-IsMemberOperator        ::= 'in' | '∈'
+op_less_than_or_equal ::=
+    '<=' | '≤'
 
-IsMemberNotOperator     ::= (NegationOperator IsMemberOperator) | '∉'
+logical_connective ::=
+    logical_conjunction
+    | logical_disjunction
+    | logical_excl_disjunction
+    | logical_implication
+    | logical_biconditional
 
-Term                     ::= SequenceBuilder
-                            | FunctionalTerm
-                            | FunctionComposition
-                            | IdentifierReference
-                            | 'self'
-                            | PredicateValue
+logical_op_negation ::=
+    'not' | '¬'
 
-SequenceBuilder         ::= '{' Variable+ '|' QuantifiedSentence '}'
+logical_conjunction ::=
+    'and' | '∧'
 
-FunctionalTerm          ::= Term ActualArguments
+logical_disjunction ::=
+    'or' | '∨'
 
-FunctionComposition     ::= ( 'self' | Identifier ) ( CompositionOperator Identifier )+
+logical_excl_disjunction ::=
+    'xor' | '⊻'
 
-CompositionOperator     ::= '.' | '∘'
+logical_implication ::=
+    'implies' | '==>' | '⇒'
 
-PredicateValue          ::= SimpleValue | SequenceOfPredicateValues
+logical_biconditional ::=
+    'iff' | '<==>' | '⇔'
 
-SequenceOfPredicateValues ::= 
-                            '∅' | SequenceValueConstraint?
-                            '[' ( SimpleValue | IdentifierReference )* ']'
+logical_quantifier ::=
+    logical_quantifier_universal
+    | logical_quantifier_existential
+    | logical_quantifier_existential_one
+    | logical_quantifier_neg_existential
 
-/* --------------------------------------------------------------------------- */
+logical_quantifier_universal ::=
+    'forall' | '∀'
 
-ConstraintEnvironment   ::= 'with' EnvironmentDef+
+logical_quantifier_existential ::=
+    'exists' | '∃'
 
-FunctionDef             ::= FunctionSignature FunctionBody
+logical_quantifier_existential_one ::=
+    'exists!' | '∃!'
 
-FunctionSignature       ::= 'def' Identifier ( '(' FunctionParameter+ ')' )? FunctionType
+logical_quantifier_not_existential ::=
+    '∄'
 
-FunctionParameter       ::= Identifier FunctionType
+set_operator ::=
+    set_op_union
+    | set_op_disjoint_union
+    | set_op_intersection
+    | set_op_subset
+    | set_op_subset_or_equal
+    | set_op_supset
+    | set_op_supset_or_equal
+    | set_op_complement
+    | set_op_product
+    | set_membership
 
-FunctionType            ::= HasType CardinalityReference? FunctionTypeRef
+set_op_union ::=
+    'union' | '∪'
 
-FunctionTypeRef         ::= IdentiferReference | BuiltinTypes | MappingType
+set_op_disjoint_union ::=
+    'disunion' | '⊔'
 
-FunctionBody            ::= ByDefinition ( ConstraintSentence | Term )
+set_op_intersection ::=
+    'intersects' | '∩'
 
-ByDefinition            ::= ':=' | '≔'
+set_op_difference ::=
+    'difference' | '△'
+
+set_op_subset ::=
+    'subset' | '⊂'
+
+set_op_subset_or_equal ::=
+    'subseteq' | '⊆'
+
+set_op_supset ::=
+    'supset' | '⊃'
+
+set_op_supset_or_equal ::=
+    'supseteq ' | '⊇'
+
+set_op_complement ::=
+    'complement' | '∖'
+
+set_op_product ::=
+    'product' | '∏'
+
+set_membership ::=
+    set_op_is_member | set_op_is_not_member
+
+set_op_is_member ::=
+    'in' | '∈'
+
+set_op_is_not_member ::=
+    ( LogicalNegation IsMemberOperator ) | '∉'
+
+math_operator ::=
+    math_op_multiply
+    | math_op_divide
+    | math_op_modulo
+    | math_op_add
+    | math_op_subtract
+
+math_op_multiply ::=
+    '*' | '×'
+
+math_op_divide ::=
+    '/' | '÷'
+
+math_op_modulo ::=
+    'mod' | '%'
+
+math_op_add ::=
+    '+'
+
+math_op_subtract ::=
+    '-'
+
+function_op_composition ::=
+    '.' | '∘'
+
+function_op_by_definition ::=
+    ':=' | '≔'
+
+type_op_has_type ::=
+    '->' | '→'
+
+type_op_rdf_has_type ::=
+    'a' | 'type'
+
+type_op_restriction ::=
+    '<-' | '←'
+
+type_op_combiner ::=
+    '+'
+
+/* ---------------------------------------------------------------------------------------------- */
+/* Comment Forms                                                                                  */
+/* ---------------------------------------------------------------------------------------------- */
+
+line_comment ::=
+    comment_aligned | comment_local | comment_page
+
+comment_aligned ::=
+    ';' [^;] [^\r\n]*
+
+comment_local ::=
+    ';;' [^;] [^\r\n]*
+
+comment_page ::=
+    ';;;' [^\r\n]*
+
+/* ---------------------------------------------------------------------------------------------- */
+/* Common Whitespace (ignore)                                                                     */
+/* ---------------------------------------------------------------------------------------------- */
+
+whitespace ::=
+    [^\f\n\r\t\v#x20#xa0#x1680#x2000#x200a#x2028#x2029#x202f#x205f#x3000#xfeff]
